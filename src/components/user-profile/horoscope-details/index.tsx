@@ -5,7 +5,6 @@ import useUnlock from "../contact-details/use-unlock";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-import UpgradeBtn from "../contact-details/upgrade-btn";
 import VerdicPic from "./verdic-pic";
 import Edit from "./edit";
 
@@ -39,31 +38,16 @@ function HoroscopeDetails({ user, canEdit }: props) {
       <CardContent>
         <div className="grid min-[400px]:grid-cols-2 gap-4 mb-6">
           <div>
-            <span className="text-sm text-muted-foreground">Nakshatra</span>
-            <UpgradeBtn
-              value={getValue(user?.vedicHoroscope?.nakshatra, nakshatraMap)}
-              unlocked={isUnlocked}
-              isPending={isPending}
-              unlockBtnClk={() => unlockBtnClk(user._id)}
-            />
+            <span className="text-sm text-muted-foreground">Rasi</span>
+            <p className="font-medium">{getValue(user?.vedicHoroscope?.rasi, raasiMap)}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Rasi</span>
-            <UpgradeBtn
-              value={getValue(user?.vedicHoroscope?.rasi, raasiMap)}
-              unlocked={isUnlocked}
-              isPending={isPending}
-              unlockBtnClk={() => unlockBtnClk(user._id)}
-            />
+            <span className="text-sm text-muted-foreground">Nakshatra</span>
+            <p className="font-medium">{getValue(user?.vedicHoroscope?.nakshatra, nakshatraMap)}</p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">Lagna</span>
-            <UpgradeBtn
-              value={getValue(user?.vedicHoroscope?.lagna, raasiMap)}
-              unlocked={isUnlocked}
-              isPending={isPending}
-              unlockBtnClk={() => unlockBtnClk(user._id)}
-            />
+            <p className="font-medium">{getValue(user?.vedicHoroscope?.lagna, raasiMap)}</p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">Dasha Period</span>

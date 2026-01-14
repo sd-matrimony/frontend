@@ -36,6 +36,8 @@ const schema = z.object({
   motherTongue: z.string().optional(),
   religion: z.string().optional(),
   caste: z.string().optional(),
+
+  nakshatra: z.string().optional(),
   lagna: z.string().optional(),
   rasi: z.string().optional(),
 })
@@ -56,6 +58,8 @@ const defaultValues: z.infer<typeof schema> = {
   motherTongue: '',
   religion: '',
   caste: '',
+
+  nakshatra: '',
   lagna: '',
   rasi: '',
 }
@@ -98,15 +102,20 @@ const list: listProps[] = [
     listName: "castes",
   },
   {
+    name: 'rasi',
+    label: 'Rasi',
+    listName: "raasi",
+  },
+  {
+    name: 'nakshatra',
+    label: 'Nakshatra',
+    listName: "nakshatra",
+  },
+  {
     name: 'lagna',
     label: 'Lagna',
     listName: "raasi",
   },
-  {
-    name: 'rasi',
-    label: 'Rasi',
-    listName: "raasi",
-  }
 ]
 
 function getPayload(userPartnerPreferences: Pick<userT, "partnerPreferences"> & { dob: string }) {
