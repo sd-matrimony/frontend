@@ -63,7 +63,7 @@ export const salaryRange: optionsT = [
   { label: 'Above ₹50,000', value: 'above_50000' },
 ]
 
-export const aliveOptions: optionsT = [
+export const aliveOptions = [
   { label: "Alive", value: true },
   { label: "Deceased", value: false }
 ]
