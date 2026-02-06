@@ -37,7 +37,7 @@ const findOptionByValue = (options: optionsT, value: allowedPrimitiveT) => {
       return item
     }
   }
-  return ""
+  return value || ""
 }
 
 const filteredOptions = (options: optionsT, query: string): optionsT => {
@@ -170,6 +170,7 @@ function Combobox({
   const filtered = filteredOptions(options, query)
   const label = getLabel(selectedOption)
 
+  console.log(value, selectedOption)
   const showCreate =
     canCreateNew &&
     query &&
