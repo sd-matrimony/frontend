@@ -68,6 +68,11 @@ export const aliveOptions: optionsT = [
   { label: "Deceased", value: false }
 ]
 
+export const yesNoOptions = [
+  { label: "Yes", value: true },
+  { label: "No", value: false }
+]
+
 export const acceptedImagesTypes = {
   'image/*': ['.png', ".jpg", ".jpeg", ".webp", ".avif", ".gif"],
 } as const

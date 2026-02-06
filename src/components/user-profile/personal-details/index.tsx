@@ -27,7 +27,7 @@ function PersonalDetails({ user, canEdit }: props) {
         <div className="grid min-[400px]:grid-cols-2 gap-4">
           <div>
             <span className="text-sm text-muted-foreground">Full Name</span>
-            <p className="font-medium">{user?.fullName}</p>
+            <p className="font-medium">{user?.fullName}{user?.hasDisability ? " (Has Disability)" : ""}</p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">Gender</span>

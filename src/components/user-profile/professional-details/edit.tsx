@@ -103,6 +103,12 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               label="Company Name"
             />
 
+            <InputWrapper
+              control={form.control}
+              name="companyLocation"
+              label="Company Location"
+            />
+
             <div className="pt-2 relative">
               {!isAdmin && <p className="absolute top-1.5 right-0 text-sm text-muted-foreground">(Contact admin to update)</p>}
               <InputWrapper

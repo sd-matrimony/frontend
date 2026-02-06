@@ -45,6 +45,10 @@ function ProfessionalDetails({ user, canEdit }: props) {
             <p className="font-medium">{user?.proffessionalDetails?.companyName || "---"}</p>
           </div>
           <div>
+            <span className="text-sm text-muted-foreground">Company Location</span>
+            <p className="font-medium">{user?.proffessionalDetails?.companyLocation || "---"}</p>
+          </div>
+          <div>
             <span className="text-sm text-muted-foreground">Monthly Salary</span>
             <p className="font-medium">₹{user?.proffessionalDetails?.salary || "---"}</p>
           </div>

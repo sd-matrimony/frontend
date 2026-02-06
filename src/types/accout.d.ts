@@ -31,6 +31,7 @@ type userT = {
   profileImg: string
   gender: genderT
   dob: string
+  hasDisability: boolean
   maritalStatus: maritalStatusT
   approvalStatus: approvalStatusT
   contactDetails: {
@@ -40,6 +41,7 @@ type userT = {
   proffessionalDetails: {
     highestQualification: string
     qualifications: string
+    companyLocation: string
     companyName: string
     profession: string
     sector: string

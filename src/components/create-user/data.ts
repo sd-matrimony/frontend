@@ -1,7 +1,7 @@
 import { Path } from 'react-hook-form';
 
 import type { userInputT } from '@/utils/user-schema';
-import { gender, maritalStatus, aliveOptions } from '@/utils';
+import { gender, maritalStatus, aliveOptions, yesNoOptions } from '@/utils';
 
 type BaseField = {
   name: Path<userInputT>
@@ -114,7 +114,14 @@ export const fieldList: FieldSection[] = [
         options: maritalStatus,
         defaultValue: "Single",
         isRequired: true,
-      }
+      },
+      {
+        name: "hasDisability",
+        label: "Has Disability",
+        type: "radio",
+        options: yesNoOptions,
+        defaultValue: false,
+      },
     ]
   },
   {
@@ -169,6 +176,11 @@ export const fieldList: FieldSection[] = [
         label: "Company Name",
         type: "text",
         isRequired: true,
+      },
+      {
+        name: "proffessionalDetails.companyLocation",
+        label: "Company Location",
+        type: "text",
       },
       {
         name: "proffessionalDetails.salary",
@@ -292,20 +304,18 @@ export const fieldList: FieldSection[] = [
     lable: "Other Details",
     list: [
       {
-        name: "otherDetails.height",
-        label: "Height (in cm)",
-        type: "number"
+        name: "otherDetails.caste",
+        label: "Caste",
+        type: "combobox",
+        listName: "castes",
+        additionalOpts: "Don't wish to specify",
+        canCreateNew: true,
       },
       {
-        name: "otherDetails.color",
-        label: "Color",
-        type: "text"
+        name: "otherDetails.subCaste",
+        type: "subCaste",
+        additionalOpts: "Don't wish to specify",
       },
-      // {
-      //   name: "otherDetails.houseType",
-      //   label: "House Type",
-      //   type: "text"
-      // },
       {
         name: "otherDetails.motherTongue",
         label: "Mother Tongue",
@@ -323,18 +333,21 @@ export const fieldList: FieldSection[] = [
         canCreateNew: true,
       },
       {
-        name: "otherDetails.caste",
-        label: "Caste",
-        type: "combobox",
-        listName: "castes",
-        additionalOpts: "Don't wish to specify",
-        canCreateNew: true,
+        name: "otherDetails.height",
+        label: "Height",
+        type: "text"
       },
       {
-        name: "otherDetails.subCaste",
-        type: "subCaste",
-        additionalOpts: "Don't wish to specify",
-      }
+        name: "otherDetails.color",
+        label: "Color",
+        type: "text"
+      },
+      {
+        name: "otherDetails.houseType",
+        label: "House Type",
+        type: "radio",
+        options: ["Own", "Rented"]
+      },
     ]
   },
   {
@@ -384,6 +397,19 @@ export const fieldList: FieldSection[] = [
         min: 5000,
       },
       {
+        name: "partnerPreferences.caste",
+        label: "Caste",
+        type: "combobox",
+        listName: "castes",
+        additionalOpts: "Any",
+        canCreateNew: true,
+      },
+      {
+        name: "partnerPreferences.subCaste",
+        type: "subCaste",
+        additionalOpts: "Any",
+      },
+      {
         name: "partnerPreferences.religion",
         label: "Religion",
         type: "combobox",
@@ -398,19 +424,6 @@ export const fieldList: FieldSection[] = [
         listName: "languages",
         additionalOpts: "Any",
         canCreateNew: true,
-      },
-      {
-        name: "partnerPreferences.caste",
-        label: "Caste",
-        type: "combobox",
-        listName: "castes",
-        additionalOpts: "Any",
-        canCreateNew: true,
-      },
-      {
-        name: "partnerPreferences.subCaste",
-        type: "subCaste",
-        additionalOpts: "Any",
       },
       {
         name: "partnerPreferences.location",

@@ -7,11 +7,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { personalDetailsSchema } from '@/utils/user-schema';
-import { gender, maritalStatus } from '@/utils';
+import { gender, maritalStatus, yesNoOptions } from '@/utils';
 import { useUpdateProfile } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { DatePickerWrapper, InputWrapper, SelectWrapper } from "@/components/ui/form-wrapper";
+import { DatePickerWrapper, InputWrapper, RadioWrapper, SelectWrapper } from "@/components/ui/form-wrapper";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
@@ -89,6 +89,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               label="Marital Status"
               options={maritalStatus}
               placeholder="Select marital status"
+            />
+
+            <RadioWrapper
+              control={form.control}
+              name="hasDisability"
+              label="Has Disability"
+              options={yesNoOptions}
             />
 
             <div className="flex justify-end space-x-2 pt-2">

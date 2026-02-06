@@ -5,6 +5,7 @@ export const personalDetailsSchema = z.object({
   gender: z.string().nonempty("Gender is required"),
   dob: z.date(),
   maritalStatus: z.string().nonempty("Marital Status is required"),
+  hasDisability: z.boolean(),
 })
 
 export const contactDetailsSchema = z.object({
@@ -15,6 +16,7 @@ export const contactDetailsSchema = z.object({
 export const professionalDetailsSchema = z.object({
   highestQualification: z.string().nonempty("Highest Qualification is required"),
   qualifications: z.string().nonempty("Qualifications is required"),
+  companyLocation: z.string().optional(),
   companyName: z.string().optional(),
   profession: z.string().nonempty("Profession is required"),
   sector: z.string().nonempty("Sector is required"),
@@ -83,7 +85,7 @@ export const otherDetailsSchema = z.object({
   motherTongue: z.string().optional().or(z.literal("")),
   houseType: z.string().optional().or(z.literal("")),
   religion: z.string().optional().or(z.literal("")),
-  height: z.coerce.number().optional().or(z.literal("")),
+  height: z.string().optional().or(z.literal("")),
   color: z.string().optional().or(z.literal("")),
   caste: z.string().optional().or(z.literal("")),
   subCaste: z.string().optional().or(z.literal("")),
