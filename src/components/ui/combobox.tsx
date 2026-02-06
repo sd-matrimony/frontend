@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Check, ChevronsUpDown, Loader2, Plus } from "lucide-react"
-import * as PopoverPrimitive from "@radix-ui/react-popover"
+import { Popover as PopoverPrimitive } from "radix-ui"
 
 import { cn, getKey, getLabel, getValue, isAllowedPrimitive, isGroup, isOption, isSeparator } from "@/lib/utils"
 
@@ -68,7 +68,6 @@ const filteredOptions = (options: optionsT, query: string): optionsT => {
   return result
 }
 
-
 type ItemProps = {
   option: allowedPrimitiveT | optionT
   selected: boolean
@@ -76,7 +75,6 @@ type ItemProps = {
   indicatorAt?: indicatorAtT
   onSelect: (value: allowedPrimitiveT) => void
 }
-
 function Item({ option, selected, indicatorAt = "left", onSelect, className }: ItemProps) {
   const value = getValue(option)
   const label = getLabel(option)
@@ -130,7 +128,6 @@ type comboboxProps = base & {
   canCreateNew?: boolean
   onValueChange?: (value: allowedPrimitiveT) => void
 }
-
 function Combobox({
   id,
   options = [],
@@ -359,7 +356,6 @@ type multiSelectComboboxProps = base & {
   label?: React.ReactNode
   onValueChange?: (v: allowedPrimitiveT[]) => void
 }
-
 function MultiSelectCombobox({
   id,
   options = [],
