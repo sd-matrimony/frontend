@@ -52,17 +52,19 @@ function PaidUsers() {
                 ?.map(user => (
                   <tr key={user?._id} className="mb-2 text-sm odd:bg-muted/60">
                     <td className="px-1 py-2">
-                      <div className="df">
-                        <img
-                          className="size-10 shrink-0 rounded object-cover"
-                          src={user?.user?.profileImg || "/imgs/user.jpg"}
-                          alt=""
-                        />
-                        <div>
-                          <p>{user?.user?.fullName}</p>
-                          <p className="text-xs text-muted-foreground">{user?.user?.email}</p>
+                      <a target="_blank" href={`/super-admin/user/${user?._id}`}>
+                        <div className="df group">
+                          <img
+                            className="size-10 shrink-0 rounded object-cover"
+                            src={user?.user?.profileImg || "/imgs/user.jpg"}
+                            alt=""
+                          />
+                          <div className="min-w-0 flex-1">
+                            <p className="group-hover:text-pink-400">{user?.user?.fullName}</p>
+                            <p className="text-xs text-muted-foreground truncate">{user?.user?.email}</p>
+                          </div>
                         </div>
-                      </div>
+                      </a>
                     </td>
 
                     <td className="px-1 py-2">

@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { Check, ChevronsUpDown, Loader2, Plus } from "lucide-react"
+import * as PopoverPrimitive from "@radix-ui/react-popover"
 
-import { useElementWidth } from "@/hooks/use-element"
-import { cn } from "@/lib/utils"
+import { cn, getKey, getLabel, getValue, isAllowedPrimitive, isGroup, isOption, isSeparator } from "@/lib/utils"
 
 import {
   Command,
@@ -13,149 +13,287 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandLoading,
   CommandSeparator,
 } from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Separator } from "./separator"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
-import { Badge } from "./badge"
+import { Badge } from "@/components/ui/badge"
+
+const extractText = (node: any): string => {
+  if (node === null || node === undefined) return ""
+  if (isAllowedPrimitive(node)) return String(node)
+  if (Array.isArray(node)) return node.map(extractText).join(" ")
+  if (node.props?.children) return extractText(node.props.children)
+  return ""
+}
+
+const findOptionByValue = (options: optionsT, value: allowedPrimitiveT) => {
+  for (const item of options) {
+    if (isGroup(item)) {
+      const found = item.options.find((opt) => getValue(opt) === value)
+      if (found) return found
+    } else if (!isSeparator(item) && getValue(item) === value) {
+      return item
+    }
+  }
+  return ""
+}
+
+const filteredOptions = (options: optionsT, query: string): optionsT => {
+  const q = query.toLowerCase()
+  const result: optionsT = []
+
+  for (const item of options) {
+    if (isGroup(item)) {
+      const filtered = item.options.filter(opt =>
+        extractText(getLabel(opt)).toLowerCase().includes(q)
+      )
+      if (filtered.length) {
+        result.push({ ...item, options: filtered })
+      }
+      continue
+    }
+
+    if (isSeparator(item)) {
+      result.push(item)
+      continue
+    }
+
+    if (extractText(getLabel(item)).toLowerCase().includes(q)) {
+      result.push(item)
+    }
+  }
+
+  return result
+}
+
+
+type ItemProps = {
+  option: allowedPrimitiveT | optionT
+  selected: boolean
+  className?: string
+  indicatorAt?: indicatorAtT
+  onSelect: (value: allowedPrimitiveT) => void
+}
+
+function Item({ option, selected, indicatorAt = "left", onSelect, className }: ItemProps) {
+  const value = getValue(option)
+  const label = getLabel(option)
+  const optCls = isOption(option) ? option.className : undefined
+
+  if (isSeparator(value)) return <CommandSeparator className={cn("my-0.5", className, "mx-0")} />
+
+  return (
+    <CommandItem
+      value={`${value}`}
+      className={cn(indicatorAt === "right" ? "pr-8 pl-2" : "pr-2 pl-8", className, optCls)}
+      onSelect={() => onSelect(value)}
+    >
+      {label}
+
+      <Check
+        className={cn(
+          "absolute size-4",
+          selected ? "opacity-100" : "opacity-0",
+          indicatorAt === "right" ? "right-2" : "left-2",
+        )}
+      />
+    </CommandItem>
+  )
+}
 
 type base = {
+  id?: string
   options: optionsT
   isLoading?: boolean
   placeholder?: string
   emptyMessage?: string
+
+  indicatorAt?: indicatorAtT
+  triggerCls?: string
+  contentCls?: string
+  groupCls?: string
+  itemCls?: string
+  matchTriggerWidth?: boolean
+
+  open?: boolean
+  onOpenChange?: (v: boolean) => void
+  query?: string
+  onQueryChange?: (v: string) => void
+
+  popoverContentProps?: Omit<React.ComponentProps<typeof PopoverPrimitive.Content>, "className">
 }
 
 type comboboxProps = base & {
-  value?: string
+  value?: allowedPrimitiveT
   canCreateNew?: boolean
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: allowedPrimitiveT) => void
 }
 
 function Combobox({
-  value = "",
+  id,
   options = [],
-  isLoading = false,
-  placeholder = "",
-  emptyMessage = "",
-  canCreateNew = false,
-  onValueChange = () => { },
+  isLoading,
+  placeholder,
+  emptyMessage,
+  canCreateNew,
+
+  matchTriggerWidth = true,
+  indicatorAt,
+  triggerCls,
+  contentCls,
+  groupCls,
+  itemCls,
+
+  value: o_value,
+  onValueChange: o_onValueChange,
+
+  query: o_query,
+  onQueryChange: o_onQueryChange,
+
+  open: o_open,
+  onOpenChange: o_onOpenChange,
+
+  popoverContentProps,
 }: comboboxProps) {
-  const { ref, width } = useElementWidth<HTMLButtonElement>()
+  const [i_value, setIValue] = useState("")
+  const [i_query, setIQuery] = useState("")
+  const [i_open, setIOpen] = useState(false)
 
-  const [query, setQuery] = useState('')
-  const [open, setOpen] = useState(false)
+  const value = o_value ?? i_value
+  const query = o_query ?? i_query
+  const open = o_open ?? i_open
 
-  const found = value ? options?.find((option) => typeof option === "object" ? option.value === value : option === value) || value : ""
+  const onValueChange = o_onValueChange ?? setIValue
+  const onQueryChange = o_onQueryChange ?? setIQuery
+  const onOpenChange = o_onOpenChange ?? setIOpen
 
-  const filteredOptions = options.filter((option) => {
-    const searchValue = typeof option === "object" ? `${option.label}` : `${option}`
-    return searchValue?.toLowerCase().includes(query.toLowerCase())
-  })
+  const selectedOption = findOptionByValue(options, value)
+  const filtered = filteredOptions(options, query)
+  const label = getLabel(selectedOption)
 
-  const showCreateOption = canCreateNew && query && query !== value && !options?.find((option) => typeof option === "object" ? option.label === query : option === query)
+  const showCreate =
+    canCreateNew &&
+    query &&
+    !options.some((o) =>
+      isGroup(o)
+        ? o.options.some((x) => extractText(getLabel(x)) === query)
+        : extractText(getLabel(o)) === query
+    )
+
+  function onSelect(v: allowedPrimitiveT) {
+    onValueChange(v as string)
+    onOpenChange(false)
+  }
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <Button
-          ref={ref}
+          id={id}
           role="combobox"
           variant="outline"
-          aria-expanded={open}
-          className={cn("w-full font-normal justify-between", {
-            "text-muted-foreground": !value
+          className={cn("font-normal", triggerCls, {
+            "text-muted-foreground": !value && value !== false,
           })}
         >
-          {
-            isLoading
-              ? <>
-                <Loader2 className="size-4 animate-spin" />
-                <span>Loading...</span>
-              </>
-              :
-              <span className="truncate">
-                {
-                  value
-                    ? typeof found === "object" ? found.label : found
-                    : placeholder
-                }
-              </span>
+          {isLoading ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              Loading...
+            </>
+          ) :
+            <span className="flex items-center gap-2 truncate">
+              {
+                (selectedOption || selectedOption === false)
+                  ? label
+                  : placeholder
+              }
+            </span>
           }
-          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+
+          <ChevronsUpDown className="ml-auto size-4 opacity-50" />
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="p-0" style={{ width: width ? `${width}px` : "auto" }}>
-        <Command
-          shouldFilter={false}
-        // filter={(value, search) => {
-        //   if (value.startsWith('__create__')) return 1
-        //   if (value.includes(search)) return 1
-        //   return 0
-        // }}
-        >
-          <CommandInput
-            value={query}
-            placeholder={placeholder}
-            onValueChange={setQuery}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && canCreateNew) {
-                onValueChange(query)
-                setQuery('')
-                setOpen(false)
+      <PopoverContent
+        {...popoverContentProps}
+        className={cn("p-0", matchTriggerWidth && "w-[var(--radix-popover-trigger-width)]", contentCls)}
+      >
+        <Command shouldFilter={false}>
+          {
+            !isLoading &&
+            <CommandInput
+              placeholder="Search..."
+              value={query}
+              onValueChange={onQueryChange}
+            />
+          }
+
+          <CommandList className="py-1">
+            {
+              isLoading &&
+              <CommandLoading>
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="animate-spin size-4" /> Loading...
+                </span>
+              </CommandLoading>
+            }
+
+            {
+              !isLoading &&
+              <CommandEmpty>{emptyMessage || "No options found"}</CommandEmpty>
+            }
+
+            {!isLoading && filtered.map((item, i) => {
+              if (isGroup(item)) {
+                return (
+                  <CommandGroup
+                    key={item.group}
+                    heading={item.group}
+                    className={cn("[&_[cmdk-group-heading]]:pb-0.5", groupCls, item.className)}
+                  >
+                    {item.options.map((opt, j) => (
+                      <Item
+                        key={getKey(opt, j)}
+                        option={opt}
+                        selected={getValue(opt) === value}
+                        onSelect={onSelect}
+                        className={itemCls}
+                        indicatorAt={indicatorAt}
+                      />
+                    ))}
+                  </CommandGroup>
+                )
               }
-              if (e.shiftKey && (e.key === "Home" || e.key === "End")) {
-                e.stopPropagation()
-                return
-              }
-            }}
-          />
 
-          <CommandList>
-            <CommandEmpty>
-              {!canCreateNew && (emptyMessage || "No options found")}
-            </CommandEmpty>
+              return (
+                <Item
+                  key={getKey(item, i)}
+                  option={item}
+                  selected={getValue(item) === value}
+                  onSelect={onSelect}
+                  indicatorAt={indicatorAt}
+                  className={cn("mx-1", itemCls)}
+                />
+              )
+            })}
 
-            <CommandGroup>
-              {filteredOptions.map((option) => (
+            {showCreate && (
+              <CommandGroup>
                 <CommandItem
-                  key={typeof option === "object" ? `${option.value}` : `${option}`}
-                  value={typeof option === "object" ? `${option.value}` : `${option}`}
-                  onSelect={(currentValue) => {
-                    onValueChange(currentValue === value ? "" : currentValue)
-                    setOpen(false)
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "h-4 w-4",
-                      value === (typeof option === "object" ? `${option.value}` : `${option}`) ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {typeof option === "object" ? option.label : option}
-                </CommandItem>
-              ))}
-
-              {showCreateOption &&
-                <CommandItem
-                  value={`__create__${query}`}
+                  value={`__create-${query}`}
                   onSelect={() => {
                     onValueChange(query)
-                    setQuery('')
-                    setOpen(false)
+                    onQueryChange("")
+                    onOpenChange(false)
                   }}
                 >
-                  <Plus className="mr-2 h-4 w-4" />
-                  {query}
+                  <Plus className="mr-2 h-4 w-4" /> Create: {query}
                 </CommandItem>
-              }
-            </CommandGroup>
+              </CommandGroup>
+            )}
           </CommandList>
         </Command>
       </PopoverContent>
@@ -164,167 +302,207 @@ function Combobox({
 }
 
 type btnLableProps = {
-  value: primitiveT[]
+  value: allowedPrimitiveT[]
   options: optionsT
   isLoading?: boolean
   placeholder?: string
+  maxVisibleCount?: number
 }
-function ButtonLabel({ isLoading = false, value = [], options = [], placeholder = "" }: btnLableProps) {
-  const getLabel = (val: primitiveT) => {
-    const found = options.find(o => typeof o === "object" ? o.value === val : o === val)
-    return typeof found === "object" ? found.label : found || val
+function ButtonLabel({
+  value,
+  options,
+  isLoading,
+  placeholder,
+  maxVisibleCount = 2,
+}: btnLableProps) {
+  const labelOf = (val: allowedPrimitiveT) => {
+    const found = findOptionByValue(options, val)
+    if (!found) return `${val}`
+    const label = getLabel(found)
+    return label
   }
 
   if (isLoading)
     return (
       <>
         <Loader2 className="size-4 animate-spin" />
-        <span>Loading...</span>
+        Loading...
       </>
     )
 
   if (value.length === 0) {
-    if (!placeholder) return null
-    return <span className="text-muted-foreground">{placeholder}</span>
+    return placeholder
   }
 
-  if (value.length <= 2) {
-    return value.map(getLabel).map(v => (
-      <Badge
-        variant="secondary"
-        className="rounded-sm px-1 font-normal"
-        key={`${v}`}
-      >
-        {`${v}`}
-      </Badge>
-    ))
+  if (value.length <= maxVisibleCount) {
+    return (
+      <>
+        {value.map((v) => (
+          <Badge key={String(v)} variant="secondary" className="rounded-sm px-1 font-normal">
+            {labelOf(v)}
+          </Badge>
+        ))}
+      </>
+    )
   }
 
   return (
-    <Badge
-      variant="secondary"
-      className="rounded-sm px-1 font-normal"
-    >
+    <Badge variant="secondary" className="rounded-sm px-1 font-normal">
       {value.length} selected
     </Badge>
   )
 }
 
 type multiSelectComboboxProps = base & {
-  lable?: React.ReactNode
-  value?: primitiveT[]
-  onValueChange?: (value: primitiveT[]) => void
+  value?: allowedPrimitiveT[]
+  maxVisibleCount?: number
+  label?: React.ReactNode
+  onValueChange?: (v: allowedPrimitiveT[]) => void
 }
 
 function MultiSelectCombobox({
-  lable = "",
-  value = [],
+  id,
   options = [],
-  isLoading = false,
-  placeholder = "",
-  emptyMessage = "",
-  onValueChange = () => { },
+  isLoading,
+  placeholder,
+  emptyMessage,
+
+  matchTriggerWidth = true,
+  maxVisibleCount,
+  indicatorAt,
+  triggerCls,
+  contentCls,
+  groupCls,
+  itemCls,
+  label,
+
+  value: o_value,
+  onValueChange: o_onValueChange,
+
+  query: o_query,
+  onQueryChange: o_onQueryChange,
+
+  open: o_open,
+  onOpenChange: o_onOpenChange,
+  popoverContentProps,
 }: multiSelectComboboxProps) {
-  const { ref, width } = useElementWidth<HTMLButtonElement>()
-  const [query, setQuery] = useState("")
-  const [open, setOpen] = useState(false)
+  const [i_value, setIValue] = useState<allowedPrimitiveT[]>([])
+  const [i_query, setIQuery] = useState("")
+  const [i_open, setIOpen] = useState(false)
 
-  const filteredOptions = options.filter((option) => {
-    const label = typeof option === "object" ? option.label : option
-    return `${label}`.toLowerCase().includes(query.toLowerCase())
-  })
+  const value = o_value ?? i_value
+  const query = o_query ?? i_query
+  const open = o_open ?? i_open
 
-  const handleSelect = (selected: primitiveT) => {
-    const newValues = value.includes(selected)
-      ? value.filter((v) => v !== selected)
-      : [...value, selected]
-    onValueChange(newValues)
-  }
+  const onValueChange = o_onValueChange ?? setIValue
+  const onQueryChange = o_onQueryChange ?? setIQuery
+  const onOpenChange = o_onOpenChange ?? setIOpen
 
-  const handleClear = () => {
-    onValueChange([])
-    setQuery("")
-    setOpen(false)
+  const filtered = filteredOptions(options, query)
+
+  const onSelect = (v: allowedPrimitiveT) => {
+    onValueChange(value.includes(v) ? value.filter((x) => x !== v) : [...value, v])
   }
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <Button
-          ref={ref}
+          id={id}
           role="combobox"
           variant="outline"
           aria-expanded={open}
-          className="w-full justify-between font-normal"
+          className={cn("font-normal", triggerCls, {
+            "text-muted-foreground": value.length === 0,
+          })}
         >
-          {
-            lable &&
-            <>
-              <span className="font-medium">{lable}</span>
-              {value.length > 0 && <Separator orientation="vertical" className="mx-2 h-4" />}
-            </>
-          }
+          {label}
 
           <ButtonLabel
             value={value}
             options={options}
             isLoading={isLoading}
             placeholder={placeholder}
+            maxVisibleCount={maxVisibleCount}
           />
 
-          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-auto size-4 opacity-50" />
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="p-0" style={{ width: width ? `${width}px` : "auto" }}>
+      <PopoverContent
+        {...popoverContentProps}
+        className={cn("p-0", matchTriggerWidth && "w-[var(--radix-popover-trigger-width)]", contentCls)}
+      >
         <Command shouldFilter={false}>
-          <CommandInput
-            value={query}
-            placeholder="Search..."
-            onValueChange={setQuery}
-          />
+          {
+            !isLoading &&
+            <CommandInput
+              placeholder="Search..."
+              value={query}
+              onValueChange={onQueryChange}
+            />
+          }
 
-          <CommandList>
-            <CommandEmpty>{emptyMessage || "No options found"}</CommandEmpty>
+          <CommandList className="py-1">
+            {
+              isLoading &&
+              <CommandLoading>
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="animate-spin size-4" /> Loading...
+                </span>
+              </CommandLoading>
+            }
 
-            <CommandGroup>
-              {filteredOptions.map((option) => {
-                const optValue = typeof option === "object" ? option.value : option
-                const label = typeof option === "object" ? option.label : option
-                const selected = value.includes(optValue)
+            {
+              !isLoading &&
+              <CommandEmpty>{emptyMessage || "No options found"}</CommandEmpty>
+            }
 
+            {!isLoading && filtered.map((item, i) => {
+              if (isGroup(item)) {
                 return (
-                  <CommandItem
-                    key={`${optValue}`}
-                    value={`${optValue}`}
-                    onSelect={() => handleSelect(optValue)}
+                  <CommandGroup
+                    key={item.group}
+                    heading={item.group}
+                    className={cn("[&_[cmdk-group-heading]]:pb-0.5", groupCls, item.className)}
                   >
-                    <Check
-                      className={cn(
-                        "h-4 w-4",
-                        selected ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                    {`${label}`}
-                  </CommandItem>
-                )
-              })}
-
-              {value.length > 0 && (
-                <>
-                  <CommandSeparator />
-                  <CommandGroup>
-                    <CommandItem
-                      className="justify-center text-center"
-                      onSelect={handleClear}
-                      value="__clear__"
-                    >
-                      Clear selection(s)
-                    </CommandItem>
+                    {item.options.map((opt, j) => (
+                      <Item
+                        key={getKey(opt, j)}
+                        option={opt}
+                        selected={value.includes(getValue(opt))}
+                        onSelect={onSelect}
+                        indicatorAt={indicatorAt}
+                        className={itemCls}
+                      />
+                    ))}
                   </CommandGroup>
-                </>
-              )}
-            </CommandGroup>
+                )
+              }
+
+              return (
+                <Item
+                  key={getKey(item, i)}
+                  option={item}
+                  selected={value.includes(getValue(item))}
+                  onSelect={onSelect}
+                  indicatorAt={indicatorAt}
+                  className={cn("mx-1 mb-1", itemCls)}
+                />
+              )
+            })}
+
+            {value.length > 0 && (
+              <>
+                <CommandSeparator />
+                <CommandGroup>
+                  <CommandItem onSelect={() => onValueChange([])} value="__clear__" className="justify-center">
+                    Clear selection(s)
+                  </CommandItem>
+                </CommandGroup>
+              </>
+            )}
           </CommandList>
         </Command>
       </PopoverContent>
@@ -335,4 +513,6 @@ function MultiSelectCombobox({
 export {
   Combobox,
   MultiSelectCombobox,
+  type comboboxProps,
+  type multiSelectComboboxProps,
 }

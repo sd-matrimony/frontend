@@ -1,32 +1,34 @@
-"use client";
+"use client"
 
-import { useState } from 'react';
-import { Control, FieldValues, Path } from "react-hook-form";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
+import { useState } from 'react'
+import { Control, FieldValues, Path } from "react-hook-form"
+import { CalendarIcon } from "lucide-react"
+import { format } from "date-fns"
 
-import { parsePrimitive } from '@/utils';
-import { cn } from "@/lib/utils";
+import { cn, getKey, getLabel, getValue, parseAllowedPrimitive } from "@/lib/utils"
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./form";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import { Combobox, MultiSelectCombobox } from "./combobox";
-import { RadioGroup, RadioGroupItem } from "./radio-group";
-import { Calendar } from "./calendar";
-import { Textarea } from "./textarea";
-import { Button } from "./button";
-import { Input } from "./input";
+import { type comboboxProps, type multiSelectComboboxProps, Combobox, MultiSelectCombobox } from "./combobox"
+import { type selectProps, SelectWrapper as SelectPrimitiveWrapper } from "./select"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./form"
+import { Popover, PopoverContent, PopoverTrigger } from "./popover"
+import { RadioGroup, RadioGroupItem } from "./radio-group"
+import { Calendar } from "./calendar"
+import { Textarea } from "./textarea"
+import { Checkbox } from './checkbox'
+import { Button } from "./button"
+import { Switch } from './switch'
+import { Input } from "./input"
 
-type BaseWrapperProps<T extends FieldValues> = {
+type BaseProps<T extends FieldValues> = {
   name: Path<T>
   label?: React.ReactNode
   control: Control<T>
   className?: string
 }
 
-type InputWrapperProps<T extends FieldValues> = BaseWrapperProps<T> & React.InputHTMLAttributes<HTMLInputElement>
-export function InputWrapper<T extends FieldValues>({ name, label, control, className, type = "text", placeholder, ...props }: InputWrapperProps<T>) {
+type InputProps<T extends FieldValues> = BaseProps<T> &
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name' | 'value' | 'onChange' | 'onBlur'>
+export function InputWrapper<T extends FieldValues>({ name, label, control, className, type = "text", placeholder, ...props }: InputProps<T>) {
   return (
     <FormField
       name={name}
@@ -36,7 +38,12 @@ export function InputWrapper<T extends FieldValues>({ name, label, control, clas
           {label && <FormLabel>{label}</FormLabel>}
 
           <FormControl>
-            <Input type={type} placeholder={placeholder || `Enter ${label}`} {...field} {...props} />
+            <Input
+              type={type}
+              placeholder={placeholder || `Enter ${label}`}
+              {...field}
+              {...props}
+            />
           </FormControl>
 
           <FormMessage />
@@ -46,8 +53,9 @@ export function InputWrapper<T extends FieldValues>({ name, label, control, clas
   )
 }
 
-type TextareaWrapperProps<T extends FieldValues> = BaseWrapperProps<T> & React.TextareaHTMLAttributes<HTMLTextAreaElement>
-export function TextareaWrapper<T extends FieldValues>({ name, label, control, className, placeholder, ...rest }: TextareaWrapperProps<T>) {
+type TextareaProps<T extends FieldValues> = BaseProps<T> &
+  Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'name' | 'value' | 'onChange' | 'onBlur'>
+export function TextareaWrapper<T extends FieldValues>({ name, label, control, className, placeholder, ...rest }: TextareaProps<T>) {
   return (
     <FormField
       name={name}
@@ -67,34 +75,34 @@ export function TextareaWrapper<T extends FieldValues>({ name, label, control, c
   )
 }
 
-type RadioWrapperProps<T extends FieldValues> = BaseWrapperProps<T> & {
-  options: optionsT
+type RadioProps<T extends FieldValues> = BaseProps<T> & {
+  options: (allowedPrimitiveT | optionT)[]
 }
-export function RadioWrapper<T extends FieldValues>({ name, label, control, className, options }: RadioWrapperProps<T>) {
+export function RadioWrapper<T extends FieldValues>({ name, label, control, className, options }: RadioProps<T>) {
   return (
     <FormField
       name={name}
       control={control}
       render={({ field }) => (
-        <FormItem className={cn("relative", className)}>
+        <FormItem className={className}>
           {label && <FormLabel>{label}</FormLabel>}
 
           <FormControl>
             <RadioGroup
               value={`${field.value}`}
-              onValueChange={value => field.onChange(parsePrimitive(value))}
-              className="flex items-center gap-12"
+              onValueChange={value => field.onChange(parseAllowedPrimitive(value))}
+              className="flex items-center flex-wrap gap-12"
             >
-              {options.map((option) => (
+              {options.map((option, i) => (
                 <FormItem
-                  key={typeof option === "object" ? `${option.value}` : `${option}`}
-                  className="flex items-center flex-row space-x-1"
+                  key={getKey(option, i)}
+                  className="flex flex-row items-center gap-2"
                 >
                   <FormControl>
-                    <RadioGroupItem value={typeof option === "object" ? `${option.value}` : `${option}`} />
+                    <RadioGroupItem value={`${getValue(option)}`} />
                   </FormControl>
                   <FormLabel className="font-normal">
-                    {typeof option === "object" ? `${option.label}` : `${option}`}
+                    {getLabel(option)}
                   </FormLabel>
                 </FormItem>
               ))}
@@ -108,40 +116,88 @@ export function RadioWrapper<T extends FieldValues>({ name, label, control, clas
   )
 }
 
-type SelectWrapperProps<T extends FieldValues> = BaseWrapperProps<T> & {
-  options: optionsT
-  placeholder?: string
+type CheckboxProps<T extends FieldValues> = BaseProps<T> & {
+  options: (allowedPrimitiveT | optionT)[]
 }
-export function SelectWrapper<T extends FieldValues>({ name, label, control, className, options, placeholder }: SelectWrapperProps<T>) {
+export function CheckboxWrapper<T extends FieldValues>({
+  name,
+  label,
+  control,
+  className,
+  options
+}: CheckboxProps<T>) {
+  return (
+    <FormField
+      name={name}
+      control={control}
+      render={({ field }) => {
+        const valueArr: allowedPrimitiveT[] = Array.isArray(field.value)
+          ? field.value
+          : []
+
+        const toggleValue = (v: allowedPrimitiveT) => {
+          if (valueArr.includes(v)) {
+            field.onChange(valueArr.filter(x => x !== v))
+          } else {
+            field.onChange([...valueArr, v])
+          }
+        }
+
+        return (
+          <FormItem className={className}>
+            {label && <FormLabel>{label}</FormLabel>}
+
+            <div className="flex items-center flex-wrap gap-4">
+              {options.map((option, i) => {
+                const val = getValue(option)
+                const isChecked = valueArr.includes(parseAllowedPrimitive(val))
+
+                return (
+                  <FormItem
+                    key={getKey(option, i)}
+                    className="flex items-center gap-2 space-y-0"
+                  >
+                    <FormControl>
+                      <Checkbox
+                        checked={isChecked}
+                        onCheckedChange={() => toggleValue(parseAllowedPrimitive(val))}
+                      />
+                    </FormControl>
+
+                    <FormLabel className="font-normal">
+                      {getLabel(option)}
+                    </FormLabel>
+                  </FormItem>
+                )
+              })}
+            </div>
+
+            <FormMessage />
+          </FormItem>
+        )
+      }}
+    />
+  )
+}
+
+export function SwitchWrapper<T extends FieldValues>({ name, label, control, className }: BaseProps<T>) {
   return (
     <FormField
       name={name}
       control={control}
       render={({ field }) => (
-        <FormItem className={cn("relative", className)}>
-          {label && <FormLabel>{label}</FormLabel>}
+        <FormItem className={className}>
+          <div className='flex items-center justify-between gap-4'>
+            {label && <FormLabel className="font-normal">{label}</FormLabel>}
 
-          <Select
-            value={`${field.value}`}
-            onValueChange={value => field.onChange(parsePrimitive(value))}
-          >
             <FormControl>
-              <SelectTrigger>
-                <SelectValue placeholder={placeholder ?? `Select ${label}`} />
-              </SelectTrigger>
+              <Switch
+                checked={field.value}
+                onCheckedChange={field.onChange}
+                aria-label={typeof label === "string" ? label : name}
+              />
             </FormControl>
-
-            <SelectContent>
-              {options.map((option) => (
-                <SelectItem
-                  key={typeof option === "object" ? `${option.value}` : `${option}`}
-                  value={typeof option === "object" ? `${option.value}` : `${option}`}
-                >
-                  {typeof option === "object" ? `${option.label}` : `${option}`}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          </div>
 
           <FormMessage />
         </FormItem>
@@ -150,8 +206,34 @@ export function SelectWrapper<T extends FieldValues>({ name, label, control, cla
   )
 }
 
-type DatePickerWrapperProps<T extends FieldValues> = BaseWrapperProps<T> & Omit<React.ComponentProps<typeof Calendar>, "selected" | "onSelect">
-export function DatePickerWrapper<T extends FieldValues>({ name, label, control, className, ...calendarProps }: DatePickerWrapperProps<T>) {
+type SelectProps<T extends FieldValues> = BaseProps<T> & Omit<selectProps, "value" | "onValueChange">
+export function SelectWrapper<T extends FieldValues>({ name, label, control, className, options, placeholder, ...props }: SelectProps<T>) {
+  return (
+    <FormField
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <FormItem className={className}>
+          {label && <FormLabel>{label}</FormLabel>}
+          <FormControl>
+            <SelectPrimitiveWrapper
+              {...props}
+              options={options}
+              value={`${field.value}`}
+              placeholder={placeholder ?? `Select ${label}`}
+              onValueChange={value => field.onChange(parseAllowedPrimitive(value))}
+            />
+          </FormControl>
+
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+type DatePickerProps<T extends FieldValues> = BaseProps<T> & Omit<React.ComponentProps<typeof Calendar>, "selected" | "onSelect">
+export function DatePickerWrapper<T extends FieldValues>({ name, label, control, className, ...calendarProps }: DatePickerProps<T>) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -198,28 +280,22 @@ export function DatePickerWrapper<T extends FieldValues>({ name, label, control,
   )
 }
 
-type ComboboxWrapperProps<T extends FieldValues> = BaseWrapperProps<T> & {
-  options: optionsT
-  isLoading?: boolean
-  placeholder?: string
-  canCreateNew?: boolean
-  emptyMessage?: string
-}
-export function ComboboxWrapper<T extends FieldValues>({ name, label, control, className, placeholder, ...rest }: ComboboxWrapperProps<T>) {
+type ComboboxProps<T extends FieldValues> = BaseProps<T> & Omit<comboboxProps, "value" | "onValueChange">
+export function ComboboxWrapper<T extends FieldValues>({ name, label, control, className, placeholder, ...rest }: ComboboxProps<T>) {
   return (
     <FormField
       name={name}
       control={control}
       render={({ field }) => (
-        <FormItem className={cn("relative", className)}>
+        <FormItem className={className}>
           {label && <FormLabel>{label}</FormLabel>}
 
           <FormControl>
             <Combobox
               {...rest}
+              value={field.value}
               placeholder={placeholder || `Select ${label}`}
-              value={`${field.value || ""}`}
-              onValueChange={value => field.onChange(parsePrimitive(value))}
+              onValueChange={field.onChange}
             />
           </FormControl>
 
@@ -230,29 +306,22 @@ export function ComboboxWrapper<T extends FieldValues>({ name, label, control, c
   )
 }
 
-type MultiSelectComboboxWrapperProps<T extends FieldValues> = BaseWrapperProps<T> & {
-  options: optionsT
-  isLoading?: boolean
-  placeholder?: string
-  emptyMessage?: string
-  inlineLable?: boolean
-}
-export function MultiSelectComboboxWrapper<T extends FieldValues>({ name, label, control, className, placeholder, inlineLable = false, ...rest }: MultiSelectComboboxWrapperProps<T>) {
+type MultiSelectComboboxProps<T extends FieldValues> = BaseProps<T> & Omit<multiSelectComboboxProps, "value" | "onValueChange">
+export function MultiSelectComboboxWrapper<T extends FieldValues>({ name, label, control, className, placeholder, ...rest }: MultiSelectComboboxProps<T>) {
   return (
     <FormField
       name={name}
       control={control}
       render={({ field }) => (
-        <FormItem className={cn("relative", className)}>
-          {label && !inlineLable && <FormLabel>{label}</FormLabel>}
+        <FormItem className={className}>
+          {label && <FormLabel>{label}</FormLabel>}
 
           <FormControl>
             <MultiSelectCombobox
               {...rest}
               value={field.value}
-              lable={inlineLable ? label : ""}
-              placeholder={inlineLable ? "" : placeholder || `Select ${label}`}
-              onValueChange={val => field.onChange(val.map(parsePrimitive))}
+              placeholder={placeholder || `Select ${label}`}
+              onValueChange={field.onChange}
             />
           </FormControl>
 

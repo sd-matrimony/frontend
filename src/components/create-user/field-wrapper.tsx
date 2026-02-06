@@ -26,7 +26,7 @@ function FieldWrapper({ control, onBlur, type, isRequired, ...props }: FieldWrap
   }
 
   if (type === "select" && "options" in props) {
-    return <SelectWrapper control={control} {...props} className={isRequired ? "" : 'hidden'} />
+    return <SelectWrapper control={control} {...props} defaultValue={`${props.defaultValue}`} className={isRequired ? "" : 'hidden'} />
   }
 
   if (type === "combobox" && "listName" in props) {
@@ -34,6 +34,7 @@ function FieldWrapper({ control, onBlur, type, isRequired, ...props }: FieldWrap
   }
 
   if (type === "radio" && "options" in props) {
+    // @ts-ignore
     return <RadioWrapper control={control} {...props} className={isRequired ? "" : 'hidden'} />
   }
 
@@ -52,7 +53,7 @@ function FieldWrapper({ control, onBlur, type, isRequired, ...props }: FieldWrap
       {...props}
       defaultValue={undefined}
       {...((props.name === "email" || props.name === "contactDetails.mobile") && {
-        onBlur(e) {
+        onBlur(e: any) {
           onBlur(props.name, e.target.value)
         }
       })}

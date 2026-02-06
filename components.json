@@ -13,5 +13,8 @@
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils"
+  },
+  "registries": {
+    "@glrk-ui": "https://ui.glrk.dev/registry/{name}.json"
   }
 }

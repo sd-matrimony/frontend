@@ -37,30 +37,27 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
 
         <MultiSelectComboboxWrapper
           name="gender"
-          label="Gender"
-          options={gender}
+          placeholder="Gender"
+          options={gender as any}
           control={methods.control}
           className="min-w-28"
-          inlineLable
         />
 
         <MultiSelectComboboxWrapper
           name="maritalStatus"
-          label="Marital Status"
-          options={maritalStatus}
+          placeholder="Marital Status"
+          options={maritalStatus as any}
           control={methods.control}
           className="min-w-32 sm:min-w-40"
-          inlineLable
         />
 
         <MultiSelectComboboxWrapper
           name="caste"
-          label="Caste"
+          placeholder="Caste"
           options={castes}
           control={methods.control}
           isLoading={isCasteLoading}
           className="min-w-44 sm:min-w-56"
-          inlineLable
         />
 
         {children}

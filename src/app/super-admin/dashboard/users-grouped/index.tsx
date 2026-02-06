@@ -68,7 +68,7 @@ function UsersGrouped() {
               isLoading={isCasteLoading}
               emptyMessage="No caste found"
               canCreateNew={false}
-              onValueChange={setCaste}
+              onValueChange={v => setCaste(v as string)}
             />
           </div>
         }

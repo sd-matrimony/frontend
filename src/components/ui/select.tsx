@@ -4,23 +4,17 @@ import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils"
+import { cn, getKey, getLabel, getValue, isGroup, isOption, isSeparator } from "@/lib/utils"
 
-function Select({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Root>) {
+function Select(props: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />
 }
 
-function SelectGroup({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Group>) {
+function SelectGroup(props: React.ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />
 }
 
-function SelectValue({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Value>) {
+function SelectValue(props: React.ComponentProps<typeof SelectPrimitive.Value>) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />
 }
 
@@ -37,7 +31,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -54,6 +48,7 @@ function SelectContent({
   className,
   children,
   position = "popper",
+  align = "center",
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -67,6 +62,7 @@ function SelectContent({
           className
         )}
         position={position}
+        align={align}
         {...props}
       >
         <SelectScrollUpButton />
@@ -101,18 +97,20 @@ function SelectLabel({
 function SelectItem({
   className,
   children,
+  indicatorAt = "left",
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Item>) {
+}: React.ComponentProps<typeof SelectPrimitive.Item> & { indicatorAt?: indicatorAtT }) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
-        className
+        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        className,
+        indicatorAt === "right" ? "pr-8 pl-2" : "pr-2 pl-8",
       )}
       {...props}
     >
-      <span className="absolute right-2 flex size-3.5 items-center justify-center">
+      <span className={cn("absolute flex size-3.5 items-center justify-center", indicatorAt === "right" ? "right-2" : "left-2")}>
         <SelectPrimitive.ItemIndicator>
           <CheckIcon className="size-4" />
         </SelectPrimitive.ItemIndicator>
@@ -171,31 +169,81 @@ function SelectScrollDownButton({
   )
 }
 
-type props = {
+type itemProps = {
+  option: allowedPrimitiveT | optionT
+  className?: string
+  indicatorAt?: indicatorAtT
+}
+
+function Item({ option, className, indicatorAt }: itemProps) {
+  const value = getValue(option)
+  const label = getLabel(option)
+  const optCls = isOption(option) ? option.className : undefined
+
+  if (isSeparator(value)) return <SelectSeparator className={className} />
+
+  return (
+    <SelectItem
+      value={`${value}`}
+      className={cn(className, optCls)}
+      indicatorAt={indicatorAt}
+    >
+      {label}
+    </SelectItem>
+  )
+}
+
+type selectProps = {
+  id?: string
   options: optionsT
   placeholder?: string
-}
+  indicatorAt?: indicatorAtT
+  triggerCls?: string
+  contentCls?: string
+  groupCls?: string
+  groupLabelCls?: string
+  itemCls?: string
+} & React.ComponentProps<typeof SelectPrimitive.Root>
 function SelectWrapper({
-  options,
-  placeholder,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Root> & props) {
+  id, options, placeholder, indicatorAt,
+  triggerCls, contentCls, groupCls, itemCls,
+  groupLabelCls, ...props
+}: selectProps) {
   return (
     <Select {...props}>
-      <SelectTrigger>
+      <SelectTrigger id={id} className={cn("w-full", triggerCls)}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent className={contentCls}>
         {
-          options.map(option => (
-            <SelectItem
-              key={typeof option === "object" ? `${option.value}` : `${option}`}
-              value={typeof option === "object" ? `${option.value}` : `${option}`}
-            >
-              {typeof option === "object" ? option.label : option}
-            </SelectItem>
-          ))
+          options.map((option, i) => {
+            if (isGroup(option)) {
+              return (
+                <SelectGroup key={option.group} className={cn(groupCls, option.className)}>
+                  <SelectLabel className={cn("pb-0.5", groupLabelCls)}>{option.group}</SelectLabel>
+
+                  {option.options.map((grOpts, j) => (
+                    <Item
+                      key={getKey(grOpts, j)}
+                      option={grOpts}
+                      className={cn("pl-4", itemCls)}
+                      indicatorAt={indicatorAt}
+                    />
+                  ))}
+                </SelectGroup>
+              )
+            }
+
+            return (
+              <Item
+                key={getKey(option, i)}
+                option={option}
+                className={itemCls}
+                indicatorAt={indicatorAt}
+              />
+            )
+          })
         }
       </SelectContent>
     </Select>
@@ -214,4 +262,5 @@ export {
   SelectTrigger,
   SelectValue,
   SelectWrapper,
+  type selectProps,
 }

@@ -15,8 +15,8 @@ import { useIsExists, useRegisterImage } from '@/hooks/use-account';
 import { createPass } from '@/utils/password';
 import { cn } from '@/lib/utils';
 
-import FieldWrapper from './field-wrapper';
 import { Button } from '@/components/ui/button';
+import FieldWrapper from './field-wrapper';
 
 type props = {
   isPending: boolean

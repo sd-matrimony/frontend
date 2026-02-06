@@ -6,7 +6,7 @@ import { gender, maritalStatus, aliveOptions } from '@/utils';
 type BaseField = {
   name: Path<userInputT>
   label: string
-  defaultValue?: primitiveT
+  defaultValue?: allowedPrimitiveT
   isRequired?: boolean
 }
 

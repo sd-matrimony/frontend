@@ -6,23 +6,17 @@ import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
-function AlertDialog({
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Root>) {
+function AlertDialog(props: React.ComponentProps<typeof AlertDialogPrimitive.Root>) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
 }
 
-function AlertDialogTrigger({
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Trigger>) {
+function AlertDialogTrigger(props: React.ComponentProps<typeof AlertDialogPrimitive.Trigger>) {
   return (
     <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
   )
 }
 
-function AlertDialogPortal({
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Portal>) {
+function AlertDialogPortal(props: React.ComponentProps<typeof AlertDialogPrimitive.Portal>) {
   return (
     <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
   )
@@ -142,6 +136,117 @@ function AlertDialogCancel({
   )
 }
 
+type AlertDialogFooterWrapperProps = {
+  cancel?: React.ReactNode
+  action?: React.ReactNode
+  footerCls?: string
+  actionCls?: string
+  cancelCls?: string
+  onAction?: () => void
+  onCancel?: () => void
+}
+
+function AlertDialogFooterWrapper({
+  cancel,
+  action,
+  footerCls,
+  actionCls,
+  cancelCls,
+  onAction = () => { },
+  onCancel = () => { },
+}: AlertDialogFooterWrapperProps) {
+  return (
+    <AlertDialogFooter className={footerCls}>
+      {
+        cancel &&
+        <AlertDialogCancel
+          onClick={onCancel}
+          className={cancelCls}
+          asChild={typeof cancel !== "string"}
+        >
+          {cancel}
+        </AlertDialogCancel>
+      }
+
+      {
+        action &&
+        <AlertDialogAction
+          onClick={onAction}
+          className={actionCls}
+          asChild={typeof action !== "string"}
+        >
+          {action}
+        </AlertDialogAction>
+      }
+    </AlertDialogFooter>
+  )
+}
+
+type AlertDialogWrapperProps = {
+  title?: React.ReactNode
+  trigger?: React.ReactNode
+  children?: React.ReactNode
+  description?: React.ReactNode
+  descriptionCls?: string
+  contentCls?: string
+  headerCls?: string
+  titleCls?: string
+} & AlertDialogFooterWrapperProps
+
+function AlertDialogWrapper({
+  trigger,
+  title = "Are you absolutely sure?",
+  description = "This action cannot be undone. This will permanently remove your data from our servers.",
+  children,
+  contentCls,
+  headerCls,
+  titleCls,
+  descriptionCls,
+
+  cancel = "Cancel",
+  action = "Confirm",
+  footerCls,
+  actionCls,
+  cancelCls,
+  onAction,
+  onCancel,
+  ...props
+}: React.ComponentProps<typeof AlertDialogPrimitive.Root> & AlertDialogWrapperProps) {
+  return (
+    <AlertDialog {...props}>
+      {trigger &&
+        <AlertDialogTrigger asChild={typeof trigger !== "string"}>{trigger}</AlertDialogTrigger>
+      }
+
+      <AlertDialogContent className={contentCls}>
+        <AlertDialogHeader className={headerCls}>
+          <AlertDialogTitle className={titleCls}>{title}</AlertDialogTitle>
+          {description && (
+            <AlertDialogDescription className={descriptionCls}>
+              {description}
+            </AlertDialogDescription>
+          )}
+        </AlertDialogHeader>
+
+        {children}
+
+        {
+          (!!cancel || !!action) &&
+          <AlertDialogFooterWrapper
+            cancel={cancel}
+            action={action}
+            footerCls={footerCls}
+            actionCls={actionCls}
+            cancelCls={cancelCls}
+            onAction={onAction}
+            onCancel={onCancel}
+          />
+        }
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}
+
 export {
   AlertDialog,
   AlertDialogPortal,
@@ -154,4 +259,6 @@ export {
   AlertDialogDescription,
   AlertDialogAction,
   AlertDialogCancel,
+  AlertDialogWrapper,
+  AlertDialogFooterWrapper,
 }

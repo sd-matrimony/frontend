@@ -20,7 +20,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-header"
       className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
         className
       )}
       {...props}
@@ -81,6 +81,59 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+type CardWrapperProps = {
+  title?: React.ReactNode
+  description?: React.ReactNode
+  children?: React.ReactNode
+  footer?: React.ReactNode
+  actions?: React.ReactNode
+  wrapperCls?: string
+  headerCls?: string
+  titleCls?: string
+  descriptionCls?: string
+  contentCls?: string
+  footerCls?: string
+}
+
+function CardWrapper({
+  title,
+  description,
+  children,
+  footer,
+  actions,
+  wrapperCls,
+  headerCls,
+  titleCls,
+  descriptionCls,
+  contentCls,
+  footerCls,
+}: CardWrapperProps) {
+  return (
+    <Card className={wrapperCls}>
+      <CardHeader className={headerCls}>
+        {title && <CardTitle className={titleCls}>{title}</CardTitle>}
+        {description && <CardDescription className={descriptionCls}>{description}</CardDescription>}
+
+        {actions}
+      </CardHeader>
+
+      {
+        children &&
+        <CardContent className={contentCls}>
+          {children}
+        </CardContent>
+      }
+
+      {footer
+        ? typeof footer === "string"
+          ? <CardFooter className={footerCls}>{footer}</CardFooter>
+          : footer
+        : null
+      }
+    </Card>
+  )
+}
+
 export {
   Card,
   CardHeader,
@@ -89,4 +142,5 @@ export {
   CardAction,
   CardDescription,
   CardContent,
+  CardWrapper,
 }

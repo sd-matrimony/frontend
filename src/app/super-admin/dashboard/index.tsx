@@ -14,8 +14,8 @@ function Dashboard() {
   return (
     <>
       <UsersGrouped />
-      <UsersGroupedByAdmin />
       <PaidUsers />
+      <UsersGroupedByAdmin />
       <AssistedSubscribedUser />
       <UsersAllPayments />
       <Admins />

@@ -1,7 +1,7 @@
 
-export const approvalStatus = ["pending", "approved", "rejected"] as const
-export const maritalStatus = ["Single", "Divorced", "Widowed"] as const
-export const gender = ["Male", "Female"] as const
+export const approvalStatus: optionsT = ["pending", "approved", "rejected"]
+export const maritalStatus: optionsT = ["Single", "Divorced", "Widowed"]
+export const gender: optionsT = ["Male", "Female"]
 
 export const nakshatraMap = {
   Ashwini: 'அசுவினி',
@@ -31,7 +31,7 @@ export const nakshatraMap = {
   'Purva Bhadrapada': 'பூரட்டாதி',
   'Uttara Bhadrapada': 'உத்திரட்டாதி',
   Revati: 'ரேவதி'
-} as const;
+} as const
 
 export const raasiMap = {
   Aries: 'மேஷம்',
@@ -46,27 +46,27 @@ export const raasiMap = {
   Capricorn: 'மகரம்',
   Aquarius: 'கும்பம்',
   Pisces: 'மீனம்'
-} as const;
+} as const
 
-export const ageRange = [
+export const ageRange: optionsT = [
   { label: 'Below 25', value: 'below_25' },
   { label: '25 to 30', value: '25_30' },
   { label: '30 to 40', value: '30_40' },
   { label: 'Above 40', value: 'above_50' },
-] as const
+]
 
-export const salaryRange = [
+export const salaryRange: optionsT = [
   { label: 'Below ₹20,000', value: 'below_20000' },
   { label: '₹20,000 - ₹30,000', value: '20000_30000' },
   { label: '₹30,000 - ₹40,000', value: '30000_40000' },
   { label: '₹40,000 - ₹50,000', value: '40000_50000' },
   { label: 'Above ₹50,000', value: 'above_50000' },
-] as const
+]
 
-export const aliveOptions = [
+export const aliveOptions: optionsT = [
   { label: "Alive", value: true },
   { label: "Deceased", value: false }
-] as const
+]
 
 export const acceptedImagesTypes = {
   'image/*': ['.png', ".jpg", ".jpeg", ".webp", ".avif", ".gif"],

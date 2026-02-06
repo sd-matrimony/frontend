@@ -30,7 +30,7 @@ function List({ createdBy, ...rest }: props) {
             key={u?._id}
             className="df py-1 px-4 even:bg-muted/80 hover:bg-primary/5"
           >
-            <a target="_blank" href={`/super-admin/user/${u?._id}`} className="df flex-1 cursor-pointer">
+            <a target="_blank" href={`/super-admin/user/${u?._id}`} className="df flex-1 cursor-pointer hover:text-pink-400">
               <img
                 className="size-10 shrink-0 rounded object-cover"
                 src={u?.profileImg || "/imgs/user.jpg"}

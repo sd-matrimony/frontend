@@ -6,27 +6,21 @@ import { XIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-function Dialog({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Root>) {
+import { Button } from "@/components/ui/button"
+
+function Dialog(props: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />
 }
 
-function DialogTrigger({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
+function DialogTrigger(props: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
 }
 
-function DialogPortal({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Portal>) {
+function DialogPortal(props: React.ComponentProps<typeof DialogPrimitive.Portal>) {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
 }
 
-function DialogClose({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Close>) {
+function DialogClose(props: React.ComponentProps<typeof DialogPrimitive.Close>) {
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />
 }
 
@@ -129,6 +123,120 @@ function DialogDescription({
   )
 }
 
+type DialogFooterWrapperProps = {
+  cancel?: React.ReactNode
+  action?: React.ReactNode
+  footerCls?: string
+  actionCls?: string
+  cancelCls?: string
+  onAction?: () => void
+  onCancel?: () => void
+}
+
+function DialogFooterWrapper({
+  cancel,
+  action,
+  footerCls,
+  actionCls,
+  cancelCls,
+  onAction = () => { },
+  onCancel = () => { },
+}: DialogFooterWrapperProps) {
+  return (
+    <DialogFooter className={footerCls}>
+      {
+        cancel &&
+        <DialogClose asChild>
+          <Button
+            variant="secondary"
+            onClick={onCancel}
+            className={cn("border", cancelCls)}
+            asChild={typeof cancel !== "string"}
+          >
+            {cancel}
+          </Button>
+        </DialogClose>
+      }
+
+      {
+        action &&
+        <Button
+          onClick={onAction}
+          className={actionCls}
+          asChild={typeof action !== "string"}
+        >
+          {action}
+        </Button>
+      }
+    </DialogFooter>
+  )
+}
+
+type DialogWrapperProps = {
+  title?: React.ReactNode
+  trigger?: React.ReactNode
+  children?: React.ReactNode
+  description?: React.ReactNode
+  descriptionCls?: string
+  contentCls?: string
+  headerCls?: string
+  titleCls?: string
+} & DialogFooterWrapperProps
+
+function DialogWrapper({
+  trigger,
+  title,
+  description,
+  children,
+  contentCls,
+  headerCls,
+  titleCls,
+  descriptionCls,
+
+  cancel = "Cancel",
+  action,
+  footerCls,
+  actionCls,
+  cancelCls,
+  onAction,
+  onCancel,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Root> & DialogWrapperProps) {
+  return (
+    <Dialog {...props}>
+      {trigger &&
+        <DialogTrigger asChild={typeof trigger !== "string"}>{trigger}</DialogTrigger>
+      }
+
+      <DialogContent className={contentCls}>
+        <DialogHeader className={headerCls}>
+          <DialogTitle className={titleCls}>{title}</DialogTitle>
+          {description && (
+            <DialogDescription className={descriptionCls}>
+              {description}
+            </DialogDescription>
+          )}
+        </DialogHeader>
+
+        {children}
+
+        {
+          (!!cancel || !!action) &&
+          <DialogFooterWrapper
+            cancel={cancel}
+            action={action}
+            footerCls={footerCls}
+            actionCls={actionCls}
+            cancelCls={cancelCls}
+            onAction={onAction}
+            onCancel={onCancel}
+          />
+        }
+      </DialogContent>
+    </Dialog>
+  )
+}
+
 export {
   Dialog,
   DialogClose,
@@ -140,4 +248,6 @@ export {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
+  DialogWrapper,
+  DialogFooterWrapper,
 }
