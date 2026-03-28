@@ -170,7 +170,6 @@ function Combobox({
   const filtered = filteredOptions(options, query)
   const label = getLabel(selectedOption)
 
-  console.log(value, selectedOption)
   const showCreate =
     canCreateNew &&
     query &&
@@ -355,6 +354,7 @@ type multiSelectComboboxProps = base & {
   value?: allowedPrimitiveT[]
   maxVisibleCount?: number
   label?: React.ReactNode
+  canCreateNew?: boolean
   onValueChange?: (v: allowedPrimitiveT[]) => void
 }
 function MultiSelectCombobox({
@@ -363,6 +363,7 @@ function MultiSelectCombobox({
   isLoading,
   placeholder,
   emptyMessage,
+  canCreateNew,
 
   matchTriggerWidth = true,
   maxVisibleCount,
@@ -396,6 +397,15 @@ function MultiSelectCombobox({
   const onOpenChange = o_onOpenChange ?? setIOpen
 
   const filtered = filteredOptions(options, query)
+
+  const showCreate =
+    canCreateNew &&
+    query &&
+    !options.some((o) =>
+      isGroup(o)
+        ? o.options.some((x) => extractText(getLabel(x)) === query)
+        : extractText(getLabel(o)) === query
+    )
 
   const onSelect = (v: allowedPrimitiveT) => {
     onValueChange(value.includes(v) ? value.filter((x) => x !== v) : [...value, v])
@@ -489,6 +499,20 @@ function MultiSelectCombobox({
                 />
               )
             })}
+
+            {showCreate && (
+              <CommandGroup>
+                <CommandItem
+                  value={`__create-${query}`}
+                  onSelect={() => {
+                    onValueChange([...value, query])
+                    onQueryChange("")
+                  }}
+                >
+                  <Plus className="mr-2 h-4 w-4" /> Create: {query}
+                </CommandItem>
+              </CommandGroup>
+            )}
 
             {value.length > 0 && (
               <>

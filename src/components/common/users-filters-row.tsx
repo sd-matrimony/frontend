@@ -53,7 +53,7 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
           placeholder="Gender"
           options={gender as any}
           control={methods.control}
-          className="min-w-28"
+          className="min-w-36"
         />
 
         <MultiSelectComboboxWrapper
@@ -71,6 +71,7 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
           control={methods.control}
           isLoading={isCasteLoading}
           className="min-w-44 sm:min-w-56"
+          canCreateNew
         />
 
         {children}
