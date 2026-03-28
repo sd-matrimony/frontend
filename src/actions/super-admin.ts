@@ -100,3 +100,11 @@ export function makePaymentForUser(data: Omit<currentPlanT, "createdAt" | "expir
     data,
   })
 }
+
+export function bulkUpdateUsers(data: userT[]) {
+  return sendApiReq({
+    url: endPoints.bulkUpdateUsers,
+    method: "put",
+    data,
+  })
+}

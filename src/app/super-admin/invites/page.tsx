@@ -27,6 +27,8 @@ function Page() {
     fullName: "",
     gender: [],
     caste: [],
+    mobile: "",
+    email: "",
   })
 
   const { isLoading, data, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useGetNotInvitedUsers(final)

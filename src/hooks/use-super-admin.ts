@@ -9,7 +9,7 @@ import {
   getPaidUsers, getAssistedSubscribedUsers, getAllPayments, getUsersByCreatedBy,
   getUsersGroupedByAdminCount, getUsersGroupedCount, getAdminsList,
   createAdmin, updateAdmin, getNotInvitedUsers, userInvited,
-  getUsersGroupList, resetPassByAdmin, makePaymentForUser,
+  getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
 } from "@/actions";
 
 type userAndPlanT = currentPlanT & {
@@ -173,6 +173,18 @@ export function useMakePaymentForUser() {
     mutationFn: makePaymentForUser,
     onSuccess() {
       toast("Payment added successfully")
+    },
+    onError(error) {
+      toast(error?.message || "Something went wrong!!!")
+    }
+  })
+}
+
+export function useBulkUpdateUsers() {
+  return useMutation({
+    mutationFn: bulkUpdateUsers,
+    onSuccess(_, variables) {
+      toast(`${variables.length} user(s) updated successfully`)
     },
     onError(error) {
       toast(error?.message || "Something went wrong!!!")

@@ -38,6 +38,10 @@ const superAdminLinks = [
     lable: "Payment",
     href: "payment",
   },
+  {
+    lable: "Bulk Update",
+    href: "bulk-edit"
+  }
 ]
 
 function Menu() {
