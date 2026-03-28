@@ -30,6 +30,8 @@ export const findUsersSchema = z.object({
   maritalStatus: strOrStrArrSchema,
   approvalStatus: strOrStrArrSchema,
   minQualification: strOrStrArrSchema,
+  email: z.string().optional(),
+  mobile: z.string().optional(),
 })
 
 export type findUserSchemaT = z.infer<typeof findUsersSchema>

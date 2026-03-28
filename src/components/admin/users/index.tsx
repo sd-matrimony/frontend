@@ -28,9 +28,14 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(1
     fullName: "",
     gender: [],
     caste: [],
+    email: "",
+    mobile: "",
   })
 
-  const { data: users, isLoading, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useUsersList({ ...props, ...final })
+  const {
+    data: users, isLoading, isFetching, hasNextPage, isFetchingNextPage,
+    fetchNextPage, refetch
+  } = useUsersList({ ...props, ...final })
 
   const currentTab: any = props.approvalStatus || (props.isBlocked ? "blocked" : "deleted")
 

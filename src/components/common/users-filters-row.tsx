@@ -35,6 +35,19 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
           placeholder="Enter Full Name"
         />
 
+        <InputWrapper
+          type="number"
+          name="mobile"
+          control={methods.control}
+          placeholder="Mobile"
+        />
+
+        <InputWrapper
+          name="email"
+          control={methods.control}
+          placeholder="Email"
+        />
+
         <MultiSelectComboboxWrapper
           name="gender"
           placeholder="Gender"
