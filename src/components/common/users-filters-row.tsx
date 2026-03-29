@@ -36,7 +36,7 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
         />
 
         <InputWrapper
-          type="number"
+          type="tel"
           name="mobile"
           control={methods.control}
           placeholder="Mobile"

@@ -3,8 +3,8 @@
 import { Pencil } from "lucide-react"
 import { type ColumnDef } from "@tanstack/react-table"
 
+import type { OnBlurChange, ChangeMap } from "./types"
 import { maritalStatus, gender } from "@/utils/enums"
-import type { OnBlurChange } from "./types"
 
 import { Button } from "@/components/ui/button"
 
@@ -17,9 +17,10 @@ type Params = {
   castes: optionsT | undefined
   isCasteLoading: boolean
   casteMap: Record<string, string[]> | undefined
+  changesRef: React.RefObject<ChangeMap>
 }
 
-export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCasteLoading, casteMap }: Params): ColumnDef<Partial<userT>>[] {
+export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCasteLoading, casteMap, changesRef }: Params): ColumnDef<Partial<userT>>[] {
   return [
     {
       id: "name",
@@ -83,7 +84,9 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
       accessorKey: "otherDetails.subCaste",
       header: "Sub Caste",
       cell: ({ row }) => {
-        const caste = row.original.otherDetails?.caste ?? ""
+        const userId = row.original._id!
+        const pendingCaste = changesRef.current?.[userId]?.otherDetails?.caste
+        const caste = pendingCaste ?? row.original.otherDetails?.caste ?? ""
         const subCasteOpts: optionsT = casteMap?.[caste] ?? []
         return (
           <EditCombobox

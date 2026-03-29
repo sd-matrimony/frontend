@@ -13,6 +13,7 @@ import { useBulkUpdateUsers } from "@/hooks/use-super-admin"
 import { useUserFilters } from "@/hooks/use-user-filters"
 import { useUsersList } from "@/hooks/use-admin"
 import { useStatics } from "@/hooks/use-general"
+import { filterObj } from "@/utils"
 
 import { DataTable, ColumnToggle } from "@/components/ui/data-table"
 import { Button } from "@/components/ui/button"
@@ -73,19 +74,14 @@ export function BulkEditTable() {
   })
 
   const {
-    data: users, isLoading, isFetching, hasNextPage, isFetchingNextPage,
+    data: usersList, isLoading, isFetching, hasNextPage, isFetchingNextPage,
     fetchNextPage, refetch,
-  } = useUsersList({ ...final })
+  } = useUsersList(filterObj(final))
 
   const { data: castes, isLoading: isCasteLoading } = useStatics("castes")
   const { data: casteMap } = useStatics("casteMap")
 
   const { mutate: bulkUpdate, isPending } = useBulkUpdateUsers()
-
-  const usersMap = useMemo(
-    () => new Map((users ?? []).map(u => [u._id!, u])),
-    [users],
-  )
 
   const updateChange = useCallback<OnBlurChange>((userId, path, value) => {
     changesRef.current = {
@@ -107,13 +103,16 @@ export function BulkEditTable() {
       resetKey,
       castes,
       isCasteLoading,
-      casteMap: casteMap as Record<string, string[]> | undefined,
+      casteMap,
+      changesRef,
     }),
     [updateChange, resetKey, castes, isCasteLoading, casteMap],
   )
 
+  const users = useMemo(() => usersList ?? [], [usersList])
+
   const table = useReactTable({
-    data: (users as Partial<userT>[]) ?? [],
+    data: users,
     columns,
     state: { sorting, columnVisibility },
     onSortingChange: setSorting,
@@ -146,7 +145,7 @@ export function BulkEditTable() {
         setResetKey(k => k + 1)
         setConfirmOpen(false)
         setPendingChanges({})
-        refetch()
+        onReset()
       },
     })
   }
@@ -229,7 +228,7 @@ export function BulkEditTable() {
           open={confirmOpen}
           onOpenChange={setConfirmOpen}
           changes={pendingChanges}
-          usersMap={usersMap}
+          users={users!}
           isPending={isPending}
           onConfirm={handleConfirmedSave}
         />

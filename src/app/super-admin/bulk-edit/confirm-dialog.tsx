@@ -1,5 +1,6 @@
 "use client"
 
+import { useMemo } from "react"
 import { Loader } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -70,13 +71,18 @@ type Props = {
   open: boolean
   onOpenChange: (v: boolean) => void
   changes: ChangeMap
-  usersMap: Map<string, Partial<userT>>
+  users: Partial<userT>[]
   isPending: boolean
   onConfirm: () => void
 }
 
-export function ConfirmDialog({ open, onOpenChange, changes, usersMap, isPending, onConfirm }: Props) {
+export function ConfirmDialog({ open, onOpenChange, changes, users, isPending, onConfirm }: Props) {
   const entries = Object.entries(changes)
+
+  const usersMap = useMemo(
+    () => new Map((users ?? []).map(u => [u._id!, u])),
+    [users],
+  )
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

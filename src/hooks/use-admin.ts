@@ -12,6 +12,7 @@ import {
 
 export function useUsersList(data: findUserSchemaT) {
   const limit = 50
+  const enabled = !!data && Object.keys(data).length > 0 && Object.values(data).some(v => v && (Array.isArray(v) ? v.length > 0 : true))
 
   return useInfiniteQuery<Partial<userT>[], Error, Partial<userT>[]>({
     queryKey: ["user-list", data],
@@ -25,6 +26,7 @@ export function useUsersList(data: findUserSchemaT) {
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
     select: data => data?.pages?.flat() as any,
+    enabled,
   })
 }
 
