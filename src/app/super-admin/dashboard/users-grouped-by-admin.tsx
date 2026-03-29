@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RefreshCcw } from "lucide-react";
 
 import { useGetUsersGroupedByAdminCount } from "@/hooks/use-super-admin";
+import { gender as genderOpts } from "@/utils/enums";
 
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SelectWrapper } from "@/components/ui/select";
@@ -31,8 +32,15 @@ function groupData(data: Record<string, number>, dateType: "day" | "month" | "ca
 
 function UsersGroupedByAdmin() {
   const [type, setType] = useState<"date" | "caste">("date")
-  const { isLoading, isFetching, data, refetch } = useGetUsersGroupedByAdminCount(type)
   const [dateType, setdateType] = useState<"day" | "month">("day")
+  const [includeByAdmin, setIncludeByAdmin] = useState(true)
+  const [gender, setGender] = useState("all")
+
+  const { isLoading, isFetching, data, refetch } = useGetUsersGroupedByAdminCount({
+    type,
+    includeByAdmin,
+    gender: gender === "all" ? "" : gender,
+  })
 
   const datesOpts: optionsT = [
     { value: "day", label: "Day" },
@@ -44,11 +52,36 @@ function UsersGroupedByAdmin() {
     { value: "caste", label: "Caste" },
   ]
 
+  const includeByAdminOpts: optionsT = [
+    { value: "false", label: "All" },
+    { value: "true", label: "By Admin" },
+  ]
+
+  const genderOptsWithAll: optionsT = [
+    { value: "all", label: "All" },
+    ...genderOpts.map(g => ({ value: g as string, label: g as string })),
+  ]
+
+  console.log(data)
   return (
     <Card className="gap-0">
       <CardHeader className="pb-1">
         <CardTitle>Users Count by Admin</CardTitle>
         <CardAction className="df">
+          <SelectWrapper
+            value={`${includeByAdmin}`}
+            options={includeByAdminOpts}
+            placeholder="Group by"
+            onValueChange={v => setIncludeByAdmin(v === "true")}
+          />
+
+          <SelectWrapper
+            value={gender}
+            options={genderOptsWithAll}
+            placeholder="Gender"
+            onValueChange={v => setGender(v)}
+          />
+
           <SelectWrapper
             value={type}
             options={typesOpts}
@@ -87,11 +120,11 @@ function UsersGroupedByAdmin() {
             <div key={ad?._id} className="mb-2 p-4 border rounded-xl">
               <div className="df justify-between">
                 <div>
-                  <p>{ad?.fullName || "Individual"}</p>
+                  <p>{!includeByAdmin ? "All" : ad?.fullName || "Individual"}</p>
                   {ad?.email && <p className="text-xs text-muted-foreground">{ad?.email}</p>}
                 </div>
 
-                <div>{Object?.values(ad?.data)?.reduce((a, b) => a + b, 0)}</div>
+                <div className="font-semibold">{Object?.values(ad?.data)?.reduce((a, b) => a + b, 0)}</div>
               </div>
 
               <ul className="mt-2 df flex-wrap">

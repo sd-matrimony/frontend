@@ -28,10 +28,10 @@ export function getUsersByCreatedBy(params: any = {}) {
   })
 }
 
-export function getUsersGroupedByAdminCount(type: "date" | "caste" = "date") {
+export function getUsersGroupedByAdminCount(params: { type?: "date" | "caste"; includeByAdmin?: boolean; gender?: string } = {}) {
   return sendApiReq({
     url: endPoints.getUsersGroupedByAdminCount,
-    params: { type },
+    params,
   })
 }
 

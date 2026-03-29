@@ -76,10 +76,11 @@ export function useGetUsersByCreatedBy(data: createdByProps) {
 type ucspaT = adminT & {
   data: Record<string, number>
 }
-export function useGetUsersGroupedByAdminCount(type: "date" | "caste" = "date") {
+type ucspaParamsT = { type?: "date" | "caste"; includeByAdmin?: boolean; gender?: string }
+export function useGetUsersGroupedByAdminCount(params: ucspaParamsT = {}) {
   return useQuery<ucspaT[], Error, ucspaT[]>({
-    queryKey: ["users-grouped-by-admin", type],
-    queryFn: () => getUsersGroupedByAdminCount(type),
+    queryKey: ["users-grouped-by-admin", params],
+    queryFn: () => getUsersGroupedByAdminCount(params),
   })
 }
 
