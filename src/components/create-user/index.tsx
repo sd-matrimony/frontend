@@ -199,6 +199,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
                     field.list.map(field => (
                       <FieldWrapper
                         key={field.name}
+                        // @ts-ignore
                         control={methods.control}
                         onBlur={checkAvailability}
                         isRequired={isMini ? field.isRequired : true}
