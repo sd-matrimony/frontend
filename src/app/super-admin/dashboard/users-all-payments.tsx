@@ -44,7 +44,7 @@ function UsersAllPayments() {
                   alt=""
                 />
 
-                <div className="flex-1">
+                <div className="flex-1 truncate">
                   <p>{user?.user?.fullName}</p>
                   <p className="text-xs text-muted-foreground">{user?.user?.email}</p>
                 </div>
@@ -52,13 +52,13 @@ function UsersAllPayments() {
                 <div className="font-medium">₹ {Number(user?.payments?.reduce((a, b) => a + b?.amount, 0)).toLocaleString()}</div>
               </div>
 
-              <div className="p-2 mt-2 border rounded-lg">
-                <table className="w-full table-fixed overflow-x-auto">
+              <div className="p-2 mt-2 border rounded-lg overflow-x-auto">
+                <table className="w-full table-fixed">
                   <thead>
                     <tr>
-                      <th className="p-1 text-sm font-medium text-left">Plan</th>
-                      <th className="p-1 text-sm font-medium text-right">Amount</th>
-                      <th className="p-1 text-sm font-medium text-center">Expiry Date</th>
+                      <th className="w-20 p-1 text-sm font-medium text-left">Plan</th>
+                      <th className="w-28 p-1 text-sm font-medium text-right">Amount</th>
+                      <th className="w-28 p-1 text-sm font-medium text-center">Expiry Date</th>
                     </tr>
                   </thead>
 

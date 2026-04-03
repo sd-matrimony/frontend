@@ -62,51 +62,54 @@ function UsersGroupedByAdmin() {
     ...genderOpts.map(g => ({ value: g as string, label: g as string })),
   ]
 
-  console.log(data)
   return (
     <Card className="gap-0">
-      <CardHeader className="pb-1">
-        <CardTitle>Users Count by Admin</CardTitle>
-        <CardAction className="df">
+      <CardHeader className="flex items-center pb-1 flex-wrap">
+        <CardTitle className="shrink-0 mr-auto">Users Count by Admin</CardTitle>
+
+        <SelectWrapper
+          value={`${includeByAdmin}`}
+          options={includeByAdminOpts}
+          placeholder="Group by"
+          triggerCls="w-fit"
+          onValueChange={v => setIncludeByAdmin(v === "true")}
+        />
+
+        <SelectWrapper
+          value={gender}
+          options={genderOptsWithAll}
+          placeholder="Gender"
+          triggerCls="w-fit"
+          onValueChange={v => setGender(v)}
+        />
+
+        <SelectWrapper
+          value={type}
+          options={typesOpts}
+          placeholder="Select type"
+          triggerCls="w-fit"
+          onValueChange={v => setType(v as "date" | "caste")}
+        />
+
+        {
+          type === "date" &&
           <SelectWrapper
-            value={`${includeByAdmin}`}
-            options={includeByAdminOpts}
-            placeholder="Group by"
-            onValueChange={v => setIncludeByAdmin(v === "true")}
+            value={dateType}
+            options={datesOpts}
+            placeholder="Select date type"
+            triggerCls="w-fit"
+            onValueChange={v => setdateType(v as "day" | "month")}
           />
+        }
 
-          <SelectWrapper
-            value={gender}
-            options={genderOptsWithAll}
-            placeholder="Gender"
-            onValueChange={v => setGender(v)}
-          />
-
-          <SelectWrapper
-            value={type}
-            options={typesOpts}
-            placeholder="Select type"
-            onValueChange={v => setType(v as "date" | "caste")}
-          />
-
-          {
-            type === "date" &&
-            <SelectWrapper
-              value={dateType}
-              options={datesOpts}
-              placeholder="Select date type"
-              onValueChange={v => setdateType(v as "day" | "month")}
-            />
-          }
-
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => refetch()}
-          >
-            <RefreshCcw className={isLoading || isFetching ? "animate-spin" : ""} />
-          </Button>
-        </CardAction>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => refetch()}
+          className="w-fit"
+        >
+          <RefreshCcw className={isLoading || isFetching ? "animate-spin" : ""} />
+        </Button>
       </CardHeader>
 
       <CardContent className="max-h-80 py-4 overflow-auto">

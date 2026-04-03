@@ -13,8 +13,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { InputWrapper, SelectWrapper, TextareaWrapper } from "@/components/ui/form-wrapper";
 import { SelectListWrapper, SelectSubCastesWrapper } from '@/components/common/lists';
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from '@/components/ui/input';
 import { Form } from "@/components/ui/form";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
@@ -29,7 +27,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
       religion: user?.partnerPreferences?.religion || "",
       caste: user?.partnerPreferences?.caste || "",
       subCaste: user?.partnerPreferences?.subCaste || "",
-      minQualification: user?.partnerPreferences?.minQualification || "",
+      minQualification: user?.partnerPreferences?.minQualification || "Any",
       sector: user?.partnerPreferences?.sector || "",
       profession: user?.partnerPreferences?.profession || "",
       minSalary: user?.partnerPreferences?.minSalary || "",
@@ -153,13 +151,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               canCreateNew
             />
 
-            <div className="pt-2">
-              <div className="flex items-center space-x-2">
-                <Label>Expected Salary</Label>
-                <p className="text-sm text-muted-foreground">(Not editable)</p>
-              </div>
-              <Input value={`₹ ${user?.partnerPreferences?.minSalary || "-"}`} disabled className="mt-1" />
-            </div>
+            <InputWrapper
+              control={form.control}
+              name="minSalary"
+              label="Expected Salary"
+              type="number"
+              min={0}
+            />
 
             <SelectListWrapper
               control={form.control}
@@ -180,7 +178,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               control={form.control}
               name="expectation"
               label="Expectations"
-              className="min-h-[100px]"
+              className="min-h-25"
             />
 
             <div className="flex justify-end space-x-2 pt-2">

@@ -4,12 +4,6 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'randomuser.me', // for dev
-        port: '',
-        pathname: '/**',
-      },
-      {
         protocol: 'http',
         hostname: 'res.cloudinary.com',
         port: '',
