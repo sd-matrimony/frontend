@@ -28,9 +28,11 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
 
   const virtualizer = useVirtualizer({
     count: hasNextPage ? users.length + 1 : users.length,
+    measureElement: el => el.getBoundingClientRect().height,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 320,
-    overscan: 10,
+    estimateSize: () => 242,
+    overscan: 5,
+    gap: 20,
   })
 
   const virtualItems = virtualizer.getVirtualItems()
@@ -74,11 +76,11 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
       ref={parentRef}
       className="px-2 sm:px-4 py-8 h-[calc(100vh-5rem)] overflow-y-auto"
     >
-      <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
+      <div style={{ height: `${virtualizer.getTotalSize()}px` }} className="relative max-w-2xl mx-auto">
         {
-          virtualItems?.map((virtualRow, index) => {
-            const isLoaderRow = virtualRow.index > users.length - 1
-            const user = users[virtualRow.index]
+          virtualItems?.map((vItem) => {
+            const isLoaderRow = vItem.index > users.length - 1
+            const user = users[vItem.index]
 
             if (!user) {
               if (isLoaderRow && hasNextPage) {
@@ -86,8 +88,9 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
                   <div
                     key="loader"
                     ref={virtualizer.measureElement}
-                    data-index={virtualRow.index}
-                    style={{ transform: `translateY(${virtualRow.start - index * virtualRow.size}px)` }}
+                    data-index={vItem.index}
+                    style={{ transform: `translateY(${vItem.start}px)` }}
+                    className="w-full absolute top-0 left-0"
                   >
                     <div className="dc h-60">
                       <Loader className="animate-spin" />
@@ -100,11 +103,11 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
 
             return (
               <div
-                key={user._id}
+                key={vItem.key}
                 ref={virtualizer.measureElement}
-                data-index={virtualRow.index}
-                style={{ transform: `translateY(${virtualRow.start - (isLoaderRow ? index - 1 : index) * virtualRow.size}px)` }}
-                className="w-full max-w-2xl mx-auto mb-6"
+                data-index={vItem.index}
+                style={{ transform: `translateY(${vItem.start}px)` }}
+                className="w-full absolute top-0 left-0"
               >
                 <UserCard
                   {...user}
