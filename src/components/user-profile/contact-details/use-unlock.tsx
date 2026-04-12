@@ -17,7 +17,28 @@ function useUnlock() {
   function unlockBtnClk(_id: string) {
     const currentPlan = user?.currentPlan
     if (currentPlan && new Date(currentPlan?.expiryDate).getTime() > new Date().getTime()) {
-      mutate({ _id })
+      mutate({ _id }, {
+        onError: (error) => {
+          toast.error(error?.message || "Failed to unlock profile", {
+            position: "top-center",
+            description: "Proceed to payment?",
+            className: "[--width:430px]",
+            action: (
+              <Button
+                size="sm"
+                onClick={() => {
+                  toast.dismiss()
+                  router.push("/user/payment")
+                }}
+                className="ml-2"
+              >
+                Pay Now
+              </Button>
+            ),
+            duration: 6000,
+          })
+        },
+      })
 
     } else {
       toast("Unlock More Details", {

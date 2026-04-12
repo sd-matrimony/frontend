@@ -155,8 +155,5 @@ export function useUnlockProfile() {
       toast.success("Profile unlocked successfully")
       router.refresh()
     },
-    onError: (error) => {
-      toast.error(error?.message || "Failed to unlock profile")
-    },
   })
 }
