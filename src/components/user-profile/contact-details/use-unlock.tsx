@@ -20,9 +20,9 @@ function useUnlock() {
       mutate({ _id })
 
     } else {
-      toast("Unlock Contact Details", {
+      toast("Unlock More Details", {
         position: "top-center",
-        description: "Payment required to view contact information. Proceed to payment?",
+        description: "Payment required to view more information. Proceed to payment?",
         action: (
           <Button
             size="sm"

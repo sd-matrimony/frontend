@@ -34,7 +34,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
       motherTongue: user?.partnerPreferences?.motherTongue || "",
       location: user?.partnerPreferences?.location || "",
       expectation: user?.partnerPreferences?.expectation || "",
-      maritalStatus: user?.partnerPreferences?.maritalStatus || "",
+      maritalStatus: user?.partnerPreferences?.maritalStatus || "Single",
     },
   })
 
