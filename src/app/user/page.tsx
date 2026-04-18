@@ -24,10 +24,17 @@ function useKey(filterData: objT | undefined) {
   return id
 }
 
+const FILTER_STORAGE_KEY = 'sdm-user-filters'
+
 function Page() {
   const [filterData, setFilterData] = useState<objT | undefined>(undefined)
   const { data: users, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useUsersList(filterData)
   const id = useKey(filterData)
+
+  useEffect(() => {
+    const saved = localStorage.getItem(FILTER_STORAGE_KEY)
+    if (saved) setFilterData(JSON.parse(saved) as objT)
+  }, [])
 
   function onSave(filterData: objT) {
     setFilterData(filterData)

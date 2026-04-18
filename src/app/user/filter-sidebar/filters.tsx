@@ -137,6 +137,8 @@ function getPayload(userPartnerPreferences: Pick<userT, "partnerPreferences"> & 
   return payload
 }
 
+const FILTER_STORAGE_KEY = 'sdm-user-filters'
+
 function Filters({ onSave, hasFilters, contentHt = "" }: props) {
   const { data: userMini, isLoading: isLoadingMini } = useUserDetailsMini()
   const { data: user, isLoading: isLoading2 } = usePartnerPreferences(isLoadingMini ? "" : userMini?._id || "")
@@ -150,13 +152,19 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
 
   useEffect(() => {
     if (user) {
-      const payload: any = getPayload(user)
-      form.reset(payload)
-      onSave(payload)
+      const saved = localStorage.getItem(FILTER_STORAGE_KEY)
+      if (saved) {
+        form.reset(JSON.parse(saved))
+      } else {
+        const payload: any = getPayload(user)
+        form.reset(payload)
+        onSave(payload)
+      }
     }
   }, [user])
 
   function onReset() {
+    localStorage.removeItem(FILTER_STORAGE_KEY)
     form.reset({ ...defaultValues })
     onSave({})
   }
@@ -175,6 +183,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
         .map(([key, value]) => [key, `${value}`?.split(" (")?.[0]])
     ) as Partial<typeof data>
 
+    localStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify(filtered))
     onSave(filtered)
   }
 
