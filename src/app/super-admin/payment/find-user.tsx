@@ -124,7 +124,7 @@ function FindUser({ selected, setSelected }: props) {
             <div className="mt-6">
               <h3 className="font-medium mb-2">Results ({users.length})</h3>
 
-              <div className="space-y-2 max-h-[400px] pr-6 -mr-6 overflow-y-auto">
+              <div className="space-y-2 max-h-100 pr-6 -mr-6 overflow-y-auto">
                 {users.map((user) => (
                   <div
                     key={user?._id}
@@ -132,7 +132,7 @@ function FindUser({ selected, setSelected }: props) {
                     onClick={() => setSelected(user?._id || "")}
                   >
                     <img
-                      className="w-full sm:w-32 h-32 object-cover"
+                      className="size-32 md:size-40 object-cover"
                       src={user?.profileImg || "/imgs/user.jpg"}
                       alt={user?.fullName || "Profile Image"}
                     />

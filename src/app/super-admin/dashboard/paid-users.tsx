@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { RefreshCcw } from "lucide-react";
 import { format } from "date-fns";
 
@@ -7,16 +8,35 @@ import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/componen
 import { PlanBadge } from "@/components/common/plan-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import LoadMore from "@/components/common/load-more";
 
 function PaidUsers() {
   const { isLoading, data, isFetching, hasNextPage, fetchNextPage, refetch } = useGetPaidUsers()
+  const [search, setSearch] = useState("")
+
+  const filtered = search.trim()
+    ? data?.filter(user => {
+      const q = search.trim().toLowerCase()
+      return (
+        user?.user?.fullName?.toLowerCase().includes(q) ||
+        user?.user?.email?.toLowerCase().includes(q) ||
+        user?.user?.contactDetails?.mobile?.toLowerCase().includes(q)
+      )
+    })
+    : data
 
   return (
     <Card className="gap-0">
       <CardHeader>
         <CardTitle>Paid Users</CardTitle>
+        <Input
+          placeholder="Search by name, email or mobile..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="mb-3"
+        />
         <CardAction>
           <Button
             size="sm"
@@ -47,7 +67,7 @@ function PaidUsers() {
           <tbody>
             {
               !isLoading &&
-              data
+              filtered
                 ?.filter(user => user?.user)
                 ?.map(user => (
                   <tr key={user?._id} className="mb-2 text-sm odd:bg-muted/60">
@@ -61,7 +81,7 @@ function PaidUsers() {
                           />
                           <div className="min-w-0 flex-1">
                             <p className="group-hover:text-pink-400">{user?.user?.fullName}</p>
-                            <p className="text-xs text-muted-foreground truncate">{user?.user?.email}</p>
+                            <p className="text-xs text-muted-foreground truncate">{user?.user?.contactDetails?.mobile} - {user?.user?.email}</p>
                           </div>
                         </div>
                       </a>
