@@ -73,9 +73,11 @@ export function TextareaWrapper<T extends FieldValues>({
   )
 }
 
-type RadioProps<T extends FieldValues> = BaseProps<T> & {
-  items: (allowedPrimitiveT | itemT)[]
-}
+type RadioProps<T extends FieldValues> = BaseProps<T> &
+  Omit<
+    React.ComponentProps<typeof Radio>,
+    'name' | 'value' | 'onValueChange' | 'error' | 'invalid'
+  >
 export function RadioWrapper<T extends FieldValues>({ name, control, ...props }: RadioProps<T>) {
   return (
     <Controller
@@ -95,9 +97,11 @@ export function RadioWrapper<T extends FieldValues>({ name, control, ...props }:
   )
 }
 
-type CheckboxProps<T extends FieldValues> = BaseProps<T> & {
-  items: (allowedPrimitiveT | itemT)[]
-}
+type CheckboxProps<T extends FieldValues> = BaseProps<T> &
+  Omit<
+    React.ComponentProps<typeof Checkbox>,
+    'name' | 'value' | 'onValueChange' | 'error' | 'invalid'
+  >
 export function CheckboxWrapper<T extends FieldValues>({
   name,
   control,
@@ -121,7 +125,11 @@ export function CheckboxWrapper<T extends FieldValues>({
   )
 }
 
-type SwitchProps<T extends FieldValues> = BaseProps<T>
+type SwitchProps<T extends FieldValues> = BaseProps<T> &
+  Omit<
+    React.ComponentProps<typeof Switch>,
+    'name' | 'checked' | 'onCheckedChange' | 'error' | 'invalid'
+  >
 export function SwitchWrapper<T extends FieldValues>({ name, control, ...props }: SwitchProps<T>) {
   return (
     <Controller

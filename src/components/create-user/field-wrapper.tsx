@@ -34,7 +34,7 @@ function FieldWrapper({ control, onBlur, type, isRequired, ...props }: FieldWrap
   }
 
   if (type === "radio" && "items" in props) {
-    return <RadioWrapper control={control} {...(props as typeof props & { items: (allowedPrimitiveT | itemT)[] })} className={isRequired ? "" : 'hidden'} />
+    return <RadioWrapper control={control} orientation='horizontal' {...(props as typeof props & { items: (allowedPrimitiveT | itemT)[] })} className={isRequired ? "" : 'hidden'} />
   }
 
   if (type === "password") {

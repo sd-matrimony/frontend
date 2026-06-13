@@ -110,6 +110,7 @@ export function RadioWrapper({
         value={value != null ? String(value) : undefined}
         onValueChange={val => onValueChange?.(parseAllowedPrimitive(val))}
         aria-invalid={isInvalid}
+        className="[&_span]:font-normal"
       />
       <FieldError errors={[error]} />
     </FieldSet>

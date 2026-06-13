@@ -1,87 +1,52 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Eye, EyeOff, Loader } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useState } from "react"
+import { Eye, EyeOff, Loader } from "lucide-react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
 
-import { validateIdentifier } from "@/utils";
-import { useLogin } from "@/hooks/use-account";
+import { signinSchema, type SigninFormT } from "@/utils/auth-schema"
+import { useLogin } from "@/hooks/use-account"
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { InputGroupWrapper, InputWrapper } from "@/components/ui/field-wrapper-rhf"
+import { InputGroupButton } from "@/components/ui/input-group"
+import { Button } from "@/components/ui/button"
 
-type FormFileds = {
-  email: string;
-  password: string;
-}
-
-type props = {
+type Props = {
   role?: rolesT
 }
 
-function Signin({ role = "user" }: props) {
+function Signin({ role = "user" }: Props) {
   const [showPass, setShowPass] = useState(false)
 
-  const { register, formState: { errors }, handleSubmit } = useForm<FormFileds>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+  const { control, handleSubmit } = useForm<SigninFormT>({
+    resolver: zodResolver(signinSchema),
+    defaultValues: { email: "", password: "" },
   })
 
   const { isPending, mutate } = useLogin()
 
-  const onSubmit = (data: FormFileds) => mutate({ ...data, role })
+  const onSubmit = (data: SigninFormT) => mutate({ ...data, role })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-4">
-        <Label htmlFor="email">Email or Mobile Number</Label>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <InputWrapper
+        name="email"
+        label="Email or Mobile Number"
+        control={control}
+      />
 
-        <Input
-          id="email"
-          {...register("email", {
-            validate: validateIdentifier,
-          })}
-        />
-        {
-          errors.email &&
-          <p className="text-xs text-red-400">{errors.email.message}</p>
+      <InputGroupWrapper
+        name="password"
+        label="Password"
+        control={control}
+        type={showPass ? "text" : "password"}
+        addonEnd={
+          <InputGroupButton onClick={() => setShowPass(p => !p)}>
+            {showPass ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+          </InputGroupButton>
         }
-      </div>
-
-      <div className="mb-6">
-        <Label htmlFor="password">Password</Label>
-
-        <div className="relative">
-          <Input
-            id="password"
-            type={showPass ? "text" : "password"}
-            className="pr-8"
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 8,
-                message: "Password must be at least 8 characters",
-              },
-            })}
-          />
-
-          <button
-            type="button"
-            className="p-1 absolute right-1 top-1/2 -translate-y-1/2 hover:text-pink-600"
-            onClick={() => setShowPass(p => !p)}
-          >
-            {!showPass ? <Eye className="size-4" /> : <EyeOff className="size-4" />}
-          </button>
-        </div>
-
-        {
-          errors.password &&
-          <div className="text-xs text-red-400">{errors.password.message}</div>
-        }
-      </div>
+      />
 
       <Button
         type="submit"
