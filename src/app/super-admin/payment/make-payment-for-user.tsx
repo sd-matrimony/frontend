@@ -26,14 +26,20 @@ import { Label } from "@/components/ui/label"
 
 import FindUser from "./find-user"
 
-function MakePaymentForUser() {
+type props = {
+  userId?: string
+  compact?: boolean
+  onSuccess?: () => void
+}
+
+function MakePaymentForUser({ userId, compact, onSuccess }: props) {
   const [additionalProfilesCount, setAdditionalProfilesCount] = useState(10)
   const [addAdditionalProfiles, setAddAdditionalProfiles] = useState(false)
   const [assistedMonths, setAssistedMonths] = useState(1)
   const [subscribedTo, setSubscribedTo] = useState<subscribedToT>("basic")
   const [isAssisted, setIsAssisted] = useState(false)
   const [key, setKey] = useState(0)
-  const [_id, setId] = useState("")
+  const [_id, setId] = useState(userId ?? "")
 
   const { mutate, isPending } = useMakePaymentForUser()
 
@@ -78,52 +84,55 @@ function MakePaymentForUser() {
         setSubscribedTo("basic")
         setIsAssisted(false)
         setKey(p => p + 1)
-        setId("")
+        setId(userId ?? "")
+        onSuccess?.()
       }
     })
   }
 
   return (
-    <div className="grid lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-2">
-        <FindUser
-          key={key}
-          selected={_id || ""}
-          setSelected={setId}
-        />
+    <div className="grid @lg:grid-cols-3 gap-8">
+      <div className="@lg:col-span-2">
+        {!userId && (
+          <FindUser
+            key={key}
+            selected={_id || ""}
+            setSelected={setId}
+          />
+        )}
 
         <Card>
           <CardContent>
             <RadioGroup value={subscribedTo} onValueChange={(value) => setSubscribedTo(value as subscribedToT)}>
-              <div className="grid gap-4">
+              <div className={`grid ${compact ? "gap-2" : "gap-4"}`}>
                 {Object.entries(planDetails).map(([key, plan]) => {
                   const isSelected = subscribedTo === key
                   return (
                     <div
                       key={key}
-                      className={`relative rounded-xl border transition-all cursor-pointer ${isSelected
+                      className={`relative rounded-lg border transition-all cursor-pointer ${isSelected
                         ? "border-pink-500 bg-linear-to-r from-pink-50 to-pink-50 shadow-md"
                         : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
                         }`}
                     >
                       <Label htmlFor={key} className="cursor-pointer block">
-                        <div className="flex items-center justify-between p-4">
-                          <div className="flex items-center gap-3">
+                        <div className={`flex items-center justify-between ${compact ? "px-3 py-2" : "p-4"}`}>
+                          <div className={`flex items-center ${compact ? "gap-2" : "gap-3"}`}>
                             <PlanBadge
-                              className="p-3 rounded-full [&>svg]:size-6"
+                              className={compact ? "p-2 rounded-full [&>svg]:size-4" : "p-3 rounded-full [&>svg]:size-6"}
                               subscribedTo={key as subscribedToT}
                             />
                             <div>
-                              <h3 className="font-semibold text-xl text-gray-900">{plan.name}</h3>
-                              <p className="text-sm text-gray-500">{plan.duration}</p>
+                              <h3 className={`font-semibold text-gray-900 ${compact ? "text-sm" : "text-xl"}`}>{plan.name}</h3>
+                              {!compact && <p className="text-sm text-gray-500">{plan.duration}</p>}
                             </div>
                           </div>
 
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-gray-900">
+                          <div className={`flex items-center ${compact ? "gap-3" : "flex-col items-end"}`}>
+                            <div className={`font-bold text-gray-900 ${compact ? "text-base" : "text-2xl"}`}>
                               ₹{planPrices[key as subscribedToT].toLocaleString()}
                             </div>
-                            <RadioGroupItem value={key} id={key} className="mt-2" />
+                            <RadioGroupItem value={key} id={key} className={compact ? "" : "mt-2"} />
                           </div>
                         </div>
                       </Label>
@@ -133,7 +142,7 @@ function MakePaymentForUser() {
               </div>
             </RadioGroup>
 
-            <Separator className="my-6" />
+            <Separator className={compact ? "my-3" : "my-6"} />
 
             <div className="mb-1 text-sm text-gray-600">
               Get full access to more profiles
@@ -172,7 +181,7 @@ function MakePaymentForUser() {
               }
             </div>
 
-            <div className="mb-1 mt-6 text-sm text-gray-600">Get personalized assistance from our relationship experts</div>
+            <div className={`mb-1 text-sm text-gray-600 ${compact ? "mt-3" : "mt-6"}`}>Get personalized assistance from our relationship experts</div>
 
             <div className="df flex-wrap">
               <Checkbox id="assisted" checked={isAssisted} onCheckedChange={(value) => setIsAssisted(value as boolean)} />

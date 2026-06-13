@@ -11,7 +11,7 @@ function Page() {
   const [isTest, setIsTest] = useState(false)
 
   return (
-    <div className="p-6">
+    <div className="@container p-6">
       <Button
         size="sm"
         variant="secondary"
