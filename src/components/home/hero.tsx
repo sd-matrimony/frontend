@@ -31,6 +31,7 @@ function Hero() {
               <Button
                 size="lg"
                 className="bg-linear-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white px-8 py-3 text-lg"
+                nativeButton={false}
                 render={<Link href="/auth/user/signup" />}
               >
                 Get Started Today

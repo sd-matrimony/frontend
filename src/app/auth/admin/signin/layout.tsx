@@ -1,6 +1,6 @@
 import { CardDescription, CardTitle } from "@/components/ui/card";
 
-function Layout({ children }: readOnlyChildren) {
+function Layout({ children }: LayoutProps<"/auth/admin/signin">) {
   return (
     <>
       <div className="flex flex-col items-center space-y-2 mb-6">

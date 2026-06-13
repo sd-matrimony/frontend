@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { CardDescription, CardTitle } from "@/components/ui/card";
 
-function Layout({ children, role = "user" }: readOnlyChildren & { role?: rolesT }) {
+function Layout({ children, role = "user" }: { children: React.ReactNode; role?: rolesT }) {
   return (
     <>
       <div className="flex flex-col items-center space-y-2 mb-6">

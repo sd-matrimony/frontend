@@ -12,9 +12,10 @@ import ClientWrapper from "@/components/common/client-wrapper";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sdmatrimony.com"),
   title: "SD Matrimony | Find Your Perfect Match",
   description: "Connecting hearts, creating families. Your trusted partner in finding true love.",
   keywords: ["Matrimony", "Marriage Bureau", "Chennai Matrimony", "Tamil Matrimony", "SDM", "SD Matrimony", "Sri Durga Devi Matrimony", "SHRI DURGADEVI THIRUMANA THAGAVAL MAIYAM"],
@@ -92,7 +93,7 @@ const jsonLdOrg = {
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
-function RootLayout({ children }: readOnlyChildren) {
+function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
       <body>

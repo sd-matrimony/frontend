@@ -19,8 +19,4 @@ type indicatorAtT = 'right' | 'left' | ''
 
 type staticsNameT = 'castes' | 'casteMap' | 'educationLevels' | 'professions' | 'languages' | 'religions' | 'sectors' | 'nakshatra' | 'raasi'
 
-type readOnlyChildren = Readonly<{
-  children: React.ReactNode;
-}>
-
 type objT = Record<string, primitiveT>

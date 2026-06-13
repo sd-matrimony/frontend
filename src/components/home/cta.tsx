@@ -16,6 +16,7 @@ function Cta() {
             <Button
               size="lg"
               className="bg-white text-rose-500 hover:bg-rose-50 px-8 py-3 text-lg font-semibold"
+              nativeButton={false}
               render={<Link href="/auth/user/signup" />}
             >
               Start Your Journey

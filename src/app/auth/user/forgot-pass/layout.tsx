@@ -1,6 +1,6 @@
 import ForgotPassLayout from '@/components/auth/forgot-pass/layout';
 
-function Layout({ children }: readOnlyChildren) {
+function Layout({ children }: LayoutProps<"/auth/user/forgot-pass">) {
   return (
     <ForgotPassLayout>
       {children}

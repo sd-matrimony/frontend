@@ -1,7 +1,7 @@
 import VerifyCheck from "@/components/verify-check";
 import Navbar from "@/components/navbar";
 
-function Layout({ children }: readOnlyChildren) {
+function Layout({ children }: LayoutProps<"/user">) {
   return (
     <main>
       <Navbar role="user" />

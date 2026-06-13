@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { decodeJwt } from './server/utils';
 import { tokenEnums } from './utils';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const token = request.cookies.get(tokenEnums.refreshToken)?.value
 

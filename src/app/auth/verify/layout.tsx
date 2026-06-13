@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { Loader } from "lucide-react";
 
-function Layout({ children }: readOnlyChildren) {
+function Layout({ children }: LayoutProps<"/auth/verify">) {
   return (
     <Suspense fallback={<Loader className="animate-spin" />}>
       <div className="dc flex-col">

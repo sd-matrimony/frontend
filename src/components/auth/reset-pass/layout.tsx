@@ -2,7 +2,7 @@ import { HeartIcon } from 'lucide-react';
 
 import { CardDescription, CardTitle } from "@/components/ui/card";
 
-function Layout({ children }: readOnlyChildren) {
+function Layout({ children }: { children: React.ReactNode; }) {
   return (
     <>
       <div className="flex flex-col items-center space-y-2 mb-6">

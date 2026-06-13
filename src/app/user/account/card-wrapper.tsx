@@ -3,7 +3,7 @@ import { LucideProps } from "lucide-react";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-type CardWrapperProps = readOnlyChildren & {
+type CardWrapperProps = LayoutProps<"/"> & {
   Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
   title: string
   description: string

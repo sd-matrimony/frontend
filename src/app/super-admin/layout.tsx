@@ -1,6 +1,6 @@
 import Navbar from "@/components/navbar";
 
-function Layout({ children }: readOnlyChildren) {
+function Layout({ children }: LayoutProps<"/super-admin">) {
   return (
     <main>
       <Navbar role="super-admin" />
