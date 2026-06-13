@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Check, Copy, CreditCard } from "lucide-react";
+import { Ban, Check, Copy, CreditCard } from "lucide-react";
 
-import { type niuT } from "@/hooks/use-super-admin";
+import { type niuT, useRemoveUserPlan } from "@/hooks/use-super-admin";
 import useClipboardCopy from "@/hooks/use-clipboard-copy";
 import { createPass } from "@/utils/password";
 
 import { Button } from "@/components/ui/button";
+import { ToolTipWrapper } from "@/components/ui/tooltip";
 import {
   Dialog,
   DialogContent,
@@ -13,6 +14,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 import MakePaymentForUser from "../payment/make-payment-for-user";
 
@@ -23,6 +35,9 @@ type props = {
 function InviteAction({ user }: props) {
   const { copied, onCopyClk } = useClipboardCopy()
   const [open, setOpen] = useState(false)
+  const { mutate: removePlan, isPending: isRemoving } = useRemoveUserPlan()
+
+  const isSubscribed = user.currentPlan && new Date(user.currentPlan.expiryDate) > new Date()
 
   function onCopy() {
     const pass = createPass(user?.fullName, user?.dob)
@@ -46,23 +61,21 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
   }
 
   return (
-    <div className="flex items-center justify-end gap-2">
-      <Button
-        size="sm"
-        variant="outline"
-        onClick={onCopy}
-      >
-        {copied ? <Check /> : <Copy />}
-        {copied ? "Copied" : "Copy"}
-      </Button>
+    <div className="flex items-center justify-end gap-1">
+      <ToolTipWrapper description={copied ? "Copied!" : "Copy invite message"}>
+        <Button size="icon" variant="outline" className="size-8" onClick={onCopy}>
+          {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+        </Button>
+      </ToolTipWrapper>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button size="sm" variant="outline">
-            <CreditCard />
-            Payment
-          </Button>
-        </DialogTrigger>
+        <ToolTipWrapper description="Make payment">
+          <DialogTrigger asChild>
+            <Button size="icon" variant="outline" className="size-8">
+              <CreditCard className="size-3.5" />
+            </Button>
+          </DialogTrigger>
+        </ToolTipWrapper>
 
         <DialogContent className="@container max-w-5xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -72,6 +85,36 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
           <MakePaymentForUser userId={user?._id} compact onSuccess={() => setOpen(false)} />
         </DialogContent>
       </Dialog>
+
+      {isSubscribed && (
+        <AlertDialog>
+          <ToolTipWrapper description="Cancel active subscription">
+            <AlertDialogTrigger asChild>
+              <Button size="icon" variant="outline" className="size-8 text-red-500 hover:text-red-600 border-red-200 hover:border-red-300">
+                <Ban className="size-3.5" />
+              </Button>
+            </AlertDialogTrigger>
+          </ToolTipWrapper>
+
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Cancel subscription?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will remove the active plan for {user?.fullName}. This action cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={isRemoving}>Cancel</AlertDialogCancel>
+              <AlertDialogAction asChild>
+                <Button variant="destructive" disabled={isRemoving} onClick={() => removePlan(user._id!)}>
+                  Remove
+                </Button>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     </div>
   )
 }

@@ -71,9 +71,9 @@ export function updateAdmin({ _id, ...data }: any) {
   })
 }
 
-export function getNotInvitedUsers(params: any = {}) {
+export function getUserInvitations(params: any = {}) {
   return sendApiReq({
-    url: endPoints.getNotInvitedUsers,
+    url: endPoints.getUserInvitations,
     params,
   })
 }
@@ -90,6 +90,13 @@ export function resetPassByAdmin({ _id, password }: { _id: string, password: str
     url: `${endPoints.resetPassByAdmin}/${_id}`,
     method: "put",
     data: { password },
+  })
+}
+
+export function removeUserPlan(id: string) {
+  return sendApiReq({
+    url: `${endPoints.getUserCurrentPlan}/${id}/plan`,
+    method: "delete",
   })
 }
 

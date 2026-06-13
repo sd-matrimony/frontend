@@ -8,9 +8,9 @@ import { type findUserSchemaT } from "./use-user-filters";
 import {
   getPaidUsers, getAssistedSubscribedUsers, getAllPayments, getUsersByCreatedBy,
   getUsersGroupedByAdminCount, getUsersGroupedCount, getAdminsList,
-  createAdmin, updateAdmin, getNotInvitedUsers, userInvited,
+  createAdmin, updateAdmin, getUserInvitations, userInvited,
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
-  getUserCurrentPlan,
+  getUserCurrentPlan, removeUserPlan,
 } from "@/actions";
 
 type userAndPlanT = currentPlanT & {
@@ -130,16 +130,33 @@ export function useUpdateAdmin() {
   })
 }
 
-export type niuT = Pick<userT, "_id" | "contactDetails" | "dob" | "profileImg" | "fullName" | "otherDetails">
-export function useGetNotInvitedUsers(data: findUserSchemaT) {
+export type niuT = Pick<userT, "_id" | "email" | "contactDetails" | "dob" | "profileImg" | "fullName" | "otherDetails"> & {
+  currentPlan?: currentPlanT
+}
+export function useGetUserInvitations(data: findUserSchemaT) {
   const limit = 50
 
   return useInfiniteQuery<niuT[], Error, niuT[]>({
-    queryKey: ["not-invited-users", data],
-    queryFn: ({ pageParam }) => getNotInvitedUsers({ skip: (pageParam as number || 0) * limit, limit, ...data }),
+    queryKey: ["user-invitations", data],
+    queryFn: ({ pageParam }) => getUserInvitations({ skip: (pageParam as number || 0) * limit, limit, ...data }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
     select: data => data?.pages?.flat() as any,
+  })
+}
+
+export function useRemoveUserPlan() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: removeUserPlan,
+    onSuccess() {
+      toast("Subscription removed successfully")
+      queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
+    },
+    onError(error) {
+      toast(error?.message || "Something went wrong!!!")
+    }
   })
 }
 
@@ -150,7 +167,7 @@ export function useUserInvite() {
     mutationFn: userInvited,
     onSuccess() {
       toast("User invited successfully")
-      queryClient.invalidateQueries({ queryKey: ["not-invited-users"] })
+      queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
     },
     onError(error) {
       toast(error?.message || "Something went wrong!!!")

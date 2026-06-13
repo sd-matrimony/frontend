@@ -55,7 +55,7 @@ export const endPoints = {
   getUsersGroupedList: "/super-admin/users/grouped/list",
   getAdminsList: "/super-admin/admins",
   updateAdmin: "/super-admin/admin",
-  getNotInvitedUsers: "/super-admin/users/not-invited",
+  getUserInvitations: "/super-admin/users/invitations",
   inviteUser: "/super-admin/user/invite",
   resetPassByAdmin: "/super-admin/user/password",
   makePaymentForUser: "/super-admin/user/payment",

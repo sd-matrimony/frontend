@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RefreshCcw } from "lucide-react";
 import { format } from "date-fns";
+import Link from "next/link";
 
 import { useGetPaidUsers } from "@/hooks/use-super-admin";
 
@@ -72,7 +73,7 @@ function PaidUsers() {
                 ?.map(user => (
                   <tr key={user?._id} className="mb-2 text-sm odd:bg-muted/60">
                     <td className="px-1 py-2">
-                      <a target="_blank" href={`/super-admin/user/${user?._id}`}>
+                      <Link target="_blank" href={`/super-admin/user/${user?._id}`}>
                         <div className="df group">
                           <img
                             className="size-10 shrink-0 rounded object-cover"
@@ -84,7 +85,7 @@ function PaidUsers() {
                             <p className="text-xs text-muted-foreground truncate">{user?.user?.contactDetails?.mobile} - {user?.user?.email}</p>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     </td>
 
                     <td className="px-1 py-2">

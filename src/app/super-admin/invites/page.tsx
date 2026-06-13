@@ -10,7 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useGetNotInvitedUsers } from "@/hooks/use-super-admin";
+import { useGetUserInvitations } from "@/hooks/use-super-admin";
 import { useUserFilters } from "@/hooks/use-user-filters";
 
 import { ColumnToggle, DataTableVirtualized } from "@/components/ui/data-table";
@@ -31,7 +31,7 @@ function Page() {
     email: "",
   })
 
-  const { isLoading, data, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useGetNotInvitedUsers(final)
+  const { isLoading, data, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useGetUserInvitations(final)
 
   const table = useReactTable({
     data: data as any || [],
