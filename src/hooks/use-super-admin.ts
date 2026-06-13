@@ -10,6 +10,7 @@ import {
   getUsersGroupedByAdminCount, getUsersGroupedCount, getAdminsList,
   createAdmin, updateAdmin, getNotInvitedUsers, userInvited,
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
+  getUserCurrentPlan,
 } from "@/actions";
 
 type userAndPlanT = currentPlanT & {
@@ -166,6 +167,14 @@ export function useResetPassByAdmin() {
     onError(error) {
       toast(error?.message || "Something went wrong!!!")
     }
+  })
+}
+
+export function useGetUserCurrentPlan(id: string, enabled: boolean) {
+  return useQuery<currentPlanT | null>({
+    queryKey: ["user-current-plan", id],
+    queryFn: () => getUserCurrentPlan(id),
+    enabled: !!id && enabled,
   })
 }
 

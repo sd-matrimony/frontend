@@ -59,5 +59,6 @@ export const endPoints = {
   inviteUser: "/super-admin/user/invite",
   resetPassByAdmin: "/super-admin/user/password",
   makePaymentForUser: "/super-admin/user/payment",
+  getUserCurrentPlan: "/super-admin/user",
   bulkUpdateUsers: "/super-admin/users/bulk",
 }
