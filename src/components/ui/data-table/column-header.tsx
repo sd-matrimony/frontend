@@ -1,62 +1,63 @@
-import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from "lucide-react";
-import { Column } from "@tanstack/react-table";
+import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from 'lucide-react'
+import { Column } from '@tanstack/react-table'
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from '@/components/ui/menu'
+import { buttonVariants } from '@/components/ui/button'
 
-interface ColumnHeaderProps<TData, TValue>
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface ColumnHeaderProps<TData, TValue> {
+  className?: string
   column: Column<TData, TValue>
-  title: string
+  title: React.ReactNode
 }
 
 export function ColumnHeader<TData, TValue>({
-  column,
   title,
+  column,
   className,
 }: ColumnHeaderProps<TData, TValue>) {
-  if (!column.getCanSort()) {
-    return <div className={cn(className)}>{title}</div>
-  }
+  if (!column.getCanSort()) return <div className={cn(className)}>{title}</div>
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className={cn("data-[state=open]:bg-accent", className)}>
-          <span>{title}</span>
-          {column.getIsSorted() === "desc" ? (
-            <ArrowDown />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp />
-          ) : (
-            <ChevronsUpDown />
-          )}
-        </Button>
-      </DropdownMenuTrigger>
+    <Menu>
+      <MenuTrigger className={cn(buttonVariants({ variant: 'ghost', className }), '-ml-2')}>
+        {title}
+        {column.getIsSorted() === 'desc' ? (
+          <ArrowDown />
+        ) : column.getIsSorted() === 'asc' ? (
+          <ArrowUp />
+        ) : (
+          <ChevronsUpDown />
+        )}
+      </MenuTrigger>
 
-      <DropdownMenuContent align="start">
-        <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+      <MenuContent align="start">
+        <MenuItem
+          onClick={() =>
+            column.getIsSorted() !== 'asc' ? column.toggleSorting(false) : column.clearSorting()
+          }
+        >
           <ArrowUp className="h-3.5 w-3.5 text-muted-foreground/70" />
           Asc
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+        </MenuItem>
+
+        <MenuItem
+          onClick={() =>
+            column.getIsSorted() !== 'desc' ? column.toggleSorting(true) : column.clearSorting()
+          }
+        >
           <ArrowDown className="h-3.5 w-3.5 text-muted-foreground/70" />
           Desc
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
+        </MenuItem>
+
+        <MenuSeparator />
+
+        <MenuItem onClick={() => column.toggleVisibility(false)}>
           <EyeOff className="h-3.5 w-3.5 text-muted-foreground/70" />
-          Hide
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          Hide Column
+        </MenuItem>
+      </MenuContent>
+    </Menu>
   )
 }

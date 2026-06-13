@@ -1,14 +1,18 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { Toaster } from "sonner";
 import Script from "next/script";
 
-import type { CSSProperties } from "react";
 import type { Metadata } from "next";
+
+import { Toaster } from "@/components/ui/toast";
 
 import "./globals.css";
 
 import ClientWrapper from "@/components/common/client-wrapper";
+import { Inter } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "SD Matrimony | Find Your Perfect Match",
@@ -90,21 +94,13 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 function RootLayout({ children }: readOnlyChildren) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", inter.variable)}>
       <body>
-        <ClientWrapper>
-          {children}
-        </ClientWrapper>
-
-        <Toaster
-          position="top-right"
-          closeButton
-          richColors
-          style={{
-            "--width": "300px",
-            "--toast-close-button-start": "calc(100% - 2px)"
-          } as CSSProperties}
-        />
+        <Toaster position="top-right">
+          <ClientWrapper>
+            {children}
+          </ClientWrapper>
+        </Toaster>
 
         <Script id="ld-json-org" type="application/ld+json">
           {JSON.stringify(jsonLdOrg)}

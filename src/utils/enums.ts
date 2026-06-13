@@ -1,7 +1,7 @@
 
-export const approvalStatus: optionsT = ["pending", "approved", "rejected"]
-export const maritalStatus: optionsT = ["Single", "Divorced", "Widowed"]
-export const gender: optionsT = ["Male", "Female"]
+export const approvalStatus: itemsT = ["pending", "approved", "rejected"]
+export const maritalStatus: itemsT = ["Single", "Divorced", "Widowed"]
+export const gender: itemsT = ["Male", "Female"]
 
 export const nakshatraMap = {
   Ashwini: 'அசுவினி',
@@ -48,14 +48,14 @@ export const raasiMap = {
   Pisces: 'மீனம்'
 } as const
 
-export const ageRange: optionsT = [
+export const ageRange: itemsT = [
   { label: 'Below 25', value: 'below_25' },
   { label: '25 to 30', value: '25_30' },
   { label: '30 to 40', value: '30_40' },
   { label: 'Above 40', value: 'above_50' },
 ]
 
-export const salaryRange: optionsT = [
+export const salaryRange: itemsT = [
   { label: 'Below ₹20,000', value: 'below_20000' },
   { label: '₹20,000 - ₹30,000', value: '20000_30000' },
   { label: '₹30,000 - ₹40,000', value: '30000_40000' },

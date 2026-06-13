@@ -5,14 +5,7 @@ import Link from 'next/link';
 
 import { useLogout, useUserDetailsMini } from '@/hooks/use-account';
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from "@/components/ui/menu";
 
 // const adminLinks = [
 //   {
@@ -44,7 +37,7 @@ const superAdminLinks = [
   }
 ]
 
-function Menu() {
+function NavMenu() {
   const { data: user, isLoading } = useUserDetailsMini()
   const userName = user?.fullName
   const role = user?.role
@@ -52,70 +45,60 @@ function Menu() {
   const { mutate } = useLogout()
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
+    <Menu>
+      <MenuTrigger
         className="dc size-8 p-0 shrink-0 rounded-full uppercase bg-primary text-primary-foreground hover:bg-primary/90"
         disabled={isLoading}
       >
         {isLoading && <Loader className="size-4 animate-spin" />}
         {!isLoading && userName?.[0]}
-      </DropdownMenuTrigger>
+      </MenuTrigger>
 
-      <DropdownMenuContent className='w-40' align="end">
-        <DropdownMenuLabel asChild>
-          <div>
-            <p className="mb-1 text-sm font-medium leading-none line-clamp-1">{userName}</p>
-            <p className="text-xs leading-none text-muted-foreground line-clamp-1">{user?.email}</p>
-          </div>
-        </DropdownMenuLabel>
+      <MenuContent className='w-40' align="end">
+        <MenuLabel render={<div />}>
+          <p className="mb-1 text-sm font-medium leading-none line-clamp-1">{userName}</p>
+          <p className="text-xs leading-none text-muted-foreground line-clamp-1">{user?.email}</p>
+        </MenuLabel>
 
-        <DropdownMenuSeparator />
+        <MenuSeparator />
 
         {
           role === "user" &&
           <>
-            <DropdownMenuItem asChild>
-              <Link href={`/user/profile/${user?._id}`}>
-                Profile
-              </Link>
-            </DropdownMenuItem>
+            <MenuItem render={<Link href={`/user/profile/${user?._id}`} />}>
+              Profile
+            </MenuItem>
 
-            <DropdownMenuItem asChild>
-              <Link href="/user/account">
-                Account
-              </Link>
-            </DropdownMenuItem>
+            <MenuItem render={<Link href="/user/account" />}>
+              Account
+            </MenuItem>
           </>
         }
 
         {/* {
           !isLoading && role === "admin" &&
           adminLinks.map(link => (
-            <DropdownMenuItem key={link.href} asChild>
-              <Link href={`/admin/${link.href}`}>
-                {link.lable}
-              </Link>
-            </DropdownMenuItem>
+            <MenuItem key={link.href} render={<Link href={`/admin/${link.href}`} />}>
+              {link.lable}
+            </MenuItem>
           ))
         } */}
 
         {
           !isLoading && role === "super-admin" &&
           superAdminLinks.map(link => (
-            <DropdownMenuItem key={link.href} asChild>
-              <Link href={`/super-admin/${link.href}`}>
-                {link.lable}
-              </Link>
-            </DropdownMenuItem>
+            <MenuItem key={link.href} render={<Link href={`/super-admin/${link.href}`} />}>
+              {link.lable}
+            </MenuItem>
           ))
         }
 
-        <DropdownMenuItem onClick={() => mutate()}>
+        <MenuItem onClick={() => mutate()}>
           Log out
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </MenuItem>
+      </MenuContent>
+    </Menu>
   )
 }
 
-export default Menu
+export default NavMenu

@@ -53,6 +53,7 @@ function Inner() {
     </Dialog>
   )
 }
+
 function VerifyCheck() {
   const remindVerification = useUIStore(s => s.remindVerification)
 

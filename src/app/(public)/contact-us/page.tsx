@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 
 function Page() {
   return (
-    <main className="prose-sm md:prose prose-slate prose-li:my-0 prose-p:my-1 !max-w-11/12 prose-a:no-underline prose-a:hover:text-pink-600 mx-auto my-16 p-6 bg-pink-50/30 shadow-sm rounded-lg border">
+    <main className="prose-sm md:prose prose-slate prose-li:my-0 prose-p:my-1 max-w-11/12! prose-a:no-underline prose-a:hover:text-pink-600 mx-auto my-16 p-6 bg-pink-50/30 shadow-sm rounded-lg border">
       <header className="mb-6">
-        <h1 className="!mb-1 md:font-semibold">Contact Us</h1>
-        <p className="!mt-0">Last updated on Jul 30, 2025</p>
+        <h1 className="mb-1! md:font-semibold">Contact Us</h1>
+        <p className="mt-0!">Last updated on Jul 30, 2025</p>
       </header>
 
       <section>

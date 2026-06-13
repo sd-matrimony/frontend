@@ -47,11 +47,9 @@ function Confirm({ male, female, onConfirm }: props) {
       <div className="dc md:col-span-2">
         <AlertDialogTrigger
           disabled={isPending || (!male && !female)}
-          asChild
+          render={<Button />}
         >
-          <Button>
-            Make Match
-          </Button>
+          Make Match
         </AlertDialogTrigger>
       </div>
 
@@ -92,16 +90,16 @@ function Confirm({ male, female, onConfirm }: props) {
         <div>
           <Label htmlFor="marriedOn">Married On</Label>
           <DatePicker
-            value={marriedOn}
-            onChange={(date) => setMarriedOn(date || new Date())}
+            selected={marriedOn}
+            onSelect={(date) => setMarriedOn(date || new Date())}
             className="w-full md:w-60"
-            btnProps={{ id: "marriedOn" }}
-            calendarProps={{
-              captionLayout: "dropdown",
-              disabled(date) {
-                return date > new Date()
-              },
-            }}
+          // btnProps={{ id: "marriedOn" }}
+          // calendarProps={{
+          //   captionLayout: "dropdown",
+          //   disabled(date) {
+          //     return date > new Date()
+          //   },
+          // }}
           />
         </div>
 

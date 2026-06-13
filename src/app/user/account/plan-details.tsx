@@ -45,7 +45,7 @@ function FreePlan() {
           {["Browse limited profiles", "Basic search filters", "No access to personal information"].map(
             (feature, index) => (
               <div key={index} className="flex items-center gap-2 text-gray-600">
-                <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
                 <span className="text-sm">{feature}</span>
               </div>
             ),
@@ -56,11 +56,9 @@ function FreePlan() {
           <Button
             size="lg"
             className="w-full bg-pink-600 hover:bg-pink-700"
-            asChild
+            render={<Link href="/user/payment" />}
           >
-            <Link href="/user/payment">
-              Choose Your Plan - Start Your Journey
-            </Link>
+            Choose Your Plan - Start Your Journey
           </Button>
 
           <p className="text-xs text-center text-muted-foreground mt-2">
@@ -91,10 +89,8 @@ function PlanDetails() {
         <div className="df justify-between">
           <p>Your current plan is expired</p>
 
-          <Button asChild>
-            <Link href="/user/payment">
-              Buy Again
-            </Link>
+          <Button render={<Link href="/user/payment" />}>
+            Buy Again
           </Button>
         </div>
       }
@@ -139,7 +135,7 @@ function PlanDetails() {
             ].map(
               (feature, index) => (
                 <div key={index} className="flex items-center gap-2 text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                  <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
                   <span className="text-sm">{feature}</span>
                 </div>
               ),
@@ -217,7 +213,7 @@ function PlanDetails() {
 
       <Separator />
 
-      <div className="p-4 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200">
+      <div className="p-4 rounded-lg bg-linear-to-r from-green-50 to-emerald-50 border border-green-200">
         <div className="flex items-center justify-between">
           <div>
             <h4 className="font-semibold text-green-800">Total Plan Value</h4>

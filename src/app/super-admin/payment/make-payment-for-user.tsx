@@ -4,13 +4,13 @@ import { assistedPrices, extraProfiles, PlanBadge, planDetails, planPrices, plan
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RadioGroup, RadioIndicator } from "@/components/ui/radio"
 import { Separator } from "@/components/ui/separator"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 
-import FindUser from "./find-user"
 import PaymentConfirmation from "./payment-confirmation"
+import FindUser from "./find-user"
 
 type props = {
   userId?: string
@@ -100,7 +100,7 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
                             <div className={`font-bold text-gray-900 ${compact ? "text-base" : "text-2xl"}`}>
                               ₹{planPrices[key as subscribedToT].toLocaleString()}
                             </div>
-                            <RadioGroupItem value={key} id={key} className={compact ? "" : "mt-2"} />
+                            <RadioIndicator value={key} id={key} className={compact ? "" : "mt-2"} />
                           </div>
                         </div>
                       </Label>
@@ -121,19 +121,20 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
                 id="additional-profile-access"
                 checked={addAdditionalProfiles}
                 onCheckedChange={(value) => setAddAdditionalProfiles(value as boolean)}
+                label="Additional Unlock Profiles"
               />
 
-              <Label htmlFor="additional-profile-access" className="mr-auto text-base font-medium shrink-0">
+              {/* <Label htmlFor="additional-profile-access" className="mr-auto text-base font-medium shrink-0">
                 Additional Unlock Profiles
-              </Label>
+              </Label> */}
 
               {
                 addAdditionalProfiles &&
                 <Select
                   value={additionalProfilesCount.toString()}
-                  onValueChange={(value) => setAdditionalProfilesCount(Number.parseInt(value))}
+                  onValueChange={(value) => setAdditionalProfilesCount(Number.parseInt(value || ""))}
                 >
-                  <SelectTrigger className="w-60" size="sm">
+                  <SelectTrigger className="w-60">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -152,17 +153,22 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
             <div className={`mb-1 text-sm text-gray-600 ${compact ? "mt-3" : "mt-6"}`}>Get personalized assistance from our relationship experts</div>
 
             <div className="df flex-wrap">
-              <Checkbox id="assisted" checked={isAssisted} onCheckedChange={(value) => setIsAssisted(value as boolean)} />
-              <Label htmlFor="assisted" className="mr-auto text-base font-medium shrink-0">
+              <Checkbox
+                id="assisted"
+                checked={isAssisted}
+                onCheckedChange={(value) => setIsAssisted(value as boolean)}
+                label="Assisted Services"
+              />
+              {/* <Label htmlFor="assisted" className="mr-auto text-base font-medium shrink-0">
                 Assisted Services
-              </Label>
+              </Label> */}
 
               {isAssisted && (
                 <Select
                   value={assistedMonths.toString()}
-                  onValueChange={(value) => setAssistedMonths(Number.parseInt(value))}
+                  onValueChange={(value) => setAssistedMonths(Number.parseInt(value || ""))}
                 >
-                  <SelectTrigger className="w-48" size="sm">
+                  <SelectTrigger className="w-48">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

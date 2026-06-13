@@ -4,7 +4,7 @@ import { Control, FieldValues, Path } from "react-hook-form";
 
 import { useStatics } from "@/hooks/use-general";
 
-import { ComboboxWrapper } from "@/components/ui/form-wrapper";
+import { ComboboxWrapper } from "@/components/ui/field-wrapper-rhf";
 
 type BaseProps<T extends FieldValues> = {
   name: Path<T>
@@ -27,13 +27,13 @@ export function SelectListWrapper<T extends FieldValues>({ name, label, control,
       name={name}
       label={label}
       control={control}
-      options={isLoading ? [] : [
+      items={isLoading ? [] : [
         ...(additionalOpts ? typeof additionalOpts === "string" ? [additionalOpts] : additionalOpts : []),
         ...(data || [])
       ]}
       isLoading={isLoading}
       placeholder={placeholder || `Select ${label}`}
-      canCreateNew={canCreateNew}
+      // canCreateNew={canCreateNew}
       className={className}
     />
   )
@@ -51,14 +51,14 @@ export function SelectSubCastesWrapper<T extends FieldValues>({ name, control, c
       name={name}
       label="Sub / Other Caste"
       control={control}
-      options={isLoading ? [] : [
+      items={isLoading ? [] : [
         ...(additionalOpts ? typeof additionalOpts === "string" ? [additionalOpts] : additionalOpts : []),
         ...(data?.[choosed] || [])
       ]}
       isLoading={isLoading}
       placeholder="Select Sub / Other Caste"
       className={className}
-      canCreateNew
+    // canCreateNew
     />
   )
 }

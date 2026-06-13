@@ -1,17 +1,8 @@
-"use client";
+import { Settings2 } from 'lucide-react'
+import { Table } from '@tanstack/react-table'
 
-import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
-import { RxMixerHorizontal } from "react-icons/rx";
-import { Table } from "@tanstack/react-table";
-
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+import { Menu, MenuCheckboxItem, MenuContent, MenuTrigger } from '@/components/ui/menu'
+import { buttonVariants } from '@/components/ui/button'
 
 interface ColumnToggleProps<TData> {
   table: Table<TData>
@@ -19,34 +10,29 @@ interface ColumnToggleProps<TData> {
 
 export function ColumnToggle<TData>({ table }: ColumnToggleProps<TData>) {
   return (
-    <DropdownMenu>
-      <DropdownMenuPrimitive.DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          <RxMixerHorizontal className="h-4 w-4" />
-          View
-        </Button>
-      </DropdownMenuPrimitive.DropdownMenuTrigger>
+    <Menu>
+      <MenuTrigger className={buttonVariants({ variant: 'outline' })}>
+        <Settings2 />
+        View
+      </MenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-[150px]">
-        <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <MenuContent align="end" className="w-38">
+        {/* <MenuLabel>Toggle columns</MenuLabel> */}
+        {/* <MenuSeparator /> */}
         {table
           .getAllColumns()
-          .filter(
-            (column) =>
-              typeof column.accessorFn !== "undefined" && column.getCanHide()
-          )
-          .map((column) => (
-            <DropdownMenuCheckboxItem
+          .filter(column => typeof column.accessorFn !== 'undefined' && column.getCanHide())
+          .map(column => (
+            <MenuCheckboxItem
               key={column.id}
               className="capitalize"
               checked={column.getIsVisible()}
-              onCheckedChange={(value) => column.toggleVisibility(!!value)}
+              onCheckedChange={value => column.toggleVisibility(!!value)}
             >
-              {column.id?.replace("_", " ")}
-            </DropdownMenuCheckboxItem>
+              {column.id?.replace('_', ' ')}
+            </MenuCheckboxItem>
           ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </MenuContent>
+    </Menu>
   )
 }

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Loader } from "lucide-react"
 
-import { planDetails, planPrices, PlanBadge } from "@/components/common/plan-badge"
+import { planDetails, planPrices } from "@/components/common/plan-badge"
 import { useGetUserCurrentPlan, useMakePaymentForUser } from "@/hooks/use-super-admin"
 
 import {
@@ -50,10 +50,8 @@ function PaymentConfirmation({ _id, isAssisted, subscribedTo, assistedMonths, no
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Button size="lg" className="w-full bg-pink-600 hover:bg-pink-700" disabled={!_id}>
-          Proceed
-        </Button>
+      <AlertDialogTrigger render={<Button size="lg" className="w-full bg-pink-600 hover:bg-pink-700" disabled={!_id} />}>
+        Proceed
       </AlertDialogTrigger>
 
       <AlertDialogContent>
@@ -86,11 +84,9 @@ function PaymentConfirmation({ _id, isAssisted, subscribedTo, assistedMonths, no
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
 
-          <AlertDialogAction asChild>
-            <Button onClick={handlePayment} disabled={isPending || isLoading}>
-              {isPending && <Loader className="animate-spin" />}
-              Proceed to Payment — ₹{finalAmount.toLocaleString()}
-            </Button>
+          <AlertDialogAction render={<Button onClick={handlePayment} disabled={isPending || isLoading} />}>
+            {isPending && <Loader className="animate-spin" />}
+            Proceed to Payment — ₹{finalAmount.toLocaleString()}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

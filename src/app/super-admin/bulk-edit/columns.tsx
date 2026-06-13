@@ -14,7 +14,7 @@ type Params = {
   onBlurChange: OnBlurChange
   onEditMore: (userId: string) => void
   resetKey: number
-  castes: optionsT | undefined
+  castes: itemsT | undefined
   isCasteLoading: boolean
   casteMap: Record<string, string[]> | undefined
   changesRef: React.RefObject<ChangeMap>
@@ -69,13 +69,13 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
       header: "Caste",
       cell: ({ row }) => (
         <EditCombobox
-          userId={row.original._id!}
           path="otherDetails.caste"
-          initialValue={row.original.otherDetails?.caste}
+          items={castes ?? []}
+          userId={row.original._id!}
           resetKey={resetKey}
-          onBlurChange={onBlurChange}
-          options={castes ?? []}
           isLoading={isCasteLoading}
+          initialValue={row.original.otherDetails?.caste}
+          onBlurChange={onBlurChange}
         />
       ),
     },
@@ -87,15 +87,15 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
         const userId = row.original._id!
         const pendingCaste = changesRef.current?.[userId]?.otherDetails?.caste
         const caste = pendingCaste ?? row.original.otherDetails?.caste ?? ""
-        const subCasteOpts: optionsT = casteMap?.[caste] ?? []
+        const subCasteOpts: itemsT = casteMap?.[caste] ?? []
         return (
           <EditCombobox
-            userId={row.original._id!}
             path="otherDetails.subCaste"
-            initialValue={row.original.otherDetails?.subCaste}
+            items={subCasteOpts}
+            userId={row.original._id!}
             resetKey={resetKey}
+            initialValue={row.original.otherDetails?.subCaste}
             onBlurChange={onBlurChange}
-            options={subCasteOpts}
           />
         )
       },
@@ -106,12 +106,12 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
       header: "Salary",
       cell: ({ row }) => (
         <EditInput
-          userId={row.original._id!}
-          path="proffessionalDetails.salary"
-          initialValue={row.original.proffessionalDetails?.salary}
-          resetKey={resetKey}
-          onBlurChange={onBlurChange}
           type="number"
+          path="proffessionalDetails.salary"
+          userId={row.original._id!}
+          resetKey={resetKey}
+          initialValue={row.original.proffessionalDetails?.salary}
+          onBlurChange={onBlurChange}
         />
       ),
     },
@@ -121,12 +121,12 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
       header: "Gender",
       cell: ({ row }) => (
         <EditSelect
-          userId={row.original._id!}
           path="gender"
-          initialValue={row.original.gender}
+          items={gender}
+          userId={row.original._id!}
           resetKey={resetKey}
+          initialValue={row.original.gender}
           onBlurChange={onBlurChange}
-          options={gender}
         />
       ),
     },
@@ -136,12 +136,12 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
       header: "Marital Status",
       cell: ({ row }) => (
         <EditSelect
-          userId={row.original._id!}
           path="maritalStatus"
-          initialValue={row.original.maritalStatus}
+          items={maritalStatus}
+          userId={row.original._id!}
           resetKey={resetKey}
+          initialValue={row.original.maritalStatus}
           onBlurChange={onBlurChange}
-          options={maritalStatus}
         />
       ),
     },

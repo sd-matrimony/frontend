@@ -1,15 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import { useUserDetailsMini } from "@/hooks/use-account";
 import { useUnlockProfile } from "@/hooks/use-user";
-
-import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
 
 function useUnlock() {
   const { data: user } = useUserDetailsMini()
+  const toast = useToast()
 
   const { mutate, isPending } = useUnlockProfile()
   const router = useRouter()
@@ -19,44 +18,30 @@ function useUnlock() {
     if (currentPlan && new Date(currentPlan?.expiryDate).getTime() > new Date().getTime()) {
       mutate({ _id }, {
         onError: (error) => {
-          toast.error(error?.message || "Failed to unlock profile", {
+          toast.add({
+            type: 'error',
+            title: error?.message || "Failed to unlock profile",
             position: "top-center",
             description: "Proceed to payment?",
-            className: "[--width:430px]",
-            action: (
-              <Button
-                size="sm"
-                onClick={() => {
-                  toast.dismiss()
-                  router.push("/user/payment")
-                }}
-                className="ml-2"
-              >
-                Pay Now
-              </Button>
-            ),
-            duration: 6000,
+            timeout: 6000,
+            actionProps: {
+              children: "Pay Now",
+              onClick: () => router.push("/user/payment"),
+            },
           })
         },
       })
 
     } else {
-      toast("Unlock More Details", {
+      toast.add({
+        title: "Unlock More Details",
         position: "top-center",
         description: "Payment required to view more information. Proceed to payment?",
-        action: (
-          <Button
-            size="sm"
-            onClick={() => {
-              toast.dismiss()
-              router.push("/user/payment")
-            }}
-            className="ml-2"
-          >
-            Pay Now
-          </Button>
-        ),
-        duration: 6000,
+        timeout: 6000,
+        actionProps: {
+          children: "Pay Now",
+          onClick: () => router.push("/user/payment"),
+        },
       })
     }
   }

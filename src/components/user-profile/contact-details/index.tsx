@@ -5,7 +5,7 @@ import { Info } from "lucide-react";
 import useUnlock from "./use-unlock";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ToolTipWrapper } from "@/components/ui/tooltip";
+import { TooltipWrapper } from "@/components/ui/tooltip";
 import UpgradeBtn from "./upgrade-btn";
 import Edit from "./edit";
 
@@ -41,9 +41,10 @@ function ContactDetails({ user, canEdit }: props) {
                 ?
                 <p className="df">
                   9791155234
-                  <ToolTipWrapper description="This is restricted account, Contact admin by the given number">
-                    <Info className="size-4" />
-                  </ToolTipWrapper>
+                  <TooltipWrapper
+                    content="This is restricted account, Contact admin by the given number"
+                    trigger={<Info className="size-4" />}
+                  />
                 </p>
                 :
                 <UpgradeBtn

@@ -34,15 +34,8 @@ function VerifyReminder({ email, onSuccess }: props) {
           Do not show again
         </Button>
 
-        <DialogClose asChild>
-          <Button
-            size="sm"
-            variant="outline"
-            disabled={isPending}
-            className="max-[450px]:flex-1"
-          >
-            Verify Later
-          </Button>
+        <DialogClose render={<Button size="sm" variant="outline" disabled={isPending} className="max-[450px]:flex-1" />}>
+          Verify Later
         </DialogClose>
 
         <Button

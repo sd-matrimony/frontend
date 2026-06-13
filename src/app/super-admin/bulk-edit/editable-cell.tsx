@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 
 import { cn } from "@/lib/utils"
-import { Combobox } from "@/components/ui/combobox"
+import { ComboboxWrapper } from "@/components/ui/combobox"
 import { SelectWrapper } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 
@@ -52,9 +52,9 @@ export function EditInput({ userId, path, initialValue, resetKey, onBlurChange, 
   )
 }
 
-type EditSelectProps = BaseCellProps & { options: optionsT }
+type EditSelectProps = BaseCellProps & { items: itemsT }
 
-export function EditSelect({ userId, path, initialValue, resetKey, onBlurChange, options, className }: EditSelectProps) {
+export function EditSelect({ userId, path, initialValue, resetKey, onBlurChange, items, className }: EditSelectProps) {
   const [value, setValue] = useState(() => toStr(initialValue))
 
   useEffect(() => {
@@ -63,24 +63,24 @@ export function EditSelect({ userId, path, initialValue, resetKey, onBlurChange,
 
   const isDirty = value !== toStr(initialValue)
 
-  function handleChange(v: string) {
+  function handleChange(v: any) {
     setValue(v)
     onBlurChange(userId, path, v)
   }
 
   return (
     <SelectWrapper
-      options={options}
       value={value}
+      items={items}
       onValueChange={handleChange}
       triggerCls={cn("h-7 text-xs min-w-28 px-2 font-normal", isDirty && "border-primary", className)}
     />
   )
 }
 
-type EditComboboxProps = BaseCellProps & { options: optionsT; isLoading?: boolean }
+type EditComboboxProps = BaseCellProps & { items: itemsT; isLoading?: boolean }
 
-export function EditCombobox({ userId, path, initialValue, resetKey, onBlurChange, options, isLoading, className }: EditComboboxProps) {
+export function EditCombobox({ userId, path, initialValue, resetKey, onBlurChange, items, isLoading, className }: EditComboboxProps) {
   const [value, setValue] = useState(() => toStr(initialValue))
 
   useEffect(() => {
@@ -89,18 +89,18 @@ export function EditCombobox({ userId, path, initialValue, resetKey, onBlurChang
 
   const isDirty = value !== toStr(initialValue)
 
-  function handleChange(v: string | number | boolean) {
+  function handleChange(v: any) {
     const str = String(v)
     setValue(str)
     onBlurChange(userId, path, str)
   }
 
   return (
-    <Combobox
-      options={options}
-      isLoading={isLoading}
-      canCreateNew
+    <ComboboxWrapper
+      // canCreateNew
+      items={items}
       value={value}
+      isLoading={isLoading}
       onValueChange={handleChange}
       triggerCls={cn("h-7 text-xs min-w-32 px-2 font-normal", isDirty && "border-primary", className)}
     />

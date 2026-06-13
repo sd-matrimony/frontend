@@ -4,7 +4,7 @@ import { RefreshCcw } from "lucide-react";
 import { useGetUsersGroupedByAdminCount } from "@/hooks/use-super-admin";
 import { gender as genderOpts } from "@/utils/enums";
 
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SelectWrapper } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
@@ -42,22 +42,22 @@ function UsersGroupedByAdmin() {
     gender: gender === "all" ? "" : gender,
   })
 
-  const datesOpts: optionsT = [
+  const datesOpts: itemsT = [
     { value: "day", label: "Day" },
     { value: "month", label: "Month" },
   ]
 
-  const typesOpts: optionsT = [
+  const typesOpts: itemsT = [
     { value: "date", label: "Date" },
     { value: "caste", label: "Caste" },
   ]
 
-  const includeByAdminOpts: optionsT = [
+  const includeByAdminOpts: itemsT = [
     { value: "false", label: "All" },
     { value: "true", label: "By Admin" },
   ]
 
-  const genderOptsWithAll: optionsT = [
+  const genderOptsWithAll: itemsT = [
     { value: "all", label: "All" },
     ...genderOpts.map(g => ({ value: g as string, label: g as string })),
   ]
@@ -69,7 +69,7 @@ function UsersGroupedByAdmin() {
 
         <SelectWrapper
           value={`${includeByAdmin}`}
-          options={includeByAdminOpts}
+          items={includeByAdminOpts}
           placeholder="Group by"
           triggerCls="w-fit"
           onValueChange={v => setIncludeByAdmin(v === "true")}
@@ -77,15 +77,15 @@ function UsersGroupedByAdmin() {
 
         <SelectWrapper
           value={gender}
-          options={genderOptsWithAll}
+          items={genderOptsWithAll}
           placeholder="Gender"
           triggerCls="w-fit"
-          onValueChange={v => setGender(v)}
+          onValueChange={v => setGender(v as any)}
         />
 
         <SelectWrapper
           value={type}
-          options={typesOpts}
+          items={typesOpts}
           placeholder="Select type"
           triggerCls="w-fit"
           onValueChange={v => setType(v as "date" | "caste")}
@@ -95,7 +95,7 @@ function UsersGroupedByAdmin() {
           type === "date" &&
           <SelectWrapper
             value={dateType}
-            options={datesOpts}
+            items={datesOpts}
             placeholder="Select date type"
             triggerCls="w-fit"
             onValueChange={v => setdateType(v as "day" | "month")}

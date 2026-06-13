@@ -22,16 +22,12 @@ function Nav() {
           </Link>
 
           <div className="df gap-4 ml-auto md:ml-0">
-            <Button variant="outline" asChild>
-              <Link href="/auth/user/signup">
-                Sign Up
-              </Link>
+            <Button variant="outline" render={<Link href="/auth/user/signup" />}>
+              Sign Up
             </Button>
 
-            <Button asChild className="bg-gradient-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white px-6">
-              <Link href="/auth/user/signin">
-                Sign In
-              </Link>
+            <Button render={<Link href="/auth/user/signin" />} className="bg-linear-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white px-6">
+              Sign In
             </Button>
           </div>
         </div>

@@ -6,7 +6,7 @@ import { gender, maritalStatus } from '@/utils/enums';
 import { useStatics } from "@/hooks/use-general";
 import { cn } from "@/lib/utils";
 
-import { InputWrapper, MultiSelectComboboxWrapper } from "@/components/ui/form-wrapper";
+import { InputWrapper, ComboboxWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 
 type props = {
@@ -48,30 +48,32 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
           placeholder="Email"
         />
 
-        <MultiSelectComboboxWrapper
+        <ComboboxWrapper
+          multiple
           name="gender"
           placeholder="Gender"
-          options={gender as any}
+          items={gender}
           control={methods.control}
           className="min-w-36"
         />
 
-        <MultiSelectComboboxWrapper
+        <ComboboxWrapper
           name="maritalStatus"
           placeholder="Marital Status"
-          options={maritalStatus as any}
+          items={maritalStatus}
           control={methods.control}
           className="min-w-32 sm:min-w-40"
         />
 
-        <MultiSelectComboboxWrapper
+        <ComboboxWrapper
+          multiple
           name="caste"
           placeholder="Caste"
-          options={castes}
+          items={castes}
           control={methods.control}
           isLoading={isCasteLoading}
           className="min-w-44 sm:min-w-56"
-          canCreateNew
+        // canCreateNew
         />
 
         {children}

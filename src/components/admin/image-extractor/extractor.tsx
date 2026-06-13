@@ -575,14 +575,9 @@ function Extractor({ updateStep }: props) {
               onClick={e => e.stopPropagation()}
             />
 
-            <Button asChild>
-              <label
-                htmlFor="image-upload"
-                onClick={e => e.stopPropagation()}
-              >
-                <Upload className="h-4 w-4" />
-                Select Image
-              </label>
+            <Button render={<label htmlFor="image-upload" onClick={e => e.stopPropagation()} />}>
+              <Upload className="h-4 w-4" />
+              Select Image
             </Button>
           </div>
         </div>

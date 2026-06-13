@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
 import {
   ColumnDef,
@@ -14,11 +14,11 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table'
 
 interface useTableProps<TData, TValue> {
-  data: TData[];
-  columns: ColumnDef<TData, TValue>[];
+  data: TData[]
+  columns: ColumnDef<TData, TValue>[]
 }
 
 export function useTable<TData, TValue>({ data, columns }: useTableProps<TData, TValue>) {

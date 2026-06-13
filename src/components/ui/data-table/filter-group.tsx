@@ -1,82 +1,70 @@
-import { useState } from "react";
-import { CirclePlus, RotateCw } from "lucide-react";
-import { Table } from "@tanstack/react-table";
+import { useState } from 'react'
+import { CirclePlus } from 'lucide-react'
+import { Table } from '@tanstack/react-table'
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { type ComboboxWrapperProps } from '@/components/ui/combobox'
+import { MenuCheckboxWrapper } from '@/components/ui/menu-wrapper'
+import { buttonVariants } from '@/components/ui/button'
+import { ColumnFilter } from './column-filter'
 
-import { ColumnFilter } from "./column-filter";
-import { Button } from "../button";
+type ColumnFilterPassthroughProps = Omit<
+  ComboboxWrapperProps,
+  'items' | 'value' | 'onValueChange' | 'label' | 'multiple'
+>
+type MenuCheckboxPassthroughProps = Omit<
+  React.ComponentProps<typeof MenuCheckboxWrapper>,
+  'trigger' | 'items' | 'checked' | 'onCheckedChange'
+>
 
 interface FilterGroupProps<TData> {
   table: Table<TData>
-  options: {
-    key: string
-    lable: string
-    options: string[]
+  items: {
+    value: string
+    lable: React.ReactNode
+    items: itemsT
+    columnFilterProps?: ColumnFilterPassthroughProps
   }[]
+  columnFilterProps?: ColumnFilterPassthroughProps
+  menuCheckboxProps?: MenuCheckboxPassthroughProps
 }
 
-export function FilterGroup<TData>({ table, options }: FilterGroupProps<TData>) {
-  const [selected, setSelected] = useState<string[]>([])
-
-  const isFiltered = table.getState().columnFilters.length > 0
+export function FilterGroup<TData>({
+  table,
+  items,
+  columnFilterProps,
+  menuCheckboxProps,
+}: FilterGroupProps<TData>) {
+  const [selected, setSelected] = useState<allowedPrimitiveT[]>([])
 
   return (
     <>
-      {
-        options
-          .filter(f => selected.includes(f.key))
-          .map(opt => (
-            <ColumnFilter
-              key={opt.key}
-              column={table.getColumn(opt.key)}
-              title={opt.lable}
-              options={opt.options}
-              remove={() => setSelected(p => p.filter(v => v !== opt.key))}
-            />
-          ))
-      }
+      {items
+        .filter(f => selected.includes(f.value))
+        .map(opt => (
+          <ColumnFilter
+            key={opt.value}
+            title={opt.lable}
+            items={opt.items}
+            column={table.getColumn(opt.value)}
+            {...columnFilterProps}
+            {...opt.columnFilterProps}
+          />
+        ))}
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            <CirclePlus className="size-4" />
-            <span>Filter</span>
-          </Button>
-        </DropdownMenuTrigger>
-
-        <DropdownMenuContent align="start" className="px-0">
-          {
-            options
-              .filter(f => !selected.includes(f.key))
-              .map(opt => (
-                <DropdownMenuItem
-                  key={opt.key}
-                  onClick={() => setSelected(p => [...p, opt.key])}
-                  className="px-4 text-xs font-medium text-theme-text focus:bg-theme-grey-text/5 focus:text-theme-text"
-                >
-                  {opt.lable}
-                </DropdownMenuItem>
-              ))
-          }
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      {
-        isFiltered &&
-        <Button
-          size="icon"
-          variant="outline"
-          onClick={() => table.resetColumnFilters()}
-        >
-          <RotateCw className=" size-4" />
-        </Button>
-      }
+      <MenuCheckboxWrapper
+        trigger={
+          <>
+            <CirclePlus className="size-4" /> Filter
+          </>
+        }
+        triggerCls={buttonVariants({ variant: 'outline' })}
+        {...menuCheckboxProps}
+        checked={selected}
+        onCheckedChange={(val, checked) =>
+          setSelected(prev => (!checked ? prev.filter(p => !p) : [...prev, val]))
+        }
+        items={items.map(m => ({ label: m.lable, value: m.value }))}
+      />
     </>
   )
 }

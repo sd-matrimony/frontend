@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { Loader } from "lucide-react";
 import { z } from "zod";
 
@@ -9,9 +9,8 @@ import { useUpdateAdmin } from "@/hooks/use-super-admin";
 import useUIStore from "@/store/ui";
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { InputWrapper, TextareaWrapper } from "@/components/ui/form-wrapper";
+import { InputWrapper, TextareaWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
 
 const schema = (isUpdate: boolean) => z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -93,7 +92,7 @@ function CreateAdmin() {
           </DialogDescription>
         </DialogHeader>
 
-        <Form {...form}>
+        <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <InputWrapper
               control={form.control}
@@ -130,14 +129,8 @@ function CreateAdmin() {
             />
 
             <DialogFooter>
-              <DialogClose asChild>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={close}
-                >
-                  Close
-                </Button>
+              <DialogClose render={<Button type="button" variant="outline" onClick={close} />}>
+                Close
               </DialogClose>
 
               <Button
@@ -149,7 +142,7 @@ function CreateAdmin() {
               </Button>
             </DialogFooter>
           </form>
-        </Form>
+        </FormProvider>
       </DialogContent>
     </Dialog>
   )

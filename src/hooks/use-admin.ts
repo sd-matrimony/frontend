@@ -1,7 +1,6 @@
 "use client";
 
 import { useMutation, useInfiniteQuery, useQueryClient, useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 import { type findUserSchemaT } from "./use-user-filters";
 
@@ -9,6 +8,7 @@ import {
   createUsers, extractImg, findUser, getMarriedUsers, getUsersList,
   updateUserDetails, userMarriedTo,
 } from "@/actions";
+import { useToast } from "@/components/ui/toast";
 
 export function useUsersList(data: findUserSchemaT) {
   const limit = 50
@@ -57,6 +57,8 @@ export function useFindUser(params: any) {
 }
 
 export function useCreateUsersMutate() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: createUsers,
     onSuccess() {
@@ -69,40 +71,45 @@ export function useCreateUsersMutate() {
 }
 
 export function useUserMarriedToMutate() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: userMarriedTo,
     onSuccess() {
-      toast("User marriage details updated successfully")
+      toast.success("User marriage details updated successfully")
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }
 
 export function useUpdateUserMutate() {
   const queryClient = useQueryClient()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: updateUserDetails,
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
-      toast("Applicant details successfully")
+      toast.success("Applicant details updated successfully")
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }
 
 export function useExtractImgMutate() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: extractImg,
     onSuccess() {
-      toast("Images extracted successfully")
+      toast.success("Images extracted successfully")
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }

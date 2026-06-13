@@ -1,5 +1,5 @@
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { useUpdateEmail } from "@/hooks/use-account";
@@ -11,9 +11,8 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { InputWrapper } from "@/components/ui/form-wrapper";
+import { InputWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
 
 type Props = {
   onSuccess: () => void
@@ -48,7 +47,7 @@ function AddEmail({ onSuccess }: Props) {
         </DialogDescription>
       </DialogHeader>
 
-      <Form {...form}>
+      <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-4">
           <InputWrapper
             name="email"
@@ -59,14 +58,8 @@ function AddEmail({ onSuccess }: Props) {
           />
 
           <DialogFooter>
-            <DialogClose asChild>
-              <Button
-                type="button"
-                variant="outline"
-                disabled={isPending}
-              >
-                Cancel
-              </Button>
+            <DialogClose render={<Button type="button" variant="outline" disabled={isPending} />}>
+              Cancel
             </DialogClose>
 
             <Button
@@ -77,7 +70,7 @@ function AddEmail({ onSuccess }: Props) {
             </Button>
           </DialogFooter>
         </form>
-      </Form>
+      </FormProvider>
     </>
   )
 }

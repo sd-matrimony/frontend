@@ -1,6 +1,5 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import {
   addLiked, getLikesList, getMatches, getUserDetails, removeLiked,
@@ -8,6 +7,7 @@ import {
   unlockProfile, getCurrentPlan
 } from "@/actions";
 import { filterObj } from "@/utils";
+import { useToast } from "@/components/ui/toast";
 
 export function useUsersList(filters?: objT) {
   const limit = 50
@@ -81,6 +81,7 @@ export function usePartnerPreferences(_id: string) {
 export function useUpdateProfile() {
   const queryClient = useQueryClient()
   const navigation = useRouter()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: updateProfile,
@@ -98,6 +99,7 @@ export function useUpdateProfile() {
 export function useAddImages() {
   const queryClient = useQueryClient()
   const navigation = useRouter()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: addImages,
@@ -114,6 +116,7 @@ export function useAddImages() {
 
 export function useAddLiked() {
   const queryClient = useQueryClient()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: addLiked,
@@ -130,6 +133,7 @@ export function useAddLiked() {
 
 export function useRemoveLiked() {
   const queryClient = useQueryClient()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: removeLiked,
@@ -147,6 +151,7 @@ export function useRemoveLiked() {
 export function useUnlockProfile() {
   const queryClient = useQueryClient()
   const router = useRouter()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: unlockProfile,

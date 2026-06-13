@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 
 function Page() {
   return (
-    <main className="prose-sm md:prose prose-slate prose-li:my-0 prose-p:my-1 prose-a:no-underline prose-a:hover:text-pink-600 !max-w-11/12 mx-auto my-16 p-6 bg-pink-50/30 shadow-sm rounded-lg border">
+    <main className="prose-sm md:prose prose-slate prose-li:my-0 prose-p:my-1 prose-a:no-underline prose-a:hover:text-pink-600 max-w-11/12! mx-auto my-16 p-6 bg-pink-50/30 shadow-sm rounded-lg border">
       <header className="mb-6">
-        <h1 className="!mb-1 md:font-semibold">Privacy Policy</h1>
-        <p className="!mt-0">Last updated on Jul 30, 2025</p>
+        <h1 className="mb-1! md:font-semibold">Privacy Policy</h1>
+        <p className="mt-0!">Last updated on Jul 30, 2025</p>
       </header>
 
       <section>
@@ -51,7 +51,7 @@ function Page() {
           <li>If you have previously agreed to the use of your information for direct marketing, you may change your mind at any time by contacting us at <a href="mailto:admin@sdmatrimony.com">admin@sdmatrimony.com</a>.</li>
         </ul>
 
-        <p className="!mb-4">We will not sell, distribute, or lease your personal information to third parties unless required by law or with your permission. We may send promotional information from third parties only if you consent.</p>
+        <p className="mb-4!">We will not sell, distribute, or lease your personal information to third parties unless required by law or with your permission. We may send promotional information from third parties only if you consent.</p>
 
         <p>You may update your personal information at any time by logging into your account or contacting us via email at <a href="mailto:admin@sdmatrimony.com">admin@sdmatrimony.com</a> or phone at <a href="tel:+919791155234">9791155234</a> or <a href="tel:+918667042132">8667042132</a>. We will promptly correct any information found to be incorrect.</p>
       </section>

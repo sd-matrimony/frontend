@@ -1,7 +1,7 @@
 import type { Control } from 'react-hook-form';
 import type { Field } from './data';
 
-import { SelectWrapper, InputWrapper, DatePickerWrapper, RadioWrapper } from '@/components/ui/form-wrapper';
+import { SelectWrapper, InputWrapper, DatePickerWrapper, RadioWrapper } from '@/components/ui/field-wrapper-rhf';
 import { SelectImageWrapper, SelectMultiImageWrapper } from './select-image-wrapper';
 import { SelectListWrapper } from '../common/lists';
 import { PasswordWrapper } from './password-wrapper';
@@ -25,7 +25,7 @@ function FieldWrapper({ control, onBlur, type, isRequired, ...props }: FieldWrap
     return <SelectImageWrapper {...props} className={isRequired ? "ca-profile" : 'hidden'} />
   }
 
-  if (type === "select" && "options" in props) {
+  if (type === "select" && "items" in props) {
     return <SelectWrapper control={control} {...props} defaultValue={`${props.defaultValue}`} className={isRequired ? "" : 'hidden'} />
   }
 
@@ -33,9 +33,8 @@ function FieldWrapper({ control, onBlur, type, isRequired, ...props }: FieldWrap
     return <SelectListWrapper control={control} {...props} className={isRequired ? "" : 'hidden'} />
   }
 
-  if (type === "radio" && "options" in props) {
-    // @ts-ignore
-    return <RadioWrapper control={control} {...props} className={isRequired ? "" : 'hidden'} />
+  if (type === "radio" && "items" in props) {
+    return <RadioWrapper control={control} {...(props as typeof props & { items: (allowedPrimitiveT | itemT)[] })} className={isRequired ? "" : 'hidden'} />
   }
 
   if (type === "password") {

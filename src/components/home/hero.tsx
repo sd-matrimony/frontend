@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-rose-50 via-pink-50 to-white py-20 lg:py-24">
+    <section className="relative bg-linear-to-br from-rose-50 via-pink-50 to-white py-20 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
@@ -17,7 +17,7 @@ function Hero() {
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tighter">
                 Find Your
-                <span className="bg-gradient-to-r from-rose-500 to-pink-600 bg-clip-text text-transparent block">
+                <span className="bg-linear-to-r from-rose-500 to-pink-600 bg-clip-text text-transparent block">
                   Perfect Match
                 </span>
               </h1>
@@ -30,10 +30,10 @@ function Hero() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white px-8 py-3 text-lg"
-                asChild
+                className="bg-linear-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white px-8 py-3 text-lg"
+                render={<Link href="/auth/user/signup" />}
               >
-                <Link href="/auth/user/signup">Get Started Today</Link>
+                Get Started Today
               </Button>
             </div>
 
@@ -58,9 +58,9 @@ function Hero() {
               <img
                 alt="Happy couple"
                 src="/imgs/hero-couple.jpg"
-                className="w-full h-[600px] object-cover"
+                className="w-full h-150 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"></div>
             </div>
 
             <div className="absolute -top-6 -left-2 md:-left-6 bg-card p-4 rounded-xl shadow-lg border border-border">

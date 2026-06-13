@@ -8,7 +8,7 @@ import { z } from "zod";
 import { useFindUser } from "@/hooks/use-admin";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { InputWrapper } from "@/components/ui/form-wrapper";
+import { InputWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 
 type props = {
@@ -124,7 +124,7 @@ function FindUser({ gender, selected, setSelected }: props) {
             <div className="mt-6">
               <h3 className="font-medium mb-2">Results ({users.length})</h3>
 
-              <div className="space-y-2 max-h-[400px] pr-6 -mr-6 overflow-y-auto">
+              <div className="space-y-2 max-h-100 pr-6 -mr-6 overflow-y-auto">
                 {users.map((user) => (
                   <div
                     key={user?._id}

@@ -22,9 +22,9 @@ function Admins() {
             size="sm"
             variant="link"
             className="mr-2"
-            asChild
+            render={<Link href="/super-admin/admins-users" />}
           >
-            <Link href="/super-admin/admins-users">Users</Link>
+            Users
           </Button>
 
           <Button

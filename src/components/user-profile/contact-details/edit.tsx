@@ -1,18 +1,17 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditIcon } from 'lucide-react';
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { contactDetailsSchema } from '@/utils/user-schema';
 import { useUpdateProfile } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { TextareaWrapper } from "@/components/ui/form-wrapper";
+import { TextareaWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
   const { mutate, isPending } = useUpdateProfile()
@@ -46,11 +45,9 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <EditIcon className="h-4 w-4 mr-2" />
-          Edit
-        </Button>
+      <DialogTrigger render={<Button variant="outline" size="sm" />}>
+        <EditIcon className="h-4 w-4 mr-2" />
+        Edit
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
@@ -59,7 +56,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
           <DialogDescription>Make changes to your contact information here.</DialogDescription>
         </DialogHeader>
 
-        <Form {...form}>
+        <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <TextareaWrapper
               control={form.control}
@@ -85,10 +82,11 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               </Button>
             </div>
           </form>
-        </Form>
+        </FormProvider>
       </DialogContent>
     </Dialog>
   )
 }
 
 export default Edit
+

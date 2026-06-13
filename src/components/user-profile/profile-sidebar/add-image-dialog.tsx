@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import { Plus, X } from 'lucide-react';
-import { toast } from 'sonner';
 
 import { acceptedImagesTypes } from '@/utils/enums';
 import { useAddImages } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,9 +19,10 @@ function AddImageDialog({ _id }: props) {
   const [open, setOpen] = useState(false)
 
   const { mutate, isPending } = useAddImages()
+  const toast = useToast()
 
   const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
-    if (fileRejections.length > 0) return toast("You may only upload 4 files at a time.")
+    if (fileRejections.length > 0) return toast.add({ title: "You may only upload 4 files at a time." })
     setFiles(prev => [...prev, ...acceptedFiles])
   }, [])
 
@@ -50,10 +51,8 @@ function AddImageDialog({ _id }: props) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <div className="aspect-square flex items-center justify-center border-2 border-dashed rounded-md cursor-pointer hover:bg-muted/50 transition-colors">
-          <Plus className="h-8 w-8 text-muted-foreground" />
-        </div>
+      <DialogTrigger render={<div className="aspect-square flex items-center justify-center border-2 border-dashed rounded-md cursor-pointer hover:bg-muted/50 transition-colors" />}>
+        <Plus className="h-8 w-8 text-muted-foreground" />
       </DialogTrigger>
 
       <DialogContent>

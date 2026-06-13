@@ -8,7 +8,7 @@ function Footer() {
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="bg-gradient-to-r from-rose-400 to-pink-500 p-2 rounded-full">
+              <div className="bg-linear-to-r from-rose-400 to-pink-500 p-2 rounded-full">
                 <Heart className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bold">

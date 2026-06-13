@@ -6,7 +6,7 @@ import Link from "next/link";
 import { getAge } from "@/utils";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { ToolTipWrapper } from "@/components/ui/tooltip";
+import { TooltipWrapper } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -54,24 +54,30 @@ function UserCard({
             </Badge>
           )} */}
 
-          <ToolTipWrapper description={`${hasPlan ? "Paid" : "Free"} User`}>
-            <PlanBadge
-              subscribedTo={hasPlan ? "platinum" : "basic"}
-              className="p-2 absolute bottom-2 left-2 rounded-full [&>svg]:size-4 opacity-90"
-            />
-          </ToolTipWrapper>
+          <TooltipWrapper
+            content={`${hasPlan ? "Paid" : "Free"} User`}
+            trigger={
+              <PlanBadge
+                subscribedTo={hasPlan ? "platinum" : "basic"}
+                className="p-2 absolute bottom-2 left-2 rounded-full [&>svg]:size-4 opacity-90"
+              />
+            }
+          />
         </div>
 
         <CardContent className="flex-1 px-4 py-3 relative">
           {isVerified && (
-            <ToolTipWrapper description="Verified User">
-              <Badge
-                variant="secondary"
-                className="p-1.5 absolute top-2 right-2 rounded-full bg-green-100 [&>svg]:size-4.5 opacity-90 border border-green-300"
-              >
-                <ShieldUser className="text-green-500" />
-              </Badge>
-            </ToolTipWrapper>
+            <TooltipWrapper
+              content="Verified User"
+              trigger={
+                <Badge
+                  variant="secondary"
+                  className="p-1.5 absolute top-2 right-2 rounded-full bg-green-100 [&>svg]:size-4.5 opacity-90 border border-green-300"
+                >
+                  <ShieldUser className="text-green-500" />
+                </Badge>
+              }
+            />
           )}
           <h3 className="text-lg font-semibold mb-1 line-clamp-1">{fullName}</h3>
 
@@ -114,21 +120,24 @@ function UserCard({
 
           <CardFooter className="df flex-wrap p-0">
             {(type === "full" || type === "disliked") && !isLiked &&
-              <ToolTipWrapper description="Add to Like">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onAdd(_id as string, "liked")}
-                  className="text-rose-500 border-rose-200 hover:bg-rose-50 hover:text-rose-600"
-                >
-                  <Heart className="h-4 w-4" />
-                  <span className="sr-only">Add to Like</span>
-                </Button>
-              </ToolTipWrapper>
+              <TooltipWrapper
+                content="Add to Like"
+                trigger={
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => onAdd(_id as string, "liked")}
+                    className="text-rose-500 border-rose-200 hover:bg-rose-50 hover:text-rose-600"
+                  >
+                    <Heart className="h-4 w-4" />
+                    <span className="sr-only">Add to Like</span>
+                  </Button>
+                }
+              />
             }
 
             {/* {(type === "full" || type === "liked") && !isDisliked &&
-              <ToolTipWrapper description="Add to Dislike">
+              <TooltipWrapper description="Add to Dislike">
                 <Button
                   size="sm"
                   variant="outline"
@@ -138,25 +147,28 @@ function UserCard({
                   <ThumbsDown className="h-4 w-4" />
                   <span className="sr-only">Add to Dislike</span>
                 </Button>
-              </ToolTipWrapper>
+              </TooltipWrapper>
             } */}
 
             {((type === "full" && isLiked) || type === "liked") &&
-              <ToolTipWrapper description="Remove from Like">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onRemove(_id as string, "liked")}
-                  className="text-rose-500 border-rose-200 hover:bg-rose-50 hover:text-rose-600"
-                >
-                  <HeartOff className="h-4 w-4 fill-rose-500" />
-                  <span className="sr-only">Remove from Like</span>
-                </Button>
-              </ToolTipWrapper>
+              <TooltipWrapper
+                content="Remove from Like"
+                trigger={
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => onRemove(_id as string, "liked")}
+                    className="text-rose-500 border-rose-200 hover:bg-rose-50 hover:text-rose-600"
+                  >
+                    <HeartOff className="h-4 w-4 fill-rose-500" />
+                    <span className="sr-only">Remove from Like</span>
+                  </Button>
+                }
+              />
             }
 
             {/* {((type === "full" && isDisliked) || type === "disliked") &&
-              <ToolTipWrapper description="Remove from Dislike">
+              <TooltipWrapper description="Remove from Dislike">
                 <Button
                   size="sm"
                   variant="outline"
@@ -167,21 +179,22 @@ function UserCard({
                   <span className="sr-only">Remove from Dislike</span>
                   <span className="absolute top-0.5 right-4 w-px h-[22px] bg-blue-500 rounded-full -rotate-45"></span>
                 </Button>
-              </ToolTipWrapper>
+              </TooltipWrapper>
             } */}
 
-            <ToolTipWrapper description="View Profile">
-              <Button
-                size="sm"
-                onClick={onView}
-                asChild
-              >
-                <Link href={`/user/profile/${_id}`}>
+            <TooltipWrapper
+              content="View Profile"
+              trigger={
+                <Button
+                  size="sm"
+                  onClick={onView}
+                  render={<Link href={`/user/profile/${_id}`} />}
+                >
                   <Eye className="h-4 w-4" />
                   <span className="sr-only">View Profile</span>
-                </Link>
-              </Button>
-            </ToolTipWrapper>
+                </Button>
+              }
+            />
           </CardFooter>
         </CardContent>
       </div>

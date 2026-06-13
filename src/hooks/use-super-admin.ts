@@ -1,7 +1,6 @@
 "use client";
 
 import { useMutation, useInfiniteQuery, useQueryClient, useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 import { type findUserSchemaT } from "./use-user-filters";
 
@@ -12,6 +11,7 @@ import {
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
   getUserCurrentPlan, removeUserPlan,
 } from "@/actions";
+import { useToast } from "@/components/ui/toast";
 
 type userAndPlanT = currentPlanT & {
   user: Partial<userT>
@@ -117,15 +117,16 @@ export function useGetAdmins() {
 
 export function useUpdateAdmin() {
   const queryClient = useQueryClient()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: (data: any) => data._id ? updateAdmin(data) : createAdmin(data),
     onSuccess(_, variables) {
-      toast(`Admin ${variables._id ? "updated" : "created"} successfully`)
+      toast.success(`Admin ${variables._id ? "updated" : "created"} successfully`)
       queryClient.invalidateQueries({ queryKey: ["admins"] })
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }
@@ -147,42 +148,46 @@ export function useGetUserInvitations(data: findUserSchemaT) {
 
 export function useRemoveUserPlan() {
   const queryClient = useQueryClient()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: removeUserPlan,
     onSuccess() {
-      toast("Subscription removed successfully")
+      toast.success("Subscription removed successfully")
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }
 
 export function useUserInvite() {
   const queryClient = useQueryClient()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: userInvited,
     onSuccess() {
-      toast("User invited successfully")
+      toast.success("User invited successfully")
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }
 
 export function useResetPassByAdmin() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: resetPassByAdmin,
     onSuccess() {
-      toast("Password reset successfully")
+      toast.success("Password reset successfully")
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }
@@ -196,25 +201,29 @@ export function useGetUserCurrentPlan(id: string, enabled: boolean) {
 }
 
 export function useMakePaymentForUser() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: makePaymentForUser,
     onSuccess() {
-      toast("Payment added successfully")
+      toast.success("Payment added successfully")
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }
 
 export function useBulkUpdateUsers() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: bulkUpdateUsers,
     onSuccess(_, variables) {
-      toast(`${variables.length} user(s) updated successfully`)
+      toast.success(`${variables.length} user(s) updated successfully`)
     },
     onError(error) {
-      toast(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || "Something went wrong!!!")
     }
   })
 }

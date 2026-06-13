@@ -1,13 +1,13 @@
 import { useCallback, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import { EditIcon } from 'lucide-react';
-import { toast } from 'sonner';
 import Image from 'next/image';
 
 import { acceptedImagesTypes } from '@/utils/enums';
 import { useAddImages } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,9 +20,10 @@ function EditProfileImageDialog({ _id }: props) {
   const [open, setOpen] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const { mutate, isPending } = useAddImages()
+  const toast = useToast()
 
   const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
-    if (fileRejections.length > 0) return toast("You may only upload 1 file at a time.")
+    if (fileRejections.length > 0) return toast.add({ title: "You may only upload 1 file at a time." })
     setFile(acceptedFiles[0])
   }, [])
 
@@ -52,14 +53,8 @@ function EditProfileImageDialog({ _id }: props) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute bottom-0 right-0 bg-primary text-primary-foreground rounded-full h-8 w-8"
-        >
-          <EditIcon className="h-4 w-4" />
-        </Button>
+      <DialogTrigger render={<Button variant="ghost" size="icon" className="absolute bottom-0 right-0 bg-primary text-primary-foreground rounded-full h-8 w-8" />}>
+        <EditIcon className="h-4 w-4" />
       </DialogTrigger>
 
       <DialogContent>

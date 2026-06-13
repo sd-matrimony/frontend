@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from 'lucide-react';
-import { toast } from 'sonner';
 import { z } from "zod";
 
 import { defaultValues, fieldList } from './data';
@@ -15,6 +14,7 @@ import { useIsExists, useRegisterImage } from '@/hooks/use-account';
 import { createPass } from '@/utils/password';
 import { cn } from '@/lib/utils';
 
+import { useToast } from '@/components/ui/toast';
 import { Button } from '@/components/ui/button';
 import FieldWrapper from './field-wrapper';
 
@@ -56,6 +56,7 @@ function getSchema(isAdmin: boolean) {
 
 function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: props) {
   const [isMini, setIsMini] = useState(!isAdmin)
+  const toast = useToast()
 
   const methods = useForm({
     resolver: zodResolver(getSchema(!!isAdmin)),
@@ -171,9 +172,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
       onSubmit(filterObj(payload) as Partial<userT>)
 
     } catch (error: any) {
-      toast.error('Failed to register', {
-        description: error?.message || ""
-      })
+      toast.add({ type: 'error', title: 'Failed to register', description: error?.message || "" })
     }
   }
 

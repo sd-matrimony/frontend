@@ -26,16 +26,9 @@ function ConfirmUpdate({ disabled, description, isPending, onConfirm }: props) {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Button
-          size="sm"
-          variant="secondary"
-          className="px-4 text-xs absolute top-px right-0.5 border"
-          disabled={disabled}
-        >
-          {isPending && <Loader className="size-4 animate-spin" />}
-          Update
-        </Button>
+      <AlertDialogTrigger render={<Button size="sm" variant="secondary" className="px-4 text-xs absolute top-px right-0.5 border" disabled={disabled} />}>
+        {isPending && <Loader className="size-4 animate-spin" />}
+        Update
       </AlertDialogTrigger>
 
       <AlertDialogContent>

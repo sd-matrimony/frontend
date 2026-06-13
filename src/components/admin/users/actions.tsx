@@ -7,12 +7,7 @@ import { useResetPassByAdmin } from "@/hooks/use-super-admin";
 import { useUpdateUserMutate } from "@/hooks/use-admin";
 import { createPass } from "@/utils/password";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, MenuContent, MenuItem, MenuTrigger } from "@/components/ui/menu";
 
 type props = {
   _id: string
@@ -39,89 +34,72 @@ function Actions({ _id, currentTab, role, fullName, dob }: props) {
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="px-2">
+    <Menu>
+      <MenuTrigger className="px-2">
         <BsThreeDots />
-      </DropdownMenuTrigger>
+      </MenuTrigger>
 
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem asChild>
-          <Link href={`/${role}/user/${_id}`}>
-            View
-          </Link>
-        </DropdownMenuItem>
+      <MenuContent align="end">
+        <MenuItem render={<Link href={`/${role}/user/${_id}`} />}>
+          View
+        </MenuItem>
 
         {
           role === "super-admin" && currentTab === "approved" &&
-          <DropdownMenuItem
-            onClick={onReset}
-            disabled={resetPassPending}
-          >
+          <MenuItem onClick={onReset} disabled={resetPassPending}>
             Reset Password
-          </DropdownMenuItem>
+          </MenuItem>
         }
 
         {
           currentTab !== "approved" && (
-            <DropdownMenuItem
-              onClick={() => updateStatus("approved")}
-            >
+            <MenuItem onClick={() => updateStatus("approved")}>
               Approve
-            </DropdownMenuItem>
+            </MenuItem>
           )
         }
 
         {
           (currentTab === "pending" || currentTab === "approved") && (
-            <DropdownMenuItem
-              onClick={() => updateStatus("rejected")}
-            >
+            <MenuItem onClick={() => updateStatus("rejected")}>
               Reject
-            </DropdownMenuItem>
+            </MenuItem>
           )
         }
 
         {
           currentTab !== "blocked" && currentTab !== "deleted" && (
-            <DropdownMenuItem
-              onClick={() => updateActions({ isBlocked: true })}
-            >
+            <MenuItem onClick={() => updateActions({ isBlocked: true })}>
               Block
-            </DropdownMenuItem>
+            </MenuItem>
           )
         }
 
         {
           currentTab === "blocked" && (
-            <DropdownMenuItem
-              onClick={() => updateActions({ isBlocked: false })}
-            >
+            <MenuItem onClick={() => updateActions({ isBlocked: false })}>
               Unblock
-            </DropdownMenuItem>
+            </MenuItem>
           )
         }
 
         {
           currentTab !== "deleted" && (
-            <DropdownMenuItem
-              onClick={() => updateActions({ isDeleted: true })}
-            >
+            <MenuItem onClick={() => updateActions({ isDeleted: true })}>
               Delete
-            </DropdownMenuItem>
+            </MenuItem>
           )
         }
 
         {
           currentTab === "deleted" && (
-            <DropdownMenuItem
-              onClick={() => updateActions({ isDeleted: false })}
-            >
+            <MenuItem onClick={() => updateActions({ isDeleted: false })}>
               Restore
-            </DropdownMenuItem>
+            </MenuItem>
           )
         }
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </MenuContent>
+    </Menu>
   )
 }
 

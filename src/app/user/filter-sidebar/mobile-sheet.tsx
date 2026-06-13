@@ -19,13 +19,8 @@ interface props {
 function MobileSheet({ hasFilters, onSave }: props) {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          className="md:hidden fixed top-20 left-4 z-1"
-        >
-          <Menu /> Filters
-        </Button>
+      <SheetTrigger render={<Button variant="outline" className="md:hidden fixed top-20 left-4 z-1" />}>
+        <Menu /> Filters
       </SheetTrigger>
 
       <SheetContent side="left" className="p-4">

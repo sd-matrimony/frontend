@@ -9,7 +9,7 @@ import { useFindUser } from "@/hooks/use-admin";
 import { gender } from "@/utils";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { InputWrapper, SelectWrapper } from "@/components/ui/form-wrapper";
+import { InputWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 
 type props = {
@@ -87,7 +87,7 @@ function FindUser({ selected, setSelected }: props) {
             <SelectWrapper
               name="gender"
               control={methods.control}
-              options={gender}
+              items={gender}
               label="Gender"
               className="mb-4 gap-0.5"
             />

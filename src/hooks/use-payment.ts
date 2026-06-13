@@ -1,10 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import { createOrder, testCreateOrder, testVerifyPayment, verifyPayment } from "@/actions";
+import { useToast } from "@/components/ui/toast";
 
 export function useCreateOrder() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: createOrder,
     onError: (error) => {
@@ -16,6 +18,7 @@ export function useCreateOrder() {
 export function useVerifyPayment() {
   const queryClient = useQueryClient()
   const navigate = useRouter()
+  const toast = useToast()
 
   return useMutation({
     mutationFn: verifyPayment,
@@ -31,6 +34,8 @@ export function useVerifyPayment() {
 }
 
 export function useTestCreateOrder() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: testCreateOrder,
     onError: (error) => {
@@ -40,6 +45,8 @@ export function useTestCreateOrder() {
 }
 
 export function useTestVerifyPayment() {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: testVerifyPayment,
     onSuccess: () => {

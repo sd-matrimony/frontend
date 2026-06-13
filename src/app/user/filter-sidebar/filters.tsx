@@ -1,17 +1,16 @@
 import { useEffect } from 'react';
 // import { differenceInYears } from 'date-fns';
+import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { maritalStatus, ageRange, salaryRange } from '@/utils';
 import { usePartnerPreferences } from '@/hooks/use-user';
 import { useUserDetailsMini } from '@/hooks/use-account';
 
-import { InputWrapper, SelectWrapper } from '@/components/ui/form-wrapper';
+import { InputWrapper, SelectWrapper } from '@/components/ui/field-wrapper-rhf';
 import { SelectListWrapper } from '@/components/common/lists';
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
 import { cn } from '@/lib/utils';
 
 interface props {
@@ -212,7 +211,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
         }
       </div>
 
-      <Form {...form}>
+      <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className={cn("dfc h-[calc(100vh-10rem)]", contentHt)}
@@ -222,7 +221,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
               name="salaryRange"
               label="Salary Range"
               control={form.control}
-              options={salaryRange}
+              items={salaryRange}
             />
 
             <div className='mb-0 -mt-1 text-xs text-center'>Or</div>
@@ -238,7 +237,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
               name="ageRange"
               label="Age Range"
               control={form.control}
-              options={ageRange}
+              items={ageRange}
             />
 
             <div className='mb-2 -mt-1 text-xs text-center'>Or</div>
@@ -261,7 +260,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
               name="maritalStatus"
               label="Marital Status"
               control={form.control}
-              options={maritalStatus}
+              items={maritalStatus}
             />
 
             {
@@ -298,7 +297,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
             </Button>
           </div>
         </form>
-      </Form>
+      </FormProvider>
     </>
   )
 }

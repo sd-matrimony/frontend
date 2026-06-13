@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 function Cta() {
   return (
-    <section className="py-20 bg-gradient-to-r from-rose-400 to-pink-500">
+    <section className="py-20 bg-linear-to-r from-rose-400 to-pink-500">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white">Ready to Find Your Perfect Match?</h2>
@@ -14,11 +14,11 @@ function Cta() {
 
           <div className="dc">
             <Button
-              asChild
               size="lg"
               className="bg-white text-rose-500 hover:bg-rose-50 px-8 py-3 text-lg font-semibold"
+              render={<Link href="/auth/user/signup" />}
             >
-              <Link href="/auth/user/signup">Start Your Journey</Link>
+              Start Your Journey
             </Button>
           </div>
         </div>

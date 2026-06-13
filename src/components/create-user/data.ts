@@ -28,8 +28,13 @@ type NumberField = BaseField & {
 }
 
 type SelectField = BaseField & {
-  type: "select" | "radio"
-  options: optionsT
+  type: "select"
+  items: itemsT
+}
+
+type RadioField = BaseField & {
+  type: "radio"
+  items: (allowedPrimitiveT | itemT)[]
 }
 
 type ComboboxField = BaseField & {
@@ -48,7 +53,7 @@ type SubCasteField = Omit<BaseField, "label"> & {
   additionalOpts?: string | string[]
 }
 
-export type Field = TextField | NumberField | SelectField | DateField | FileField | ComboboxField | SubCasteField
+export type Field = TextField | NumberField | SelectField | RadioField | DateField | FileField | ComboboxField | SubCasteField
 
 type FieldSection = {
   lable: string
@@ -98,7 +103,7 @@ export const fieldList: FieldSection[] = [
         name: "gender",
         label: "Gender",
         type: "select",
-        options: gender,
+        items: gender,
         isRequired: true,
       },
       {
@@ -111,7 +116,7 @@ export const fieldList: FieldSection[] = [
         name: "maritalStatus",
         label: "Marital Status",
         type: "select",
-        options: maritalStatus,
+        items: maritalStatus,
         defaultValue: "Single",
         isRequired: true,
       },
@@ -119,7 +124,7 @@ export const fieldList: FieldSection[] = [
         name: "hasDisability",
         label: "Has Disability",
         type: "radio",
-        options: yesNoOptions,
+        items: yesNoOptions,
         defaultValue: false,
       },
     ]
@@ -212,14 +217,14 @@ export const fieldList: FieldSection[] = [
         name: "familyDetails.isFatherAlive",
         label: "Father's living status",
         type: "radio",
-        options: aliveOptions,
+        items: aliveOptions,
         defaultValue: true,
       },
       {
         name: "familyDetails.isMotherAlive",
         label: "Mother's living status",
         type: "radio",
-        options: aliveOptions,
+        items: aliveOptions,
         defaultValue: true,
       },
       {
@@ -346,7 +351,7 @@ export const fieldList: FieldSection[] = [
         name: "otherDetails.houseType",
         label: "House Type",
         type: "radio",
-        options: ["Own", "Rented"]
+        items: ["Own", "Rented"]
       },
     ]
   },
@@ -439,7 +444,7 @@ export const fieldList: FieldSection[] = [
         name: "partnerPreferences.maritalStatus",
         label: "Marital Status",
         type: "select",
-        options: maritalStatus,
+        items: maritalStatus,
         defaultValue: "Single",
       }
     ]

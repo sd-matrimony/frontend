@@ -15,14 +15,7 @@ type props = {
 function ImageView({ image, images, profileImg, setAsProfilePic }: props) {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Image
-          src={image || "/imgs/user.jpg"}
-          alt={"User Image"}
-          fill
-          className="object-cover rounded-md cursor-pointer border"
-        />
-      </DialogTrigger>
+      <DialogTrigger render={<Image src={image || "/imgs/user.jpg"} alt={"User Image"} fill className="object-cover rounded-md cursor-pointer border" />} />
 
       <DialogHeader>
         <DialogTitle className="sr-only">User Image</DialogTitle>

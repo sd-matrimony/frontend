@@ -150,6 +150,7 @@ vite.config.ts.timestamp-*
 next-env.d.ts
 
 pnpm-lock.yaml
+pnpm-workspace.yaml
 package-lock.json
 
 settings.local.json

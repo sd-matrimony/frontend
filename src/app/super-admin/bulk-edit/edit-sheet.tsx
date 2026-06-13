@@ -13,7 +13,7 @@ import { SheetWrapper } from "@/components/ui/sheet"
 import {
   ComboboxWrapper, DatePickerWrapper, InputWrapper,
   SelectWrapper, SwitchWrapper,
-} from "@/components/ui/form-wrapper"
+} from "@/components/ui/field-wrapper-rhf"
 
 function computeChanges(original: any, current: any): any {
   const diff: any = {}
@@ -79,8 +79,8 @@ export function EditSheet({ _id, open, onOpenChange, onApply }: Props) {
   const { control } = form
   const watchedCaste = useWatch({ control, name: "otherDetails.caste" }) ?? ""
   const watchedPrefCaste = useWatch({ control, name: "partnerPreferences.caste" }) ?? ""
-  const subCasteOpts: optionsT = (casteMap as any)?.[watchedCaste] ?? []
-  const prefSubCasteOpts: optionsT = (casteMap as any)?.[watchedPrefCaste] ?? []
+  const subCasteOpts: itemsT = (casteMap as any)?.[watchedCaste] ?? []
+  const prefSubCasteOpts: itemsT = (casteMap as any)?.[watchedPrefCaste] ?? []
 
   return (
     <SheetWrapper
@@ -131,33 +131,33 @@ export function EditSheet({ _id, open, onOpenChange, onApply }: Props) {
                 className="gap-0.5"
                 captionLayout="dropdown"
               />
-              <SelectWrapper name="gender" label="Gender" control={control} options={gender} className="gap-0.5" />
-              <SelectWrapper name="maritalStatus" label="Marital Status" control={control} options={maritalStatus} className="gap-0.5" />
+              <SelectWrapper name="gender" label="Gender" control={control} items={gender} className="gap-0.5" />
+              <SelectWrapper name="maritalStatus" label="Marital Status" control={control} items={maritalStatus} className="gap-0.5" />
               <SwitchWrapper name="hasDisability" label="Has Disability" control={control} className="gap-0.5" />
               <InputWrapper name="contactDetails.address" label="Address" control={control} className="col-span-2 gap-0.5" />
-              <ComboboxWrapper name="otherDetails.caste" label="Caste" control={control} options={castes ?? []} canCreateNew className="gap-0.5" />
-              <ComboboxWrapper name="otherDetails.subCaste" label="Sub Caste" control={control} options={subCasteOpts} canCreateNew className="gap-0.5" />
-              <ComboboxWrapper name="otherDetails.religion" label="Religion" control={control} options={religions ?? []} canCreateNew className="gap-0.5" />
-              <ComboboxWrapper name="otherDetails.motherTongue" label="Mother Tongue" control={control} options={languages ?? []} canCreateNew className="gap-0.5" />
+              <ComboboxWrapper name="otherDetails.caste" label="Caste" control={control} items={castes ?? []} className="gap-0.5" /> {/*canCreateNew*/}
+              <ComboboxWrapper name="otherDetails.subCaste" label="Sub Caste" control={control} items={subCasteOpts} className="gap-0.5" /> {/*canCreateNew*/}
+              <ComboboxWrapper name="otherDetails.religion" label="Religion" control={control} items={religions ?? []} className="gap-0.5" /> {/*canCreateNew*/}
+              <ComboboxWrapper name="otherDetails.motherTongue" label="Mother Tongue" control={control} items={languages ?? []} className="gap-0.5" /> {/*canCreateNew*/}
               <InputWrapper name="otherDetails.height" label="Height" control={control} className="gap-0.5" />
               <InputWrapper name="otherDetails.color" label="Complexion" control={control} className="gap-0.5" />
               <InputWrapper name="otherDetails.houseType" label="House Type" control={control} className="gap-0.5" />
             </TabsContent>
 
             <TabsContent value="Professional" className="scroll-y px-4 pt-4 pb-20 mt-0 grid grid-cols-2 gap-x-4 gap-y-3 content-start">
-              <ComboboxWrapper name="proffessionalDetails.highestQualification" label="Qualification" control={control} options={educationLevels ?? []} className="col-span-2 gap-0.5" />
+              <ComboboxWrapper name="proffessionalDetails.highestQualification" label="Qualification" control={control} items={educationLevels ?? []} className="col-span-2 gap-0.5" />
               <InputWrapper name="proffessionalDetails.qualifications" label="Qualification Details" control={control} className="col-span-2 gap-0.5" />
-              <ComboboxWrapper name="proffessionalDetails.profession" label="Profession" control={control} options={professions ?? []} canCreateNew className="gap-0.5" />
-              <ComboboxWrapper name="proffessionalDetails.sector" label="Sector" control={control} options={sectors ?? []} canCreateNew className="gap-0.5" />
+              <ComboboxWrapper name="proffessionalDetails.profession" label="Profession" control={control} items={professions ?? []} className="gap-0.5" /> {/*canCreateNew*/}
+              <ComboboxWrapper name="proffessionalDetails.sector" label="Sector" control={control} items={sectors ?? []} className="gap-0.5" /> {/*canCreateNew*/}
               <InputWrapper name="proffessionalDetails.salary" label="Salary" control={control} type="number" className="gap-0.5" />
               <InputWrapper name="proffessionalDetails.companyName" label="Company Name" control={control} className="gap-0.5" />
               <InputWrapper name="proffessionalDetails.companyLocation" label="Company Location" control={control} className="col-span-2 gap-0.5" />
             </TabsContent>
 
             <TabsContent value="Horoscope" className="scroll-y px-4 pt-4 pb-20 mt-0 grid grid-cols-2 gap-x-4 gap-y-3 content-start">
-              <ComboboxWrapper name="vedicHoroscope.rasi" label="Rasi" control={control} options={raasiOpts ?? []} className="gap-0.5" />
-              <ComboboxWrapper name="vedicHoroscope.lagna" label="Lagna" control={control} options={raasiOpts ?? []} className="gap-0.5" />
-              <ComboboxWrapper name="vedicHoroscope.nakshatra" label="Nakshatra" control={control} options={nakshatraOpts ?? []} className="gap-0.5" />
+              <ComboboxWrapper name="vedicHoroscope.rasi" label="Rasi" control={control} items={raasiOpts ?? []} className="gap-0.5" />
+              <ComboboxWrapper name="vedicHoroscope.lagna" label="Lagna" control={control} items={raasiOpts ?? []} className="gap-0.5" />
+              <ComboboxWrapper name="vedicHoroscope.nakshatra" label="Nakshatra" control={control} items={nakshatraOpts ?? []} className="gap-0.5" />
               <InputWrapper name="vedicHoroscope.dashaPeriod" label="Dasha Period" control={control} className="gap-0.5" />
               <InputWrapper name="vedicHoroscope.dosham" label="Dosham" control={control} className="col-span-2 gap-0.5" />
             </TabsContent>
@@ -166,8 +166,8 @@ export function EditSheet({ _id, open, onOpenChange, onApply }: Props) {
               <p className="col-span-2 text-xs font-medium text-muted-foreground uppercase tracking-wide pt-1">Family Details</p>
               <InputWrapper name="familyDetails.fatherName" label="Father's Name" control={control} className="gap-0.5" />
               <InputWrapper name="familyDetails.motherName" label="Mother's Name" control={control} className="gap-0.5" />
-              <SelectWrapper name="familyDetails.isFatherAlive" label="Father Status" control={control} options={aliveOptions} className="gap-0.5" />
-              <SelectWrapper name="familyDetails.isMotherAlive" label="Mother Status" control={control} options={aliveOptions} className="gap-0.5" />
+              <SelectWrapper name="familyDetails.isFatherAlive" label="Father Status" control={control} items={aliveOptions} className="gap-0.5" />
+              <SelectWrapper name="familyDetails.isMotherAlive" label="Mother Status" control={control} items={aliveOptions} className="gap-0.5" />
               <InputWrapper name="familyDetails.noOfBrothers" label="Brothers" control={control} type="number" className="gap-0.5" />
               <InputWrapper name="familyDetails.noOfSisters" label="Sisters" control={control} type="number" className="gap-0.5" />
               <InputWrapper name="familyDetails.birthOrder" label="Birth Order" control={control} type="number" className="gap-0.5" />
@@ -175,15 +175,15 @@ export function EditSheet({ _id, open, onOpenChange, onApply }: Props) {
               <p className="col-span-2 text-xs font-medium text-muted-foreground uppercase tracking-wide pt-3">Partner Preferences</p>
               <InputWrapper name="partnerPreferences.minAge" label="Min Age" control={control} type="number" className="gap-0.5" />
               <InputWrapper name="partnerPreferences.maxAge" label="Max Age" control={control} type="number" className="gap-0.5" />
-              <ComboboxWrapper name="partnerPreferences.religion" label="Religion" control={control} options={religions ?? []} canCreateNew className="gap-0.5" />
-              <ComboboxWrapper name="partnerPreferences.caste" label="Caste" control={control} options={castes ?? []} canCreateNew className="gap-0.5" />
-              <ComboboxWrapper name="partnerPreferences.subCaste" label="Sub Caste" control={control} options={prefSubCasteOpts} canCreateNew className="gap-0.5" />
+              <ComboboxWrapper name="partnerPreferences.religion" label="Religion" control={control} items={religions ?? []} className="gap-0.5" /> {/*canCreateNew*/}
+              <ComboboxWrapper name="partnerPreferences.caste" label="Caste" control={control} items={castes ?? []} className="gap-0.5" /> {/*canCreateNew*/}
+              <ComboboxWrapper name="partnerPreferences.subCaste" label="Sub Caste" control={control} items={prefSubCasteOpts} className="gap-0.5" /> {/*canCreateNew*/}
               <InputWrapper name="partnerPreferences.minSalary" label="Min Salary" control={control} type="number" className="gap-0.5" />
-              <ComboboxWrapper name="partnerPreferences.profession" label="Profession" control={control} options={professions ?? []} canCreateNew className="gap-0.5" />
-              <ComboboxWrapper name="partnerPreferences.sector" label="Sector" control={control} options={sectors ?? []} canCreateNew className="gap-0.5" />
-              <ComboboxWrapper name="partnerPreferences.motherTongue" label="Mother Tongue" control={control} options={languages ?? []} canCreateNew className="gap-0.5" />
-              <SelectWrapper name="partnerPreferences.maritalStatus" label="Marital Status" control={control} options={maritalStatus} className="gap-0.5" />
-              <ComboboxWrapper name="partnerPreferences.minQualification" label="Min Qualification" control={control} options={educationLevels ?? []} className="gap-0.5" />
+              <ComboboxWrapper name="partnerPreferences.profession" label="Profession" control={control} items={professions ?? []} className="gap-0.5" /> {/*canCreateNew*/}
+              <ComboboxWrapper name="partnerPreferences.sector" label="Sector" control={control} items={sectors ?? []} className="gap-0.5" /> {/*canCreateNew*/}
+              <ComboboxWrapper name="partnerPreferences.motherTongue" label="Mother Tongue" control={control} items={languages ?? []} className="gap-0.5" /> {/*canCreateNew*/}
+              <SelectWrapper name="partnerPreferences.maritalStatus" label="Marital Status" control={control} items={maritalStatus} className="gap-0.5" />
+              <ComboboxWrapper name="partnerPreferences.minQualification" label="Min Qualification" control={control} items={educationLevels ?? []} className="gap-0.5" />
               <InputWrapper name="partnerPreferences.location" label="Location" control={control} className="gap-0.5" />
               <InputWrapper name="partnerPreferences.expectation" label="Expectation" control={control} className="col-span-2 gap-0.5" />
             </TabsContent>
