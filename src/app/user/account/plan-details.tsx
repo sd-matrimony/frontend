@@ -56,6 +56,7 @@ function FreePlan() {
           <Button
             size="lg"
             className="w-full bg-pink-600 hover:bg-pink-700"
+            nativeButton={false}
             render={<Link href="/user/payment" />}
           >
             Choose Your Plan - Start Your Journey
@@ -89,7 +90,7 @@ function PlanDetails() {
         <div className="df justify-between">
           <p>Your current plan is expired</p>
 
-          <Button render={<Link href="/user/payment" />}>
+          <Button nativeButton={false} render={<Link href="/user/payment" />}>
             Buy Again
           </Button>
         </div>

@@ -122,8 +122,8 @@ function UserCard({
             {(type === "full" || type === "disliked") && !isLiked &&
               <TooltipWrapper
                 content="Add to Like"
-                trigger={
-                  <Button
+                triggerProps={{
+                  render: <Button
                     size="sm"
                     variant="outline"
                     onClick={() => onAdd(_id as string, "liked")}
@@ -132,7 +132,7 @@ function UserCard({
                     <Heart className="h-4 w-4" />
                     <span className="sr-only">Add to Like</span>
                   </Button>
-                }
+                }}
               />
             }
 
@@ -153,8 +153,8 @@ function UserCard({
             {((type === "full" && isLiked) || type === "liked") &&
               <TooltipWrapper
                 content="Remove from Like"
-                trigger={
-                  <Button
+                triggerProps={{
+                  render: <Button
                     size="sm"
                     variant="outline"
                     onClick={() => onRemove(_id as string, "liked")}
@@ -163,7 +163,7 @@ function UserCard({
                     <HeartOff className="h-4 w-4 fill-rose-500" />
                     <span className="sr-only">Remove from Like</span>
                   </Button>
-                }
+                }}
               />
             }
 
@@ -184,16 +184,17 @@ function UserCard({
 
             <TooltipWrapper
               content="View Profile"
-              trigger={
-                <Button
+              triggerProps={{
+                render: <Button
                   size="sm"
                   onClick={onView}
+                  nativeButton={false}
                   render={<Link href={`/user/profile/${_id}`} />}
                 >
                   <Eye className="h-4 w-4" />
                   <span className="sr-only">View Profile</span>
                 </Button>
-              }
+              }}
             />
           </CardFooter>
         </CardContent>

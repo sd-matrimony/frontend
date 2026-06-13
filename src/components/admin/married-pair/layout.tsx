@@ -5,7 +5,7 @@ import Link from "next/link";
 function Layout({ children, role = "admin" }: { children: React.ReactNode; role?: rolesT }) {
   return (
     <section className="p-6">
-      <Button variant="outline" className="mb-6 mt-2" render={<Link href={`/${role}`} />}>
+      <Button variant="outline" className="mb-6 mt-2" nativeButton={false} render={<Link href={`/${role}`} />}>
         <ChevronLeft className="size-4" /> Go Back
       </Button>
 

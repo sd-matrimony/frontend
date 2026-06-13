@@ -575,7 +575,7 @@ function Extractor({ updateStep }: props) {
               onClick={e => e.stopPropagation()}
             />
 
-            <Button render={<label htmlFor="image-upload" onClick={e => e.stopPropagation()} />}>
+            <Button nativeButton={false} render={<label htmlFor="image-upload" onClick={e => e.stopPropagation()} />}>
               <Upload className="h-4 w-4" />
               Select Image
             </Button>

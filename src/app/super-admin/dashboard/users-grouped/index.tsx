@@ -36,21 +36,20 @@ function UsersGrouped() {
       <CardHeader className="flex items-center gap-4 flex-wrap pb-1">
         <CardTitle className="shrink-0 mr-auto">Users Grouped</CardTitle>
 
-        <div className="w-24">
-          <SelectWrapper
-            items={["Date", "Caste", "Both"]}
-            placeholder="Select type"
-            value={type}
-            onValueChange={v => setType(v as typeT)}
-          />
-        </div>
+        <SelectWrapper
+          items={["Date", "Caste", "Both"]}
+          placeholder="Select type"
+          value={type}
+          onValueChange={v => setType(v as typeT)}
+          triggerCls="w-24"
+        />
 
         {
           type !== "Caste" &&
           <DatePicker
             selected={date}
             onSelect={(date) => setDate(date || new Date())}
-            className="w-28"
+            triggerProps={{ className: "w-32" }}
           // calendarProps={{
           //   captionLayout: "dropdown",
           //   disabled(date) {
