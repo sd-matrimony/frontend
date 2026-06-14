@@ -3,10 +3,11 @@ import { LucideProps } from "lucide-react";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-type CardWrapperProps = LayoutProps<"/"> & {
+type CardWrapperProps = {
   Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
   title: string
   description: string
+  children: React.ReactNode
 }
 
 function CardWrapper({ children, title, description, Icon }: CardWrapperProps) {
