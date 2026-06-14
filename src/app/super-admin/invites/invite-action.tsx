@@ -83,12 +83,14 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
           }}
         />
 
-        <DialogContent className="@container max-w-5xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="@container lg:max-w-5xl">
           <DialogHeader>
             <DialogTitle>Payment for {user?.fullName}</DialogTitle>
           </DialogHeader>
 
-          <MakePaymentForUser userId={user?._id} compact onSuccess={() => setOpen(false)} />
+          <div className="max-h-[80vh] p-0.5 pr-4 -mr-4 overflow-y-auto">
+            <MakePaymentForUser userId={user?._id} compact onSuccess={() => setOpen(false)} />
+          </div>
         </DialogContent>
       </Dialog>
 

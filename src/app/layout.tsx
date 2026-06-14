@@ -99,7 +99,7 @@ function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <Toaster position="top-right">
           <ClientWrapper>
-            {children}
+            <div className="isolate">{children}</div>
           </ClientWrapper>
         </Toaster>
 

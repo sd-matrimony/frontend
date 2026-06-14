@@ -55,7 +55,7 @@ function NavMenu() {
       </MenuTrigger>
 
       <MenuContent className='w-40' align="end">
-        <div>
+        <div className='px-2 py-1'>
           <p className="mb-1 text-sm font-medium leading-none line-clamp-1">{userName}</p>
           <p className="text-xs leading-none text-muted-foreground line-clamp-1">{user?.email}</p>
         </div>

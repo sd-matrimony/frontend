@@ -56,12 +56,8 @@ function UserCard({
 
           <TooltipWrapper
             content={`${hasPlan ? "Paid" : "Free"} User`}
-            trigger={
-              <PlanBadge
-                subscribedTo={hasPlan ? "platinum" : "basic"}
-                className="p-2 absolute bottom-2 left-2 rounded-full [&>svg]:size-4 opacity-90"
-              />
-            }
+            triggerCls="p-2 absolute bottom-2 left-2 rounded-full [&>svg]:size-4 opacity-90"
+            trigger={<PlanBadge subscribedTo={hasPlan ? "platinum" : "basic"} />}
           />
         </div>
 
