@@ -7,7 +7,7 @@ import { useStatics } from "@/hooks/use-general";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ComboboxWrapper } from "@/components/ui/combobox";
+import { AutocompleteWrapper } from "@/components/ui/autocomplete";
 import { SelectWrapper } from "@/components/ui/select";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -50,28 +50,23 @@ function UsersGrouped() {
             selected={date}
             onSelect={(date) => setDate(date || new Date())}
             triggerProps={{ className: "w-32" }}
-          // calendarProps={{
-          //   captionLayout: "dropdown",
-          //   disabled(date) {
-          //     return date > new Date()
-          //   },
-          // }}
+            disabled={d => d > new Date()}
           />
         }
 
         {
           type !== "Date" &&
           <div className="w-56">
-            <ComboboxWrapper
+            <AutocompleteWrapper
               value={caste}
               items={castes}
               isLoading={isCasteLoading}
               emptyMessage="No caste found"
-              // canCreateNew={false}
               onValueChange={v => setCaste(v as string)}
             />
           </div>
         }
+
         <Button
           size="sm"
           variant="outline"
@@ -90,7 +85,7 @@ function UsersGrouped() {
         {
           !isLoading && data?.map(ad => (
             <Collapsible key={ad._id} className="mb-4 border rounded-lg overflow-hidden">
-              <CollapsibleTrigger render={<div className="df px-4 py-3 bg-muted/40 cursor-pointer rounded-none" />}>
+              <CollapsibleTrigger nativeButton={false} render={<div className="df px-4 py-3 bg-muted/40 cursor-pointer rounded-none" />}>
                 <div className="flex-1">
                   <p>{ad?.fullName || "Individuals"}</p>
                   {ad?.email && <p className="text-xs text-muted-foreground">{ad?.email}</p>}

@@ -4,7 +4,7 @@ import { Control, FieldValues, Path } from "react-hook-form";
 
 import { useStatics } from "@/hooks/use-general";
 
-import { ComboboxWrapper } from "@/components/ui/field-wrapper-rhf";
+import { AutocompleteWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
 
 type BaseProps<T extends FieldValues> = {
   name: Path<T>
@@ -22,8 +22,9 @@ type props<T extends FieldValues> = BaseProps<T> & {
 export function SelectListWrapper<T extends FieldValues>({ name, label, control, placeholder, listName, canCreateNew, className, additionalOpts }: props<T>) {
   const { data, isLoading } = useStatics(listName)
 
+  const Comp = canCreateNew ? AutocompleteWrapper : SelectWrapper
   return (
-    <ComboboxWrapper
+    <Comp
       name={name}
       label={label}
       control={control}
@@ -33,7 +34,6 @@ export function SelectListWrapper<T extends FieldValues>({ name, label, control,
       ]}
       isLoading={isLoading}
       placeholder={placeholder || `Select ${label}`}
-      // canCreateNew={canCreateNew}
       className={className}
     />
   )
@@ -47,7 +47,7 @@ export function SelectSubCastesWrapper<T extends FieldValues>({ name, control, c
   const { data, isLoading } = useStatics("casteMap")
 
   return (
-    <ComboboxWrapper
+    <AutocompleteWrapper
       name={name}
       label="Sub / Other Caste"
       control={control}
@@ -58,7 +58,6 @@ export function SelectSubCastesWrapper<T extends FieldValues>({ name, control, c
       isLoading={isLoading}
       placeholder="Select Sub / Other Caste"
       className={className}
-    // canCreateNew
     />
   )
 }
