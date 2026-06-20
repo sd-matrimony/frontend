@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Ban, Check, Copy, CreditCard } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { type niuT, useRemoveUserPlan } from "@/hooks/use-super-admin";
 import useClipboardCopy from "@/hooks/use-clipboard-copy";
@@ -33,9 +34,11 @@ type props = {
 }
 
 function InviteAction({ user }: props) {
-  const { copied, onCopyClk } = useClipboardCopy()
   const [open, setOpen] = useState(false)
+
   const { mutate: removePlan, isPending: isRemoving } = useRemoveUserPlan()
+  const { copied, onCopyClk } = useClipboardCopy()
+  const queryClient = useQueryClient()
 
   const isSubscribed = user.currentPlan && new Date(user.currentPlan.expiryDate) > new Date()
 
@@ -58,6 +61,11 @@ You can log in using the link below:
 
 If you did not intend to join SD Matrimony or believe this was a mistake, you can delete your account anytime or contact our support team for assistance.
     `)
+  }
+
+  function onSuccess() {
+    queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
+    setOpen(false)
   }
 
   return (
@@ -89,7 +97,7 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
           </DialogHeader>
 
           <div className="max-h-[80vh] p-0.5 pr-4 -mr-4 overflow-y-auto">
-            <MakePaymentForUser userId={user?._id} compact onSuccess={() => setOpen(false)} />
+            <MakePaymentForUser userId={user?._id} compact onSuccess={onSuccess} />
           </div>
         </DialogContent>
       </Dialog>
