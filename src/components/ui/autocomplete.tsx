@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import { ChevronDownIcon, XIcon, Loader2 } from 'lucide-react'
 import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomplete'
+import { ChevronDownIcon, XIcon, Loader2 } from 'lucide-react'
 
 import {
   cn,

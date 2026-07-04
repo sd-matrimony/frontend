@@ -317,12 +317,7 @@ function SelectWrapper({
           }
 
           return (
-            <Item
-              key={getKey(item, i)}
-              item={item}
-              className={itemCls}
-              indicatorAt={indicatorAt}
-            />
+            <Item key={getKey(item, i)} item={item} className={itemCls} indicatorAt={indicatorAt} />
           )
         })}
       </SelectContent>

@@ -271,7 +271,7 @@ function DateTimePicker({
                           'hover:bg-accent hover:text-accent-foreground',
                           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
                           active &&
-                          'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground shadow-xs',
+                            'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground shadow-xs',
                           disabled && 'pointer-events-none opacity-30',
                         )}
                       >

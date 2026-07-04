@@ -569,10 +569,10 @@ function ComboboxWrapper<Value, Multiple extends boolean | undefined = false>({
           {renderStatus !== undefined
             ? renderStatus
             : isLoading && (
-              <p className="flex items-center justify-center gap-2 py-6">
-                <Loader2 className="size-4 animate-spin" /> Loading...
-              </p>
-            )}
+                <p className="flex items-center justify-center gap-2 py-6">
+                  <Loader2 className="size-4 animate-spin" /> Loading...
+                </p>
+              )}
         </ComboboxStatus>
 
         <ComboboxEmpty>

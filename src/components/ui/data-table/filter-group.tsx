@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CirclePlus } from 'lucide-react'
-import { Table } from '@tanstack/react-table'
+import { type Table } from '@tanstack/react-table'
 
 import { type ComboboxWrapperProps } from '@/components/ui/combobox'
 import { MenuCheckboxWrapper } from '@/components/ui/menu-wrapper'

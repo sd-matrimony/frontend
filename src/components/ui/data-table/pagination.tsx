@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
-import { Table } from '@tanstack/react-table'
+import { type Table } from '@tanstack/react-table'
 
 import { SelectWrapper } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'

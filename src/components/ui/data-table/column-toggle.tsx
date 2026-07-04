@@ -1,5 +1,5 @@
 import { Settings2 } from 'lucide-react'
-import { Table } from '@tanstack/react-table'
+import { type Table } from '@tanstack/react-table'
 
 import { Menu, MenuCheckboxItem, MenuContent, MenuTrigger } from '@/components/ui/menu'
 import { buttonVariants } from '@/components/ui/button'

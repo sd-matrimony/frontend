@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Column } from '@tanstack/react-table'
+import { type Column } from '@tanstack/react-table'
 
 import { getLabel, getValue, isGroup } from '@/lib/utils'
 
