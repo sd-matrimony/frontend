@@ -75,6 +75,7 @@ export function TextareaWrapper<T extends FieldValues>({
 
 type RadioProps<T extends FieldValues> = BaseProps<T> & {
   items: (allowedPrimitiveT | itemT)[]
+  orientation?: 'horizontal' | 'vertical'
 }
 export function RadioWrapper<T extends FieldValues>({ name, control, ...props }: RadioProps<T>) {
   return (
