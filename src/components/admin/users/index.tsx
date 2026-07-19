@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Loader } from "lucide-react";
 import {
   SortingState,
@@ -39,9 +39,11 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(1
 
   const currentTab: any = props.approvalStatus || (props.isBlocked ? "blocked" : "deleted")
 
+  const tableColumns = useMemo(() => columns(currentTab, role), [currentTab, role])
+
   const table = useReactTable({
     data: users as any || [],
-    columns: columns(currentTab, role),
+    columns: tableColumns,
     state: {
       sorting,
       columnVisibility,

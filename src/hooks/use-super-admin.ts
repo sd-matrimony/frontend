@@ -9,7 +9,7 @@ import {
   getUsersGroupedByAdminCount, getUsersGroupedCount, getAdminsList,
   createAdmin, updateAdmin, getUserInvitations, userInvited,
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
-  getUserCurrentPlan, removeUserPlan,
+  getUserCurrentPlan, removeUserPlan, updateUserCritical,
 } from "@/actions";
 import { useToast } from "@/components/ui/toast";
 
@@ -207,6 +207,22 @@ export function useMakePaymentForUser() {
     mutationFn: makePaymentForUser,
     onSuccess() {
       toast.success("Payment added successfully")
+    },
+    onError(error) {
+      toast.error(error?.message || "Something went wrong!!!")
+    }
+  })
+}
+
+export function useUpdateUserCritical() {
+  const queryClient = useQueryClient()
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: updateUserCritical,
+    onSuccess() {
+      toast.success("User details updated successfully")
+      queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
     onError(error) {
       toast.error(error?.message || "Something went wrong!!!")

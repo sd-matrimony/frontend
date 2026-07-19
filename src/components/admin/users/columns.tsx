@@ -80,6 +80,10 @@ export const columns = (currentTab: tab, role: rolesT): ColumnDef<Partial<userT>
           fullName={row?.original?.fullName || ""}
           currentTab={currentTab}
           role={role}
+          profileImg={row?.original?.profileImg}
+          email={row?.original?.email}
+          mobile={row?.original?.contactDetails?.mobile}
+          salary={row?.original?.proffessionalDetails?.salary}
         />
       )
     }

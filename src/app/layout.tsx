@@ -95,7 +95,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
+    <html lang="en" className={cn("font-sans", inter.variable)} data-scroll-behavior="smooth">
       <body>
         <Toaster position="top-right">
           <ClientWrapper>

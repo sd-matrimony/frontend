@@ -93,6 +93,14 @@ export function resetPassByAdmin({ _id, password }: { _id: string, password: str
   })
 }
 
+export function updateUserCritical({ _id, ...data }: { _id: string, email?: string, mobile?: string, salary?: number }) {
+  return sendApiReq({
+    url: `${endPoints.updateUserCritical}/${_id}`,
+    method: "put",
+    data,
+  })
+}
+
 export function removeUserPlan(id: string) {
   return sendApiReq({
     url: `${endPoints.getUserCurrentPlan}/${id}/plan`,
