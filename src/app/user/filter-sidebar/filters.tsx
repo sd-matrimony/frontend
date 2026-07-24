@@ -9,7 +9,7 @@ import { usePartnerPreferences } from '@/hooks/use-user';
 import { useUserDetailsMini } from '@/hooks/use-account';
 
 import { InputWrapper, SelectWrapper } from '@/components/ui/field-wrapper-rhf';
-import { SelectListWrapper } from '@/components/common/lists';
+import { SelectListWrapper, SelectSubCastesWrapper } from '@/components/common/lists';
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 
@@ -35,6 +35,7 @@ const schema = z.object({
   motherTongue: z.string().optional(),
   religion: z.string().optional(),
   caste: z.string().optional(),
+  subCaste: z.string().optional(),
 
   nakshatra: z.string().optional(),
   lagna: z.string().optional(),
@@ -57,6 +58,7 @@ const defaultValues: z.infer<typeof schema> = {
   motherTongue: '',
   religion: '',
   caste: '',
+  subCaste: '',
 
   nakshatra: '',
   lagna: '',
@@ -148,6 +150,8 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
     resolver: zodResolver(schema),
     defaultValues: { ...defaultValues },
   })
+
+  const choosedCaste = form.watch("caste")
 
   useEffect(() => {
     if (user) {
@@ -265,13 +269,25 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
 
             {
               list.map((item) => (
-                <SelectListWrapper
-                  {...item}
-                  key={item.name}
-                  control={form.control}
-                  additionalOpts="Any"
-                  canCreateNew
-                />
+                <div key={item.name}>
+                  <SelectListWrapper
+                    {...item}
+                    control={form.control}
+                    additionalOpts="Any"
+                    canCreateNew
+                  />
+
+                  {
+                    item.name === "caste" &&
+                    <SelectSubCastesWrapper
+                      name="subCaste"
+                      control={form.control}
+                      choosed={choosedCaste || ""}
+                      additionalOpts="Any"
+                      className="mt-4"
+                    />
+                  }
+                </div>
               ))
             }
           </div>
