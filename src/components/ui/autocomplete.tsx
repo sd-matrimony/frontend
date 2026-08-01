@@ -305,12 +305,14 @@ function AutocompleteWrapper({
   renderStatus,
   renderEmpty,
   disabled,
+  openOnInputClick = true,
   ...props
 }: AutocompleteWrapperProps) {
   return (
     <AutocompleteRoot
       items={(items ?? []) as unknown[]}
       disabled={disabled}
+      openOnInputClick={openOnInputClick}
       itemToStringValue={(item: unknown) => {
         const opt = item as allowedPrimitiveT | itemT
         const label = getLabel(opt)

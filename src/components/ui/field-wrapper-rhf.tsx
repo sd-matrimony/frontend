@@ -197,11 +197,12 @@ export function DatePickerWrapper<T extends FieldValues>({
 type ComboboxProps<T extends FieldValues> = BaseProps<T> &
   Omit<
     React.ComponentProps<typeof Combobox>,
-    'name' | 'value' | 'onValueChange' | 'error' | 'invalid'
+    'name' | 'value' | 'error' | 'invalid'
   >
 export function ComboboxWrapper<T extends FieldValues>({
   name,
   control,
+  onValueChange,
   ...props
 }: ComboboxProps<T>) {
   return (
@@ -213,7 +214,10 @@ export function ComboboxWrapper<T extends FieldValues>({
           {...props}
           name={name}
           value={field.value}
-          onValueChange={field.onChange}
+          onValueChange={(value, eventDetails) => {
+            field.onChange(value)
+            onValueChange?.(value, eventDetails)
+          }}
           error={fieldState.error}
           invalid={fieldState.invalid}
         />

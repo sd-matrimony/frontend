@@ -28,6 +28,7 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(1
     fullName: "",
     gender: [],
     caste: [],
+    subCaste: [],
     email: "",
     mobile: "",
   })

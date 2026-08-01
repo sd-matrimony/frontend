@@ -27,7 +27,7 @@ function PaidUsers() {
       )
     })
     : data
-
+  console.log(filtered)
   return (
     <Card className="gap-0">
       <CardHeader>
@@ -73,7 +73,7 @@ function PaidUsers() {
                 ?.map(user => (
                   <tr key={user?._id} className="mb-2 text-sm odd:bg-muted/60">
                     <td className="px-1 py-2">
-                      <Link target="_blank" href={`/super-admin/user/${user?._id}`}>
+                      <Link target="_blank" href={`/super-admin/user/${user?.user?._id}`}>
                         <div className="df group">
                           <img
                             className="size-10 shrink-0 rounded object-cover"

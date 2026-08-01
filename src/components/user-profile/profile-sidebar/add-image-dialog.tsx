@@ -51,7 +51,10 @@ function AddImageDialog({ _id }: props) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<div className="aspect-square flex items-center justify-center border-2 border-dashed rounded-md cursor-pointer hover:bg-muted/50 transition-colors" />}>
+      <DialogTrigger
+        nativeButton={false}
+        render={<div className="aspect-square flex items-center justify-center border-2 border-dashed rounded-md cursor-pointer hover:bg-muted/50 transition-colors" />}
+      >
         <Plus className="h-8 w-8 text-muted-foreground" />
       </DialogTrigger>
 

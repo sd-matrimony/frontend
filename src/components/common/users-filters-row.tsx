@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { type UseFormReturn } from "react-hook-form";
 import { RefreshCcw } from "lucide-react";
 
@@ -8,6 +9,25 @@ import { cn } from "@/lib/utils";
 
 import { InputWrapper, ComboboxWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
+
+function useCreatableItems(base: string[] | undefined, extra: string[], query: string) {
+  return useMemo(() => {
+    const merged = Array.from(new Set([...(base || []), ...extra]))
+    const q = query.trim()
+    if (q && !merged.some(v => v.toLowerCase() === q.toLowerCase())) {
+      return [...merged, q]
+    }
+    return merged
+  }, [base, extra, query])
+}
+
+function commitNewValues(value: unknown, known: string[] | undefined, setExtra: React.Dispatch<React.SetStateAction<string[]>>) {
+  const values = Array.isArray(value) ? value as string[] : []
+  const unknown = values.filter(v => v && !known?.includes(v))
+  if (unknown.length) {
+    setExtra(prev => Array.from(new Set([...prev, ...unknown])))
+  }
+}
 
 type props = {
   methods: UseFormReturn<findUserSchemaT>
@@ -22,6 +42,24 @@ type props = {
 
 function UsersFiltersRow({ methods, children, className, needReset, isLoading, onSubmit, onReset, onRefresh }: props) {
   const { data: castes, isLoading: isCasteLoading } = useStatics("castes")
+  const { data: casteMap, isLoading: isCasteMapLoading } = useStatics("casteMap")
+
+  const selectedCastes = methods.watch("caste")
+  const casteList = Array.isArray(selectedCastes) ? selectedCastes : selectedCastes ? [selectedCastes] : []
+
+  const subCastes = useMemo(() => {
+    const map = (casteMap || {}) as Record<string, string[]>
+    const source = casteList.length ? casteList : Object.keys(map)
+    return Array.from(new Set(source.flatMap(caste => map[caste] || [])))
+  }, [casteMap, casteList.join(",")])
+
+  const [casteQuery, setCasteQuery] = useState("")
+  const [casteExtra, setCasteExtra] = useState<string[]>([])
+  const casteItems = useCreatableItems(castes, casteExtra, casteQuery)
+
+  const [subCasteQuery, setSubCasteQuery] = useState("")
+  const [subCasteExtra, setSubCasteExtra] = useState<string[]>([])
+  const subCasteItems = useCreatableItems(subCastes, subCasteExtra, subCasteQuery)
 
   return (
     <form
@@ -57,6 +95,7 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
         items={gender}
         control={methods.control}
         className="min-w-36 max-w-40"
+
       />
 
       <ComboboxWrapper
@@ -71,12 +110,33 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
       <ComboboxWrapper
         multiple
         name="caste"
-        placeholder="Caste"
-        items={castes}
+        placeholder="Caste, or type to add new"
+        items={casteItems}
         control={methods.control}
         isLoading={isCasteLoading}
+        inputValue={casteQuery}
+        onInputValueChange={setCasteQuery}
+        onValueChange={value => {
+          commitNewValues(value, castes, setCasteExtra)
+          setCasteQuery("")
+        }}
         className="min-w-44 sm:min-w-56 max-w-52"
-      // canCreateNew
+      />
+
+      <ComboboxWrapper
+        multiple
+        name="subCaste"
+        placeholder="Sub Caste, or type to add new"
+        items={subCasteItems}
+        control={methods.control}
+        isLoading={isCasteMapLoading}
+        inputValue={subCasteQuery}
+        onInputValueChange={setSubCasteQuery}
+        onValueChange={value => {
+          commitNewValues(value, subCastes, setSubCasteExtra)
+          setSubCasteQuery("")
+        }}
+        className="min-w-44 sm:min-w-56 max-w-52"
       />
 
       {children}
