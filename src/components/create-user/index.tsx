@@ -8,7 +8,7 @@ import { z } from "zod";
 
 import { defaultValues, fieldList } from './data';
 
-import { detectInputType, filterObj, validateIdentifier } from '@/utils';
+import { detectInputType, filterObj, trimObj, validateIdentifier } from '@/utils';
 import { contactDetailsSchema, createUserSchema } from '@/utils/user-schema';
 import { useIsExists, useRegisterImage } from '@/hooks/use-account';
 import { createPass } from '@/utils/password';
@@ -112,7 +112,8 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
     return url
   }
 
-  const handleSubmit = async (data: z.infer<ReturnType<typeof getSchema>>) => {
+  const handleSubmit = async (rawData: z.infer<ReturnType<typeof getSchema>>) => {
+    const data = trimObj(rawData)
     const { profileImg, ...rest } = data
     if (!isAdmin && !rest?.email && !rest?.contactDetails?.mobile) {
       return toast.error('Either email or mobile is required')

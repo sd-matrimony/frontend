@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"
 
 import { resetPassSchema, type ResetPassFormT } from "@/utils/auth-schema"
 import { useResetPass } from "@/hooks/use-account"
+import { trimObj } from "@/utils"
 
 import { InputGroupWrapper, InputWrapper } from "@/components/ui/field-wrapper-rhf"
 import { InputGroupButton } from "@/components/ui/input-group"
@@ -26,7 +27,10 @@ function ResetPass({ role = "user" }: Props) {
 
   const { isPending, mutate } = useResetPass()
 
-  const onSubmit = (data: ResetPassFormT) => mutate({ ...data, otp: Number(data.otp), role })
+  const onSubmit = (data: ResetPassFormT) => {
+    const trimmed = trimObj(data)
+    mutate({ ...trimmed, otp: Number(trimmed.otp), role })
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

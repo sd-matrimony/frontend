@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"
 
 import { signinSchema, type SigninFormT } from "@/utils/auth-schema"
 import { useLogin } from "@/hooks/use-account"
+import { trimObj } from "@/utils"
 
 import { InputGroupWrapper, InputWrapper } from "@/components/ui/field-wrapper-rhf"
 import { InputGroupButton } from "@/components/ui/input-group"
@@ -26,7 +27,7 @@ function Signin({ role = "user" }: Props) {
 
   const { isPending, mutate } = useLogin()
 
-  const onSubmit = (data: SigninFormT) => mutate({ ...data, role })
+  const onSubmit = (data: SigninFormT) => mutate({ ...trimObj(data), role })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

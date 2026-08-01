@@ -6,6 +6,7 @@ import { Loader } from "lucide-react"
 
 import { forgotPassSchema, type ForgotPassFormT } from "@/utils/auth-schema"
 import { useForgotPass } from "@/hooks/use-account"
+import { trimObj } from "@/utils"
 
 import { InputWrapper } from "@/components/ui/field-wrapper-rhf"
 import { Button } from "@/components/ui/button"
@@ -22,7 +23,7 @@ function ForgotPass({ role = "user" }: Props) {
 
   const { isPending, mutate } = useForgotPass()
 
-  const onSubmit = (data: ForgotPassFormT) => mutate({ ...data, role })
+  const onSubmit = (data: ForgotPassFormT) => mutate({ ...trimObj(data), role })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

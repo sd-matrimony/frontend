@@ -183,7 +183,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
     const filtered = Object.fromEntries(
       Object.entries(data)
         .filter(([_, value]) => Boolean(value) && value !== "Any")
-        .map(([key, value]) => [key, `${value}`?.split(" (")?.[0]])
+        .map(([key, value]) => [key, `${value}`?.split(" (")?.[0]?.trim()])
     ) as Partial<typeof data>
 
     localStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify(filtered))

@@ -26,8 +26,8 @@ type BaseProps<T extends FieldValues> = {
 }
 
 type InputProps<T extends FieldValues> = BaseProps<T> &
-  Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name' | 'value' | 'onChange' | 'onBlur'>
-export function InputWrapper<T extends FieldValues>({ name, control, ...props }: InputProps<T>) {
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name' | 'value' | 'onChange'>
+export function InputWrapper<T extends FieldValues>({ name, control, onBlur, ...props }: InputProps<T>) {
   return (
     <Controller
       name={name}
@@ -38,7 +38,10 @@ export function InputWrapper<T extends FieldValues>({ name, control, ...props }:
           name={name}
           value={field.value ?? ''}
           onChange={field.onChange}
-          onBlur={field.onBlur}
+          onBlur={(e) => {
+            field.onBlur()
+            onBlur?.(e)
+          }}
           error={fieldState.error}
           invalid={fieldState.invalid}
         />

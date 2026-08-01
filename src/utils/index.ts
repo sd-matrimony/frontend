@@ -61,6 +61,25 @@ export function isFalsey(value: primitiveT): boolean {
   return value === null || value === "" || value === undefined || (typeof value === "number" && isNaN(value))
 }
 
+export function trimObj<T>(obj: T): T {
+  if (typeof obj === "string") return obj.trim() as T
+
+  if (Array.isArray(obj)) {
+    return obj.map(item => trimObj(item)) as T
+  }
+
+  if (obj && typeof obj === "object" && obj.constructor === Object) {
+    const trimmedEntries = Object.entries(obj).reduce((acc, [key, value]) => {
+      (acc as any)[key] = trimObj(value)
+      return acc
+    }, {} as Partial<T>)
+
+    return trimmedEntries as T
+  }
+
+  return obj
+}
+
 export function filterObj<T>(obj: T): T {
   if (Array.isArray(obj)) {
     const filtered = obj
