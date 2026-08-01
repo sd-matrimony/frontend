@@ -3,6 +3,7 @@ import { RefreshCcw } from "lucide-react";
 import { format } from "date-fns";
 import Link from "next/link";
 
+import type { DragHandleProps } from "./grid";
 import { useGetPaidUsers } from "@/hooks/use-super-admin";
 
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +14,7 @@ import { Input } from "@/components/ui/input";
 
 import LoadMore from "@/components/common/load-more";
 
-function PaidUsers() {
+function PaidUsers({ dragHandle }: DragHandleProps) {
   const { isLoading, data, isFetching, hasNextPage, fetchNextPage, refetch } = useGetPaidUsers()
   const [search, setSearch] = useState("")
 
@@ -27,17 +28,22 @@ function PaidUsers() {
       )
     })
     : data
-  console.log(filtered)
+
   return (
-    <Card className="gap-0">
+    <Card className="gap-0 h-full">
       <CardHeader>
-        <CardTitle>Paid Users</CardTitle>
-        <Input
-          placeholder="Search by name, email or mobile..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="mb-3"
-        />
+        <div className="flex items-center gap-2">
+          {dragHandle}
+          <CardTitle>Paid Users</CardTitle>
+
+          <Input
+            placeholder="Search by name, email or mobile..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="max-w-md ml-auto h-8"
+          />
+        </div>
+
         <CardAction>
           <Button
             size="sm"
@@ -49,7 +55,7 @@ function PaidUsers() {
         </CardAction>
       </CardHeader>
 
-      <CardContent className="max-h-80 py-4 overflow-auto">
+      <CardContent className="flex-1 min-h-0 py-4 overflow-auto">
         {
           isLoading &&
           <Skeleton className="h-72" />

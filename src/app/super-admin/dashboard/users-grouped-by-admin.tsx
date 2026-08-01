@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RefreshCcw } from "lucide-react";
 
+import type { DragHandleProps } from "./grid";
 import { useGetUsersGroupedByAdminCount } from "@/hooks/use-super-admin";
 import { gender as genderOpts } from "@/utils/enums";
 
@@ -30,7 +31,7 @@ function groupData(data: Record<string, number>, dateType: "day" | "month" | "ca
   return result
 }
 
-function UsersGroupedByAdmin() {
+function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
   const [type, setType] = useState<"date" | "caste">("date")
   const [dateType, setdateType] = useState<"day" | "month">("day")
   const [includeByAdmin, setIncludeByAdmin] = useState(true)
@@ -63,8 +64,9 @@ function UsersGroupedByAdmin() {
   ]
 
   return (
-    <Card className="gap-0">
+    <Card className="gap-0 h-full">
       <CardHeader className="flex items-center pb-1 flex-wrap">
+        {dragHandle}
         <CardTitle className="shrink-0 mr-auto">Users Count by Admin</CardTitle>
 
         <SelectWrapper
@@ -112,7 +114,7 @@ function UsersGroupedByAdmin() {
         </Button>
       </CardHeader>
 
-      <CardContent className="max-h-80 py-4 overflow-auto">
+      <CardContent className="flex-1 min-h-0 py-4 overflow-auto">
         {
           isLoading &&
           <Skeleton className="h-72" />

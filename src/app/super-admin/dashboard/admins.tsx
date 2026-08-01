@@ -1,6 +1,7 @@
 import { RefreshCcw, Edit2, Plus } from "lucide-react";
 import Link from "next/link";
 
+import type { DragHandleProps } from "./grid";
 import { useGetAdmins } from "@/hooks/use-super-admin";
 import useUIStore from "@/store/ui";
 
@@ -8,15 +9,19 @@ import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/componen
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
-function Admins() {
+function Admins({ dragHandle }: DragHandleProps) {
   const update = useUIStore(s => s.update)
 
   const { isLoading, isFetching, data, refetch } = useGetAdmins()
 
   return (
-    <Card className="gap-0">
+    <Card className="gap-0 h-full">
       <CardHeader>
-        <CardTitle>Admins</CardTitle>
+        <div className="flex items-center gap-2">
+          {dragHandle}
+          <CardTitle>Admins</CardTitle>
+        </div>
+
         <CardAction>
           <Button
             size="sm"
@@ -48,7 +53,7 @@ function Admins() {
         </CardAction>
       </CardHeader>
 
-      <CardContent className="max-h-80 py-4 overflow-auto">
+      <CardContent className="flex-1 min-h-0 py-4 overflow-auto">
         {
           isLoading &&
           <Skeleton className="h-72" />

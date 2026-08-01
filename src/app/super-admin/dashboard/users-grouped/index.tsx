@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RefreshCcw } from "lucide-react";
 import { format } from "date-fns";
 
+import type { DragHandleProps } from "../grid";
 import { useGetUsersGroupedCount } from "@/hooks/use-super-admin";
 import { useStatics } from "@/hooks/use-general";
 
@@ -21,7 +22,7 @@ function decidePayload({ type, date, caste }: { type: typeT, caste: string, date
   return { date }
 }
 
-function UsersGrouped() {
+function UsersGrouped({ dragHandle }: DragHandleProps) {
   const [caste, setCaste] = useState("14 oor kaikolar mudaliyar")
   const [type, setType] = useState<typeT>("Date")
   const [date, setDate] = useState(new Date())
@@ -32,8 +33,9 @@ function UsersGrouped() {
   const { isLoading, isFetching, data, refetch } = useGetUsersGroupedCount(payload)
 
   return (
-    <Card className="gap-0">
+    <Card className="gap-0 h-full">
       <CardHeader className="flex items-center gap-4 flex-wrap pb-1">
+        {dragHandle}
         <CardTitle className="shrink-0 mr-auto">Users Grouped</CardTitle>
 
         <SelectWrapper
@@ -76,7 +78,7 @@ function UsersGrouped() {
         </Button>
       </CardHeader>
 
-      <CardContent className="max-h-80 py-4 overflow-auto">
+      <CardContent className="flex-1 min-h-0 py-4 overflow-auto">
         {
           isLoading &&
           <Skeleton className="h-72" />
