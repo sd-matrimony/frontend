@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
-import { type UseFormReturn } from "react-hook-form";
-import { RefreshCcw } from "lucide-react";
+import { Controller, type UseFormReturn } from "react-hook-form";
+import { type DateRange } from "@daypicker/react";
+import { RefreshCcw, SlidersHorizontal } from "lucide-react";
 
 import { type findUserSchemaT } from "@/hooks/use-user-filters";
 import { gender, maritalStatus } from '@/utils/enums';
@@ -8,6 +9,7 @@ import { useStatics } from "@/hooks/use-general";
 import { cn } from "@/lib/utils";
 
 import { InputWrapper, ComboboxWrapper } from "@/components/ui/field-wrapper-rhf";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Button } from "@/components/ui/button";
 
 function useCreatableItems(base: string[] | undefined, extra: string[], query: string) {
@@ -27,6 +29,10 @@ function commitNewValues(value: unknown, known: string[] | undefined, setExtra: 
   if (unknown.length) {
     setExtra(prev => Array.from(new Set([...prev, ...unknown])))
   }
+}
+
+function hasValue(value: unknown) {
+  return Array.isArray(value) ? value.length > 0 : !!value
 }
 
 type props = {
@@ -61,6 +67,11 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
   const [subCasteExtra, setSubCasteExtra] = useState<string[]>([])
   const subCasteItems = useCreatableItems(subCastes, subCasteExtra, subCasteQuery)
 
+  const [showMore, setShowMore] = useState(() => {
+    const v = methods.getValues()
+    return hasValue(v.email) || hasValue(v.gender) || hasValue(v.maritalStatus)
+  })
+
   return (
     <form
       onSubmit={methods.handleSubmit(onSubmit)}
@@ -79,32 +90,6 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
         control={methods.control}
         placeholder="Mobile"
         className="max-w-48"
-      />
-
-      <InputWrapper
-        name="email"
-        control={methods.control}
-        placeholder="Email"
-        className="max-w-48"
-      />
-
-      <ComboboxWrapper
-        multiple
-        name="gender"
-        placeholder="Gender"
-        items={gender}
-        control={methods.control}
-        className="min-w-36 max-w-40"
-
-      />
-
-      <ComboboxWrapper
-        multiple
-        name="maritalStatus"
-        placeholder="Marital Status"
-        items={maritalStatus}
-        control={methods.control}
-        className="min-w-32 sm:min-w-40 max-w-40"
       />
 
       <ComboboxWrapper
@@ -139,9 +124,74 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
         className="min-w-44 sm:min-w-56 max-w-52"
       />
 
-      {children}
+      <Controller
+        name="createdAtFrom"
+        control={methods.control}
+        render={({ field: fromField }) => (
+          <Controller
+            name="createdAtTo"
+            control={methods.control}
+            render={({ field: toField }) => (
+              <DatePicker
+                mode="range"
+                selected={{ from: fromField.value, to: toField.value }}
+                onSelect={(range?: DateRange) => {
+                  fromField.onChange(range?.from)
+                  toField.onChange(range?.to)
+                }}
+                placeholder="Created Date"
+                dateFormat="dd/MM/yyyy"
+                disabled={date => date > new Date()}
+                triggerProps={{ id: "createdAtFrom", className: "max-w-56" }}
+              />
+            )}
+          />
+        )}
+      />
+
+      {
+        showMore &&
+        <>
+          <InputWrapper
+            name="email"
+            control={methods.control}
+            placeholder="Email"
+            className="max-w-48"
+          />
+
+          <ComboboxWrapper
+            multiple
+            name="gender"
+            placeholder="Gender"
+            items={gender}
+            control={methods.control}
+            className="min-w-36 max-w-40"
+          />
+
+          <ComboboxWrapper
+            multiple
+            name="maritalStatus"
+            placeholder="Marital Status"
+            items={maritalStatus}
+            control={methods.control}
+            className="min-w-32 sm:min-w-40 max-w-40"
+          />
+        </>
+      }
+
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => setShowMore(v => !v)}
+        className="font-normal text-muted-foreground"
+      >
+        <SlidersHorizontal />
+        {showMore ? "Fewer" : "More"}
+      </Button>
 
       <span className="flex-1"></span>
+
+      {children}
 
       {
         methods.formState.isDirty &&

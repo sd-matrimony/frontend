@@ -32,6 +32,8 @@ export const findUsersSchema = z.object({
   minQualification: strOrStrArrSchema,
   email: z.string().optional(),
   mobile: z.string().optional(),
+  createdAtFrom: z.date().optional(),
+  createdAtTo: z.date().optional(),
 })
 
 export type findUserSchemaT = z.infer<typeof findUsersSchema>
@@ -48,7 +50,11 @@ export function useUserFilters(defaultValues: findUserSchemaT = {}) {
     const filtered: Record<string, unknown> = {}
     for (const key of Object.keys(payload) as (keyof findUserSchemaT)[]) {
       const value = payload[key]
-      filtered[key] = Array.isArray(value) ? value.join(',') : value
+      filtered[key] = Array.isArray(value)
+        ? value.join(',')
+        : value instanceof Date
+          ? value.toISOString()
+          : value
     }
 
     return filterObj(filtered) || {}
