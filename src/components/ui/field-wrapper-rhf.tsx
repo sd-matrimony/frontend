@@ -213,9 +213,9 @@ export function ComboboxWrapper<T extends FieldValues>({
         <Combobox
           {...props}
           name={name}
-          value={field.value}
+          value={field.value ?? ''}
           onValueChange={(value, eventDetails) => {
-            field.onChange(value)
+            field.onChange(value ?? '')
             onValueChange?.(value, eventDetails)
           }}
           error={fieldState.error}

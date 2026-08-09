@@ -4,7 +4,7 @@ import { Control, FieldValues, Path } from "react-hook-form";
 
 import { useStatics } from "@/hooks/use-general";
 
-import { AutocompleteWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
+import { AutocompleteWrapper, ComboboxWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
 
 type BaseProps<T extends FieldValues> = {
   name: Path<T>
@@ -17,12 +17,13 @@ type props<T extends FieldValues> = BaseProps<T> & {
   listName: staticsNameT
   placeholder?: string
   canCreateNew?: boolean
+  showClear?: boolean
   className?: string
 }
-export function SelectListWrapper<T extends FieldValues>({ name, label, control, placeholder, listName, canCreateNew, className, additionalOpts }: props<T>) {
+export function SelectListWrapper<T extends FieldValues>({ name, label, control, placeholder, listName, canCreateNew, showClear, className, additionalOpts }: props<T>) {
   const { data, isLoading } = useStatics(listName)
 
-  const Comp = canCreateNew ? AutocompleteWrapper : SelectWrapper
+  const Comp = canCreateNew ? AutocompleteWrapper : showClear ? ComboboxWrapper : SelectWrapper
   return (
     <Comp
       name={name}
@@ -33,6 +34,7 @@ export function SelectListWrapper<T extends FieldValues>({ name, label, control,
         ...(data || [])
       ]}
       isLoading={isLoading}
+      showClear={showClear}
       placeholder={placeholder || `Select ${label}`}
       className={className}
     />

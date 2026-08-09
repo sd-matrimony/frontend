@@ -24,7 +24,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
       motherName: user?.familyDetails?.motherName || "",
       noOfBrothers: user?.familyDetails?.noOfBrothers ?? 0,
       noOfSisters: user?.familyDetails?.noOfSisters ?? 0,
-      birthOrder: user?.familyDetails?.birthOrder || 1,
+      birthOrder: user?.familyDetails?.birthOrder ?? 0,
       isFatherAlive: user?.familyDetails?.isFatherAlive ?? true,
       isMotherAlive: user?.familyDetails?.isMotherAlive ?? true,
     },
@@ -107,7 +107,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             </div>
 
             <InputWrapper
-              min={1}
+              min={0}
               step={1}
               type="number"
               name="birthOrder"

@@ -65,7 +65,7 @@ export const familyDetailsSchema = z.object({
   motherName: z.string().min(2, "Mother's name must be at least 2 characters"),
   noOfBrothers: z.coerce.number().min(0, "Cannot be negative").default(0),
   noOfSisters: z.coerce.number().min(0, "Cannot be negative").default(0),
-  birthOrder: z.coerce.number().min(1, "Birth order must be at least 1").default(1),
+  birthOrder: z.coerce.number().min(0, "Cannot be negative").default(0),
   isFatherAlive: z.boolean(),
   isMotherAlive: z.boolean(),
 })

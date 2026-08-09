@@ -75,7 +75,6 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     if (payload.lagna) {
       payload.lagna = payload.lagna.split(" (")[0]
     }
-
     mutate(
       {
         ...(isAdmin && { _id: user._id }),
@@ -113,6 +112,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               label="Nakshatra"
               listName="nakshatra"
               additionalOpts="Don't wish to specify"
+              showClear
             />
 
             <SelectListWrapper
@@ -121,6 +121,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               label="Rasi"
               listName="raasi"
               additionalOpts="Don't wish to specify"
+              showClear
             />
 
             <SelectListWrapper
@@ -129,6 +130,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               label="Lagna"
               listName="raasi"
               additionalOpts="Don't wish to specify"
+              showClear
             />
 
             <InputWrapper
