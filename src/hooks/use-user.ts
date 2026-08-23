@@ -15,6 +15,7 @@ export function useUsersList(filters?: objT) {
   return useInfiniteQuery<Partial<userT>[], Error, Partial<userT>[]>({
     queryKey: ["user-list", "approved", filters],
     queryFn: ({ pageParam }) => {
+      console.log("[useUsersList] filters:", filters, "enabled:", !!filters)
       return getMatches({
         ...(filters && filterObj(filters)),
         limit,

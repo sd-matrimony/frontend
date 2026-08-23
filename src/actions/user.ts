@@ -1,9 +1,13 @@
 import { sendApiReq, endPoints } from "@/services";
 
 export function getMatches(params: any) {
+  console.log("[getMatches action] params:", params)
   return sendApiReq({
     url: endPoints.getMatches,
     params,
+  }).then((res) => {
+    console.log("[getMatches action] response length:", res?.length, "sample:", res?.slice?.(0, 3)?.map((u: any) => ({ _id: u._id, otherDetails: u.otherDetails })))
+    return res
   })
 }
 
