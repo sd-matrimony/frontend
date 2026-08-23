@@ -1,17 +1,18 @@
 import { ChevronsDown, ChevronsUp, ChevronsUpDown } from 'lucide-react'
-import { type Column } from '@tanstack/react-table'
+import { type RowData } from '@tanstack/react-table'
 
 import { cn } from '@/lib/utils'
 
 import { Button } from '@/components/ui/button'
+import { type AppColumn as Column } from './table-features'
 
-interface ColumnHeaderProps<TData, TValue> {
+interface ColumnHeaderProps<TData extends RowData, TValue> {
   className?: string
   column: Column<TData, TValue>
   title: React.ReactNode
 }
 
-export function ColumnSorter<TData, TValue>({
+export function ColumnSorter<TData extends RowData, TValue>({
   title,
   column,
   className,

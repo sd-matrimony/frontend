@@ -1,18 +1,19 @@
 import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from 'lucide-react'
-import { type Column } from '@tanstack/react-table'
+import { type RowData } from '@tanstack/react-table'
 
 import { cn } from '@/lib/utils'
 
 import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from '@/components/ui/menu'
 import { buttonVariants } from '@/components/ui/button'
+import { type AppColumn as Column } from './table-features'
 
-interface ColumnHeaderProps<TData, TValue> {
+interface ColumnHeaderProps<TData extends RowData, TValue> {
   className?: string
   column: Column<TData, TValue>
   title: React.ReactNode
 }
 
-export function ColumnHeader<TData, TValue>({
+export function ColumnHeader<TData extends RowData, TValue>({
   title,
   column,
   className,

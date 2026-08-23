@@ -2,25 +2,23 @@
 
 import { useMemo, useState } from "react";
 import { Loader } from "lucide-react";
-import {
+import { useTable } from "@tanstack/react-table";
+import type {
   SortingState,
-  VisibilityState,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
+  ColumnVisibilityState,
 } from "@tanstack/react-table";
 
 import { useUserFilters, type findUserSchemaT } from "@/hooks/use-user-filters";
 import { useUsersList } from '@/hooks/use-admin';
 import { cn } from "@/lib/utils";
 
-import { ColumnToggle, DataTableVirtualized } from "@/components/ui/data-table";
+import { ColumnToggle, DataTableVirtualized, appTableFeatures } from "@/components/ui/data-table";
 import { columns } from "./columns";
 
 import UsersFiltersRow from "@/components/common/users-filters-row";
 
 function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(100vh-10.5rem)]", ...props }: findUserSchemaT & { role?: rolesT, loaderHt?: string }) {
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
 
   const { final, methods, onReset, onSubmit } = useUserFilters({
@@ -42,7 +40,8 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(1
 
   const tableColumns = useMemo(() => columns(currentTab, role), [currentTab, role])
 
-  const table = useReactTable({
+  const table = useTable({
+    features: appTableFeatures,
     data: users as any || [],
     columns: tableColumns,
     state: {
@@ -51,8 +50,6 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(1
     },
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
   })
 
   return (

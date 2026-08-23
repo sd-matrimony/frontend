@@ -1,7 +1,6 @@
 "use client";
 
-import { ColumnSorter } from "@/components/ui/data-table";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnSorter, type AppColumnDef as ColumnDef } from "@/components/ui/data-table";
 import Link from "next/link";
 
 import type { tab } from "./types";

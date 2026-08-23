@@ -1,6 +1,9 @@
 'use client'
 
-import { flexRender, type Table as TanstackTable } from '@tanstack/react-table'
+import { flexRender } from '@tanstack/react-table'
+import type { RowData } from '@tanstack/react-table'
+
+import { type AppTable as TanstackTable } from './table-features'
 
 import {
   Table,
@@ -11,13 +14,13 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-interface DataTableProps<TData> {
+interface DataTableProps<TData extends RowData> {
   table: TanstackTable<TData>
   className?: string
   emptyMessage?: string
 }
 
-export function DataTable<TData>({
+export function DataTable<TData extends RowData>({
   table,
   className = '',
   emptyMessage = 'No matching results.',

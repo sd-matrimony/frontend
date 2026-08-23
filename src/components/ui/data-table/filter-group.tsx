@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { CirclePlus } from 'lucide-react'
-import { type Table } from '@tanstack/react-table'
+import { type RowData } from '@tanstack/react-table'
 
 import { type ComboboxWrapperProps } from '@/components/ui/combobox'
 import { MenuCheckboxWrapper } from '@/components/ui/menu-wrapper'
 import { buttonVariants } from '@/components/ui/button'
 import { ColumnFilter } from './column-filter'
+import { type AppTable as Table } from './table-features'
 
 type ColumnFilterPassthroughProps = Omit<
   ComboboxWrapperProps,
@@ -16,7 +17,7 @@ type MenuCheckboxPassthroughProps = Omit<
   'trigger' | 'items' | 'checked' | 'onCheckedChange'
 >
 
-interface FilterGroupProps<TData> {
+interface FilterGroupProps<TData extends RowData> {
   table: Table<TData>
   items: {
     value: string
@@ -28,7 +29,7 @@ interface FilterGroupProps<TData> {
   menuCheckboxProps?: MenuCheckboxPassthroughProps
 }
 
-export function FilterGroup<TData>({
+export function FilterGroup<TData extends RowData>({
   table,
   items,
   columnFilterProps,

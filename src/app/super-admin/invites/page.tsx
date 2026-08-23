@@ -2,24 +2,22 @@
 
 import { useState } from "react";
 import { Loader } from "lucide-react";
-import {
+import { useTable } from "@tanstack/react-table";
+import type {
   SortingState,
-  VisibilityState,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
+  ColumnVisibilityState,
 } from "@tanstack/react-table";
 
 import { useGetUserInvitations } from "@/hooks/use-super-admin";
 import { useUserFilters } from "@/hooks/use-user-filters";
 
-import { ColumnToggle, DataTableVirtualized } from "@/components/ui/data-table";
+import { ColumnToggle, DataTableVirtualized, appTableFeatures } from "@/components/ui/data-table";
 import UsersFiltersRow from "@/components/common/users-filters-row";
 
 import { columns } from "./columns";
 
 function Page() {
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
 
   const { final, methods, onReset, onSubmit } = useUserFilters({
@@ -33,7 +31,8 @@ function Page() {
 
   const { isLoading, data, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useGetUserInvitations(final)
 
-  const table = useReactTable({
+  const table = useTable({
+    features: appTableFeatures,
     data: data as any || [],
     columns,
     state: {
@@ -42,8 +41,6 @@ function Page() {
     },
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
   })
 
   return (

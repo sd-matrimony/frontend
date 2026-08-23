@@ -2,9 +2,9 @@
 
 import { useState, useRef, useEffect, useCallback, useMemo } from "react"
 import { Loader } from "lucide-react"
-import {
-  getCoreRowModel, getSortedRowModel, useReactTable,
-  type VisibilityState, type SortingState,
+import { useTable } from "@tanstack/react-table"
+import type {
+  ColumnVisibilityState, SortingState,
 } from "@tanstack/react-table"
 
 import type { ChangeMap, OnBlurChange } from "./types"
@@ -15,7 +15,7 @@ import { useUsersList } from "@/hooks/use-admin"
 import { useStatics } from "@/hooks/use-general"
 import { filterObj } from "@/utils"
 
-import { DataTable, ColumnToggle } from "@/components/ui/data-table"
+import { DataTable, ColumnToggle, appTableFeatures } from "@/components/ui/data-table"
 import { Button } from "@/components/ui/button"
 
 import UsersFiltersRow from "@/components/common/users-filters-row"
@@ -48,7 +48,7 @@ function buildPayloads(changes: ChangeMap) {
 }
 
 export function BulkEditTable() {
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+  const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({
     gender: false,
     maritalStatus: false,
   })
@@ -111,14 +111,13 @@ export function BulkEditTable() {
 
   const users = useMemo(() => usersList ?? [], [usersList])
 
-  const table = useReactTable({
+  const table = useTable({
+    features: appTableFeatures,
     data: users,
     columns,
     state: { sorting, columnVisibility },
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
   })
 
   useEffect(() => {

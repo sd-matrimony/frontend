@@ -1,14 +1,15 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
-import { type Table } from '@tanstack/react-table'
+import { type RowData } from '@tanstack/react-table'
 
 import { SelectWrapper } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { type AppReactTable as Table } from './table-features'
 
-interface PaginationProps<TData> {
+interface PaginationProps<TData extends RowData> {
   table: Table<TData>
 }
 
-export function Pagination<TData>({ table }: PaginationProps<TData>) {
+export function Pagination<TData extends RowData>({ table }: PaginationProps<TData>) {
   return (
     <div className="flex items-center justify-between flex-wrap gap-2 px-2 mt-4">
       <div className="flex-1 whitespace-nowrap text-sm text-muted-foreground">
@@ -18,16 +19,16 @@ export function Pagination<TData>({ table }: PaginationProps<TData>) {
       <div className="flex items-center gap-2">
         <p className="text-xs">Rows per page</p>
         <SelectWrapper
-          value={`${table.getState().pagination.pageSize}`}
+          value={`${table.state.pagination.pageSize}`}
           onValueChange={value => table.setPageSize(Number(value))}
           items={[10, 20, 30, 40, 50]}
-          placeholder={`${table.getState().pagination.pageSize}`}
+          placeholder={`${table.state.pagination.pageSize}`}
           triggerCls="h-8 w-[70px]"
         />
       </div>
 
       <div className="text-xs mx-2">
-        Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        Page {table.state.pagination.pageIndex + 1} of {table.getPageCount()}
       </div>
 
       <div className="flex items-center gap-2">

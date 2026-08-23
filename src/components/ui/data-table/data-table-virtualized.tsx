@@ -2,14 +2,16 @@
 
 import { useEffect, useRef } from 'react'
 import { type VirtualizerOptions, useVirtualizer } from '@tanstack/react-virtual'
-import { flexRender, Table as TanstackTable } from '@tanstack/react-table'
+import { flexRender } from '@tanstack/react-table'
+import type { RowData } from '@tanstack/react-table'
 import { Loader } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
+import { type AppTable as TanstackTable } from './table-features'
 
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-interface DataTableProps<TData> {
+interface DataTableProps<TData extends RowData> {
   table: TanstackTable<TData>
   className?: string
   hasNextPage?: boolean
@@ -21,7 +23,7 @@ interface DataTableProps<TData> {
   >
 }
 
-export function DataTableVirtualized<TData>({
+export function DataTableVirtualized<TData extends RowData>({
   table,
   className = '',
   hasNextPage = false,

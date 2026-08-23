@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { type Column } from '@tanstack/react-table'
+import { type RowData } from '@tanstack/react-table'
 
 import { getLabel, getValue, isGroup } from '@/lib/utils'
 
 import { ComboboxWrapper, type ComboboxWrapperProps } from '@/components/ui/combobox'
+import { type AppColumn as Column } from './table-features'
 
-interface ColumnFacetedFilterProps<TData, TValue>
+interface ColumnFacetedFilterProps<TData extends RowData, TValue>
   extends Omit<ComboboxWrapperProps, 'value' | 'onValueChange' | 'label'> {
   column?: Column<TData, TValue>
   title: React.ReactNode
@@ -30,7 +31,7 @@ function change(item: allowedPrimitiveT | itemT, facets?: Map<any, number>) {
   }
 }
 
-export function ColumnFacetedFilter<TData, TValue>({
+export function ColumnFacetedFilter<TData extends RowData, TValue>({
   column,
   title,
   items,

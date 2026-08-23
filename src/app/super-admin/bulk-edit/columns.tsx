@@ -1,12 +1,12 @@
 "use client"
 
 import { Pencil } from "lucide-react"
-import { type ColumnDef } from "@tanstack/react-table"
 
 import type { OnBlurChange, ChangeMap } from "./types"
 import { maritalStatus, gender } from "@/utils/enums"
 
 import { Button } from "@/components/ui/button"
+import { type AppColumnDef as ColumnDef } from "@/components/ui/data-table"
 
 import { EditInput, EditSelect, EditCombobox } from "./editable-cell"
 
