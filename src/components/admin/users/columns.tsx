@@ -46,7 +46,7 @@ export const columns = (currentTab: tab, role: rolesT): ColumnDef<Partial<userT>
     header: ({ column }) => <ColumnSorter column={column} title="Caste" />,
     filterFn: (row, id, value) => value?.includes(row?.getValue(id)),
     cell: ({ row }) => (
-      <p>
+      <p className="normal-case">
         {row?.original?.otherDetails?.caste || "---"} {row?.original?.otherDetails?.subCaste ? `- ${row?.original?.otherDetails?.subCaste}` : ""}
       </p>
     ),

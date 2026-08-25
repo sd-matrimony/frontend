@@ -102,7 +102,7 @@ export function EditCombobox({ userId, path, initialValue, resetKey, onBlurChang
       value={value}
       isLoading={isLoading}
       onValueChange={handleChange}
-      triggerCls={cn("h-7 text-xs min-w-32 px-2 font-normal", isDirty && "border-primary", className)}
+      triggerCls={cn("h-7 text-xs min-w-32 px-2 font-normal normal-case", isDirty && "border-primary", className)}
     />
   )
 }

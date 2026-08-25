@@ -39,6 +39,7 @@ function Page() {
       sorting,
       columnVisibility,
     },
+    manualPagination: true,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
   })

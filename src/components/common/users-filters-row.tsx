@@ -124,29 +124,22 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
         className="min-w-44 sm:min-w-56 max-w-52"
       />
 
-      <Controller
-        name="createdAtFrom"
+      <ComboboxWrapper
+        multiple
+        name="gender"
+        placeholder="Gender"
+        items={gender}
         control={methods.control}
-        render={({ field: fromField }) => (
-          <Controller
-            name="createdAtTo"
-            control={methods.control}
-            render={({ field: toField }) => (
-              <DatePicker
-                mode="range"
-                selected={{ from: fromField.value, to: toField.value }}
-                onSelect={(range?: DateRange) => {
-                  fromField.onChange(range?.from)
-                  toField.onChange(range?.to)
-                }}
-                placeholder="Created Date"
-                dateFormat="dd/MM/yyyy"
-                disabled={date => date > new Date()}
-                triggerProps={{ id: "createdAtFrom", className: "max-w-56" }}
-              />
-            )}
-          />
-        )}
+        className="min-w-36 max-w-40"
+      />
+
+      <ComboboxWrapper
+        multiple
+        name="maritalStatus"
+        placeholder="Marital Status"
+        items={maritalStatus}
+        control={methods.control}
+        className="min-w-32 sm:min-w-40 max-w-40"
       />
 
       {
@@ -159,22 +152,29 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
             className="max-w-48"
           />
 
-          <ComboboxWrapper
-            multiple
-            name="gender"
-            placeholder="Gender"
-            items={gender}
+          <Controller
+            name="createdAtFrom"
             control={methods.control}
-            className="min-w-36 max-w-40"
-          />
-
-          <ComboboxWrapper
-            multiple
-            name="maritalStatus"
-            placeholder="Marital Status"
-            items={maritalStatus}
-            control={methods.control}
-            className="min-w-32 sm:min-w-40 max-w-40"
+            render={({ field: fromField }) => (
+              <Controller
+                name="createdAtTo"
+                control={methods.control}
+                render={({ field: toField }) => (
+                  <DatePicker
+                    mode="range"
+                    selected={{ from: fromField.value, to: toField.value }}
+                    onSelect={(range?: DateRange) => {
+                      fromField.onChange(range?.from)
+                      toField.onChange(range?.to)
+                    }}
+                    placeholder="Created Date"
+                    dateFormat="dd/MM/yyyy"
+                    disabled={date => date > new Date()}
+                    triggerProps={{ id: "createdAtFrom", className: "max-w-56" }}
+                  />
+                )}
+              />
+            )}
           />
         </>
       }

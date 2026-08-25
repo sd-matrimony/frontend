@@ -48,6 +48,7 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(1
       sorting,
       columnVisibility,
     },
+    manualPagination: true,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
   })

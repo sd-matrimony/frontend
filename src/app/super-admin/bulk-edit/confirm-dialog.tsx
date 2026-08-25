@@ -3,6 +3,7 @@
 import { useMemo } from "react"
 import { Loader } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Dialog, DialogContent, DialogFooter,
@@ -10,6 +11,11 @@ import {
 } from "@/components/ui/dialog"
 
 import type { ChangeMap } from "./types"
+
+const NORMAL_CASE_FIELDS = new Set([
+  "otherDetails.caste", "otherDetails.subCaste",
+  "partnerPreferences.caste", "partnerPreferences.subCaste",
+])
 
 const LABELS: Record<string, string> = {
   fullName: "Name", dob: "Date of Birth", gender: "Gender",
@@ -119,7 +125,7 @@ export function ConfirmDialog({ open, onOpenChange, changes, users, isPending, o
                   {fields.map(({ path, value }) => (
                     <div key={path} className="text-xs df gap-1">
                       <span className="text-muted-foreground shrink-0">{label(path)}:</span>
-                      <span className="font-medium truncate capitalize">{formatValue(value)}</span>
+                      <span className={cn("font-medium truncate", !NORMAL_CASE_FIELDS.has(path) && "capitalize")}>{formatValue(value)}</span>
                     </div>
                   ))}
                 </div>
