@@ -20,12 +20,12 @@ import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } fr
 
 const superAdminLinks = [
   {
-    lable: "Create user",
-    href: "create-user",
-  },
-  {
     lable: "Image Extractor",
     href: "image-extractor",
+  },
+  {
+    lable: "Make Match",
+    href: "make-match",
   },
   {
     lable: "Payment",
@@ -47,10 +47,10 @@ function NavMenu() {
   return (
     <Menu>
       <MenuTrigger
-        className="dc size-8 p-0 shrink-0 rounded-full uppercase bg-primary text-primary-foreground hover:bg-primary/90"
+        className="dc size-6 p-0 shrink-0 rounded-full text-xs uppercase bg-primary text-primary-foreground hover:bg-primary/90"
         disabled={isLoading}
       >
-        {isLoading && <Loader className="size-4 animate-spin" />}
+        {isLoading && <Loader className="size-3 animate-spin" />}
         {!isLoading && userName?.[0]}
       </MenuTrigger>
 

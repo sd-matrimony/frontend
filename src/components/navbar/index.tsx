@@ -20,12 +20,8 @@ const superAdminLinks: linkT[] = [
     href: "married",
   },
   {
-    lable: "Make Match",
-    href: "make-match",
-  },
-  {
-    lable: "Invites",
-    href: "invites",
+    lable: "Create user",
+    href: "create-user",
   },
 ]
 
@@ -59,15 +55,15 @@ const list: Record<rolesT, linkT[]> = {
 
 function Navbar({ role = "user" }: props) {
   return (
-    <nav className="df sm:gap-4 py-3 px-6 z-1 shadow-md sticky top-0 bg-white">
+    <nav className="df sm:gap-4 py-2 px-6 z-1 shadow-md sticky top-0 bg-white">
       <Link href={`/${role}`} className="df gap-0.5 mr-auto shrink-0">
         <img
           src="/logos/logo-512.webp"
-          width={48}
-          height={48}
+          width={32}
+          height={32}
           alt='SDM-logo'
         />
-        <span className='hidden sm:block text-2xl font-semibold text-pink-700'>SDM</span>
+        <span className='hidden sm:block text-lg font-semibold text-pink-700'>SDM</span>
       </Link>
 
       {
@@ -75,7 +71,7 @@ function Navbar({ role = "user" }: props) {
           <Link
             key={link.href}
             href={`/${role}/${link.href}`}
-            className='text-xs sm:text-sm lg:text-base hover:text-pink-700'
+            className='text-[11px] sm:text-xs lg:text-sm hover:text-pink-700'
           >
             {link.lable}
           </Link>

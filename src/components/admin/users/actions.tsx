@@ -10,19 +10,24 @@ import { createPass } from "@/utils/password";
 
 import { Menu, MenuContent, MenuItem, MenuTrigger } from "@/components/ui/menu";
 import { AlertDialogWrapper } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 import UpdateUserDialog from "./update-user-dialog";
+import PlanActions from "./plan-actions";
+import MarriedAction from "./married-action";
 
 type props = {
   _id: string
   dob: string
   role: rolesT
   fullName: string
+  gender?: genderT
   currentTab: tab
   profileImg?: string
   email?: string
   mobile?: string
   salary?: number
+  currentPlan?: currentPlanT
 }
 
 type confirmT = {
@@ -32,9 +37,10 @@ type confirmT = {
   run: () => void
 } | null
 
-function Actions({ _id, currentTab, role, fullName, dob, profileImg, email, mobile, salary }: props) {
+function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, email, mobile, salary, currentPlan }: props) {
   const [confirm, setConfirm] = useState<confirmT>(null)
   const [updateOpen, setUpdateOpen] = useState(false)
+  const [marriedOpen, setMarriedOpen] = useState(false)
 
   const { mutate: resetPass, isPending: resetPassPending } = useResetPassByAdmin()
   const { mutate, isPending: mutatePending } = useUpdateUserMutate()
@@ -63,114 +69,129 @@ function Actions({ _id, currentTab, role, fullName, dob, profileImg, email, mobi
 
   return (
     <>
-      <Menu>
-        <MenuTrigger className="px-2">
-          <BsThreeDots />
-        </MenuTrigger>
+      <div className="df justify-end gap-1">
+        {
+          role === "super-admin" && currentTab === "approved" &&
+          <PlanActions _id={_id} fullName={fullName} dob={dob} mobile={mobile} currentPlan={currentPlan} />
+        }
 
-        <MenuContent align="end">
-          <MenuItem render={<Link href={`/${role}/user/${_id}`} />}>
-            View
-          </MenuItem>
+        <Menu>
+          <MenuTrigger render={<Button size="icon" variant="outline" className="size-8" />}>
+            <BsThreeDots className="size-3.5" />
+          </MenuTrigger>
 
-          {
-            role === "super-admin" && currentTab === "approved" &&
-            <MenuItem onClick={() => ask({
-              title: "Reset password?",
-              description: `${fullName}'s password will be reset to a system-generated default.`,
-              variant: "destructive",
-              run: onReset,
-            })}>
-              Reset Password
+          <MenuContent align="end">
+            <MenuItem render={<Link href={`/${role}/user/${_id}`} />}>
+              View
             </MenuItem>
-          }
 
-          {
-            role === "super-admin" && currentTab === "approved" &&
-            <MenuItem onClick={() => setUpdateOpen(true)}>
-              Update Details
-            </MenuItem>
-          }
-
-          {
-            currentTab !== "approved" && (
+            {
+              role === "super-admin" && currentTab === "approved" &&
               <MenuItem onClick={() => ask({
-                title: "Approve this user?",
-                description: `${fullName} will be approved and gain access to the platform.`,
-                variant: "default",
-                run: () => updateStatus("approved"),
-              })}>
-                Approve
-              </MenuItem>
-            )
-          }
-
-          {
-            (currentTab === "pending" || currentTab === "approved") && (
-              <MenuItem onClick={() => ask({
-                title: "Reject this user?",
-                description: `${fullName} will be rejected and lose access to the platform.`,
+                title: "Reset password?",
+                description: `${fullName}'s password will be reset to a system-generated default.`,
                 variant: "destructive",
-                run: () => updateStatus("rejected"),
+                run: onReset,
               })}>
-                Reject
+                Reset Password
               </MenuItem>
-            )
-          }
+            }
 
-          {
-            currentTab !== "blocked" && currentTab !== "deleted" && (
-              <MenuItem onClick={() => ask({
-                title: "Block this user?",
-                description: `${fullName} will not be able to log in until unblocked.`,
-                variant: "destructive",
-                run: () => updateActions({ isBlocked: true }),
-              })}>
-                Block
+            {
+              role === "super-admin" && currentTab === "approved" &&
+              <MenuItem onClick={() => setUpdateOpen(true)}>
+                Update Details
               </MenuItem>
-            )
-          }
+            }
 
-          {
-            currentTab === "blocked" && (
-              <MenuItem onClick={() => ask({
-                title: "Unblock this user?",
-                description: `${fullName} will regain access to the platform.`,
-                variant: "default",
-                run: () => updateActions({ isBlocked: false }),
-              })}>
-                Unblock
-              </MenuItem>
-            )
-          }
+            {
+              currentTab !== "approved" && (
+                <MenuItem onClick={() => ask({
+                  title: "Approve this user?",
+                  description: `${fullName} will be approved and gain access to the platform.`,
+                  variant: "default",
+                  run: () => updateStatus("approved"),
+                })}>
+                  Approve
+                </MenuItem>
+              )
+            }
 
-          {
-            currentTab !== "deleted" && (
-              <MenuItem onClick={() => ask({
-                title: "Delete this user?",
-                description: `${fullName} will be moved to deleted users.`,
-                variant: "destructive",
-                run: () => updateActions({ isDeleted: true }),
-              })}>
-                Delete
-              </MenuItem>
-            )
-          }
+            {/*
+              (currentTab === "pending" || currentTab === "approved") && (
+                <MenuItem onClick={() => ask({
+                  title: "Reject this user?",
+                  description: `${fullName} will be rejected and lose access to the platform.`,
+                  variant: "destructive",
+                  run: () => updateStatus("rejected"),
+                })}>
+                  Reject
+                </MenuItem>
+              )
+            */}
 
-          {
-            currentTab === "deleted" && (
-              <MenuItem onClick={() => ask({
-                title: "Restore this user?",
-                description: `${fullName} will be restored and marked pending approval.`,
-                variant: "default",
-                run: () => updateActions({ isDeleted: false }),
-              })}>
-                Restore
-              </MenuItem>
-            )
-          }
-        </MenuContent>
-      </Menu>
+            {/*
+              currentTab !== "blocked" && currentTab !== "deleted" && (
+                <MenuItem onClick={() => ask({
+                  title: "Block this user?",
+                  description: `${fullName} will not be able to log in until unblocked.`,
+                  variant: "destructive",
+                  run: () => updateActions({ isBlocked: true }),
+                })}>
+                  Block
+                </MenuItem>
+              )
+            */}
+
+            {
+              currentTab === "approved" && gender && (
+                <MenuItem onClick={() => setMarriedOpen(true)}>
+                  Married
+                </MenuItem>
+              )
+            }
+
+            {
+              currentTab === "blocked" && (
+                <MenuItem onClick={() => ask({
+                  title: "Unblock this user?",
+                  description: `${fullName} will regain access to the platform.`,
+                  variant: "default",
+                  run: () => updateActions({ isBlocked: false }),
+                })}>
+                  Unblock
+                </MenuItem>
+              )
+            }
+
+            {
+              currentTab !== "deleted" && (
+                <MenuItem onClick={() => ask({
+                  title: "Delete this user?",
+                  description: `${fullName} will be moved to deleted users.`,
+                  variant: "destructive",
+                  run: () => updateActions({ isDeleted: true }),
+                })}>
+                  Delete
+                </MenuItem>
+              )
+            }
+
+            {
+              currentTab === "deleted" && (
+                <MenuItem onClick={() => ask({
+                  title: "Restore this user?",
+                  description: `${fullName} will be restored and marked pending approval.`,
+                  variant: "default",
+                  run: () => updateActions({ isDeleted: false }),
+                })}>
+                  Restore
+                </MenuItem>
+              )
+            }
+          </MenuContent>
+        </Menu>
+      </div>
 
       <AlertDialogWrapper
         open={!!confirm}
@@ -196,6 +217,15 @@ function Actions({ _id, currentTab, role, fullName, dob, profileImg, email, mobi
           email={email}
           mobile={mobile}
           salary={salary}
+        />
+      }
+
+      {
+        currentTab === "approved" && gender &&
+        <MarriedAction
+          open={marriedOpen}
+          onOpenChange={setMarriedOpen}
+          user={{ _id, fullName, profileImg, gender }}
         />
       }
     </>

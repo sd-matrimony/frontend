@@ -17,8 +17,8 @@ import { columns } from "./columns";
 
 import UsersFiltersRow from "@/components/common/users-filters-row";
 
-function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(100vh-10.5rem)]", ...props }: findUserSchemaT & { role?: rolesT, loaderHt?: string }) {
-  const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({})
+function Users({ role = "admin", loaderHt = "h-[calc(100vh-4rem)] sm:h-[calc(100vh-4.5rem)]", statusSelect, ...props }: findUserSchemaT & { role?: rolesT, loaderHt?: string, statusSelect?: React.ReactNode }) {
+  const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({ email: false, maritalStatus: false })
   const [sorting, setSorting] = useState<SortingState>([])
 
   const { final, methods, onReset, onSubmit } = useUserFilters({
@@ -62,6 +62,7 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(1
         onSubmit={onSubmit}
         onReset={onReset}
         onRefresh={refetch}
+        moreChildren={statusSelect}
       >
         <ColumnToggle table={table} />
       </UsersFiltersRow>
@@ -74,10 +75,12 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-9.5rem)] sm:h-[calc(1
           :
           <DataTableVirtualized
             table={table}
-            className="scroll-y sm:pr-4 sm:-mr-4 [&_th:nth-child(-n+4)]:min-w-60"
+            className="scroll-y sm:-mr-4 [&_th:nth-child(-n+4)]:min-w-60"
             hasNextPage={hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
             fetchNextPage={fetchNextPage}
+            pinLeft={["fullName"]}
+            pinRight={["action"]}
           />
       }
     </div>

@@ -18,9 +18,22 @@ interface DataTableProps<TData extends RowData> {
   emptyMessage?: string
   isFetchingNextPage?: boolean
   fetchNextPage?: () => void
+  pinLeft?: string[]
+  pinRight?: string[]
   virtualizerOptions?: Partial<
     Omit<VirtualizerOptions<HTMLDivElement, Element>, 'count' | 'getScrollElement'>
   >
+}
+
+function getPinCls(id: string, pinLeft: string[], pinRight: string[], isHeader = false) {
+  const z = isHeader ? 'z-20' : 'z-10'
+  if (pinLeft.includes(id)) return cn(z, 'sticky left-0 border-b bg-background backdrop-blur-md group-hover:bg-muted/40 shadow-[4px_0_6px_-4px_rgb(0_0_0_/_0.2)]')
+  if (pinRight.includes(id)) return cn(z, 'sticky right-0 border-b bg-background backdrop-blur-md group-hover:bg-muted/40 shadow-[-4px_0_6px_-4px_rgb(0_0_0_/_0.2)]')
+  return ''
+}
+
+function getGapCls(nextId: string | undefined, pinRight: string[]) {
+  return nextId && pinRight.includes(nextId) ? 'pr-6' : ''
 }
 
 export function DataTableVirtualized<TData extends RowData>({
@@ -30,6 +43,8 @@ export function DataTableVirtualized<TData extends RowData>({
   emptyMessage = 'No matching results.',
   isFetchingNextPage = false,
   fetchNextPage = () => { },
+  pinLeft = [],
+  pinRight = [],
   virtualizerOptions,
 }: DataTableProps<TData>) {
   const rows = table.getRowModel().rows
@@ -59,14 +74,21 @@ export function DataTableVirtualized<TData extends RowData>({
   }, [rows.length, hasNextPage, virtualItems, isFetchingNextPage, fetchNextPage])
 
   return (
-    <div ref={parentRef} className={cn('overflow-auto', className)}>
+    <div ref={parentRef} className={cn('overflow-auto isolate', className)}>
       <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
         <table className="w-full caption-bottom text-sm">
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id} className="hover:bg-transparent">
-                {headerGroup.headers.map(header => (
-                  <TableHead key={header.id} className="text-theme-grey-text">
+                {headerGroup.headers.map((header, i) => (
+                  <TableHead
+                    key={header.id}
+                    className={cn(
+                      'text-theme-grey-text',
+                      getPinCls(header.column.id, pinLeft, pinRight, true),
+                      getGapCls(headerGroup.headers[i + 1]?.column.id, pinRight),
+                    )}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -111,14 +133,21 @@ export function DataTableVirtualized<TData extends RowData>({
                     ref={virtualizer.measureElement}
                     data-state={row?.getIsSelected?.() && 'selected'}
                     data-index={virtualRow.index}
-                    className="hover:bg-muted/40"
+                    className="group hover:bg-muted/40"
                     style={{
                       height: `${virtualRow.size}px`,
                       transform: `translateY(${virtualRow.start - (isLoaderRow ? index - 1 : index) * virtualRow.size}px)`,
                     }}
                   >
-                    {row?.getVisibleCells()?.map(cell => (
-                      <TableCell key={cell.id} className="text-[13px] capitalize">
+                    {row?.getVisibleCells()?.map((cell, i, cells) => (
+                      <TableCell
+                        key={cell.id}
+                        className={cn(
+                          'text-[13px] capitalize',
+                          getPinCls(cell.column.id, pinLeft, pinRight),
+                          getGapCls(cells[i + 1]?.column.id, pinRight),
+                        )}
+                      >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                     ))}

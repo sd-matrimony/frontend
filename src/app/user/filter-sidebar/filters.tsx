@@ -218,7 +218,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className={cn("dfc h-[calc(100vh-10rem)]", contentHt)}
+          className={cn("dfc h-[calc(100svh-10rem)]", contentHt)}
         >
           <div className="scroll-y -mx-4 md:-mx-6 px-4 md:px-6 py-4 space-y-4 border-y [&_label]:font-normal">
             <SelectWrapper

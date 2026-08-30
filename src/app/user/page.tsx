@@ -33,14 +33,10 @@ function Page() {
 
   useEffect(() => {
     const saved = localStorage.getItem(FILTER_STORAGE_KEY)
-    console.log("[user/page] saved filters from localStorage:", saved)
     if (saved) setFilterData(JSON.parse(saved) as objT)
   }, [])
 
-  console.log("[user/page] filterData:", filterData)
-
   function onSave(filterData: objT) {
-    console.log("[user/page] onSave filterData:", filterData)
     setFilterData(filterData)
   }
 

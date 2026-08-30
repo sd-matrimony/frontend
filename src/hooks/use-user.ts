@@ -14,15 +14,12 @@ export function useUsersList(filters?: objT) {
 
   return useInfiniteQuery<Partial<userT>[], Error, Partial<userT>[]>({
     queryKey: ["user-list", "approved", filters],
-    queryFn: ({ pageParam }) => {
-      console.log("[useUsersList] filters:", filters, "enabled:", !!filters)
-      return getMatches({
-        ...(filters && filterObj(filters)),
-        limit,
-        skip: (pageParam as number || 0) * limit,
-        approvalStatus: "approved",
-      })
-    },
+    queryFn: ({ pageParam }) => getMatches({
+      ...(filters && filterObj(filters)),
+      limit,
+      skip: (pageParam as number || 0) * limit,
+      approvalStatus: "approved",
+    }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
     select: data => data?.pages?.flat() as any,

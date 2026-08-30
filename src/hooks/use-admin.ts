@@ -52,7 +52,7 @@ export function useFindUser(params: any) {
   return useQuery<Partial<userT>[]>({
     queryKey: ["find-user", params],
     queryFn: () => findUser(params),
-    enabled: !!params && Object.keys(params).length > 1,
+    enabled: !!params && Object.keys(params).length > 0,
   })
 }
 

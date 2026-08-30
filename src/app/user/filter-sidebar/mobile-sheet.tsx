@@ -30,7 +30,7 @@ function MobileSheet({ hasFilters, onSave }: props) {
         </SheetHeader>
 
         <Filters
-          contentHt="h-[calc(100vh-6rem)]"
+          contentHt="h-[calc(100svh-6rem)]"
           hasFilters={hasFilters}
           onSave={onSave}
         />

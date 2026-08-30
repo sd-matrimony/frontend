@@ -33,8 +33,8 @@ function groupData(data: Record<string, number>, dateType: "day" | "month" | "ca
 
 function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
   const [type, setType] = useState<"date" | "caste">("date")
-  const [dateType, setdateType] = useState<"day" | "month">("day")
-  const [includeByAdmin, setIncludeByAdmin] = useState(true)
+  const [dateType, setdateType] = useState<"day" | "month">("month")
+  const [includeByAdmin, setIncludeByAdmin] = useState(false)
   const [gender, setGender] = useState("all")
 
   const { isLoading, isFetching, data, refetch } = useGetUsersGroupedByAdminCount({

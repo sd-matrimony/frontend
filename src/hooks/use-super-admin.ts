@@ -155,6 +155,7 @@ export function useRemoveUserPlan() {
     onSuccess() {
       toast.success("Subscription removed successfully")
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
+      queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
     onError(error) {
       toast.error(error?.message || "Something went wrong!!!")

@@ -38,6 +38,7 @@ function hasValue(value: unknown) {
 type props = {
   methods: UseFormReturn<findUserSchemaT>
   children?: React.ReactNode
+  moreChildren?: React.ReactNode
   className?: string
   needReset?: boolean
   isLoading: boolean
@@ -46,7 +47,7 @@ type props = {
   onRefresh?: () => void
 }
 
-function UsersFiltersRow({ methods, children, className, needReset, isLoading, onSubmit, onReset, onRefresh }: props) {
+function UsersFiltersRow({ methods, children, moreChildren, className, needReset, isLoading, onSubmit, onReset, onRefresh }: props) {
   const { data: castes, isLoading: isCasteLoading } = useStatics("castes")
   const { data: casteMap, isLoading: isCasteMapLoading } = useStatics("casteMap")
 
@@ -145,6 +146,8 @@ function UsersFiltersRow({ methods, children, className, needReset, isLoading, o
       {
         showMore &&
         <>
+          {moreChildren}
+
           <InputWrapper
             name="email"
             control={methods.control}
