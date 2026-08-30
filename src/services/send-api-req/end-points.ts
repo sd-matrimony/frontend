@@ -35,6 +35,7 @@ export const endPoints = {
   getUnlockedProfiles: "/user/unlocked",
 
   getUsersList: "/admin/users",
+  getUsersCount: "/super-admin/users/count",
   updateUserDetails: "/admin/user",
   getMarriedUsers: "/admin/users/married",
   marriedTo: "/admin/user/married-to",

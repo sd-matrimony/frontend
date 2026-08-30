@@ -5,7 +5,7 @@ import { useMutation, useInfiniteQuery, useQueryClient, useQuery } from "@tansta
 import { type findUserSchemaT } from "./use-user-filters";
 
 import {
-  createUsers, extractImg, findUser, getMarriedUsers, getUsersList,
+  createUsers, extractImg, findUser, getMarriedUsers, getUsersList, getUsersCount,
   updateUserDetails, userMarriedTo,
 } from "@/actions";
 import { useToast } from "@/components/ui/toast";
@@ -26,6 +26,14 @@ export function useUsersList(data: findUserSchemaT) {
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
     select: data => data?.pages?.flat() as any,
+    enabled,
+  })
+}
+
+export function useUsersCount(data: findUserSchemaT, enabled = true) {
+  return useQuery<{ count: number }, Error>({
+    queryKey: ["user-list-count", data],
+    queryFn: () => getUsersCount(data),
     enabled,
   })
 }

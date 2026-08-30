@@ -7,6 +7,13 @@ export function getUsersList(params: any = {}) {
   })
 }
 
+export function getUsersCount(params: any = {}) {
+  return sendApiReq({
+    url: endPoints.getUsersCount,
+    params,
+  })
+}
+
 export function getMarriedUsers(params: any = {}) {
   return sendApiReq({
     url: endPoints.getMarriedUsers,

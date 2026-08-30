@@ -9,7 +9,7 @@ import type {
 } from "@tanstack/react-table";
 
 import { useUserFilters, type findUserSchemaT } from "@/hooks/use-user-filters";
-import { useUsersList } from '@/hooks/use-admin';
+import { useUsersList, useUsersCount } from '@/hooks/use-admin';
 import { cn } from "@/lib/utils";
 
 import { ColumnToggle, DataTableVirtualized, appTableFeatures } from "@/components/ui/data-table";
@@ -35,6 +35,10 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-4rem)] sm:h-[calc(100
     data: users, isLoading, isFetching, hasNextPage, isFetchingNextPage,
     fetchNextPage, refetch
   } = useUsersList({ ...props, ...final })
+
+  const { data: usersCount, isLoading: isCountLoading } = useUsersCount(
+    { ...props, ...final }, role === "super-admin"
+  )
 
   const currentTab: any = props.approvalStatus || (props.isBlocked ? "blocked" : "deleted")
 
@@ -64,6 +68,13 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-4rem)] sm:h-[calc(100
         onRefresh={refetch}
         moreChildren={statusSelect}
       >
+        {
+          role === "super-admin" &&
+          <span className="text-sm text-muted-foreground whitespace-nowrap">
+            {isCountLoading ? "Counting..." : `Total: ${usersCount?.count ?? 0}`}
+          </span>
+        }
+
         <ColumnToggle table={table} />
       </UsersFiltersRow>
 
