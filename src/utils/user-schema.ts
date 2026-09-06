@@ -5,7 +5,7 @@ export const personalDetailsSchema = z.object({
   gender: z.string().nonempty("Gender is required"),
   dob: z.date(),
   maritalStatus: z.string().nonempty("Marital Status is required"),
-  hasDisability: z.boolean(),
+  hasDisability: z.boolean().default(false),
 })
 
 export const contactDetailsSchema = z.object({

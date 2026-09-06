@@ -25,6 +25,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
       gender: user.gender,
       dob: new Date(user.dob),
       maritalStatus: user.maritalStatus,
+      hasDisability: user.hasDisability ?? false,
     },
   })
 
