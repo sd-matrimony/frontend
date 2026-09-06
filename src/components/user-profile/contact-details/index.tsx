@@ -57,13 +57,18 @@ function ContactDetails({ user, canEdit }: props) {
           </div>
 
           <div>
-            <span className="text-sm text-muted-foreground">Address</span>
+            <span className="text-sm text-muted-foreground">Full Address</span>
             <UpgradeBtn
               value={user?.contactDetails?.address}
               unlocked={isUnlocked}
               isPending={isPending}
               unlockBtnClk={() => unlockBtnClk(user._id)}
             />
+          </div>
+
+          <div>
+            <span className="text-sm text-muted-foreground">Place</span>
+            <p className="font-medium">{user?.contactDetails?.place || "---"}</p>
           </div>
         </div>
       </CardContent>

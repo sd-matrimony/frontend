@@ -10,7 +10,7 @@ import { contactDetailsSchema } from '@/utils/user-schema';
 import { useUpdateProfile } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { TextareaWrapper } from "@/components/ui/field-wrapper-rhf";
+import { TextareaWrapper, InputWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
@@ -22,6 +22,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     defaultValues: {
       mobile: user?.contactDetails?.mobile,
       address: user?.contactDetails?.address,
+      place: user?.contactDetails?.place,
     },
   })
 
@@ -61,7 +62,14 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <TextareaWrapper
               control={form.control}
               name="address"
-              label="Address"
+              label="Full Address"
+            />
+
+            <InputWrapper
+              control={form.control}
+              name="place"
+              label="Place"
+              placeholder="e.g. Chennai"
             />
 
             <div className="flex justify-end space-x-2 pt-2">

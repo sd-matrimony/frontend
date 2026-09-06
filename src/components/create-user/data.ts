@@ -12,6 +12,7 @@ type BaseField = {
 
 type TextField = BaseField & {
   type: "text" | "email" | "password" | "tel" | "time"
+  placeholder?: string
 }
 
 type FileField = BaseField & {
@@ -140,8 +141,14 @@ export const fieldList: FieldSection[] = [
       },
       {
         name: "contactDetails.address",
-        label: "Address",
+        label: "Full Address",
         type: "text",
+      },
+      {
+        name: "contactDetails.place",
+        label: "Place",
+        type: "text",
+        placeholder: "e.g. Chennai",
       }
     ]
   },

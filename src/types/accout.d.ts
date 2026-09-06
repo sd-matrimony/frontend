@@ -37,6 +37,7 @@ type userT = {
   contactDetails: {
     mobile: string
     address: string
+    place: string
   }
   proffessionalDetails: {
     highestQualification: string

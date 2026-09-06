@@ -134,7 +134,8 @@ export function EditSheet({ _id, open, onOpenChange, onApply }: Props) {
               <SelectWrapper name="gender" label="Gender" control={control} items={gender} className="gap-0.5" />
               <SelectWrapper name="maritalStatus" label="Marital Status" control={control} items={maritalStatus} className="gap-0.5" />
               <SwitchWrapper name="hasDisability" label="Has Disability" control={control} className="gap-0.5" />
-              <InputWrapper name="contactDetails.address" label="Address" control={control} className="col-span-2 gap-0.5" />
+              <InputWrapper name="contactDetails.address" label="Full Address" control={control} className="col-span-2 gap-0.5" />
+              <InputWrapper name="contactDetails.place" label="Place" placeholder="e.g. Chennai" control={control} className="gap-0.5" />
               <ComboboxWrapper name="otherDetails.caste" label="Caste" control={control} items={castes ?? []} className="gap-0.5" /> {/*canCreateNew*/}
               <ComboboxWrapper name="otherDetails.subCaste" label="Sub Caste" control={control} items={subCasteOpts} className="gap-0.5" /> {/*canCreateNew*/}
               <ComboboxWrapper name="otherDetails.religion" label="Religion" control={control} items={religions ?? []} className="gap-0.5" /> {/*canCreateNew*/}

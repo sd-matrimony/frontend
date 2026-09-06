@@ -20,7 +20,7 @@ const NORMAL_CASE_FIELDS = new Set([
 const LABELS: Record<string, string> = {
   fullName: "Name", dob: "Date of Birth", gender: "Gender",
   maritalStatus: "Marital Status", hasDisability: "Disability",
-  "contactDetails.address": "Address",
+  "contactDetails.address": "Full Address", "contactDetails.place": "Place",
   "otherDetails.caste": "Caste", "otherDetails.subCaste": "Sub Caste",
   "otherDetails.religion": "Religion", "otherDetails.motherTongue": "Mother Tongue",
   "otherDetails.height": "Height", "otherDetails.color": "Complexion",
