@@ -10,7 +10,7 @@ import { useUpdateProfile } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { SelectListWrapper, SelectSubCastesWrapper } from '@/components/common/lists';
-import { InputWrapper } from "@/components/ui/field-wrapper-rhf";
+import { InputWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
@@ -21,7 +21,8 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     resolver: zodResolver(otherDetailsSchema),
     defaultValues: {
       motherTongue: user?.otherDetails?.motherTongue || "",
-      // houseType: user?.otherDetails?.houseType || "",
+      houseType: user?.otherDetails?.houseType || "",
+      otherProperties: user?.otherDetails?.otherProperties || "",
       religion: user?.otherDetails?.religion || "",
       height: user?.otherDetails?.height || "",
       color: user?.otherDetails?.color || "",
@@ -99,11 +100,18 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               additionalOpts="Don't wish to specify"
             />
 
-            {/* <InputWrapper
+            <SelectWrapper
               control={form.control}
               name="houseType"
               label="House Type"
-            /> */}
+              items={["Own", "Rented"]}
+            />
+
+            <InputWrapper
+              control={form.control}
+              name="otherProperties"
+              label="Other Properties"
+            />
 
             <InputWrapper
               control={form.control}

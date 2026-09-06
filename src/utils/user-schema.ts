@@ -84,6 +84,7 @@ export const vedicHoroscopeSchema = z.object({
 export const otherDetailsSchema = z.object({
   motherTongue: z.string().optional().or(z.literal("")),
   houseType: z.string().optional().or(z.literal("")),
+  otherProperties: z.string().optional().or(z.literal("")),
   religion: z.string().optional().or(z.literal("")),
   height: z.string().optional().or(z.literal("")),
   color: z.string().optional().or(z.literal("")),

@@ -142,6 +142,7 @@ export function EditSheet({ _id, open, onOpenChange, onApply }: Props) {
               <InputWrapper name="otherDetails.height" label="Height" control={control} className="gap-0.5" />
               <InputWrapper name="otherDetails.color" label="Complexion" control={control} className="gap-0.5" />
               <InputWrapper name="otherDetails.houseType" label="House Type" control={control} className="gap-0.5" />
+              <InputWrapper name="otherDetails.otherProperties" label="Other Properties" control={control} className="gap-0.5" />
             </TabsContent>
 
             <TabsContent value="Professional" className="scroll-y px-4 pt-4 pb-20 mt-0 grid grid-cols-2 gap-x-4 gap-y-3 content-start">

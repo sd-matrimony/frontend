@@ -67,6 +67,7 @@ type userT = {
   otherDetails: {
     motherTongue: string
     houseType: string
+    otherProperties: string
     religion: string
     height: string
     color: string

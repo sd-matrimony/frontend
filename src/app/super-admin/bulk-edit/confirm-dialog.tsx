@@ -25,6 +25,7 @@ const LABELS: Record<string, string> = {
   "otherDetails.religion": "Religion", "otherDetails.motherTongue": "Mother Tongue",
   "otherDetails.height": "Height", "otherDetails.color": "Complexion",
   "otherDetails.houseType": "House Type",
+  "otherDetails.otherProperties": "Other Properties",
   "proffessionalDetails.highestQualification": "Qualification",
   "proffessionalDetails.qualifications": "Qualification Details",
   "proffessionalDetails.profession": "Profession", "proffessionalDetails.sector": "Sector",

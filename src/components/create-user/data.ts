@@ -315,11 +315,13 @@ export const fieldList: FieldSection[] = [
         listName: "castes",
         additionalOpts: "Don't wish to specify",
         canCreateNew: true,
+        isRequired: true,
       },
       {
         name: "otherDetails.subCaste",
         type: "subCaste",
         additionalOpts: "Don't wish to specify",
+        isRequired: true,
       },
       {
         name: "otherDetails.motherTongue",
@@ -350,8 +352,13 @@ export const fieldList: FieldSection[] = [
       {
         name: "otherDetails.houseType",
         label: "House Type",
-        type: "radio",
+        type: "select",
         items: ["Own", "Rented"]
+      },
+      {
+        name: "otherDetails.otherProperties",
+        label: "Other Properties",
+        type: "text",
       },
     ]
   },

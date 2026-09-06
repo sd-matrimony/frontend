@@ -40,10 +40,14 @@ function OtherDetails({ user, canEdit }: props) {
             <span className="text-sm text-muted-foreground">Sub / Other Caste</span>
             <p className="font-medium">{user?.otherDetails?.subCaste || "---"}</p>
           </div>
-          {/* <div>
+          <div>
             <span className="text-sm text-muted-foreground">House Type</span>
             <p className="font-medium">{user?.otherDetails?.houseType || "---"}</p>
-          </div> */}
+          </div>
+          <div>
+            <span className="text-sm text-muted-foreground">Other Properties</span>
+            <p className="font-medium">{user?.otherDetails?.otherProperties || "---"}</p>
+          </div>
           <div>
             <span className="text-sm text-muted-foreground">Height</span>
             <p className="font-medium">{user?.otherDetails?.height || "---"}</p>
