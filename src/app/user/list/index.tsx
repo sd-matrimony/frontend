@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { Loader } from "lucide-react";
 
@@ -30,8 +30,8 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
     count: hasNextPage ? users.length + 1 : users.length,
     measureElement: el => el.getBoundingClientRect().height,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 242,
-    overscan: 5,
+    estimateSize: () => (typeof window !== "undefined" && window.innerWidth < 512 ? 620 : 280),
+    overscan: 8,
     gap: 20,
   })
 
@@ -47,17 +47,17 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
     }
   }, [users.length, hasNextPage, virtualItems, isFetchingNextPage, fetchNextPage])
 
-  const onAdd = (userId: string, type: "liked" | "disliked") => {
+  const onAdd = useCallback((userId: string, type: "liked" | "disliked") => {
     likeMutate({ userId, type })
-  }
+  }, [likeMutate])
 
-  const onRemove = (userId: string, type: "liked" | "disliked") => {
+  const onRemove = useCallback((userId: string, type: "liked" | "disliked") => {
     unlikeMutate({ userId, type })
-  }
+  }, [unlikeMutate])
 
-  const onView = (_id: string) => {
+  const onView = useCallback((_id: string) => {
     updateModal({ open: "user-details", data: { _id } })
-  }
+  }, [updateModal])
 
   if (isLoading) return (
     <div className='dc h-[calc(100vh-5rem)]'>
@@ -114,7 +114,7 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
                   type={type}
                   onAdd={onAdd}
                   onRemove={onRemove}
-                  onView={() => onView(user?._id as string)}
+                  onView={onView}
                 />
               </div>
             )

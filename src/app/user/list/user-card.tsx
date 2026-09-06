@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Heart, Eye, Briefcase, Calendar, HeartOff, UsersRound, Gem, GraduationCap, ShieldUser } from "lucide-react";
 import Link from "next/link";
 
@@ -16,12 +17,12 @@ type props = {
   type?: "liked" | "disliked" | "full"
   isLiked?: boolean
   isDisliked?: boolean
-  onView?: () => void
+  onView?: (userId: string) => void
   onAdd?: (userId: string, type: "liked" | "disliked") => void
   onRemove?: (userId: string, type: "liked" | "disliked") => void
 } & Partial<userT>
 
-function UserCard({
+const UserCard = memo(function UserCard({
   _id, profileImg, fullName, maritalStatus, dob,
   otherDetails, proffessionalDetails, currentPlan,
   type = "full", isLiked, isVerified,
@@ -39,6 +40,8 @@ function UserCard({
               className="w-full @lg/card:w-60 h-60 object-cover hover:scale-105 transition-transform"
               src={profileImg || "/imgs/user.jpg"}
               alt={fullName || "Profile Image"}
+              loading="lazy"
+              decoding="async"
             />
           </Link>
           {isLiked && (
@@ -183,7 +186,7 @@ function UserCard({
               triggerProps={{
                 render: <Button
                   size="sm"
-                  onClick={onView}
+                  onClick={() => onView(_id as string)}
                   nativeButton={false}
                   render={<Link href={`/user/profile/${_id}`} />}
                 >
@@ -197,6 +200,6 @@ function UserCard({
       </div>
     </Card>
   )
-}
+})
 
 export default UserCard
