@@ -17,6 +17,7 @@ interface props {
   contentHt?: string
   hasFilters: boolean
   onSave: (filterData: any) => void
+  onClose?: () => void
 }
 
 const schema = z.object({
@@ -140,7 +141,7 @@ function getPayload(userPartnerPreferences: Pick<userT, "partnerPreferences"> & 
 
 const FILTER_STORAGE_KEY = 'sdm-user-filters'
 
-function Filters({ onSave, hasFilters, contentHt = "" }: props) {
+function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
   const { data: userMini, isLoading: isLoadingMini } = useUserDetailsMini()
   const { data: user, isLoading: isLoading2 } = usePartnerPreferences(isLoadingMini ? "" : userMini?._id || "")
 
@@ -170,6 +171,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
     localStorage.removeItem(FILTER_STORAGE_KEY)
     form.reset({ ...defaultValues })
     onSave({})
+    onClose?.()
   }
 
   function onApply() {
@@ -177,6 +179,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
     const payload: any = getPayload(user)
     form.reset(payload)
     onSave(payload)
+    onClose?.()
   }
 
   function onSubmit(data: z.infer<typeof schema>) {
@@ -188,6 +191,7 @@ function Filters({ onSave, hasFilters, contentHt = "" }: props) {
 
     localStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify(filtered))
     onSave(filtered)
+    onClose?.()
   }
 
   return (

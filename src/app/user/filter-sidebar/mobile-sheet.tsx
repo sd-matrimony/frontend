@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Menu } from "lucide-react";
 
 import {
@@ -17,8 +18,10 @@ interface props {
 }
 
 function MobileSheet({ hasFilters, onSave }: props) {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger render={<Button variant="outline" className="md:hidden fixed top-20 left-4 z-1" />}>
         <Menu /> Filters
       </SheetTrigger>
@@ -33,6 +36,7 @@ function MobileSheet({ hasFilters, onSave }: props) {
           contentHt="h-[calc(100svh-6rem)]"
           hasFilters={hasFilters}
           onSave={onSave}
+          onClose={() => setOpen(false)}
         />
       </SheetContent>
     </Sheet>
