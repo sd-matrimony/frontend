@@ -1,7 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import Cookies from "js-cookie";
 
-import { getServerSideToken } from "@/server/utils";
+import { getServerSideToken, getServerSideLocale } from "@/server/utils";
 import { getToken, removeToken, setToken } from "@/actions";
+import { localeCookieName, defaultLocale } from "@/utils";
 import { endPoints, root } from './end-points';
 
 type SendApiReqParams = AxiosRequestConfig & {
@@ -49,11 +51,16 @@ const refreshAccessToken = async (): Promise<string> => {
 const requestIntercepter = (instance: AxiosInstance, isAuthendicated: boolean, headers: AxiosRequestConfig["headers"]): void => {
   instance.interceptors.request.use(
     async function (config: any) {
+      const locale = typeof window === 'undefined'
+        ? await getServerSideLocale()
+        : Cookies.get(localeCookieName) || defaultLocale
+
       if (isAuthendicated) {
         if (typeof window === 'undefined') {
           const token = await getServerSideToken()
           config.headers = {
             Authorization: "Bearer " + token,
+            "x-locale": locale,
             ...headers
           }
         } else {
@@ -65,8 +72,14 @@ const requestIntercepter = (instance: AxiosInstance, isAuthendicated: boolean, h
 
           config.headers = {
             Authorization: "Bearer " + token,
+            "x-locale": locale,
             ...headers
           }
+        }
+      } else {
+        config.headers = {
+          "x-locale": locale,
+          ...headers
         }
       }
       return config;

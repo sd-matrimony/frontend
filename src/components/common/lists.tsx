@@ -1,11 +1,22 @@
 "use client";
 
 import { Control, FieldValues, Path } from "react-hook-form";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { useStatics } from "@/hooks/use-general";
+import { translateListValue, translateSentinel } from "@/utils/list-translations";
 
 import { AutocompleteWrapper, ComboboxWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
+
+function toItems(values: string[], listName: staticsNameT | undefined, locale: string): itemT[] {
+  return values.map(value => ({ value, label: translateListValue(listName, value, locale) }))
+}
+
+function additionalOptsToItems(additionalOpts: string | string[] | undefined, locale: string): itemT[] {
+  if (!additionalOpts) return []
+  const values = typeof additionalOpts === "string" ? [additionalOpts] : additionalOpts
+  return values.map(value => ({ value, label: translateSentinel(value, locale) }))
+}
 
 type BaseProps<T extends FieldValues> = {
   name: Path<T>
@@ -23,6 +34,7 @@ type props<T extends FieldValues> = BaseProps<T> & {
 }
 export function SelectListWrapper<T extends FieldValues>({ name, label, control, placeholder, listName, canCreateNew, showClear, className, additionalOpts }: props<T>) {
   const t = useTranslations("shared.createUser")
+  const locale = useLocale()
   const { data, isLoading } = useStatics(listName)
 
   const Comp = canCreateNew ? AutocompleteWrapper : showClear ? ComboboxWrapper : SelectWrapper
@@ -32,8 +44,8 @@ export function SelectListWrapper<T extends FieldValues>({ name, label, control,
       label={label}
       control={control}
       items={isLoading ? [] : [
-        ...(additionalOpts ? typeof additionalOpts === "string" ? [additionalOpts] : additionalOpts : []),
-        ...(data || [])
+        ...additionalOptsToItems(additionalOpts, locale),
+        ...toItems(data || [], listName, locale)
       ]}
       isLoading={isLoading}
       showClear={showClear}
@@ -49,6 +61,7 @@ type props2<T extends FieldValues> = BaseProps<T> & {
 }
 export function SelectSubCastesWrapper<T extends FieldValues>({ name, control, choosed = "", className, additionalOpts }: props2<T>) {
   const t = useTranslations("shared.createUser")
+  const locale = useLocale()
   const { data, isLoading } = useStatics("casteMap")
 
   return (
@@ -57,8 +70,8 @@ export function SelectSubCastesWrapper<T extends FieldValues>({ name, control, c
       label={t("subCaste")}
       control={control}
       items={isLoading ? [] : [
-        ...(additionalOpts ? typeof additionalOpts === "string" ? [additionalOpts] : additionalOpts : []),
-        ...(data?.[choosed] || [])
+        ...additionalOptsToItems(additionalOpts, locale),
+        ...toItems(data?.[choosed] || [], "casteMap", locale)
       ]}
       isLoading={isLoading}
       placeholder={t("selectSubCaste")}
