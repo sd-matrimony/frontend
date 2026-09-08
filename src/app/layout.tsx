@@ -1,6 +1,7 @@
+import { Inter, Noto_Sans_Tamil } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import Script from "next/script";
 
@@ -11,10 +12,10 @@ import { Toaster } from "@/components/ui/toast";
 import "./globals.css";
 
 import ClientWrapper from "@/components/common/client-wrapper";
-import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const notoSansTamil = Noto_Sans_Tamil({ subsets: ['tamil'], variable: '--font-tamil' });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sdmatrimony.com"),
@@ -99,7 +100,7 @@ async function RootLayout({ children }: LayoutProps<"/">) {
   const locale = await getLocale();
 
   return (
-    <html lang={locale} className={cn("font-sans", inter.variable)} data-scroll-behavior="smooth">
+    <html lang={locale} className={cn("font-sans", inter.variable, notoSansTamil.variable)} data-scroll-behavior="smooth">
       <body>
         <NextIntlClientProvider>
           <Toaster position="top-right">
