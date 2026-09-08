@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm, FormProvider } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Loader } from "lucide-react";
 
 import { useUpdatePassword } from "@/hooks/use-account";
@@ -20,6 +21,8 @@ type props = {
 }
 
 function UpdatePass({ onSuccess }: props) {
+  const t = useTranslations("user.updatePass")
+  const tCommon = useTranslations("common")
   const methods = useForm<formFields>({
     defaultValues: {
       oldPassword: "",
@@ -42,18 +45,18 @@ function UpdatePass({ onSuccess }: props) {
       >
         <PasswordField
           name="oldPassword"
-          label="Current"
+          label={t("currentPasswordLabel")}
         />
 
         <PasswordField
           name="newPassword"
-          label="New"
+          label={t("newPasswordLabel")}
           validate={(val, { oldPassword }) => val !== oldPassword || "New password must be different from current password"}
         />
 
         <PasswordField
           name="confirmPassword"
-          label="Confirm"
+          label={t("confirmPasswordLabel")}
           validate={(val, { newPassword }) => val === newPassword || "Confirm password must be same as new password"}
         />
 
@@ -64,7 +67,7 @@ function UpdatePass({ onSuccess }: props) {
             disabled={isPending}
           >
             {isPending && <Loader className="animate-spin" />}
-            Update Password
+            {t("submit")}
           </Button>
 
           <Button
@@ -74,7 +77,7 @@ function UpdatePass({ onSuccess }: props) {
             disabled={isPending}
             onClick={onSuccess}
           >
-            Cancel
+            {tCommon("cancel")}
           </Button>
         </div>
       </form>

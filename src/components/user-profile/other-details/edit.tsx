@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { otherDetailsSchema, type otherDetailsT } from '@/utils/user-schema';
 import { useUpdateProfile } from '@/hooks/use-user';
@@ -14,6 +15,8 @@ import { InputWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
+  const t = useTranslations("shared.userProfile.other")
+  const tc = useTranslations("common")
   const { mutate, isPending } = useUpdateProfile()
   const [open, setOpen] = useState(false)
 
@@ -55,13 +58,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button variant="outline" size="sm" />}>
         <EditIcon className="h-4 w-4 mr-2" />
-        Edit
+        {tc("edit")}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Other Details</DialogTitle>
-          <DialogDescription>Make changes to your additional information here.</DialogDescription>
+          <DialogTitle>{t("editTitle")}</DialogTitle>
+          <DialogDescription>{t("editDesc")}</DialogDescription>
         </DialogHeader>
 
         <FormProvider {...form}>
@@ -69,7 +72,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="motherTongue"
-              label="Mother Tongue"
+              label={t("fields.motherTongue")}
               listName="languages"
               additionalOpts="Don't wish to specify"
               canCreateNew
@@ -78,7 +81,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="religion"
-              label="Religion"
+              label={t("fields.religion")}
               listName="religions"
               additionalOpts="Don't wish to specify"
               canCreateNew
@@ -87,7 +90,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="caste"
-              label="Caste"
+              label={t("fields.caste")}
               listName="castes"
               additionalOpts="Don't wish to specify"
               canCreateNew
@@ -103,27 +106,27 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectWrapper
               control={form.control}
               name="houseType"
-              label="House Type"
+              label={t("fields.houseType")}
               items={["Own", "Rented"]}
             />
 
             <InputWrapper
               control={form.control}
               name="otherProperties"
-              label="Other Properties"
+              label={t("fields.otherProperties")}
             />
 
             <InputWrapper
               control={form.control}
               name="height"
-              label="Height (in cm)"
+              label={t("fields.height")}
               type="number"
             />
 
             <InputWrapper
               control={form.control}
               name="color"
-              label="Color"
+              label={t("fields.color")}
             />
 
             <div className="flex justify-end space-x-2 pt-2">
@@ -133,14 +136,14 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 disabled={isPending}
                 onClick={() => setOpen(false)}
               >
-                Cancel
+                {tc("cancel")}
               </Button>
 
               <Button
                 type="submit"
                 disabled={isPending}
               >
-                Save Changes
+                {tc("saveChanges")}
               </Button>
             </div>
           </form>

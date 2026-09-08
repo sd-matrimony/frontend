@@ -1,0 +1,435 @@
+{
+  "common": {
+    "language": "Language",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "submit": "Submit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "saveChanges": "Save Changes",
+    "next": "Next",
+    "back": "Back",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "matches": "Matches",
+    "liked": "Liked",
+    "unlocked": "Unlocked",
+    "payment": "Payment",
+    "logout": "Logout"
+  },
+  "shared": {
+    "actions": {
+      "goBack": "Go Back",
+      "confirm": "Confirm"
+    },
+    "navbar": {
+      "allUsers": "All users",
+      "marriedUsers": "Married users",
+      "createUser": "Create user",
+      "imageExtractor": "Image Extractor",
+      "makeMatch": "Make Match",
+      "bulkUpdate": "Bulk Update",
+      "account": "Account",
+      "liked": "Liked",
+      "unlocked": "Unlocked",
+      "payment": "Payment",
+      "profile": "Profile",
+      "logout": "Log out"
+    },
+    "createUser": {
+      "signUp": "Sign Up",
+      "createUser": "Create User",
+      "showAllFields": "Show all fields",
+      "showRequiredOnly": "Show required fields only",
+      "password": "Password",
+      "autoGenerate": "Auto Generate",
+      "enterPassword": "Enter password",
+      "canUploadUpto4": "Can upload upto 4 files",
+      "subCaste": "Sub / Other Caste",
+      "selectSubCaste": "Select Sub / Other Caste",
+      "selectLabel": "Select {label}",
+      "failedToRegister": "Failed to register",
+      "fillFullName": "Please fill in Full Name.",
+      "fillDob": "Please fill in Date of Birth.",
+      "sections": {
+        "account": "Account Details",
+        "personal": "Personal Details",
+        "contact": "Contact Details",
+        "professional": "Professional Details",
+        "family": "Family Details",
+        "horoscope": "Horoscope Details",
+        "other": "Other Details",
+        "partnerPreferences": "Partner Preferences"
+      }
+    },
+    "createUserFields": {
+      "email": "Email",
+      "password": "Password",
+      "profileImg": "Profile Image",
+      "images": "Additional Images",
+      "fullName": "Full Name",
+      "gender": "Gender",
+      "dob": "Date of Birth",
+      "maritalStatus": "Marital Status",
+      "hasDisability": "Has Disability",
+      "contactDetails": {
+        "mobile": "Mobile Number",
+        "address": "Full Address",
+        "place": "Place"
+      },
+      "proffessionalDetails": {
+        "highestQualification": "Highest Qualification",
+        "qualifications": "Qualifications",
+        "sector": "Sector",
+        "profession": "Profession",
+        "companyName": "Company Name",
+        "companyLocation": "Company Location",
+        "salary": "Salary per Month (in ₹)"
+      },
+      "familyDetails": {
+        "fatherName": "Father's Name",
+        "motherName": "Mother's Name",
+        "isFatherAlive": "Father's living status",
+        "isMotherAlive": "Mother's living status",
+        "noOfBrothers": "Number of Brothers",
+        "noOfSisters": "Number of Sisters",
+        "birthOrder": "Birth Order"
+      },
+      "vedicHoroscope": {
+        "nakshatra": "Nakshatra",
+        "rasi": "Rasi",
+        "lagna": "Lagna",
+        "dashaPeriod": "Dasha Period",
+        "placeOfBirth": "Place of Birth",
+        "timeOfBirth": "Time of Birth",
+        "dosham": "Dosham",
+        "vedicHoroscopePic": "Vedic Horoscope Picture"
+      },
+      "otherDetails": {
+        "caste": "Caste",
+        "motherTongue": "Mother Tongue",
+        "religion": "Religion",
+        "height": "Height",
+        "color": "Color",
+        "houseType": "House Type",
+        "otherProperties": "Other Properties"
+      },
+      "partnerPreferences": {
+        "minAge": "Minimum Age",
+        "maxAge": "Maximum Age",
+        "minQualification": "Minimum Qualification",
+        "sector": "Sector",
+        "profession": "Profession",
+        "minSalary": "Minimum Salary (in ₹)",
+        "caste": "Caste",
+        "religion": "Religion",
+        "motherTongue": "Mother Tongue",
+        "location": "Location",
+        "expectation": "Expectations",
+        "maritalStatus": "Marital Status"
+      }
+    },
+    "createUserFieldPlaceholders": {
+      "contactDetails": {
+        "place": "e.g. Chennai"
+      }
+    },
+    "userProfile": {
+      "tabs": {
+        "personal": "Personal",
+        "family": "Family",
+        "horoscope": "Horoscope",
+        "preferences": "Preferences"
+      },
+      "unlock": {
+        "unlocking": "Unlocking...",
+        "unlockToView": "Unlock to View",
+        "failedToUnlock": "Failed to unlock profile",
+        "proceedToPayment": "Proceed to payment?",
+        "payNow": "Pay Now",
+        "unlockMoreDetails": "Unlock More Details",
+        "paymentRequired": "Payment required to view more information. Proceed to payment?"
+      },
+      "restrictedNote": "This is restricted account, Contact admin by the given number",
+      "personal": {
+        "cardTitle": "Personal Details",
+        "cardDesc": "Your basic personal information",
+        "fullName": "Full Name",
+        "gender": "Gender",
+        "dob": "Date of Birth",
+        "maritalStatus": "Marital Status",
+        "hasDisabilitySuffix": " (Has Disability)",
+        "editTitle": "Edit Personal Details",
+        "editDesc": "Make changes to your personal information here.",
+        "fields": {
+          "gender": "Gender",
+          "selectGender": "Select gender",
+          "maritalStatus": "Marital Status",
+          "selectMaritalStatus": "Select marital status",
+          "hasDisability": "Has Disability"
+        }
+      },
+      "family": {
+        "cardTitle": "Family Details",
+        "cardDesc": "Information about your family",
+        "fatherName": "Father's Name",
+        "motherName": "Mother's Name",
+        "deceasedSuffix": " (Deceased)",
+        "noOfBrothers": "Number of Brothers",
+        "noOfSisters": "Number of Sisters",
+        "birthOrder": "Birth Order",
+        "editTitle": "Edit Family Details",
+        "editDesc": "Make changes to your family information here."
+      },
+      "horoscope": {
+        "cardTitle": "Vedic Horoscope",
+        "cardDesc": "Your astrological information",
+        "rasi": "Rasi",
+        "nakshatra": "Nakshatra",
+        "lagna": "Lagna",
+        "dashaPeriod": "Dasha Period",
+        "picLabel": "Vedic Horoscope Picture",
+        "editTitle": "Edit Horoscope Details",
+        "editDesc": "Make changes to your horoscope information here.",
+        "fields": {
+          "nakshatra": "Nakshatra",
+          "rasi": "Rasi",
+          "lagna": "Lagna",
+          "dashaPeriod": "Dasha Period",
+          "dosham": "Dosham",
+          "dontSpecify": "Don't wish to specify",
+          "image": "Horoscope Image"
+        }
+      },
+      "contact": {
+        "cardTitle": "Contact Details",
+        "cardDesc": "Information about your contact details",
+        "phone": "Phone Number",
+        "address": "Full Address",
+        "place": "Place",
+        "editTitle": "Edit Contact Details",
+        "editDesc": "Make changes to your contact information here.",
+        "fields": {
+          "address": "Full Address",
+          "place": "Place",
+          "placeholderPlace": "e.g. Chennai"
+        }
+      },
+      "other": {
+        "cardTitle": "Other Details",
+        "cardDesc": "Additional personal information",
+        "motherTongue": "Mother Tongue",
+        "religion": "Religion",
+        "caste": "Caste",
+        "subCaste": "Sub / Other Caste",
+        "houseType": "House Type",
+        "otherProperties": "Other Properties",
+        "height": "Height",
+        "color": "Color",
+        "editTitle": "Edit Other Details",
+        "editDesc": "Make changes to your additional information here.",
+        "fields": {
+          "motherTongue": "Mother Tongue",
+          "religion": "Religion",
+          "caste": "Caste",
+          "houseType": "House Type",
+          "otherProperties": "Other Properties",
+          "height": "Height (in cm)",
+          "color": "Color",
+          "dontSpecify": "Don't wish to specify",
+          "own": "Own",
+          "rented": "Rented"
+        }
+      },
+      "professional": {
+        "cardTitle": "Professional Details",
+        "cardDesc": "Your education and career information",
+        "highestQualification": "Highest Qualification",
+        "qualifications": "Qualifications",
+        "sector": "Sector",
+        "profession": "Profession",
+        "companyName": "Company Name",
+        "companyLocation": "Company Location",
+        "monthlySalary": "Monthly Salary",
+        "editTitle": "Edit Professional Details",
+        "editDesc": "Make changes to your professional information here.",
+        "contactAdminNote": "(Contact admin to update)"
+      },
+      "partner": {
+        "cardTitle": "Partner Preferences",
+        "cardDesc": "Your preferences for a life partner",
+        "ageRange": "Age Range",
+        "min": "Min",
+        "max": "Max",
+        "religion": "Religion",
+        "caste": "Caste",
+        "subCaste": "Sub / Other Caste",
+        "maritalStatus": "Marital Status",
+        "minQualification": "Minimum Qualification",
+        "sector": "Sector",
+        "profession": "Profession",
+        "minSalary": "Minimum Salary",
+        "motherTongue": "Mother Tongue",
+        "location": "Location",
+        "expectations": "Expectations",
+        "perMonth": "{amount} per month",
+        "editTitle": "Edit Partner Preferences",
+        "editDesc": "Make changes to your partner preferences here.",
+        "fields": {
+          "minAge": "Minimum Age",
+          "maxAge": "Maximum Age",
+          "expectedSalary": "Expected Salary",
+          "selectMaritalStatus": "Select marital status",
+          "any": "Any"
+        }
+      },
+      "sidebar": {
+        "photoGallery": "Photo Gallery",
+        "photoGalleryDesc": "Your profile photos",
+        "setAsProfilePic": "Set As Profile Pic",
+        "uploadLimit1": "You may only upload 1 file at a time.",
+        "uploadLimit4": "You may only upload 4 files at a time.",
+        "addImage": {
+          "title": "Add New Photo",
+          "desc": "Add a new photo to your gallery. Click save when you're done.",
+          "label": "Add Images",
+          "add": "Add Images"
+        },
+        "editImage": {
+          "title": "Update Profile Picture",
+          "desc": "Change your profile picture. Click save when you're done.",
+          "label": "Profile Image",
+          "save": "Save"
+        }
+      },
+      "addEmailDialog": {
+        "title": "Add Email to verify your account",
+        "desc": "Unlock more features and get personalized recommendations by verifying your email.",
+        "label": "Email",
+        "placeholder": "you@example.com",
+        "add": "Add"
+      },
+      "verifyReminder": {
+        "title": "Email not verified",
+        "desc": "Your account email <b>{email}</b> is not verified yet.",
+        "doNotShowAgain": "Do not show again",
+        "verifyLater": "Verify Later",
+        "verifyNow": "Verify Now"
+      }
+    },
+    "adminUsersTable": {
+      "searchGender": "Search {gender}",
+      "fullName": "Full Name",
+      "email": "Email",
+      "mobile": "Mobile Number",
+      "results": "Results ({count})",
+      "clear": "Clear",
+      "search": "Search",
+      "counting": "Counting...",
+      "total": "Total: {count}",
+      "columnName": "Name",
+      "columnEmail": "Email",
+      "columnMobile": "Mobile",
+      "columnCaste": "Caste",
+      "columnGender": "Gender",
+      "columnMaritalStatus": "Marital Status",
+      "columnSalary": "Salary",
+      "columnPlan": "Plan",
+      "planNone": "None",
+      "view": "View",
+      "filterMobile": "Mobile",
+      "filterCaste": "Caste, or type to add new",
+      "filterSubCaste": "Sub Caste, or type to add new",
+      "filterGender": "Gender",
+      "filterMaritalStatus": "Marital Status",
+      "createdDate": "Created Date",
+      "fewer": "Fewer",
+      "more": "More",
+      "resetToPrevious": "Reset to previuos",
+      "resetToDefault": "Reset to Default",
+      "resetPassword": "Reset Password",
+      "resetPasswordConfirmTitle": "Reset password?",
+      "resetPasswordConfirmDesc": "{fullName}'s password will be reset to a system-generated default.",
+      "updateDetails": "Update Details",
+      "approve": "Approve",
+      "approveConfirmTitle": "Approve this user?",
+      "approveConfirmDesc": "{fullName} will be approved and gain access to the platform.",
+      "married": "Married",
+      "unblock": "Unblock",
+      "unblockConfirmTitle": "Unblock this user?",
+      "unblockConfirmDesc": "{fullName} will regain access to the platform.",
+      "delete": "Delete",
+      "deleteConfirmTitle": "Delete this user?",
+      "deleteConfirmDesc": "{fullName} will be moved to deleted users.",
+      "restore": "Restore",
+      "restoreConfirmTitle": "Restore this user?",
+      "restoreConfirmDesc": "{fullName} will be restored and marked pending approval."
+    },
+    "planActions": {
+      "copyInviteMessage": "Copy invite message",
+      "copied": "Copied!",
+      "makePayment": "Make payment",
+      "paymentFor": "Payment for {fullName}",
+      "cancelSubscription": "Cancel active subscription",
+      "cancelSubscriptionConfirmTitle": "Cancel subscription?",
+      "cancelSubscriptionConfirmDesc": "This will remove the active plan for {fullName}. This action cannot be undone.",
+      "remove": "Remove",
+      "inviteMessage": "Hello {fullName},\n\nYou've been added to SD Matrimony!\nWe're excited to have you on board and help you connect with meaningful matches.\n\nHere are your login details:\n\nId: {mobile} (your mobile number)\n\nPassword: {password}\n\nYou can log in using the link below:\n👉 Login to SD Matrimony - https://sdmatrimony.com/auth/user/signin\n\nIf you did not intend to join SD Matrimony or believe this was a mistake, you can delete your account anytime or contact our support team for assistance."
+    },
+    "updateUserDialog": {
+      "title": "Update Critical Details",
+      "email": "Email",
+      "mobile": "Mobile",
+      "salary": "Salary",
+      "update": "Update",
+      "confirmUpdateTitle": "Confirm Update",
+      "confirmUpdateDesc": "You're about to update {fullName}'s critical details. This action affects login and contact details.",
+      "emailLabel": "Email:",
+      "mobileLabel": "Mobile:",
+      "salaryLabel": "Salary:",
+      "confirmAndUpdate": "Confirm & Update"
+    },
+    "marriedAction": {
+      "title": "Mark {fullName} as Married",
+      "marrying": "Marrying"
+    },
+    "makeMatch": {
+      "title": "Make Match",
+      "makeMatchBtn": "Make Match",
+      "confirmTitle": "Confirm Match",
+      "confirmDesc": "Are you sure you want to make this match?",
+      "marriedOn": "Married On",
+      "continue": "Continue"
+    },
+    "marriedUsers": {
+      "noUsersFound": "No users found",
+      "matchNotFound": "Match not found"
+    },
+    "imageExtractor": {
+      "dragDrop": "Drag and drop an image here, or click to select",
+      "selectImage": "Select Image",
+      "cropImage": "Crop Image",
+      "resetCrops": "Reset Crops",
+      "newImage": "New Image",
+      "proceed": "Proceed",
+      "area": "Area {id}",
+      "selectedArea": "Selected Area {id}",
+      "xPosition": "X Position (%)",
+      "yPosition": "Y Position (%)",
+      "width": "Width (%)",
+      "height": "Height (%)",
+      "profileImage": "Profile Image",
+      "verdictImage": "Verdict Image",
+      "download": "Download",
+      "deleteProcess": "Delete Process"
+    }
+  }
+}

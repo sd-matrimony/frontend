@@ -1,6 +1,7 @@
 "use client";
 
 import { Lock } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 
@@ -12,6 +13,8 @@ type props = {
 }
 
 function VerdicPic({ user, isPending, isUnlocked, unlockBtnClk }: props) {
+  const t = useTranslations("shared.userProfile.unlock")
+
   if (!isUnlocked) {
     return (
       <Button
@@ -22,7 +25,7 @@ function VerdicPic({ user, isPending, isUnlocked, unlockBtnClk }: props) {
         className="flex h-7 text-xs mt-1"
       >
         <Lock className="h-4 w-4 text-muted-foreground" />
-        {isPending ? "Unlocking..." : "Unlock to View"}
+        {isPending ? t("unlocking") : t("unlockToView")}
       </Button>
     )
   }

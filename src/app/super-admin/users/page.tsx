@@ -1,19 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { SelectWrapper } from "@/components/ui/select";
 import Users from "@/components/admin/users";
 
-const statusOpts: itemsT = [
-  { value: "approved", label: "Approved" },
-  // { value: "rejected", label: "Rejected" },
-  // { value: "blocked", label: "Blocked" },
-  { value: "deleted", label: "Deleted" },
-]
-
 function Page() {
+  const t = useTranslations("superAdmin.users")
   const [status, setStatus] = useState("approved")
+
+  const statusOpts: itemsT = [
+    { value: "approved", label: t("approved") },
+    // { value: "rejected", label: "Rejected" },
+    // { value: "blocked", label: "Blocked" },
+    { value: "deleted", label: t("deleted") },
+  ]
 
   const statusProps =
     status === "deleted" ? { isDeleted: true } :

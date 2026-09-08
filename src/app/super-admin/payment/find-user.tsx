@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FormProvider, Path, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { z } from "zod";
 
 import { useFindUser } from "@/hooks/use-admin";
@@ -18,6 +19,8 @@ type props = {
 }
 
 function FindUser({ selected, setSelected }: props) {
+  const t = useTranslations("superAdmin.payment.findUser")
+
   const schema = z.object({
     email: z.string().optional(),
     gender: z.string().optional(),
@@ -31,15 +34,15 @@ function FindUser({ selected, setSelected }: props) {
   const list: { name: filterT, label: string }[] = [
     {
       name: "fullName",
-      label: "Full Name",
+      label: t("fullNameLabel"),
     },
     {
       name: "email",
-      label: "Email",
+      label: t("emailLabel"),
     },
     {
       name: "mobile",
-      label: "Mobile Number",
+      label: t("mobileLabel"),
     },
   ]
 
@@ -77,7 +80,7 @@ function FindUser({ selected, setSelected }: props) {
     <Card className="mb-8 relative">
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
-          Find User
+          {t("title")}
         </CardTitle>
       </CardHeader>
 
@@ -88,7 +91,7 @@ function FindUser({ selected, setSelected }: props) {
               name="gender"
               control={methods.control}
               items={gender}
-              label="Gender"
+              label={t("genderLabel")}
               className="mb-4 gap-0.5"
             />
 
@@ -109,11 +112,11 @@ function FindUser({ selected, setSelected }: props) {
                 variant="outline"
                 onClick={clearFilters}
               >
-                Clear
+                {t("clear")}
               </Button>
 
               <Button size="sm">
-                Search
+                {t("search")}
               </Button>
             </div>
           </form>
@@ -122,7 +125,7 @@ function FindUser({ selected, setSelected }: props) {
         {
           !isLoading && users && users.length > 0 && (
             <div className="mt-6">
-              <h3 className="font-medium mb-2">Results ({users.length})</h3>
+              <h3 className="font-medium mb-2">{t("resultsCount", { count: users.length })}</h3>
 
               <div className="space-y-2 max-h-100 pr-6 -mr-6 overflow-y-auto">
                 {users.map((user) => (

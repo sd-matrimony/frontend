@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { useUpdateUserCritical } from "@/hooks/use-super-admin";
 
@@ -29,6 +30,8 @@ type props = {
 }
 
 function UpdateUserDialog({ open, onOpenChange, _id, fullName, profileImg, email, mobile, salary }: props) {
+  const t = useTranslations("shared.updateUserDialog")
+  const tc = useTranslations("common")
   const initial = { email: email || "", mobile: mobile || "", salary: salary != null ? String(salary) : "" }
   const [form, setForm] = useState(initial)
   const [confirmOpen, setConfirmOpen] = useState(false)
@@ -66,7 +69,7 @@ function UpdateUserDialog({ open, onOpenChange, _id, fullName, profileImg, email
     <Dialog open={open} onOpenChange={(v) => !isPending && onOpenChange(v)}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Update Critical Details</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
 
         <div className="df gap-3 pb-3 border-b">
@@ -80,7 +83,7 @@ function UpdateUserDialog({ open, onOpenChange, _id, fullName, profileImg, email
 
         <div className="space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="uc-email">Email</Label>
+            <Label htmlFor="uc-email">{t("email")}</Label>
             <Input
               id="uc-email"
               type="email"
@@ -91,7 +94,7 @@ function UpdateUserDialog({ open, onOpenChange, _id, fullName, profileImg, email
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="uc-mobile">Mobile</Label>
+            <Label htmlFor="uc-mobile">{t("mobile")}</Label>
             <Input
               id="uc-mobile"
               value={form.mobile}
@@ -101,7 +104,7 @@ function UpdateUserDialog({ open, onOpenChange, _id, fullName, profileImg, email
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="uc-salary">Salary</Label>
+            <Label htmlFor="uc-salary">{t("salary")}</Label>
             <Input
               id="uc-salary"
               type="number"
@@ -115,40 +118,40 @@ function UpdateUserDialog({ open, onOpenChange, _id, fullName, profileImg, email
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isPending}>
-            Cancel
+            {tc("cancel")}
           </Button>
 
           <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
             <AlertDialogTrigger render={<Button disabled={!changed} />}>
-              Update
+              {t("update")}
             </AlertDialogTrigger>
 
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Confirm Update</AlertDialogTitle>
+                <AlertDialogTitle>{t("confirmUpdateTitle")}</AlertDialogTitle>
                 <AlertDialogDescription>
-                  You&apos;re about to update {fullName}&apos;s critical details. This action affects login and contact details.
+                  {t("confirmUpdateDesc", { fullName })}
                 </AlertDialogDescription>
               </AlertDialogHeader>
 
               <div className="text-sm space-y-1.5 rounded-md border p-3 bg-muted/50">
                 {emailChanged && (
                   <p>
-                    <span className="text-muted-foreground">Email:</span>{" "}
+                    <span className="text-muted-foreground">{t("emailLabel")}</span>{" "}
                     {email || "---"} <span className="text-muted-foreground">→</span>{" "}
                     <span className="font-medium">{form.email || "---"}</span>
                   </p>
                 )}
                 {mobileChanged && (
                   <p>
-                    <span className="text-muted-foreground">Mobile:</span>{" "}
+                    <span className="text-muted-foreground">{t("mobileLabel")}</span>{" "}
                     {mobile || "---"} <span className="text-muted-foreground">→</span>{" "}
                     <span className="font-medium">{form.mobile || "---"}</span>
                   </p>
                 )}
                 {salaryChanged && (
                   <p>
-                    <span className="text-muted-foreground">Salary:</span>{" "}
+                    <span className="text-muted-foreground">{t("salaryLabel")}</span>{" "}
                     {salary != null ? salary.toLocaleString() : "---"} <span className="text-muted-foreground">→</span>{" "}
                     <span className="font-medium">{form.salary ? Number(form.salary).toLocaleString() : "---"}</span>
                   </p>
@@ -156,14 +159,14 @@ function UpdateUserDialog({ open, onOpenChange, _id, fullName, profileImg, email
               </div>
 
               <AlertDialogFooter>
-                <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+                <AlertDialogCancel disabled={isPending}>{tc("cancel")}</AlertDialogCancel>
                 <AlertDialogAction
                   variant="default"
                   className="bg-pink-600 hover:bg-pink-500"
                   render={<Button onClick={handleConfirm} disabled={isPending} />}
                 >
                   {isPending && <Loader className="animate-spin" />}
-                  Confirm & Update
+                  {t("confirmAndUpdate")}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

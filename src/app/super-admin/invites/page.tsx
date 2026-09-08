@@ -14,9 +14,10 @@ import { useUserFilters } from "@/hooks/use-user-filters";
 import { ColumnToggle, DataTableVirtualized, appTableFeatures } from "@/components/ui/data-table";
 import UsersFiltersRow from "@/components/common/users-filters-row";
 
-import { columns } from "./columns";
+import { useInviteColumns } from "./columns";
 
 function Page() {
+  const columns = useInviteColumns()
   const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
 

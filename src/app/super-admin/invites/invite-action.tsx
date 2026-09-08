@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Ban, Check, Copy, CreditCard } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -34,6 +35,7 @@ type props = {
 }
 
 function InviteAction({ user }: props) {
+  const t = useTranslations("superAdmin.invites")
   const [open, setOpen] = useState(false)
 
   const { mutate: removePlan, isPending: isRemoving } = useRemoveUserPlan()
@@ -44,23 +46,11 @@ function InviteAction({ user }: props) {
 
   function onCopy() {
     const pass = createPass(user?.fullName, user?.dob)
-    onCopyClk(`
-Hello ${user?.fullName || "User"},
-
-You've been added to SD Matrimony!
-We're excited to have you on board and help you connect with meaningful matches.
-
-Here are your login details:
-
-Id: ${user?.contactDetails?.mobile || ""} (your mobile number)
-
-Password: ${pass}
-
-You can log in using the link below:
-👉 Login to SD Matrimony - https://sdmatrimony.com/auth/user/signin
-
-If you did not intend to join SD Matrimony or believe this was a mistake, you can delete your account anytime or contact our support team for assistance.
-    `)
+    onCopyClk(t("inviteMessage", {
+      name: user?.fullName || "User",
+      mobile: user?.contactDetails?.mobile || "",
+      password: pass,
+    }))
   }
 
   function onSuccess() {
@@ -71,7 +61,7 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
   return (
     <div className="flex items-center justify-end gap-1">
       <TooltipWrapper
-        content={copied ? "Copied!" : "Copy invite message"}
+        content={copied ? t("copiedTooltip") : t("copyTooltip")}
         triggerProps={{
           render: (
             <Button size="icon" variant="outline" className="size-8" onClick={onCopy}>
@@ -83,7 +73,7 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
 
       <Dialog open={open} onOpenChange={setOpen}>
         <TooltipWrapper
-          content="Make payment"
+          content={t("makePaymentTooltip")}
           triggerProps={{
             render: <DialogTrigger render={<Button size="icon" variant="outline" className="size-8" />}>
               <CreditCard className="size-3.5" />
@@ -93,7 +83,7 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
 
         <DialogContent className="@container lg:max-w-5xl">
           <DialogHeader>
-            <DialogTitle>Payment for {user?.fullName}</DialogTitle>
+            <DialogTitle>{t("paymentFor", { name: user?.fullName || "" })}</DialogTitle>
           </DialogHeader>
 
           <div className="max-h-[80vh] p-0.5 pr-4 -mr-4 overflow-y-auto">
@@ -105,7 +95,7 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
       {isSubscribed && (
         <AlertDialog>
           <TooltipWrapper
-            content="Cancel active subscription"
+            content={t("cancelSubscriptionTooltip")}
             triggerProps={{
               render: <AlertDialogTrigger render={<Button size="icon" variant="outline" className="size-8 text-red-500 hover:text-red-600 border-red-200 hover:border-red-300" />}>
                 <Ban className="size-3.5" />
@@ -115,16 +105,16 @@ If you did not intend to join SD Matrimony or believe this was a mistake, you ca
 
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Cancel subscription?</AlertDialogTitle>
+              <AlertDialogTitle>{t("cancelSubscriptionTitle")}</AlertDialogTitle>
               <AlertDialogDescription>
-                This will remove the active plan for {user?.fullName}. This action cannot be undone.
+                {t("cancelSubscriptionDescription", { name: user?.fullName || "" })}
               </AlertDialogDescription>
             </AlertDialogHeader>
 
             <AlertDialogFooter>
-              <AlertDialogCancel disabled={isRemoving}>Cancel</AlertDialogCancel>
+              <AlertDialogCancel disabled={isRemoving}>{t("cancel")}</AlertDialogCancel>
               <AlertDialogAction render={<Button variant="destructive" disabled={isRemoving} onClick={() => removePlan(user._id!)} />}>
-                Remove
+                {t("remove")}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

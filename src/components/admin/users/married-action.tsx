@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import FindUser from "@/components/admin/make-match/find-user";
 import Confirm from "@/components/admin/make-match/confirm";
@@ -14,6 +15,7 @@ type props = {
 }
 
 function MarriedAction({ open, onOpenChange, user }: props) {
+  const t = useTranslations("shared.marriedAction")
   const [partner, setPartner] = useState<Partial<userT> | null>(null)
   const [key, setKey] = useState(0)
 
@@ -31,7 +33,7 @@ function MarriedAction({ open, onOpenChange, user }: props) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="flex flex-col sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Mark {user.fullName} as Married</DialogTitle>
+          <DialogTitle>{t("title", { fullName: user.fullName || "" })}</DialogTitle>
         </DialogHeader>
 
         <div className="df items-center gap-3 border rounded-md p-3">
@@ -42,7 +44,7 @@ function MarriedAction({ open, onOpenChange, user }: props) {
           />
 
           <div>
-            <p className="text-xs text-muted-foreground">Marrying</p>
+            <p className="text-xs text-muted-foreground">{t("marrying")}</p>
             <p className="font-medium">{user.fullName}</p>
             <p className="text-xs text-muted-foreground">{user.gender}</p>
           </div>

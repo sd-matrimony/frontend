@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { RefreshCcw } from "lucide-react";
 
 import type { DragHandleProps } from "./grid";
@@ -32,6 +33,7 @@ function groupData(data: Record<string, number>, dateType: "day" | "month" | "ca
 }
 
 function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
+  const t = useTranslations("superAdmin.dashboard.usersGroupedByAdmin")
   const [type, setType] = useState<"date" | "caste">("date")
   const [dateType, setdateType] = useState<"day" | "month">("month")
   const [includeByAdmin, setIncludeByAdmin] = useState(false)
@@ -44,22 +46,22 @@ function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
   })
 
   const datesOpts: itemsT = [
-    { value: "day", label: "Day" },
-    { value: "month", label: "Month" },
+    { value: "day", label: t("day") },
+    { value: "month", label: t("month") },
   ]
 
   const typesOpts: itemsT = [
-    { value: "date", label: "Date" },
-    { value: "caste", label: "Caste" },
+    { value: "date", label: t("date") },
+    { value: "caste", label: t("caste") },
   ]
 
   const includeByAdminOpts: itemsT = [
-    { value: "false", label: "All" },
-    { value: "true", label: "By Admin" },
+    { value: "false", label: t("all") },
+    { value: "true", label: t("byAdmin") },
   ]
 
   const genderOptsWithAll: itemsT = [
-    { value: "all", label: "All" },
+    { value: "all", label: t("all") },
     ...genderOpts.map(g => ({ value: g as string, label: g as string })),
   ]
 
@@ -67,12 +69,12 @@ function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
     <Card className="gap-0 h-full">
       <CardHeader className="flex items-center pb-1 flex-wrap">
         {dragHandle}
-        <CardTitle className="shrink-0 mr-auto">Users Count by Admin</CardTitle>
+        <CardTitle className="shrink-0 mr-auto">{t("title")}</CardTitle>
 
         <SelectWrapper
           value={`${includeByAdmin}`}
           items={includeByAdminOpts}
-          placeholder="Group by"
+          placeholder={t("groupByPlaceholder")}
           triggerCls="w-fit"
           onValueChange={v => setIncludeByAdmin(v === "true")}
         />
@@ -80,7 +82,7 @@ function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
         <SelectWrapper
           value={gender}
           items={genderOptsWithAll}
-          placeholder="Gender"
+          placeholder={t("genderPlaceholder")}
           triggerCls="w-fit"
           onValueChange={v => setGender(v as any)}
         />
@@ -88,7 +90,7 @@ function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
         <SelectWrapper
           value={type}
           items={typesOpts}
-          placeholder="Select type"
+          placeholder={t("typePlaceholder")}
           triggerCls="w-fit"
           onValueChange={v => setType(v as "date" | "caste")}
         />
@@ -98,7 +100,7 @@ function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
           <SelectWrapper
             value={dateType}
             items={datesOpts}
-            placeholder="Select date type"
+            placeholder={t("dateTypePlaceholder")}
             triggerCls="w-fit"
             onValueChange={v => setdateType(v as "day" | "month")}
           />
@@ -125,7 +127,7 @@ function UsersGroupedByAdmin({ dragHandle }: DragHandleProps) {
             <div key={ad?._id} className="mb-2 p-4 border rounded-xl">
               <div className="df justify-between">
                 <div>
-                  <p>{!includeByAdmin ? "All" : ad?.fullName || "Individual"}</p>
+                  <p>{!includeByAdmin ? t("all") : ad?.fullName || t("individual")}</p>
                   {ad?.email && <p className="text-xs text-muted-foreground">{ad?.email}</p>}
                 </div>
 

@@ -1,12 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { useUserDetailsMini } from "@/hooks/use-account";
 import { useUnlockProfile } from "@/hooks/use-user";
 import { useToast } from "@/components/ui/toast";
 
 function useUnlock() {
+  const t = useTranslations("shared.userProfile.unlock")
   const { data: user } = useUserDetailsMini()
   const toast = useToast()
 
@@ -20,12 +22,12 @@ function useUnlock() {
         onError: (error) => {
           toast.add({
             type: 'error',
-            title: error?.message || "Failed to unlock profile",
+            title: error?.message || t("failedToUnlock"),
             position: "top-center",
-            description: "Proceed to payment?",
+            description: t("proceedToPayment"),
             timeout: 6000,
             actionProps: {
-              children: "Pay Now",
+              children: t("payNow"),
               onClick: () => router.push("/user/payment"),
             },
           })
@@ -34,12 +36,12 @@ function useUnlock() {
 
     } else {
       toast.add({
-        title: "Unlock More Details",
+        title: t("unlockMoreDetails"),
         position: "top-center",
-        description: "Payment required to view more information. Proceed to payment?",
+        description: t("paymentRequired"),
         timeout: 6000,
         actionProps: {
-          children: "Pay Now",
+          children: t("payNow"),
           onClick: () => router.push("/user/payment"),
         },
       })

@@ -18,14 +18,15 @@ type Params = {
   isCasteLoading: boolean
   casteMap: Record<string, string[]> | undefined
   changesRef: React.RefObject<ChangeMap>
+  t: (key: string) => string
 }
 
-export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCasteLoading, casteMap, changesRef }: Params): ColumnDef<Partial<userT>>[] {
+export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCasteLoading, casteMap, changesRef, t }: Params): ColumnDef<Partial<userT>>[] {
   return [
     {
       id: "name",
       accessorKey: "fullName",
-      header: "Name",
+      header: t("columns.name"),
       cell: ({ row }) => (
         <div className="df gap-2 items-center min-w-52">
           <img
@@ -46,7 +47,7 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
     {
       id: "email",
       accessorKey: "email",
-      header: "Email",
+      header: t("columns.email"),
       cell: ({ row }) => (
         <p className="text-xs normal-case text-muted-foreground min-w-36 truncate">
           {row.original.email || "—"}
@@ -56,7 +57,7 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
     {
       id: "mobile",
       accessorKey: "contactDetails.mobile",
-      header: "Mobile",
+      header: t("columns.mobile"),
       cell: ({ row }) => (
         <p className="text-xs text-muted-foreground">
           {row.original.contactDetails?.mobile || "—"}
@@ -66,7 +67,7 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
     {
       id: "caste",
       accessorKey: "otherDetails.caste",
-      header: "Caste",
+      header: t("columns.caste"),
       cell: ({ row }) => (
         <EditCombobox
           path="otherDetails.caste"
@@ -82,7 +83,7 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
     {
       id: "subCaste",
       accessorKey: "otherDetails.subCaste",
-      header: "Sub Caste",
+      header: t("columns.subCaste"),
       cell: ({ row }) => {
         const userId = row.original._id!
         const pendingCaste = changesRef.current?.[userId]?.otherDetails?.caste
@@ -103,7 +104,7 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
     {
       id: "salary",
       accessorKey: "proffessionalDetails.salary",
-      header: "Salary",
+      header: t("columns.salary"),
       cell: ({ row }) => (
         <EditInput
           type="number"
@@ -118,7 +119,7 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
     {
       id: "gender",
       accessorKey: "gender",
-      header: "Gender",
+      header: t("columns.gender"),
       cell: ({ row }) => (
         <EditSelect
           path="gender"
@@ -133,7 +134,7 @@ export function createColumns({ onBlurChange, onEditMore, resetKey, castes, isCa
     {
       id: "maritalStatus",
       accessorKey: "maritalStatus",
-      header: "Marital Status",
+      header: t("columns.maritalStatus"),
       cell: ({ row }) => (
         <EditSelect
           path="maritalStatus"

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Loader } from "lucide-react";
 import Script from "next/script";
 
@@ -10,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 function TestPayment() {
+  const t = useTranslations("superAdmin.payment.testPayment")
   const [amount, setAmount] = useState(1)
 
   const { mutateAsync: createOrderMutate, isPending: isCreateOrderPending } = useTestCreateOrder()
@@ -40,13 +42,13 @@ function TestPayment() {
     <div className="dc h-[70vh]">
       <Card className="min-w-[90%] sm:min-w-sm">
         <CardHeader>
-          <CardTitle>Test Payment</CardTitle>
-          <CardDescription>Test payment integration with any amount from 1 to 10,000.</CardDescription>
+          <CardTitle>{t("title")}</CardTitle>
+          <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
 
         <CardContent>
           <div>
-            <Label htmlFor="amount">Amount</Label>
+            <Label htmlFor="amount">{t("amountLabel")}</Label>
             <Input
               id="amount"
               min={1}
@@ -64,7 +66,7 @@ function TestPayment() {
             disabled={isCreateOrderPending || isVerifyPaymentPending}
           >
             {(isCreateOrderPending || isVerifyPaymentPending) && <Loader className="animate-spin" />}
-            Test
+            {t("testButton")}
           </Button>
         </CardFooter>
       </Card>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { RefreshCcw } from "lucide-react";
 import { format } from "date-fns";
 
@@ -23,6 +24,7 @@ function decidePayload({ type, date, caste }: { type: typeT, caste: string, date
 }
 
 function UsersGrouped({ dragHandle }: DragHandleProps) {
+  const t = useTranslations("superAdmin.dashboard.usersGrouped")
   const [caste, setCaste] = useState("14 oor kaikolar mudaliyar")
   const [type, setType] = useState<typeT>("Date")
   const [date, setDate] = useState(new Date())
@@ -36,11 +38,15 @@ function UsersGrouped({ dragHandle }: DragHandleProps) {
     <Card className="gap-0 h-full">
       <CardHeader className="flex items-center gap-4 flex-wrap pb-1">
         {dragHandle}
-        <CardTitle className="shrink-0 mr-auto">Users Grouped</CardTitle>
+        <CardTitle className="shrink-0 mr-auto">{t("title")}</CardTitle>
 
         <SelectWrapper
-          items={["Date", "Caste", "Both"]}
-          placeholder="Select type"
+          items={[
+            { value: "Date", label: t("date") },
+            { value: "Caste", label: t("caste") },
+            { value: "Both", label: t("both") },
+          ]}
+          placeholder={t("typePlaceholder")}
           value={type}
           onValueChange={v => setType(v as typeT)}
           triggerCls="w-24"
@@ -63,7 +69,7 @@ function UsersGrouped({ dragHandle }: DragHandleProps) {
               value={caste}
               items={castes}
               isLoading={isCasteLoading}
-              emptyMessage="No caste found"
+              emptyMessage={t("casteEmptyMessage")}
               onValueChange={v => setCaste(v as string)}
             />
           </div>
@@ -89,7 +95,7 @@ function UsersGrouped({ dragHandle }: DragHandleProps) {
             <Collapsible key={ad._id} className="mb-4 border rounded-lg overflow-hidden">
               <CollapsibleTrigger nativeButton={false} render={<div className="df px-4 py-3 bg-muted/40 cursor-pointer rounded-none" />}>
                 <div className="flex-1">
-                  <p>{ad?.fullName || "Individuals"}</p>
+                  <p>{ad?.fullName || t("individuals")}</p>
                   {ad?.email && <p className="text-xs text-muted-foreground">{ad?.email}</p>}
                 </div>
 
@@ -108,7 +114,7 @@ function UsersGrouped({ dragHandle }: DragHandleProps) {
 
         {
           !isLoading && data?.length === 0 && (
-            <p className="dc h-60 text-center">No data found</p>
+            <p className="dc h-60 text-center">{t("noData")}</p>
           )
         }
       </CardContent>

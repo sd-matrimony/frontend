@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { nakshatraMap, raasiMap } from "@/utils";
 import useUnlock from "../contact-details/use-unlock";
 
@@ -18,6 +20,7 @@ function getValue(val: string, map: Record<string, string>) {
 }
 
 function HoroscopeDetails({ user, canEdit }: props) {
+  const t = useTranslations("shared.userProfile.horoscope")
   const { isPending, unlockBtnClk } = useUnlock()
   const isUnlocked = !!user?.hasFullAccess
 
@@ -25,8 +28,8 @@ function HoroscopeDetails({ user, canEdit }: props) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Vedic Horoscope</CardTitle>
-          <CardDescription>Your astrological information</CardDescription>
+          <CardTitle>{t("cardTitle")}</CardTitle>
+          <CardDescription>{t("cardDesc")}</CardDescription>
         </div>
 
         {
@@ -38,19 +41,19 @@ function HoroscopeDetails({ user, canEdit }: props) {
       <CardContent>
         <div className="grid min-[400px]:grid-cols-2 gap-4 mb-6">
           <div>
-            <span className="text-sm text-muted-foreground">Rasi</span>
+            <span className="text-sm text-muted-foreground">{t("rasi")}</span>
             <p className="font-medium">{getValue(user?.vedicHoroscope?.rasi, raasiMap)}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Nakshatra</span>
+            <span className="text-sm text-muted-foreground">{t("nakshatra")}</span>
             <p className="font-medium">{getValue(user?.vedicHoroscope?.nakshatra, nakshatraMap)}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Lagna</span>
+            <span className="text-sm text-muted-foreground">{t("lagna")}</span>
             <p className="font-medium">{getValue(user?.vedicHoroscope?.lagna, raasiMap)}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Dasha Period</span>
+            <span className="text-sm text-muted-foreground">{t("dashaPeriod")}</span>
             <p className="font-medium">{user?.vedicHoroscope?.dashaPeriod || "---"}</p>
           </div>
           {/* <div>
@@ -60,7 +63,7 @@ function HoroscopeDetails({ user, canEdit }: props) {
         </div>
 
         <div>
-          <span className="text-sm text-muted-foreground">Vedic Horoscope Picture</span>
+          <span className="text-sm text-muted-foreground">{t("picLabel")}</span>
           <VerdicPic
             user={user}
             isPending={isPending}

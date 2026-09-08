@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { partnerPreferencesSchema, type partnerPreferencesT } from '@/utils/user-schema';
 import { useUpdateProfile } from '@/hooks/use-user';
@@ -15,6 +16,8 @@ import { SelectListWrapper, SelectSubCastesWrapper } from '@/components/common/l
 import { Button } from "@/components/ui/button";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
+  const t = useTranslations("shared.userProfile.partner")
+  const tc = useTranslations("common")
   const { mutate, isPending } = useUpdateProfile()
   const [open, setOpen] = useState(false)
 
@@ -61,13 +64,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button variant="outline" size="sm" />}>
         <EditIcon className="h-4 w-4 mr-2" />
-        Edit
+        {tc("edit")}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Partner Preferences</DialogTitle>
-          <DialogDescription>Make changes to your partner preferences here.</DialogDescription>
+          <DialogTitle>{t("editTitle")}</DialogTitle>
+          <DialogDescription>{t("editDesc")}</DialogDescription>
         </DialogHeader>
 
         <FormProvider {...form}>
@@ -76,7 +79,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               <InputWrapper
                 control={form.control}
                 name="minAge"
-                label="Minimum Age"
+                label={t("fields.minAge")}
                 type="number"
                 min={18}
               />
@@ -84,7 +87,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               <InputWrapper
                 control={form.control}
                 name="maxAge"
-                label="Maximum Age"
+                label={t("fields.maxAge")}
                 type="number"
                 min={18}
               />
@@ -93,7 +96,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="religion"
-              label="Religion"
+              label={t("religion")}
               listName="religions"
               additionalOpts="Any"
               canCreateNew
@@ -102,7 +105,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="caste"
-              label="Caste"
+              label={t("caste")}
               listName="castes"
               additionalOpts="Any"
               canCreateNew
@@ -118,15 +121,15 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectWrapper
               control={form.control}
               name="maritalStatus"
-              label="Marital Status"
+              label={t("maritalStatus")}
               items={maritalStatus}
-              placeholder="Select marital status"
+              placeholder={t("fields.selectMaritalStatus")}
             />
 
             <SelectListWrapper
               control={form.control}
               name="minQualification"
-              label="Minimum Qualification"
+              label={t("minQualification")}
               listName="educationLevels"
               additionalOpts="Any"
             />
@@ -134,7 +137,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="sector"
-              label="Sector"
+              label={t("sector")}
               listName="sectors"
               additionalOpts="Any"
             />
@@ -142,7 +145,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="profession"
-              label="Profession"
+              label={t("profession")}
               listName="professions"
               additionalOpts="Any"
               canCreateNew
@@ -151,7 +154,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <InputWrapper
               control={form.control}
               name="minSalary"
-              label="Expected Salary"
+              label={t("fields.expectedSalary")}
               type="number"
               min={0}
             />
@@ -159,7 +162,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="motherTongue"
-              label="Mother Tongue"
+              label={t("motherTongue")}
               listName="languages"
               additionalOpts="Any"
               canCreateNew
@@ -168,13 +171,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <InputWrapper
               control={form.control}
               name="location"
-              label="Location"
+              label={t("location")}
             />
 
             <TextareaWrapper
               control={form.control}
               name="expectation"
-              label="Expectations"
+              label={t("expectations")}
               className="min-h-25"
             />
 
@@ -185,14 +188,14 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 disabled={isPending}
                 onClick={() => setOpen(false)}
               >
-                Cancel
+                {tc("cancel")}
               </Button>
 
               <Button
                 type="submit"
                 disabled={isPending}
               >
-                Save Changes
+                {tc("saveChanges")}
               </Button>
             </div>
           </form>

@@ -8,11 +8,13 @@ import { planDetails } from "@/components/common/plan-badge";
 
 import Actions from "./actions";
 
-export const columns = (currentTab: tab, role: rolesT): ColumnDef<Partial<userT>>[] => {
+type tFn = (key: string, values?: Record<string, string | number>) => string
+
+export const columns = (currentTab: tab, role: rolesT, t: tFn): ColumnDef<Partial<userT>>[] => {
   const cols: ColumnDef<Partial<userT>>[] = [
     {
       accessorKey: "fullName",
-      header: ({ column }) => <ColumnSorter column={column} title="Name" />,
+      header: ({ column }) => <ColumnSorter column={column} title={t("columnName")} />,
       cell({ row }) {
         return (
           <Link
@@ -33,19 +35,19 @@ export const columns = (currentTab: tab, role: rolesT): ColumnDef<Partial<userT>
     },
     {
       accessorKey: "email",
-      header: ({ column }) => <ColumnSorter column={column} title="Email" />,
+      header: ({ column }) => <ColumnSorter column={column} title={t("columnEmail")} />,
       cell: ({ row }) => <p className="normal-case">{row?.original?.email || "---"}</p>,
     },
     {
       id: "Mobile",
       accessorKey: "contactDetails.mobile",
-      header: ({ column }) => <ColumnSorter column={column} title="Mobile" />,
+      header: ({ column }) => <ColumnSorter column={column} title={t("columnMobile")} />,
       cell: ({ row }) => <p className="normal-case">{row?.original?.contactDetails?.mobile || "---"}</p>,
     },
     {
       id: "Caste",
       accessorKey: "otherDetails.caste",
-      header: ({ column }) => <ColumnSorter column={column} title="Caste" />,
+      header: ({ column }) => <ColumnSorter column={column} title={t("columnCaste")} />,
       filterFn: (row, id, value) => value?.includes(row?.getValue(id)),
       cell: ({ row }) => (
         <p className="normal-case">
@@ -55,18 +57,18 @@ export const columns = (currentTab: tab, role: rolesT): ColumnDef<Partial<userT>
     },
     {
       accessorKey: "gender",
-      header: ({ column }) => <ColumnSorter column={column} title="Gender" />,
+      header: ({ column }) => <ColumnSorter column={column} title={t("columnGender")} />,
       filterFn: (row, id, value) => value?.includes(row?.getValue(id)),
     },
     {
       accessorKey: "maritalStatus",
-      header: ({ column }) => <ColumnSorter column={column} title="Marital Status" />,
+      header: ({ column }) => <ColumnSorter column={column} title={t("columnMaritalStatus")} />,
       filterFn: (row, id, value) => value?.includes(row?.getValue(id)),
     },
     {
       id: "Salary",
       accessorKey: "proffessionalDetails.salary",
-      header: ({ column }) => <ColumnSorter column={column} title="Salary" />,
+      header: ({ column }) => <ColumnSorter column={column} title={t("columnSalary")} />,
       cell: ({ row }) => <p className="normal-case">{row?.original?.proffessionalDetails?.salary?.toLocaleString() || "---"}</p>,
     },
   ]
@@ -74,12 +76,12 @@ export const columns = (currentTab: tab, role: rolesT): ColumnDef<Partial<userT>
   if (role === "super-admin") {
     cols.push({
       id: "Plan",
-      header: "Plan",
+      header: t("columnPlan"),
       enableSorting: false,
       cell: ({ row }) => {
         const plan = row.original.currentPlan
         const isActive = plan && new Date(plan.expiryDate) > new Date()
-        if (!isActive) return <p className="text-xs text-muted-foreground">None</p>
+        if (!isActive) return <p className="text-xs text-muted-foreground">{t("planNone")}</p>
         return <span className="text-xs font-medium">{planDetails[plan.subscribedTo].name}</span>
       },
     })

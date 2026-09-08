@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Eye, EyeOff, Loader } from "lucide-react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useTranslations } from "next-intl"
 
 import { resetPassSchema, type ResetPassFormT } from "@/utils/auth-schema"
 import { useResetPass } from "@/hooks/use-account"
@@ -18,6 +19,7 @@ type Props = {
 }
 
 function ResetPass({ role = "user" }: Props) {
+  const t = useTranslations("auth")
   const [showPass, setShowPass] = useState(false)
 
   const { control, handleSubmit } = useForm<ResetPassFormT>({
@@ -37,12 +39,12 @@ function ResetPass({ role = "user" }: Props) {
       <InputWrapper
         name="email"
         control={control}
-        label="Email or Mobile Number"
+        label={t("fields.emailOrMobile")}
       />
 
       <InputGroupWrapper
         name="password"
-        label="New Password"
+        label={t("fields.newPassword")}
         control={control}
         type={showPass ? "text" : "password"}
         addonEnd={
@@ -55,7 +57,7 @@ function ResetPass({ role = "user" }: Props) {
       <InputWrapper
         name="otp"
         type="number"
-        label="OTP"
+        label={t("fields.otp")}
         control={control}
         className="no-number-arrows"
       />
@@ -66,7 +68,7 @@ function ResetPass({ role = "user" }: Props) {
         className="w-full bg-pink-500 hover:bg-pink-600"
       >
         {isPending && <Loader className="animate-spin" />}
-        Confirm
+        {t("actions.confirm")}
       </Button>
     </form>
   )

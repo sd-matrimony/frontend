@@ -1,0 +1,228 @@
+{
+  "superAdmin": {
+    "createUser": {
+      "title": "Create user"
+    },
+    "users": {
+      "approved": "Approved",
+      "deleted": "Deleted"
+    },
+    "bulkEdit": {
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "mobile": "Mobile",
+        "caste": "Caste",
+        "subCaste": "Sub Caste",
+        "salary": "Salary",
+        "gender": "Gender",
+        "maritalStatus": "Marital Status"
+      },
+      "fields": {
+        "fullName": "Name",
+        "dob": "Date of Birth",
+        "gender": "Gender",
+        "maritalStatus": "Marital Status",
+        "hasDisability": "Disability",
+        "contactDetails_address": "Full Address",
+        "contactDetails_place": "Place",
+        "otherDetails_caste": "Caste",
+        "otherDetails_subCaste": "Sub Caste",
+        "otherDetails_religion": "Religion",
+        "otherDetails_motherTongue": "Mother Tongue",
+        "otherDetails_height": "Height",
+        "otherDetails_color": "Complexion",
+        "otherDetails_houseType": "House Type",
+        "otherDetails_otherProperties": "Other Properties",
+        "proffessionalDetails_highestQualification": "Qualification",
+        "proffessionalDetails_qualifications": "Qualification Details",
+        "proffessionalDetails_profession": "Profession",
+        "proffessionalDetails_sector": "Sector",
+        "proffessionalDetails_salary": "Salary",
+        "proffessionalDetails_companyName": "Company",
+        "proffessionalDetails_companyLocation": "Company Location",
+        "vedicHoroscope_rasi": "Rasi",
+        "vedicHoroscope_lagna": "Lagna",
+        "vedicHoroscope_nakshatra": "Nakshatra",
+        "vedicHoroscope_dashaPeriod": "Dasha Period",
+        "vedicHoroscope_placeOfBirth": "Place of Birth",
+        "vedicHoroscope_timeOfBirth": "Time of Birth",
+        "vedicHoroscope_dosham": "Dosham",
+        "familyDetails_fatherName": "Father's Name",
+        "familyDetails_motherName": "Mother's Name",
+        "familyDetails_noOfBrothers": "Brothers",
+        "familyDetails_noOfSisters": "Sisters",
+        "familyDetails_birthOrder": "Birth Order",
+        "familyDetails_isFatherAlive": "Father Status",
+        "familyDetails_isMotherAlive": "Mother Status",
+        "partnerPreferences_minAge": "Min Age",
+        "partnerPreferences_maxAge": "Max Age",
+        "partnerPreferences_religion": "Religion Pref",
+        "partnerPreferences_caste": "Caste Pref",
+        "partnerPreferences_subCaste": "Sub Caste Pref",
+        "partnerPreferences_minSalary": "Min Salary",
+        "partnerPreferences_minQualification": "Min Qualification",
+        "partnerPreferences_profession": "Profession Pref",
+        "partnerPreferences_sector": "Sector Pref",
+        "partnerPreferences_motherTongue": "Mother Tongue Pref",
+        "partnerPreferences_location": "Location",
+        "partnerPreferences_expectation": "Expectation",
+        "partnerPreferences_maritalStatus": "Marital Status Pref"
+      },
+      "removedValue": "(removed)",
+      "saveChanges": "Save {count, plural, one {# change} other {# changes}}",
+      "confirmTitle": "Confirm {count, plural, one {# update} other {# updates}}",
+      "fieldsCount": "{count, plural, one {# field} other {# fields}}",
+      "confirmAndSave": "Confirm & Save",
+      "editSheet": {
+        "tabPersonal": "Personal",
+        "tabProfessional": "Professional",
+        "tabHoroscope": "Horoscope",
+        "tabFamilyPrefs": "Family & Prefs",
+        "fullNamePlaceholder": "e.g. Chennai",
+        "familyDetailsSection": "Family Details",
+        "partnerPreferencesSection": "Partner Preferences",
+        "applyChanges": "Apply Changes"
+      }
+    },
+    "dashboard": {
+      "admins": {
+        "title": "Admins",
+        "usersLink": "Users",
+        "add": "Add"
+      },
+      "createAdmin": {
+        "updateTitle": "Update Admin",
+        "createTitle": "Create Admin",
+        "updateDescription": "Fill the form to update a new admin.",
+        "createDescription": "Fill the form to create a new admin.",
+        "fullName": "Full Name",
+        "email": "Email",
+        "password": "Password",
+        "mobile": "Mobile",
+        "address": "Address",
+        "close": "Close",
+        "update": "Update",
+        "create": "Create"
+      },
+      "paidUsers": {
+        "title": "Paid Users",
+        "searchPlaceholder": "Search by name, email or mobile...",
+        "colUser": "User",
+        "colPlan": "Plan",
+        "colAmount": "Amount",
+        "colExpiry": "Expiry Date"
+      },
+      "usersAllPayments": {
+        "title": "Users All Payments",
+        "colPlan": "Plan",
+        "colAmount": "Amount",
+        "colExpiry": "Expiry Date"
+      },
+      "assistedSubscribedUser": {
+        "title": "Assisted Subscribed User",
+        "colUser": "User",
+        "colPlan": "Plan",
+        "colAmount": "Amount",
+        "colMonths": "Months",
+        "colExpiry": "Expiry Date"
+      },
+      "usersGroupedByAdmin": {
+        "title": "Users Count by Admin",
+        "groupByPlaceholder": "Group by",
+        "genderPlaceholder": "Gender",
+        "typePlaceholder": "Select type",
+        "dateTypePlaceholder": "Select date type",
+        "all": "All",
+        "byAdmin": "By Admin",
+        "individual": "Individual",
+        "day": "Day",
+        "month": "Month",
+        "date": "Date",
+        "caste": "Caste"
+      },
+      "usersGrouped": {
+        "title": "Users Grouped",
+        "typePlaceholder": "Select type",
+        "date": "Date",
+        "caste": "Caste",
+        "both": "Both",
+        "casteEmptyMessage": "No caste found",
+        "individuals": "Individuals",
+        "noData": "No data found"
+      },
+      "grid": {
+        "dragReorder": "Drag to reorder card",
+        "dragResizeWidth": "Drag to resize card width",
+        "dragResizeHeight": "Drag to resize card height"
+      }
+    },
+    "usersGroupedList": {
+      "blocked": "Blocked",
+      "deleted": "Deleted"
+    },
+    "invites": {
+      "colName": "Name",
+      "colCaste": "Caste",
+      "colMobile": "Mobile",
+      "colEmail": "Email",
+      "colPlan": "Plan",
+      "colActions": "Actions",
+      "none": "None",
+      "copyLabel": "Copy",
+      "copyTooltip": "Copy invite message",
+      "copiedTooltip": "Copied!",
+      "makePaymentTooltip": "Make payment",
+      "paymentFor": "Payment for {name}",
+      "cancelSubscriptionTooltip": "Cancel active subscription",
+      "cancelSubscriptionTitle": "Cancel subscription?",
+      "cancelSubscriptionDescription": "This will remove the active plan for {name}. This action cannot be undone.",
+      "cancel": "Cancel",
+      "remove": "Remove",
+      "inviteMessage": "Hello {name},\n\nYou've been added to SD Matrimony!\nWe're excited to have you on board and help you connect with meaningful matches.\n\nHere are your login details:\n\nId: {mobile} (your mobile number)\n\nPassword: {password}\n\nYou can log in using the link below:\n👉 Login to SD Matrimony - https://sdmatrimony.com/auth/user/signin\n\nIf you did not intend to join SD Matrimony or believe this was a mistake, you can delete your account anytime or contact our support team for assistance."
+    },
+    "payment": {
+      "toggleTest": "Test Payment",
+      "toggleUser": "Pay for user",
+      "getFullAccess": "Get full access to more profiles",
+      "getAssistance": "Get personalized assistance from our relationship experts",
+      "additionalUnlockProfiles": "Additional Unlock Profiles",
+      "assistedServicesLabel": "Assisted Services",
+      "unlimitedProfiles": "Unlimited",
+      "profilesSuffix": "profiles",
+      "monthsSuffix": "{count, plural, one {month} other {months}}",
+      "orderSummary": "Order Summary",
+      "planSuffix": "Plan",
+      "additionalProfilesLine": "Additional Profiles",
+      "assistedServicesLine": "Assisted Services",
+      "totalAmount": "Total Amount",
+      "additionalUnlockProfilesSummary": "Additional Unlock Profiles :",
+      "assistedServicesSummary": "Assisted services :",
+      "notOpted": "Not opted",
+      "proceed": "Proceed",
+      "areYouSure": "Are you absolutely sure?",
+      "actionCannotBeUndone": "This action cannot be undone.",
+      "alreadySubscribed": "User already has an active plan",
+      "expires": "Expires {date}",
+      "overrideWarning": "Proceeding will override the existing plan.",
+      "cancel": "Cancel",
+      "proceedToPayment": "Proceed to Payment — ₹{amount}",
+      "findUser": {
+        "title": "Find User",
+        "genderLabel": "Gender",
+        "fullNameLabel": "Full Name",
+        "emailLabel": "Email",
+        "mobileLabel": "Mobile Number",
+        "clear": "Clear",
+        "search": "Search",
+        "resultsCount": "Results ({count})"
+      },
+      "testPayment": {
+        "title": "Test Payment",
+        "description": "Test payment integration with any amount from 1 to 10,000.",
+        "amountLabel": "Amount",
+        "testButton": "Test"
+      }
+    }
+  }
+}

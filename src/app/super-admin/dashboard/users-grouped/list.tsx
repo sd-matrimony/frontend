@@ -1,4 +1,6 @@
 
+import { useTranslations } from "next-intl";
+
 import { useGetUsersGroupList } from "@/hooks/use-super-admin";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -12,6 +14,7 @@ type props = {
 }
 
 function List({ createdBy, ...rest }: props) {
+  const t = useTranslations("superAdmin.usersGroupedList")
   const { isLoading, data, isFetching, hasNextPage, fetchNextPage } = useGetUsersGroupList({
     ...rest,
     createdBy,
@@ -49,7 +52,7 @@ function List({ createdBy, ...rest }: props) {
             {
               (u?.isBlocked || u?.isDeleted) &&
               <Badge variant="destructive" className="font-normal">
-                {u.isBlocked ? "Blocked" : "Deleted"}
+                {u.isBlocked ? t("blocked") : t("deleted")}
               </Badge>
             }
           </div>

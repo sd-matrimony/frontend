@@ -1,7 +1,11 @@
+import { getTranslations } from 'next-intl/server';
+
 import InfoCard from '@/components/info-card';
 
-function Page() {
-  return <InfoCard title="You don't have permission" />
+async function Page() {
+  const t = await getTranslations('auth.status')
+
+  return <InfoCard title={t('unauthorized')} />
 }
 
 export default Page

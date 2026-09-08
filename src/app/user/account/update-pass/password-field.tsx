@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFormContext, Validate, FieldValues } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Eye, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -14,17 +15,18 @@ type props = {
 
 function PasswordField({ name, label, validate }: props) {
   const [showPassword, setShowPassword] = useState(true)
+  const t = useTranslations("user.updatePass")
   const { register, formState: { errors } } = useFormContext()
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={name} className="block mb-2">{label} Password</Label>
+      <Label htmlFor={name} className="block mb-2">{label}</Label>
 
       <div className="relative">
         <Input
           id={name}
           type={showPassword ? "text" : "password"}
-          placeholder={`Enter ${label} password`}
+          placeholder={t("enterPassword")}
           {...register(name, {
             required: `${label} password is required`,
             minLength: {

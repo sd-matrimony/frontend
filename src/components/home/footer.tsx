@@ -1,7 +1,10 @@
 import { Heart, Phone, MapPin, Mail } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-function Footer() {
+async function Footer() {
+  const t = await getTranslations("public.footer");
+
   return (
     <footer id="contact" className="bg-gray-900 text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,12 +20,12 @@ function Footer() {
             </div>
 
             <p className="text-gray-400">
-              Connecting hearts, creating families. Your trusted partner in finding true love.
+              {t("tagline")}
             </p>
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Contact Info</h3>
+            <h3 className="text-lg font-semibold">{t("contactInfoTitle")}</h3>
             <div className="space-y-3">
               <div className="df gap-4">
                 <Phone className="h-5 w-5 text-rose-400" />
@@ -43,8 +46,8 @@ function Footer() {
               <div className="df gap-4">
                 <MapPin className="h-5 w-5 text-rose-400" />
                 <div>
-                  <p className="text-gray-400">No. 1, Sri laxmi nager, 3rd main street,</p>
-                  <p className="text-gray-400">Alwarthirunagar, Mettukuppam, Chennai - 87.</p>
+                  <p className="text-gray-400">{t("addressLine1")}</p>
+                  <p className="text-gray-400">{t("addressLine2")}</p>
                 </div>
               </div>
             </div>
@@ -53,15 +56,15 @@ function Footer() {
 
         <div className="text-gray-400 border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="mb-1">
-            © {new Date().getFullYear()} SD Matrimony. All rights reserved. Made with ❤️ for finding love.
+            {t("copyright", { year: new Date().getFullYear() })}
           </p>
 
           <p className="df justify-center gap-4">
-            <Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
+            <Link href="/privacy-policy" className="hover:text-white">{t("privacyPolicy")}</Link>
             <span>|</span>
-            <Link href="/terms-and-conditions" className="hover:text-white">Terms & Conditions</Link>
+            <Link href="/terms-and-conditions" className="hover:text-white">{t("termsAndConditions")}</Link>
             <span>|</span>
-            <Link href="/cancellation-and-refund-policy" className="hover:text-white">Refund Policy</Link>
+            <Link href="/cancellation-and-refund-policy" className="hover:text-white">{t("refundPolicy")}</Link>
           </p>
         </div>
       </div>

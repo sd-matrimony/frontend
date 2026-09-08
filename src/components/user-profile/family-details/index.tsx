@@ -1,6 +1,7 @@
 "use client";
 
 import { Info } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import useUnlock from "../contact-details/use-unlock";
 
@@ -16,6 +17,8 @@ type props = {
 }
 
 function FamilyDetails({ user, canEdit }: props) {
+  const t = useTranslations("shared.userProfile.family")
+  const tr = useTranslations("shared.userProfile")
   const { isPending, unlockBtnClk } = useUnlock()
   const isUnlocked = !!user?.hasFullAccess
 
@@ -23,8 +26,8 @@ function FamilyDetails({ user, canEdit }: props) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Family Details</CardTitle>
-          <CardDescription>Information about your family</CardDescription>
+          <CardTitle>{t("cardTitle")}</CardTitle>
+          <CardDescription>{t("cardDesc")}</CardDescription>
         </div>
 
         {
@@ -36,55 +39,55 @@ function FamilyDetails({ user, canEdit }: props) {
       <CardContent>
         <div className="grid min-[400px]:grid-cols-2 gap-4">
           <div>
-            <span className="text-sm text-muted-foreground">Father's Name</span>
+            <span className="text-sm text-muted-foreground">{t("fatherName")}</span>
             {
               user?.contactDetails?.mobile === "restricted"
                 ?
                 <p className="df">
                   9791155234
                   <TooltipWrapper
-                    content="This is restricted account, Contact admin by the given number"
+                    content={tr("restrictedNote")}
                     trigger={<Info className="size-4" />}
                   />
                 </p>
                 :
                 <UpgradeBtn
-                  value={`${user?.familyDetails?.fatherName} ${!user?.familyDetails?.isFatherAlive ? "(Deceased)" : ""}`}
+                  value={`${user?.familyDetails?.fatherName} ${!user?.familyDetails?.isFatherAlive ? t("deceasedSuffix") : ""}`}
                   unlocked={isUnlocked}
                   isPending={isPending}
                   unlockBtnClk={() => unlockBtnClk(user._id)}
                 />}
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Mother's Name</span>
+            <span className="text-sm text-muted-foreground">{t("motherName")}</span>
             {
               user?.contactDetails?.mobile === "restricted"
                 ?
                 <p className="df">
                   9791155234
                   <TooltipWrapper
-                    content="This is restricted account, Contact admin by the given number"
+                    content={tr("restrictedNote")}
                     trigger={<Info className="size-4" />}
                   />
                 </p>
                 :
                 <UpgradeBtn
-                  value={`${user?.familyDetails?.motherName} ${!user?.familyDetails?.isMotherAlive ? "(Deceased)" : ""}`}
+                  value={`${user?.familyDetails?.motherName} ${!user?.familyDetails?.isMotherAlive ? t("deceasedSuffix") : ""}`}
                   unlocked={isUnlocked}
                   isPending={isPending}
                   unlockBtnClk={() => unlockBtnClk(user._id)}
                 />}
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Number of Brothers</span>
+            <span className="text-sm text-muted-foreground">{t("noOfBrothers")}</span>
             <p className="font-medium">{user?.familyDetails?.noOfBrothers}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Number of Sisters</span>
+            <span className="text-sm text-muted-foreground">{t("noOfSisters")}</span>
             <p className="font-medium">{user?.familyDetails?.noOfSisters}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Birth Order</span>
+            <span className="text-sm text-muted-foreground">{t("birthOrder")}</span>
             <p className="font-medium">{user?.familyDetails?.birthOrder}</p>
           </div>
         </div>

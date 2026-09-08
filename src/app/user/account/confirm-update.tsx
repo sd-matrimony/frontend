@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Loader } from "lucide-react";
 
 import {
@@ -23,29 +24,31 @@ type props = {
 
 function ConfirmUpdate({ disabled, description, isPending, onConfirm }: props) {
   const [open, setOpen] = useState(false)
+  const t = useTranslations("user.confirmUpdate")
+  const tCommon = useTranslations("common")
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger render={<Button size="sm" variant="secondary" className="px-4 text-xs absolute top-px right-0.5 border" disabled={disabled} />}>
         {isPending && <Loader className="size-4 animate-spin" />}
-        Update
+        {t("trigger")}
       </AlertDialogTrigger>
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            This will update your account's {description}.
+            {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{tCommon("cancel")}</AlertDialogCancel>
 
           <AlertDialogAction
             onClick={onConfirm}
           >
-            Continue
+            {t("continue")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

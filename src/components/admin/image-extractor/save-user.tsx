@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 
 import { useCreateUsersMutate } from '@/hooks/use-admin';
 import { dataT } from './type';
@@ -11,6 +12,7 @@ type props = {
 }
 
 function SaveUser({ data, updateStep }: props) {
+  const t = useTranslations("shared.imageExtractor")
   const { isPending, mutate } = useCreateUsersMutate()
 
   function onSubmit(user: Partial<userT>) {
@@ -29,7 +31,7 @@ function SaveUser({ data, updateStep }: props) {
           variant="destructive"
           onClick={() => updateStep(0, null)}
         >
-          Delete Process
+          {t("deleteProcess")}
         </Button>
       </div>
 

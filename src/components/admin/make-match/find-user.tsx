@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FormProvider, Path, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { z } from "zod";
 
 import { useFindUser } from "@/hooks/use-admin";
@@ -18,6 +19,8 @@ type props = {
 }
 
 function FindUser({ gender, selected, setSelected }: props) {
+  const t = useTranslations("shared.adminUsersTable")
+  const tc = useTranslations("common")
   const schema = z.object({
     _id: z.string().optional(),
     email: z.string().optional(),
@@ -36,15 +39,15 @@ function FindUser({ gender, selected, setSelected }: props) {
     // },
     {
       name: "fullName",
-      label: "Full Name",
+      label: t("fullName"),
     },
     {
       name: "email",
-      label: "Email",
+      label: t("email"),
     },
     {
       name: "mobile",
-      label: "Mobile Number",
+      label: t("mobile"),
     },
   ]
 
@@ -85,7 +88,7 @@ function FindUser({ gender, selected, setSelected }: props) {
     <Card className="shadow-md relative">
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
-          Search {gender}
+          {t("searchGender", { gender })}
         </CardTitle>
       </CardHeader>
 
@@ -109,11 +112,11 @@ function FindUser({ gender, selected, setSelected }: props) {
                 variant="outline"
                 onClick={clearFilters}
               >
-                Clear
+                {t("clear")}
               </Button>
 
               <Button size="sm">
-                Search
+                {tc("search")}
               </Button>
             </div>
           </form>
@@ -122,7 +125,7 @@ function FindUser({ gender, selected, setSelected }: props) {
         {
           !isLoading && users && users.length > 0 && (
             <div className="mt-6">
-              <h3 className="font-medium mb-2">Results ({users.length})</h3>
+              <h3 className="font-medium mb-2">{t("results", { count: users.length })}</h3>
 
               <div className="space-y-2 max-h-100 pr-6 -mr-6 overflow-y-auto">
                 {users.map((user) => (

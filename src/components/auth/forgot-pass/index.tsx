@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Loader } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { forgotPassSchema, type ForgotPassFormT } from "@/utils/auth-schema"
 import { useForgotPass } from "@/hooks/use-account"
@@ -16,6 +17,7 @@ type Props = {
 }
 
 function ForgotPass({ role = "user" }: Props) {
+  const t = useTranslations("auth")
   const { control, handleSubmit } = useForm<ForgotPassFormT>({
     resolver: zodResolver(forgotPassSchema),
     defaultValues: { email: "" },
@@ -29,7 +31,7 @@ function ForgotPass({ role = "user" }: Props) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <InputWrapper
         name="email"
-        label="Email or Mobile Number"
+        label={t("fields.emailOrMobile")}
         control={control}
       />
 
@@ -39,7 +41,7 @@ function ForgotPass({ role = "user" }: Props) {
         className="w-full bg-pink-500 hover:bg-pink-600"
       >
         {isPending && <Loader className="animate-spin" />}
-        Submit
+        {t("actions.submit")}
       </Button>
     </form>
   )

@@ -1,4 +1,5 @@
 import { RefreshCcw, Edit2, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 import type { DragHandleProps } from "./grid";
@@ -10,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 function Admins({ dragHandle }: DragHandleProps) {
+  const t = useTranslations("superAdmin.dashboard.admins")
   const update = useUIStore(s => s.update)
 
   const { isLoading, isFetching, data, refetch } = useGetAdmins()
@@ -19,7 +21,7 @@ function Admins({ dragHandle }: DragHandleProps) {
       <CardHeader>
         <div className="flex items-center gap-2">
           {dragHandle}
-          <CardTitle>Admins</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </div>
 
         <CardAction>
@@ -30,7 +32,7 @@ function Admins({ dragHandle }: DragHandleProps) {
             nativeButton={false}
             render={<Link href="/super-admin/admins-users" />}
           >
-            Users
+            {t("usersLink")}
           </Button>
 
           <Button
@@ -40,7 +42,7 @@ function Admins({ dragHandle }: DragHandleProps) {
             className="mr-2"
           >
             <Plus className="h-4 w-4" />
-            Add
+            {t("add")}
           </Button>
 
           <Button

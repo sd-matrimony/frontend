@@ -1,0 +1,140 @@
+{
+  "user": {
+    "account": {
+      "title": "Account Information",
+      "description": "Manage your account details and security settings",
+      "email": {
+        "label": "Email Address",
+        "verified": "Verified",
+        "notVerified": "Not Verified",
+        "sendVerification": "Send Verification Email",
+        "confirmDescription": "Change email to {email}. You need to verify your new email again even if you verified your old email."
+      },
+      "mobile": {
+        "label": "Mobile",
+        "confirmDescription": "Change mobile to {mobile}"
+      },
+      "password": {
+        "label": "Password",
+        "description": "Update your password to keep your account secure",
+        "change": "Change Password"
+      },
+      "plan": {
+        "title": "Current Plan",
+        "description": "Your subscription details and included features"
+      }
+    },
+    "confirmUpdate": {
+      "trigger": "Update",
+      "title": "Are you absolutely sure?",
+      "continue": "Continue"
+    },
+    "updatePass": {
+      "currentPasswordLabel": "Current Password",
+      "newPasswordLabel": "New Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "enterPassword": "Enter password",
+      "submit": "Update Password"
+    },
+    "filters": {
+      "title": "Filters",
+      "applied": "(Applied)",
+      "reset": "Reset",
+      "or": "Or",
+      "sheetDescription": "Filter users",
+      "applyPreferences": "Apply Your Preferences",
+      "fields": {
+        "salaryRange": "Salary Range",
+        "minSalary": "Min Salary",
+        "ageRange": "Age Range",
+        "minAge": "Min Age",
+        "maxAge": "Max Age",
+        "maritalStatus": "Marital Status",
+        "minQualification": "Min Qualification",
+        "sector": "Sector",
+        "profession": "Profession",
+        "motherTongue": "Mother Tongue",
+        "religion": "Religion",
+        "caste": "Caste",
+        "rasi": "Rasi",
+        "nakshatra": "Nakshatra",
+        "lagna": "Lagna"
+      }
+    },
+    "list": {
+      "empty": "No users found"
+    },
+    "userCard": {
+      "liked": "Liked",
+      "paidUser": "Paid User",
+      "freeUser": "Free User",
+      "verifiedUser": "Verified User",
+      "age": "Age",
+      "years": "Yrs",
+      "caste": "Caste",
+      "notSpecified": "Not specified",
+      "qualification": "Qualification",
+      "profession": "Profession",
+      "maritalStatus": "Marital Status",
+      "addToLike": "Add to Like",
+      "removeFromLike": "Remove from Like",
+      "viewProfile": "View Profile"
+    },
+    "plan": {
+      "free": {
+        "title": "Free Plan",
+        "limitedAccess": "Limited access",
+        "free": "Free",
+        "limited": "Limited",
+        "features": {
+          "browse": "Browse limited profiles",
+          "basicFilters": "Basic search filters",
+          "noPersonalInfo": "No access to personal information"
+        },
+        "chooseCta": "Choose Your Plan - Start Your Journey",
+        "unlockNote": "Unlock full access to find your perfect match"
+      },
+      "expired": "Your current plan is expired",
+      "buyAgain": "Buy Again",
+      "active": "Active",
+      "expiredBadge": "Expired",
+      "nameSuffix": "{name} Plan",
+      "unlockFeature": "Unlock personal information of {count} profiles",
+      "additionalServices": "Additional Services",
+      "additionalProfileAccess": "Additional Profile Access",
+      "additionalProfileDesc": "Extended access to view more profiles beyond the chosen plan",
+      "profilesCountLine": "{count} profiles",
+      "profilesCountUnlimited": "Unlimited profiles",
+      "totalProfilesNote": "(Total {count} profiles)",
+      "assistedServices": "Assisted Services",
+      "assistedServicesDesc": "Personalized assistance from our relationship experts",
+      "monthsCount": "{count} months",
+      "expiringOn": "(Expiring on: {date})",
+      "totalPlanValue": "Total Plan Value",
+      "validUntil": "Valid until {date}",
+      "unlockedInfo": "{count} profiles unlocked. To view unlocked profiles,",
+      "clickHereToView": "click here"
+    },
+    "payment": {
+      "heroTitle": "Find Your Perfect Match",
+      "heroSubtitle": "Choose the plan that's right for your journey to love",
+      "selectPlan": "Select Your Plan",
+      "selectPlanDesc": "Choose from our carefully crafted plans designed to help you find your soulmate",
+      "fullAccessNote": "Get full access to more profiles",
+      "additionalUnlockProfiles": "Additional Unlock Profiles",
+      "unlimited": "Unlimited",
+      "profilesSuffix": "profiles",
+      "assistedNote": "Get personalized assistance from our relationship experts",
+      "assistedServices": "Assisted Services",
+      "monthsSuffix": "months",
+      "assistedFootnote": "Note: Assisted services expiry is different from plan expiry. For example, if you buy a 3 month plan with 2 months assisted services, then your plan will expire in 3 months but assisted services will expire in 2 months.",
+      "orderSummary": "Order Summary",
+      "additionalProfiles": "Additional Profiles",
+      "totalAmount": "Total Amount",
+      "additionalUnlockProfilesLine": "Additional Unlock Profiles : {value} profiles",
+      "assistedServicesLine": "Assisted services : {value}",
+      "notOpted": "Not opted",
+      "proceedToPayment": "Proceed to Payment - ₹{amount}"
+    }
+  }
+}

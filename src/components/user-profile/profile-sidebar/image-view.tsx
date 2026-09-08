@@ -1,5 +1,6 @@
 import { User } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -13,6 +14,8 @@ type props = {
 }
 
 function ImageView({ image, images, profileImg, setAsProfilePic }: props) {
+  const t = useTranslations("shared.userProfile.sidebar")
+
   return (
     <Dialog>
       <DialogTrigger render={<Image src={image || "/imgs/user.jpg"} alt={"User Image"} fill className="object-cover rounded-md cursor-pointer border" />} />
@@ -46,7 +49,7 @@ function ImageView({ image, images, profileImg, setAsProfilePic }: props) {
                         onClick={() => setAsProfilePic(img)}
                         className="flex mx-auto mt-4"
                       >
-                        <User className="h-4 w-4" /> Set As Profile Pic
+                        <User className="h-4 w-4" /> {t("setAsProfilePic")}
                       </Button>
                     }
                   </div>

@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Loader } from "lucide-react";
 import { z } from "zod";
 
@@ -37,6 +38,7 @@ const schema = (isUpdate: boolean) => z.object({
 })
 
 function CreateAdmin() {
+  const t = useTranslations("superAdmin.dashboard.createAdmin")
   const close = useUIStore(s => s.close)
   const open = useUIStore(s => s.open)
   const data = useUIStore(s => s.data)
@@ -86,9 +88,9 @@ function CreateAdmin() {
     <Dialog open={open === "admin"} onOpenChange={close}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{data ? "Update" : "Create"} Admin</DialogTitle>
+          <DialogTitle>{data ? t("updateTitle") : t("createTitle")}</DialogTitle>
           <DialogDescription>
-            Fill the form to {data ? "update" : "create"} a new admin.
+            {data ? t("updateDescription") : t("createDescription")}
           </DialogDescription>
         </DialogHeader>
 
@@ -97,13 +99,13 @@ function CreateAdmin() {
             <InputWrapper
               control={form.control}
               name="fullName"
-              label="Full Name"
+              label={t("fullName")}
             />
 
             <InputWrapper
               control={form.control}
               name="email"
-              label="Email"
+              label={t("email")}
               type="email"
               disabled={!!data}
             />
@@ -111,13 +113,13 @@ function CreateAdmin() {
             <InputWrapper
               control={form.control}
               name="password"
-              label="Password"
+              label={t("password")}
             />
 
             <InputWrapper
               control={form.control}
               name="contactDetails.mobile"
-              label="Mobile"
+              label={t("mobile")}
               type="tel"
               disabled={!!data}
             />
@@ -125,12 +127,12 @@ function CreateAdmin() {
             <TextareaWrapper
               control={form.control}
               name="contactDetails.address"
-              label="Address"
+              label={t("address")}
             />
 
             <DialogFooter>
               <DialogClose render={<Button type="button" variant="outline" onClick={close} />}>
-                Close
+                {t("close")}
               </DialogClose>
 
               <Button
@@ -138,7 +140,7 @@ function CreateAdmin() {
                 disabled={isPending}
               >
                 {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                {data ? "Update" : "Create"}
+                {data ? t("update") : t("create")}
               </Button>
             </DialogFooter>
           </form>

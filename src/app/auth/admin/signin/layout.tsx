@@ -1,6 +1,10 @@
+import { getTranslations } from "next-intl/server";
+
 import { CardDescription, CardTitle } from "@/components/ui/card";
 
-function Layout({ children }: LayoutProps<"/auth/admin/signin">) {
+async function Layout({ children }: LayoutProps<"/auth/admin/signin">) {
+  const t = await getTranslations("auth")
+
   return (
     <>
       <div className="flex flex-col items-center space-y-2 mb-6">
@@ -10,8 +14,8 @@ function Layout({ children }: LayoutProps<"/auth/admin/signin">) {
           height={80}
           alt='SDM-logo'
         />
-        <CardTitle>Admin Login</CardTitle>
-        <CardDescription>Find your perfect match</CardDescription>
+        <CardTitle>{t("adminSignin.title")}</CardTitle>
+        <CardDescription>{t("tagline")}</CardDescription>
       </div>
 
       {children}

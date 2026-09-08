@@ -1,6 +1,8 @@
 import type { Control } from 'react-hook-form';
 import type { Field } from './data';
 
+import { useTranslations } from 'next-intl';
+
 import { SelectWrapper, InputWrapper, DatePickerWrapper, RadioWrapper } from '@/components/ui/field-wrapper-rhf';
 import { SelectImageWrapper, SelectMultiImageWrapper } from './select-image-wrapper';
 import { SelectListWrapper } from '../common/lists';
@@ -12,7 +14,16 @@ type FieldWrapperProps = Field & {
   onBlur: (n: string, v: string) => void
 }
 
-function FieldWrapper({ control, onBlur, type, isRequired, ...props }: FieldWrapperProps) {
+function FieldWrapper({ control, onBlur, type, isRequired, ...fieldProps }: FieldWrapperProps) {
+  const t = useTranslations('shared.createUserFields')
+  const tp = useTranslations('shared.createUserFieldPlaceholders')
+
+  const props = {
+    ...fieldProps,
+    ...('label' in fieldProps && { label: t(fieldProps.name) }),
+    ...('placeholder' in fieldProps && tp.has(fieldProps.name) && { placeholder: tp(fieldProps.name) }),
+  }
+
   if (type === "date") {
     return <DatePickerWrapper control={control} {...props} className={isRequired ? "" : 'hidden'} />
   }

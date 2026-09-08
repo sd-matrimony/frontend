@@ -5,6 +5,8 @@ import { Eye, EyeOff, Loader } from "lucide-react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
+import { useTranslations } from "next-intl"
+
 import { signinSchema, type SigninFormT } from "@/utils/auth-schema"
 import { useLogin } from "@/hooks/use-account"
 import { trimObj } from "@/utils"
@@ -18,6 +20,7 @@ type Props = {
 }
 
 function Signin({ role = "user" }: Props) {
+  const t = useTranslations("auth")
   const [showPass, setShowPass] = useState(false)
 
   const { control, handleSubmit } = useForm<SigninFormT>({
@@ -33,13 +36,13 @@ function Signin({ role = "user" }: Props) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <InputWrapper
         name="email"
-        label="Email or Mobile Number"
+        label={t("fields.emailOrMobile")}
         control={control}
       />
 
       <InputGroupWrapper
         name="password"
-        label="Password"
+        label={t("fields.password")}
         control={control}
         type={showPass ? "text" : "password"}
         addonEnd={
@@ -55,7 +58,7 @@ function Signin({ role = "user" }: Props) {
         className="w-full bg-pink-500 hover:bg-pink-600"
       >
         {isPending && <Loader className="animate-spin" />}
-        Sign In
+        {t("actions.signIn")}
       </Button>
     </form>
   )

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, ChangeEvent, DragEvent, MouseEvent, useEffect } from 'react';
-import { Upload, Move, Download, } from 'lucide-react'; // Eraser, Circle, Undo2 
+import { Upload, Move, Download, } from 'lucide-react'; // Eraser, Circle, Undo2
+import { useTranslations } from 'next-intl';
 
 import { useExtractImgMutate } from '@/hooks/use-admin';
 import { dataT } from './type';
@@ -65,6 +66,7 @@ type props = {
 }
 
 function Extractor({ updateStep }: props) {
+  const t = useTranslations("shared.imageExtractor")
   const [croppedImages, setCroppedImages] = useState<CroppedImage[]>([])
   const [selectedCrop, setSelectedCrop] = useState<number | null>(null)
   const [dragging, setDragging] = useState(false)
@@ -565,7 +567,7 @@ function Extractor({ updateStep }: props) {
             onClick={() => document.getElementById('image-upload')?.click()}
           >
             <Upload className="h-12 w-12 text-gray-400 mb-4" />
-            <p className="text-lg text-gray-500 mb-4 text-center">Drag and drop an image here, or click to select</p>
+            <p className="text-lg text-gray-500 mb-4 text-center">{t("dragDrop")}</p>
             <input
               type="file"
               accept="image/*"
@@ -577,7 +579,7 @@ function Extractor({ updateStep }: props) {
 
             <Button nativeButton={false} render={<label htmlFor="image-upload" onClick={e => e.stopPropagation()} />}>
               <Upload className="h-4 w-4" />
-              Select Image
+              {t("selectImage")}
             </Button>
           </div>
         </div>
@@ -591,7 +593,7 @@ function Extractor({ updateStep }: props) {
               onClick={() => cropImage(image)}
               disabled={isPending}
             >
-              Crop Image
+              {t("cropImage")}
             </Button>
 
             <Button
@@ -600,7 +602,7 @@ function Extractor({ updateStep }: props) {
               onClick={resetCrops}
               disabled={isPending}
             >
-              Reset Crops
+              {t("resetCrops")}
             </Button>
 
             <Button
@@ -609,7 +611,7 @@ function Extractor({ updateStep }: props) {
               onClick={() => setImage(null)}
               disabled={isPending}
             >
-              New Image
+              {t("newImage")}
             </Button>
 
             {
@@ -620,7 +622,7 @@ function Extractor({ updateStep }: props) {
                   className='ml-auto bg-green-600 hover:bg-green-700'
                   disabled={isPending}
                 >
-                  Proceed
+                  {t("proceed")}
                 </Button>
               )
             }
@@ -664,7 +666,7 @@ function Extractor({ updateStep }: props) {
                     onMouseDown={(e) => startDrag(e, crop.id)}
                   >
                     <div className="absolute top-1 left-1 bg-black bg-opacity-50 text-white px-2 py-1 text-xs rounded">
-                      Area {crop.id}
+                      {t("area", { id: crop.id })}
                       <Move className="h-3 w-3 inline ml-1" />
                     </div>
 
@@ -711,10 +713,10 @@ function Extractor({ updateStep }: props) {
               {selectedCrop && (
                 <div className="mb-6 bg-white p-4 rounded-lg shadow">
                   <div className="mb-4">
-                    <h4 className="text-sm font-medium mb-2">Selected Area {crops.find(c => c.id === selectedCrop)?.id}</h4>
+                    <h4 className="text-sm font-medium mb-2">{t("selectedArea", { id: crops.find(c => c.id === selectedCrop)?.id ?? "" })}</h4>
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs mb-1">X Position (%)</label>
+                        <label className="block text-xs mb-1">{t("xPosition")}</label>
                         <input
                           type="number"
                           min="0"
@@ -731,7 +733,7 @@ function Extractor({ updateStep }: props) {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs mb-1">Y Position (%)</label>
+                        <label className="block text-xs mb-1">{t("yPosition")}</label>
                         <input
                           type="number"
                           min="0"
@@ -748,7 +750,7 @@ function Extractor({ updateStep }: props) {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs mb-1">Width (%)</label>
+                        <label className="block text-xs mb-1">{t("width")}</label>
                         <input
                           type="number"
                           min="10"
@@ -765,7 +767,7 @@ function Extractor({ updateStep }: props) {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs mb-1">Height (%)</label>
+                        <label className="block text-xs mb-1">{t("height")}</label>
                         <input
                           type="number"
                           min="10"
@@ -816,11 +818,11 @@ function Extractor({ updateStep }: props) {
 
                   <div className="border rounded-lg overflow-hidden relative bg-white">
                     <div className="p-2 bg-gray-100 flex justify-between items-center border-b">
-                      <span className="font-medium">Profile Image</span>
+                      <span className="font-medium">{t("profileImage")}</span>
                       <button
                         onClick={() => croppedImageDownload(croppedImages[1].dataUrl, 1)}
                         className="dc p-1 bg-blue-500 hover:bg-blue-600 text-white rounded-full cursor-pointer"
-                        title="Download"
+                        title={t("download")}
                       >
                         <Download className="h-4 w-4" />
                       </button>
@@ -837,11 +839,11 @@ function Extractor({ updateStep }: props) {
 
                   <div className="border rounded-lg overflow-hidden relative bg-white">
                     <div className="p-2 bg-gray-100 flex justify-between items-center border-b">
-                      <span className="font-medium">Verdict Image</span>
+                      <span className="font-medium">{t("verdictImage")}</span>
                       <button
                         onClick={() => croppedImageDownload(croppedImages[2].dataUrl, 2)}
                         className="dc p-1 bg-blue-500 hover:bg-blue-600 text-white rounded-full cursor-pointer"
-                        title="Download"
+                        title={t("download")}
                       >
                         <Download className="h-4 w-4" />
                       </button>

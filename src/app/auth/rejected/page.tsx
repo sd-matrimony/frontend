@@ -1,7 +1,11 @@
+import { getTranslations } from 'next-intl/server';
+
 import InfoCard from '@/components/info-card';
 
-function Page() {
-  return <InfoCard title='Your application rejected' />
+async function Page() {
+  const t = await getTranslations('auth.status')
+
+  return <InfoCard title={t('rejected')} />
 }
 
 export default Page

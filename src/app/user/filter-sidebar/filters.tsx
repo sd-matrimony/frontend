@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 // import { differenceInYears } from 'date-fns';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 
 import { maritalStatus, ageRange, salaryRange } from '@/utils';
@@ -68,54 +69,44 @@ const defaultValues: z.infer<typeof schema> = {
 
 type listProps = {
   name: keyof z.infer<typeof schema>
-  label: string
   listName: staticsNameT
 }
 
 const list: listProps[] = [
   {
     name: 'minQualification',
-    label: 'Min Qualification',
     listName: "educationLevels",
   },
   {
     name: 'sector',
-    label: 'Sector',
     listName: "sectors",
   },
   {
     name: 'profession',
-    label: 'Profession',
     listName: "professions",
   },
   {
     name: 'motherTongue',
-    label: 'Mother Tongue',
     listName: "languages",
   },
   {
     name: 'religion',
-    label: 'Religion',
     listName: "religions",
   },
   {
     name: 'caste',
-    label: 'Caste',
     listName: "castes",
   },
   {
     name: 'rasi',
-    label: 'Rasi',
     listName: "raasi",
   },
   {
     name: 'nakshatra',
-    label: 'Nakshatra',
     listName: "nakshatra",
   },
   {
     name: 'lagna',
-    label: 'Lagna',
     listName: "raasi",
   },
 ]
@@ -142,6 +133,8 @@ function getPayload(userPartnerPreferences: Pick<userT, "partnerPreferences"> & 
 const FILTER_STORAGE_KEY = 'sdm-user-filters'
 
 function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
+  const t = useTranslations("user.filters")
+  const tCommon = useTranslations("common")
   const { data: userMini, isLoading: isLoadingMini } = useUserDetailsMini()
   const { data: user, isLoading: isLoading2 } = usePartnerPreferences(isLoadingMini ? "" : userMini?._id || "")
 
@@ -198,10 +191,10 @@ function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
     <>
       <div className='df md:justify-between md:mb-4'>
         <h5 className='text-sm font-medium'>
-          Filters{" "}
+          {t("title")}{" "}
           {
             hasFilters && <span className='text-xs font-normal'>
-              (Applied)
+              {t("applied")}
             </span>
           }
         </h5>
@@ -214,7 +207,7 @@ function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
             className='h-6 text-xs font-normal hover:bg-input'
             onClick={onReset}
           >
-            Reset
+            {t("reset")}
           </Button>
         }
       </div>
@@ -227,46 +220,46 @@ function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
           <div className="scroll-y -mx-4 md:-mx-6 px-4 md:px-6 py-4 space-y-4 border-y [&_label]:font-normal">
             <SelectWrapper
               name="salaryRange"
-              label="Salary Range"
+              label={t("fields.salaryRange")}
               control={form.control}
               items={salaryRange}
             />
 
-            <div className='mb-0 -mt-1 text-xs text-center'>Or</div>
+            <div className='mb-0 -mt-1 text-xs text-center'>{t("or")}</div>
 
             <InputWrapper
               name="minSalary"
-              label="Min Salary"
+              label={t("fields.minSalary")}
               control={form.control}
               className='mb-8'
             />
 
             <SelectWrapper
               name="ageRange"
-              label="Age Range"
+              label={t("fields.ageRange")}
               control={form.control}
               items={ageRange}
             />
 
-            <div className='mb-2 -mt-1 text-xs text-center'>Or</div>
+            <div className='mb-2 -mt-1 text-xs text-center'>{t("or")}</div>
 
             <div className="grid grid-cols-2 gap-4 mb-8">
               <InputWrapper
                 name="minAge"
-                label="Min Age"
+                label={t("fields.minAge")}
                 control={form.control}
               />
 
               <InputWrapper
                 name="maxAge"
-                label="Max Age"
+                label={t("fields.maxAge")}
                 control={form.control}
               />
             </div>
 
             <SelectWrapper
               name="maritalStatus"
-              label="Marital Status"
+              label={t("fields.maritalStatus")}
               control={form.control}
               items={maritalStatus}
             />
@@ -276,6 +269,7 @@ function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
                 <div key={item.name}>
                   <SelectListWrapper
                     {...item}
+                    label={t(`fields.${item.name}`)}
                     control={form.control}
                     additionalOpts="Any"
                     canCreateNew
@@ -305,7 +299,7 @@ function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
                 className='p-0 font-normal'
                 onClick={onApply}
               >
-                Apply Your Preferences
+                {t("applyPreferences")}
               </Button>
             }
 
@@ -313,7 +307,7 @@ function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
               type="submit"
               className='ml-auto'
             >
-              Save
+              {tCommon("save")}
             </Button>
           </div>
         </form>

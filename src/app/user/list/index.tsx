@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { useTranslations } from "next-intl";
 import { Loader } from "lucide-react";
 
 import { useAddLiked, useRemoveLiked } from "@/hooks/use-user";
@@ -19,6 +20,7 @@ type prrops = {
 }
 
 function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage }: prrops) {
+  const t = useTranslations("user.list")
   const updateModal = useUIStore(s => s.update)
 
   const { mutate: unlikeMutate } = useRemoveLiked()
@@ -67,7 +69,7 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
 
   if (users.length === 0) return (
     <section className="dc px-2 sm:px-4 py-8 h-[calc(100vh-5rem)]">
-      No users found
+      {t("empty")}
     </section>
   )
 

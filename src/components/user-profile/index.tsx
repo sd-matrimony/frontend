@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import ProfessionalDetails from "./professional-details";
@@ -14,7 +16,9 @@ type props = {
   canEdit: boolean
 }
 
-function UserProfile({ user, canEdit }: props) {
+async function UserProfile({ user, canEdit }: props) {
+  const t = await getTranslations("shared.userProfile.tabs")
+
   return (
     <>
       <ProfileSidebar user={user} canEdit={canEdit} />
@@ -22,10 +26,10 @@ function UserProfile({ user, canEdit }: props) {
       <div className="@2xl:col-span-2">
         <Tabs defaultValue="personal">
           <TabsList className="grid grid-cols-2 min-[400px]:grid-cols-4 h-auto mb-2">
-            <TabsTrigger value="personal">Personal</TabsTrigger>
-            <TabsTrigger value="family">Family</TabsTrigger>
-            <TabsTrigger value="horoscope">Horoscope</TabsTrigger>
-            <TabsTrigger value="preferences">Preferences</TabsTrigger>
+            <TabsTrigger value="personal">{t("personal")}</TabsTrigger>
+            <TabsTrigger value="family">{t("family")}</TabsTrigger>
+            <TabsTrigger value="horoscope">{t("horoscope")}</TabsTrigger>
+            <TabsTrigger value="preferences">{t("preferences")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="personal" className="space-y-6">

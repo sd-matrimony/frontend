@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { RefreshCcw } from "lucide-react";
 import { format } from "date-fns";
 import Link from "next/link";
@@ -15,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import LoadMore from "@/components/common/load-more";
 
 function PaidUsers({ dragHandle }: DragHandleProps) {
+  const t = useTranslations("superAdmin.dashboard.paidUsers")
   const { isLoading, data, isFetching, hasNextPage, fetchNextPage, refetch } = useGetPaidUsers()
   const [search, setSearch] = useState("")
 
@@ -34,10 +36,10 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
       <CardHeader>
         <div className="flex items-center gap-2">
           {dragHandle}
-          <CardTitle>Paid Users</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
 
           <Input
-            placeholder="Search by name, email or mobile..."
+            placeholder={t("searchPlaceholder")}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="max-w-md ml-auto h-8"
@@ -64,10 +66,10 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
         <table className="w-full table-fixed overflow-x-auto">
           <thead>
             <tr className="text-left">
-              <th className="w-40 px-1 py-2 text-sm font-medium">User</th>
-              <th className="w-28 px-1 py-2 text-sm font-medium">Plan</th>
-              <th className="w-32 pl-1 pr-4 py-2 text-sm font-medium text-right">Amount</th>
-              <th className="w-24 px-1 py-2 text-sm font-medium text-center">Expiry Date</th>
+              <th className="w-40 px-1 py-2 text-sm font-medium">{t("colUser")}</th>
+              <th className="w-28 px-1 py-2 text-sm font-medium">{t("colPlan")}</th>
+              <th className="w-32 pl-1 pr-4 py-2 text-sm font-medium text-right">{t("colAmount")}</th>
+              <th className="w-24 px-1 py-2 text-sm font-medium text-center">{t("colExpiry")}</th>
             </tr>
           </thead>
 

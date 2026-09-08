@@ -1,0 +1,139 @@
+{
+  "public": {
+    "nav": {
+      "brand": "SD Matrimony",
+      "contact": "Contact",
+      "signUp": "Sign Up",
+      "signIn": "Sign In"
+    },
+    "hero": {
+      "badge": "India's #1 Fastest Growing Matrimony Platform",
+      "titleLine1": "Find Your",
+      "titleLine2": "Perfect Match",
+      "description": "Join thousands of happy couples who found their soulmate through our trusted matrimony platform. Your journey to forever starts here.",
+      "cta": "Get Started Today",
+      "statCouplesValue": "500+",
+      "statCouplesLabel": "Happy Couples",
+      "statProfilesValue": "10k+",
+      "statProfilesLabel": "Verified Profiles",
+      "statSuccessValue": "99%",
+      "statSuccessLabel": "Success Rate",
+      "activeUsers": "2k+ Active Users",
+      "floatingSuccessValue": "99%",
+      "floatingSuccessLabel": "Success Rate"
+    },
+    "cta": {
+      "title": "Ready to Find Your Perfect Match?",
+      "description": "Join thousands of happy couples who found love through SD Matrimony. Your soulmate is waiting for you.",
+      "button": "Start Your Journey"
+    },
+    "footer": {
+      "tagline": "Connecting hearts, creating families. Your trusted partner in finding true love.",
+      "contactInfoTitle": "Contact Info",
+      "addressLine1": "No. 1, Sri laxmi nager, 3rd main street,",
+      "addressLine2": "Alwarthirunagar, Mettukuppam, Chennai - 87.",
+      "copyright": "© {year} SD Matrimony. All rights reserved. Made with ❤️ for finding love.",
+      "privacyPolicy": "Privacy Policy",
+      "termsAndConditions": "Terms & Conditions",
+      "refundPolicy": "Refund Policy"
+    },
+    "infoCard": {
+      "orUseAnother": "or Use another account",
+      "signIn": "Sign in",
+      "unintentional": "If this was unintentional, please reach out to us"
+    },
+    "refresh": {
+      "label": "Refresh"
+    },
+    "contactUs": {
+      "title": "Contact Us",
+      "lastUpdated": "Last updated on Jul 30, 2025",
+      "intro": "You may contact us using the information below:",
+      "merchantDetails": "Merchant Details",
+      "legalEntityNameLabel": "Legal Entity Name:",
+      "legalEntityNameValue": "SHRI DURGADEVI THIRUMANA THAGAVAL MAIYAM",
+      "alsoKnownAsLabel": "Also Known As:",
+      "alsoKnownAsValue": "SD Matrimony, Sri Durga Devi Matrimony",
+      "registeredAddressLabel": "Registered Address:",
+      "addressValue": "No. 1, Sri Laxmi Nagar, 3rd Main Street, Alwarthirunagar, Mettukuppam, Chennai, 600087.",
+      "operationalAddressLabel": "Operational Address:",
+      "contactInformation": "Contact Information",
+      "telephoneLabel": "Telephone No:",
+      "emailLabel": "E-Mail ID:"
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated on Jul 30, 2025",
+      "intro1": "This privacy policy sets out how <b>SHRI DURGADEVI THIRUMANA THAGAVAL MAIYAM (SD Matrimony)</b> uses and protects any information that you provide when you visit our website or purchase our services.",
+      "intro2": "We are committed to ensuring that your privacy is protected. We ask you to provide certain information by which you can be identified, you can be assured that it will only be used in accordance with this privacy statement.",
+      "intro3": "This policy may be updated from time to time, and you should check this page periodically to ensure that you are aware of any changes.",
+      "collectTitle": "Information We May Collect",
+      "collectItem1": "Personal and Family information",
+      "collectItem2": "Contact information including email address, phone number and address",
+      "collectItem3": "Other information relevant to matchmaking services and preferences",
+      "useTitle": "How We Use the Information",
+      "useItem1": "Internal record keeping",
+      "useItem2": "Improving our products and services",
+      "useItem3": "Periodically sending promotional emails about new services, special offers, or other information which may be of interest",
+      "useItem4": "Contacting you for market research purposes via email, phone, or mail",
+      "useItem5": "Customizing the website according to your interests",
+      "cookiesTitle": "Cookies",
+      "cookiesBody": "We use cookies solely for storing the refresh token and access token to keep your session secure. These cookies help us authenticate users and do not track any personal preferences or browsing activity.",
+      "controlTitle": "Controlling Your Personal Information",
+      "controlIntro": "You may choose to restrict the collection or use of your personal information in the following ways:",
+      "controlItem1": "When filling in forms, look for the option to indicate that you do not want your information used for direct marketing purposes.",
+      "controlItem2": "If you have previously agreed to the use of your information for direct marketing, you may change your mind at any time by contacting us at <email>admin@sdmatrimony.com</email>.",
+      "noSell": "We will not sell, distribute, or lease your personal information to third parties unless required by law or with your permission. We may send promotional information from third parties only if you consent.",
+      "updateInfo": "You may update your personal information at any time by logging into your account or contacting us via email at <email>admin@sdmatrimony.com</email> or phone at <phone1>9791155234</phone1> or <phone2>8667042132</phone2>. We will promptly correct any information found to be incorrect."
+    },
+    "termsAndConditions": {
+      "title": "Terms & Conditions",
+      "lastUpdated": "Last updated on Jul 30, 2025",
+      "intro": "For the purpose of these Terms and Conditions, the terms <b>\"we\"</b>, <b>\"us\"</b>, <b>\"our\"</b> refer to <b>SHRI DURGADEVI THIRUMANA THAGAVAL MAIYAM (SD Matrimony)</b>, whose registered/operational office is No. 1, Sri Laxmi Nagar, 3rd Main Street, Alwarthirunagar, Mettukuppam, Chennai, 600087. The terms <b>\"you\"</b>, <b>\"your\"</b>, <b>\"user\"</b>, <b>\"visitor\"</b> refer to any natural or legal person who visits our website or purchases our services.",
+      "generalTitle": "General Terms",
+      "generalItem1": "The content of this website may change without prior notice.",
+      "generalItem2": "We and third parties provide no warranty or guarantee regarding the accuracy, timeliness, performance, completeness, or suitability of the information and materials on this website for any particular purpose.",
+      "generalItem3": "Use of any information or materials on our website is entirely at your own risk.",
+      "generalItem4": "It is your responsibility to ensure that any services or information available through our website meet your specific requirements.",
+      "ipTitle": "Intellectual Property",
+      "ipItem1": "All material on this website is owned by or licensed to us, including design, layout, appearance, and graphics. Reproduction is prohibited except as permitted under copyright law.",
+      "ipItem2": "All third-party trademarks are acknowledged on our website.",
+      "ipItem3": "Unauthorized use of our information may result in claims for damages or be treated as a criminal offense.",
+      "externalLinksTitle": "External Links",
+      "externalLinksBody": "From time to time, our website may include links to other websites for your convenience. You may not create a link to our website from another website or document without our prior written consent.",
+      "governingLawTitle": "Governing Law",
+      "governingLawBody": "Any dispute arising from the use of our website, purchase of services, or engagement with us is subject to the laws of India.",
+      "paymentLiabilityTitle": "Payment & Liability",
+      "paymentLiabilityBody": "We shall not be liable for any loss or damage arising directly or indirectly from the decline of authorization for any transaction due to the cardholder exceeding the preset limit mutually agreed with our acquiring bank."
+    },
+    "cancellationRefund": {
+      "title": "Cancellation & Refund Policy",
+      "lastUpdated": "Last updated on Jul 30, 2025",
+      "intro": "At <b>SHRI DURGADEVI THIRUMANA THAGAVAL MAIYAM (SD Matrimony)</b>, we value our members and strive to provide a smooth and transparent experience. Please read our cancellation and refund policy carefully:",
+      "windowTitle": "1. Cancellation Window",
+      "windowItem1": "Cancellation requests will be accepted <b>only on the same day</b> of purchasing a membership plan.",
+      "windowItem2": "After this period, cancellations will not be entertained under any circumstances.",
+      "howTitle": "2. How to Cancel",
+      "howItem1": "To request a cancellation, the member must <b>contact our Admin/Support team directly</b> through the official communication channels provided on our website (Contact Us page).",
+      "howItem2": "The request must clearly include the registered email ID, mobile number, and payment details for verification.",
+      "refundsTitle": "3. Refunds",
+      "refundsItem1": "If the cancellation request is approved within the same day, the refund will be initiated to the original payment method.",
+      "refundsItem2": "Refunds may take <b>1-2 working days</b> to reflect in the customer's account, depending on the payment gateway or bank processing timelines.",
+      "nonRefundTitle": "4. Non-Refundable Cases",
+      "nonRefundItem1": "Membership fees are <b>non-refundable</b> once services (such as profile viewing, messaging, or other premium features) have been used, even if it falls within the same day.",
+      "nonRefundItem2": "No refunds will be issued for cancellations requested after the allowed cancellation window."
+    },
+    "shippingDelivery": {
+      "title": "Shipping & Delivery Policy",
+      "lastUpdated": "Last updated on Jul 30, 2025",
+      "digitalTitle": "Digital Services",
+      "digitalBody": "<b>SHRI DURGADEVI THIRUMANA THAGAVAL MAIYAM (SD Matrimony)</b> provides online matrimony services. No physical products are shipped.",
+      "accessTitle": "Access to Services",
+      "accessBody": "Upon successful payment for any membership plan or premium feature, access to the service is granted immediately via your registered account.",
+      "confirmationTitle": "Confirmation",
+      "confirmationBody": "All transactions are confirmed via email or SMS immediately after payment. Additionally, users can view transaction details and service status anytime on their account page after logged in.",
+      "noShippingTitle": "No Shipping Required",
+      "noShippingBody": "Since our services are entirely digital, there are no shipping charges, delivery times, or courier processes."
+    }
+  }
+}

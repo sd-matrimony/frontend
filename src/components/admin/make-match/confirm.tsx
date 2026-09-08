@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { useUserMarriedToMutate } from "@/hooks/use-admin";
 
@@ -24,6 +25,8 @@ type props = {
 }
 
 function Confirm({ male, female, onConfirm }: props) {
+  const t = useTranslations("shared.makeMatch")
+  const tc = useTranslations("common")
   const [marriedOn, setMarriedOn] = useState(new Date())
   const [isOpen, setIsOpen] = useState(false)
 
@@ -49,15 +52,15 @@ function Confirm({ male, female, onConfirm }: props) {
           disabled={isPending || (!male && !female)}
           render={<Button />}
         >
-          Make Match
+          {t("makeMatchBtn")}
         </AlertDialogTrigger>
       </div>
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="-mb-2">Confirm Match</AlertDialogTitle>
+          <AlertDialogTitle className="-mb-2">{t("confirmTitle")}</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to make this match?
+            {t("confirmDesc")}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -88,7 +91,7 @@ function Confirm({ male, female, onConfirm }: props) {
         </div>
 
         <div>
-          <Label htmlFor="marriedOn">Married On</Label>
+          <Label htmlFor="marriedOn">{t("marriedOn")}</Label>
           <DatePicker
             selected={marriedOn}
             onSelect={(date) => setMarriedOn(date || new Date())}
@@ -108,14 +111,14 @@ function Confirm({ male, female, onConfirm }: props) {
             disabled={isPending}
             onClick={() => setIsOpen(false)}
           >
-            Cancel
+            {tc("cancel")}
           </AlertDialogCancel>
 
           <AlertDialogAction
             disabled={isPending}
             onClick={onSubmit}
           >
-            Continue
+            {t("continue")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

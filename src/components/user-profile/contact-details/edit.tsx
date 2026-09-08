@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditIcon } from 'lucide-react';
 import { FormProvider, useForm } from "react-hook-form";
+import { useTranslations } from 'next-intl';
 import { z } from "zod";
 
 import { contactDetailsSchema } from '@/utils/user-schema';
@@ -14,6 +15,8 @@ import { TextareaWrapper, InputWrapper } from "@/components/ui/field-wrapper-rhf
 import { Button } from "@/components/ui/button";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
+  const t = useTranslations("shared.userProfile.contact")
+  const tc = useTranslations("common")
   const { mutate, isPending } = useUpdateProfile()
   const [open, setOpen] = useState(false)
 
@@ -48,13 +51,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button variant="outline" size="sm" />}>
         <EditIcon className="h-4 w-4 mr-2" />
-        Edit
+        {tc("edit")}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Contact Details</DialogTitle>
-          <DialogDescription>Make changes to your contact information here.</DialogDescription>
+          <DialogTitle>{t("editTitle")}</DialogTitle>
+          <DialogDescription>{t("editDesc")}</DialogDescription>
         </DialogHeader>
 
         <FormProvider {...form}>
@@ -62,14 +65,14 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <TextareaWrapper
               control={form.control}
               name="address"
-              label="Full Address"
+              label={t("fields.address")}
             />
 
             <InputWrapper
               control={form.control}
               name="place"
-              label="Place"
-              placeholder="e.g. Chennai"
+              label={t("fields.place")}
+              placeholder={t("fields.placeholderPlace")}
             />
 
             <div className="flex justify-end space-x-2 pt-2">
@@ -79,14 +82,14 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 disabled={isPending}
                 onClick={() => setOpen(false)}
               >
-                Cancel
+                {tc("cancel")}
               </Button>
 
               <Button
                 type="submit"
                 disabled={isPending}
               >
-                Save Changes
+                {tc("saveChanges")}
               </Button>
             </div>
           </form>

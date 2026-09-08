@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { useMarriedUsers } from "@/hooks/use-admin";
 
@@ -14,6 +15,7 @@ type props = {
 }
 
 function MarriedUsers({ role = "admin" }: props) {
+  const t = useTranslations("shared.marriedUsers")
   const { data: users, isLoading, isFetching, fetchNextPage, hasNextPage } = useMarriedUsers()
 
   function navigateTo(maleId: string, femaleId: string) {
@@ -30,7 +32,7 @@ function MarriedUsers({ role = "admin" }: props) {
 
   if (users?.length === 0) return (
     <section className="dc px-2 sm:px-4 py-8 h-[90vh]">
-      No users found
+      {t("noUsersFound")}
     </section>
   )
 

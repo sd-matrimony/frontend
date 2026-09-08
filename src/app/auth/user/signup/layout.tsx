@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import { CardDescription, CardTitle } from "@/components/ui/card";
 
-function Layout({ children }: LayoutProps<"/auth/user/signup">) {
+async function Layout({ children }: LayoutProps<"/auth/user/signup">) {
+  const t = await getTranslations("auth")
+
   return (
     <>
       <div className="dc gap-0 flex-col -mt-8 mb-4">
@@ -12,17 +15,17 @@ function Layout({ children }: LayoutProps<"/auth/user/signup">) {
           height={60}
           alt='SDM-logo'
         />
-        <CardTitle>Create Your Account</CardTitle>
-        <CardDescription>Find your perfect match</CardDescription>
+        <CardTitle>{t("signup.title")}</CardTitle>
+        <CardDescription>{t("tagline")}</CardDescription>
       </div>
 
       {children}
 
       <div className="mt-4 -mb-8 text-center">
         <p className="text-sm text-gray-600">
-          Already have an account?{" "}
+          {t("signup.haveAccount")}{" "}
           <Link className="font-medium text-pink-600 hover:underline" href="/auth/user/signin">
-            Sign in
+            {t("signup.signIn")}
           </Link>
         </p>
       </div>

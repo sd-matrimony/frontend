@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import { Heart, Eye, Briefcase, Calendar, HeartOff, UsersRound, Gem, GraduationCap, ShieldUser } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 import { getAge } from "@/utils";
@@ -30,6 +31,7 @@ const UserCard = memo(function UserCard({
   onAdd = () => { },
   onRemove = () => { },
 }: props) {
+  const t = useTranslations("user.userCard")
   const hasPlan = currentPlan && new Date(currentPlan.expiryDate).getTime() > new Date().getTime()
   return (
     <Card className="p-0 overflow-hidden transition-all duration-300 hover:shadow-md @container/card">
@@ -47,7 +49,7 @@ const UserCard = memo(function UserCard({
           {isLiked && (
             <Badge variant="secondary" className="absolute top-2 right-2 bg-white/80">
               <Heart className="h-3 w-3 mr-1 fill-rose-500 text-rose-500" />
-              Liked
+              {t("liked")}
             </Badge>
           )}
           {/* {isDisliked && (
@@ -58,7 +60,7 @@ const UserCard = memo(function UserCard({
           )} */}
 
           <TooltipWrapper
-            content={`${hasPlan ? "Paid" : "Free"} User`}
+            content={hasPlan ? t("paidUser") : t("freeUser")}
             triggerCls="p-2 absolute bottom-2 left-2 rounded-full [&>svg]:size-4 opacity-90"
             trigger={<PlanBadge subscribedTo={hasPlan ? "platinum" : "basic"} />}
           />
@@ -67,7 +69,7 @@ const UserCard = memo(function UserCard({
         <CardContent className="flex-1 px-4 py-3 relative">
           {isVerified && (
             <TooltipWrapper
-              content="Verified User"
+              content={t("verifiedUser")}
               trigger={
                 <Badge
                   variant="secondary"
@@ -83,35 +85,35 @@ const UserCard = memo(function UserCard({
           <div className="grid gap-2 text-sm text-muted-foreground mb-4">
             <div className="df">
               <Calendar className="h-4 w-4 opacity-70" />
-              <span className="@xl/card:w-24">Age</span>
+              <span className="@xl/card:w-24">{t("age")}</span>
               <span className="@xl/card:w-4">:</span>
-              <span className="font-medium">{dob ? getAge(dob) : ""} Yrs</span>
+              <span className="font-medium">{dob ? getAge(dob) : ""} {t("years")}</span>
             </div>
 
             <div className="df">
               <UsersRound className="h-4 w-4 opacity-70" />
-              <span className="@xl/card:w-24">Caste</span>
+              <span className="@xl/card:w-24">{t("caste")}</span>
               <span className="@xl/card:w-4">:</span>
-              <span className="font-medium">{otherDetails?.caste || "Not specified"} {otherDetails?.subCaste ? `- ${otherDetails?.subCaste}` : ""}</span>
+              <span className="font-medium">{otherDetails?.caste || t("notSpecified")} {otherDetails?.subCaste ? `- ${otherDetails?.subCaste}` : ""}</span>
             </div>
 
             <div className="df">
               <GraduationCap className="h-4 w-4 opacity-70" />
-              <span className="@xl/card:w-24">Qualification</span>
+              <span className="@xl/card:w-24">{t("qualification")}</span>
               <span className="@xl/card:w-4">:</span>
               <span className="font-medium">{proffessionalDetails?.highestQualification}</span>
             </div>
 
             <div className="df">
               <Briefcase className="h-4 w-4 opacity-70" />
-              <span className="@xl/card:w-24">Profession</span>
+              <span className="@xl/card:w-24">{t("profession")}</span>
               <span className="@xl/card:w-4">:</span>
               <span className="font-medium">{proffessionalDetails?.profession}</span>
             </div>
 
             <div className="df">
               <Gem className="h-4 w-4 opacity-70" />
-              <span className="@xl/card:w-24">Marital Status</span>
+              <span className="@xl/card:w-24">{t("maritalStatus")}</span>
               <span className="@xl/card:w-4">:</span>
               <span className="font-medium">{maritalStatus}</span>
             </div>
@@ -120,7 +122,7 @@ const UserCard = memo(function UserCard({
           <CardFooter className="df flex-wrap p-0">
             {(type === "full" || type === "disliked") && !isLiked &&
               <TooltipWrapper
-                content="Add to Like"
+                content={t("addToLike")}
                 triggerProps={{
                   render: <Button
                     size="sm"
@@ -129,7 +131,7 @@ const UserCard = memo(function UserCard({
                     className="text-rose-500 border-rose-200 hover:bg-rose-50 hover:text-rose-600"
                   >
                     <Heart className="h-4 w-4" />
-                    <span className="sr-only">Add to Like</span>
+                    <span className="sr-only">{t("addToLike")}</span>
                   </Button>
                 }}
               />
@@ -151,7 +153,7 @@ const UserCard = memo(function UserCard({
 
             {((type === "full" && isLiked) || type === "liked") &&
               <TooltipWrapper
-                content="Remove from Like"
+                content={t("removeFromLike")}
                 triggerProps={{
                   render: <Button
                     size="sm"
@@ -160,7 +162,7 @@ const UserCard = memo(function UserCard({
                     className="text-rose-500 border-rose-200 hover:bg-rose-50 hover:text-rose-600"
                   >
                     <HeartOff className="h-4 w-4 fill-rose-500" />
-                    <span className="sr-only">Remove from Like</span>
+                    <span className="sr-only">{t("removeFromLike")}</span>
                   </Button>
                 }}
               />
@@ -182,7 +184,7 @@ const UserCard = memo(function UserCard({
             } */}
 
             <TooltipWrapper
-              content="View Profile"
+              content={t("viewProfile")}
               triggerProps={{
                 render: <Button
                   size="sm"
@@ -191,7 +193,7 @@ const UserCard = memo(function UserCard({
                   render={<Link href={`/user/profile/${_id}`} />}
                 >
                   <Eye className="h-4 w-4" />
-                  <span className="sr-only">View Profile</span>
+                  <span className="sr-only">{t("viewProfile")}</span>
                 </Button>
               }}
             />

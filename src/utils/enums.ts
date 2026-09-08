@@ -86,3 +86,12 @@ export const tokenValidity = {
   accessToken: 60 * 30, // 30 min
   refreshToken: 60 * 60 * 24 * 7, // 7 days
 } as const
+
+export const locales = ["en", "ta"] as const
+export const defaultLocale: (typeof locales)[number] = "en"
+export const localeCookieName = "NEXT_LOCALE"
+
+export const localeLabels: Record<(typeof locales)[number], string> = {
+  en: "English",
+  ta: "தமிழ்",
+}

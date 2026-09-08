@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { z } from "zod";
 
 import { defaultValues, fieldList } from './data';
@@ -55,6 +56,7 @@ function getSchema(isAdmin: boolean) {
 }
 
 function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: props) {
+  const t = useTranslations("shared.createUser")
   const [isMini, setIsMini] = useState(!isAdmin)
   const toast = useToast()
 
@@ -173,7 +175,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
       onSubmit(filterObj(payload) as Partial<userT>)
 
     } catch (error: any) {
-      toast.add({ type: 'error', title: 'Failed to register', description: error?.message || "" })
+      toast.add({ type: 'error', title: t("failedToRegister"), description: error?.message || "" })
     }
   }
 
@@ -186,12 +188,12 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
       >
         {
           fieldList
-            .filter(field => isAdmin ? field.lable !== "Account Details" : true)
+            .filter(field => isAdmin ? field.sectionId !== "account" : true)
             .filter(field => isMini ? field.list.some(f => f.isRequired) : true)
             .map(field => (
-              <div key={field.lable} className='py-8 @container'>
+              <div key={field.sectionId} className='py-8 @container'>
                 <h4 className="mb-2 text-sm font-semibold text-gray-500">
-                  {field.lable}
+                  {t(`sections.${field.sectionId}`)}
                 </h4>
 
                 <div className='grid @md:grid-cols-2 items-start gap-4'>
@@ -220,7 +222,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
               onClick={() => setIsMini(p => !p)}
               className="ml-auto mb-2 block text-sm text-red-500 hover:text-red-600 cursor-pointer"
             >
-              Show {isMini ? "all fields" : "required fields only"}
+              {isMini ? t("showAllFields") : t("showRequiredOnly")}
             </button>
           }
 
@@ -230,7 +232,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
             disabled={isPending || isPending1 || isPending2}
           >
             {(isPending || isPending1) && <Loader className="animate-spin" />}
-            {isAdmin ? "Create User" : "Sign Up"}
+            {isAdmin ? t("createUser") : t("signUp")}
           </Button>
         </div>
       </form>

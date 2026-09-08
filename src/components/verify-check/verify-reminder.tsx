@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { useResendVerifyEmail } from "@/hooks/use-account";
 import useUIStore from "@/store/ui";
 
@@ -10,6 +12,7 @@ type props = {
 }
 
 function VerifyReminder({ email, onSuccess }: props) {
+  const t = useTranslations("shared.userProfile.verifyReminder")
   const update = useUIStore(s => s.update)
 
   const { mutate, isPending } = useResendVerifyEmail()
@@ -17,9 +20,9 @@ function VerifyReminder({ email, onSuccess }: props) {
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Email not verified</DialogTitle>
+        <DialogTitle>{t("title")}</DialogTitle>
         <DialogDescription>
-          Your account email <span className="font-medium">{email}</span> is not verified yet.
+          {t.rich("desc", { email, b: (chunks) => <span className="font-medium">{chunks}</span> })}
         </DialogDescription>
       </DialogHeader>
 
@@ -31,11 +34,11 @@ function VerifyReminder({ email, onSuccess }: props) {
           disabled={isPending}
           onClick={() => update({ remindVerification: false })}
         >
-          Do not show again
+          {t("doNotShowAgain")}
         </Button>
 
         <DialogClose render={<Button size="sm" variant="outline" disabled={isPending} className="max-[450px]:flex-1" />}>
-          Verify Later
+          {t("verifyLater")}
         </DialogClose>
 
         <Button
@@ -44,7 +47,7 @@ function VerifyReminder({ email, onSuccess }: props) {
           onClick={() => mutate({ email }, { onSuccess })}
           className="max-[450px]:flex-1"
         >
-          Verify Now
+          {t("verifyNow")}
         </Button>
       </DialogFooter>
     </>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback, useMemo } from "react"
+import { useTranslations } from "next-intl"
 import { Loader } from "lucide-react"
 import { useTable } from "@tanstack/react-table"
 import type {
@@ -48,6 +49,7 @@ function buildPayloads(changes: ChangeMap) {
 }
 
 export function BulkEditTable() {
+  const t = useTranslations("superAdmin.bulkEdit")
   const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({
     gender: false,
     maritalStatus: false,
@@ -105,6 +107,7 @@ export function BulkEditTable() {
       isCasteLoading,
       casteMap,
       changesRef,
+      t: (key: string) => t(key as any),
     }),
     [updateChange, resetKey, castes, isCasteLoading, casteMap],
   )
@@ -190,7 +193,7 @@ export function BulkEditTable() {
               onClick={handleOpenConfirm}
               disabled={isPending}
             >
-              Save {changedCount} change{changedCount > 1 ? "s" : ""}
+              {t("saveChanges", { count: changedCount })}
             </Button>
           )}
         </UsersFiltersRow>

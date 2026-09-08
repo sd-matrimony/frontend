@@ -3,6 +3,7 @@ import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
 import { GripVertical } from "lucide-react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { move } from "@dnd-kit/helpers";
+import { useTranslations } from "next-intl";
 
 import useDashboardLayoutStore, { DEFAULT_HEIGHT } from "@/store/dashboard-layout";
 import { cn } from "@/lib/utils";
@@ -70,6 +71,7 @@ type GridItemProps = {
 };
 
 function GridItem({ id, index, width, height, Component }: GridItemProps) {
+  const t = useTranslations("superAdmin.dashboard.grid");
   const resize = useDashboardLayoutStore(s => s.resize);
   const resizeHeight = useDashboardLayoutStore(s => s.resizeHeight);
   const elRef = useRef<HTMLDivElement | null>(null);
@@ -131,7 +133,7 @@ function GridItem({ id, index, width, height, Component }: GridItemProps) {
       type="button"
       ref={handleRef}
       className="flex size-6 shrink-0 cursor-grab items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground active:cursor-grabbing"
-      aria-label="Drag to reorder card"
+      aria-label={t("dragReorder")}
     >
       <GripVertical className="size-4" />
     </button>
@@ -154,13 +156,13 @@ function GridItem({ id, index, width, height, Component }: GridItemProps) {
       <div
         onPointerDown={handleWidthResizeStart}
         className="absolute right-0 top-1/2 z-10 hidden h-12 w-1.5 -translate-y-1/2 cursor-col-resize rounded-full bg-border opacity-0 transition-opacity hover:bg-primary group-hover/grid-item:opacity-100 lg:block"
-        aria-label="Drag to resize card width"
+        aria-label={t("dragResizeWidth")}
       />
 
       <div
         onPointerDown={handleHeightResizeStart}
         className="absolute bottom-0 left-1/2 z-10 h-1.5 w-12 -translate-x-1/2 cursor-row-resize rounded-full bg-border opacity-0 transition-opacity hover:bg-primary group-hover/grid-item:opacity-100"
-        aria-label="Drag to resize card height"
+        aria-label={t("dragResizeHeight")}
       />
     </div>
   )

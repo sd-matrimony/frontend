@@ -1,9 +1,12 @@
 import { Heart } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
-function Hero() {
+async function Hero() {
+  const t = await getTranslations("public.hero");
+
   return (
     <section className="relative bg-linear-to-br from-rose-50 via-pink-50 to-white py-20 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,19 +14,18 @@ function Hero() {
           <div className="space-y-8">
             <div className="df w-fit bg-primary/5 px-4 py-2 rounded-full">
               <Heart className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-primary">India's #1 Fastest Growing Matrimony Platform</span>
+              <span className="text-sm font-medium text-primary">{t("badge")}</span>
             </div>
 
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tighter">
-                Find Your
+                {t("titleLine1")}
                 <span className="bg-linear-to-r from-rose-500 to-pink-600 bg-clip-text text-transparent block">
-                  Perfect Match
+                  {t("titleLine2")}
                 </span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
-                Join thousands of happy couples who found their soulmate through our trusted matrimony platform. Your
-                journey to forever starts here.
+                {t("description")}
               </p>
             </div>
 
@@ -34,22 +36,22 @@ function Hero() {
                 nativeButton={false}
                 render={<Link href="/auth/user/signup" />}
               >
-                Get Started Today
+                {t("cta")}
               </Button>
             </div>
 
             <div className="flex items-center space-x-8 pt-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-rose-500">500+</div>
-                <div className="text-sm text-gray-600">Happy Couples</div>
+                <div className="text-2xl font-bold text-rose-500">{t("statCouplesValue")}</div>
+                <div className="text-sm text-gray-600">{t("statCouplesLabel")}</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-rose-500">10k+</div>
-                <div className="text-sm text-gray-600">Verified Profiles</div>
+                <div className="text-2xl font-bold text-rose-500">{t("statProfilesValue")}</div>
+                <div className="text-sm text-gray-600">{t("statProfilesLabel")}</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-rose-500">99%</div>
-                <div className="text-sm text-gray-600">Success Rate</div>
+                <div className="text-2xl font-bold text-rose-500">{t("statSuccessValue")}</div>
+                <div className="text-sm text-gray-600">{t("statSuccessLabel")}</div>
               </div>
             </div>
           </div>
@@ -67,14 +69,14 @@ function Hero() {
             <div className="absolute -top-6 -left-2 md:-left-6 bg-card p-4 rounded-xl shadow-lg border border-border">
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium">2k+ Active Users</span>
+                <span className="text-sm font-medium">{t("activeUsers")}</span>
               </div>
             </div>
 
             <div className="absolute -bottom-6 -right-2 md:-right-6 bg-card p-4 rounded-xl shadow-lg border border-border">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">99%</div>
-                <div className="text-sm text-muted-foreground">Success Rate</div>
+                <div className="text-2xl font-bold text-primary">{t("floatingSuccessValue")}</div>
+                <div className="text-sm text-muted-foreground">{t("floatingSuccessLabel")}</div>
               </div>
             </div>
           </div>

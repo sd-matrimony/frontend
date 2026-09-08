@@ -57,12 +57,14 @@ type SubCasteField = Omit<BaseField, "label"> & {
 export type Field = TextField | NumberField | SelectField | RadioField | DateField | FileField | ComboboxField | SubCasteField
 
 type FieldSection = {
+  sectionId: "account" | "personal" | "contact" | "professional" | "family" | "horoscope" | "other" | "partnerPreferences"
   lable: string
   list: Field[]
 }
 
 export const fieldList: FieldSection[] = [
   {
+    sectionId: "account",
     lable: "Account Details",
     list: [
       {
@@ -80,6 +82,7 @@ export const fieldList: FieldSection[] = [
     ]
   },
   {
+    sectionId: "personal",
     lable: "Personal Details",
     list: [
       {
@@ -131,6 +134,7 @@ export const fieldList: FieldSection[] = [
     ]
   },
   {
+    sectionId: "contact",
     lable: "Contact Details",
     list: [
       {
@@ -153,6 +157,7 @@ export const fieldList: FieldSection[] = [
     ]
   },
   {
+    sectionId: "professional",
     lable: "Professional Details",
     list: [
       {
@@ -206,6 +211,7 @@ export const fieldList: FieldSection[] = [
     ]
   },
   {
+    sectionId: "family",
     lable: "Family Details",
     list: [
       {
@@ -261,6 +267,7 @@ export const fieldList: FieldSection[] = [
     ]
   },
   {
+    sectionId: "horoscope",
     lable: "Horoscope Details",
     list: [
       {
@@ -313,6 +320,7 @@ export const fieldList: FieldSection[] = [
     ]
   },
   {
+    sectionId: "other",
     lable: "Other Details",
     list: [
       {
@@ -370,6 +378,7 @@ export const fieldList: FieldSection[] = [
     ]
   },
   {
+    sectionId: "partnerPreferences",
     lable: "Partner Preferences",
     list: [
       {

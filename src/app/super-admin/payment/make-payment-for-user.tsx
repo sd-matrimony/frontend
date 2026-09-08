@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 
 import { assistedPrices, extraProfiles, PlanBadge, planDetails, planPrices, planValidityMonths, profilesCount } from "@/components/common/plan-badge"
 
@@ -19,6 +20,7 @@ type props = {
 }
 
 function MakePaymentForUser({ userId, compact, onSuccess }: props) {
+  const t = useTranslations("superAdmin.payment")
   const [additionalProfilesCount, setAdditionalProfilesCount] = useState(10)
   const [addAdditionalProfiles, setAddAdditionalProfiles] = useState(false)
   const [assistedMonths, setAssistedMonths] = useState(1)
@@ -113,7 +115,7 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
             <Separator className={compact ? "my-3" : "my-6"} />
 
             <div className="mb-1 text-sm text-gray-600">
-              Get full access to more profiles
+              {t("getFullAccess")}
             </div>
 
             <div className="df flex-wrap">
@@ -121,7 +123,7 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
                 id="additional-profile-access"
                 checked={addAdditionalProfiles}
                 onCheckedChange={(value) => setAddAdditionalProfiles(value as boolean)}
-                label="Additional Unlock Profiles"
+                label={t("additionalUnlockProfiles")}
               />
 
               {/* <Label htmlFor="additional-profile-access" className="mr-auto text-base font-medium shrink-0">
@@ -141,7 +143,7 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
                     {
                       Object.entries(extraProfiles).map(([key, price]) => (
                         <SelectItem key={key} value={key}>
-                          {`${Number(key) === 999 ? "Unlimited" : `+${key}`} profiles (+${price?.toLocaleString()})`}
+                          {`${Number(key) === 999 ? t("unlimitedProfiles") : `+${key}`} ${t("profilesSuffix")} (+${price?.toLocaleString()})`}
                         </SelectItem>
                       ))
                     }
@@ -150,14 +152,14 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
               }
             </div>
 
-            <div className={`mb-1 text-sm text-gray-600 ${compact ? "mt-3" : "mt-6"}`}>Get personalized assistance from our relationship experts</div>
+            <div className={`mb-1 text-sm text-gray-600 ${compact ? "mt-3" : "mt-6"}`}>{t("getAssistance")}</div>
 
             <div className="df flex-wrap">
               <Checkbox
                 id="assisted"
                 checked={isAssisted}
                 onCheckedChange={(value) => setIsAssisted(value as boolean)}
-                label="Assisted Services"
+                label={t("assistedServicesLabel")}
               />
               {/* <Label htmlFor="assisted" className="mr-auto text-base font-medium shrink-0">
                 Assisted Services
@@ -177,7 +179,7 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
                         .filter(([month]) => +month <= planValidityMonths[subscribedTo])
                         .map(([month, price]) => (
                           <SelectItem key={month} value={month.toString()}>
-                            {month} month{+month > 1 ? "s" : ""} (+₹{price?.toLocaleString()})
+                            {month} {t("monthsSuffix", { count: +month })} (+₹{price?.toLocaleString()})
                           </SelectItem>
                         ))
                     }
@@ -192,26 +194,26 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
       <div>
         <Card className="sticky top-28">
           <CardHeader>
-            <CardTitle>Order Summary</CardTitle>
+            <CardTitle>{t("orderSummary")}</CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-4">
             <div className="flex justify-between">
-              <p>{planDetails[subscribedTo].name} Plan <span className="text-xs capitalize text-gray-500">( {planDetails[subscribedTo].duration} - {profilesCount[subscribedTo]} profiles )</span></p>
+              <p>{planDetails[subscribedTo].name} {t("planSuffix")} <span className="text-xs capitalize text-gray-500">( {planDetails[subscribedTo].duration} - {profilesCount[subscribedTo]} {t("profilesSuffix")} )</span></p>
               <span className="font-semibold">₹{planPrices[subscribedTo].toLocaleString()}</span>
             </div>
 
             {
               addAdditionalProfiles &&
               <div className="flex justify-between text-sm">
-                <p>Additional Profiles <span className="text-xs capitalize text-gray-500">( {additionalProfilesCount === 999 ? " Unlimited" : ` +${additionalProfilesCount}`} )</span></p>
+                <p>{t("additionalProfilesLine")} <span className="text-xs capitalize text-gray-500">( {additionalProfilesCount === 999 ? ` ${t("unlimitedProfiles")}` : ` +${additionalProfilesCount}`} )</span></p>
                 <span className="font-semibold">+ ₹{(extraProfiles[additionalProfilesCount]).toLocaleString()}</span>
               </div>
             }
 
             {isAssisted && (
               <div className="flex justify-between text-sm">
-                <p>Assisted Services <span className="text-xs capitalize text-gray-500">( {assistedMonths} month{assistedMonths > 1 ? "s" : ""} )</span></p>
+                <p>{t("assistedServicesLine")} <span className="text-xs capitalize text-gray-500">( {assistedMonths} {t("monthsSuffix", { count: assistedMonths })} )</span></p>
                 <span className="font-semibold">+ ₹{(assistedPrices[assistedMonths]).toLocaleString()}</span>
               </div>
             )}
@@ -219,13 +221,13 @@ function MakePaymentForUser({ userId, compact, onSuccess }: props) {
             <Separator />
 
             <div className="flex justify-between font-semibold text-lg">
-              <span>Total Amount</span>
+              <span>{t("totalAmount")}</span>
               <span className="text-pink-600 font-bold">₹{finalAmount.toLocaleString()}</span>
             </div>
 
             <div className="text-xs text-gray-500 space-y-1">
-              <p>• Additional Unlock Profiles : {addAdditionalProfiles ? additionalProfilesCount === 999 ? "Unlimited" : additionalProfilesCount + profilesCount[subscribedTo] : profilesCount[subscribedTo]} profiles</p>
-              <p>• Assisted services : {isAssisted ? `${assistedMonths} month${assistedMonths > 1 ? "s" : ""}` : "Not opted"}</p>
+              <p>• {t("additionalUnlockProfilesSummary")} {addAdditionalProfiles ? additionalProfilesCount === 999 ? t("unlimitedProfiles") : additionalProfilesCount + profilesCount[subscribedTo] : profilesCount[subscribedTo]} {t("profilesSuffix")}</p>
+              <p>• {t("assistedServicesSummary")} {isAssisted ? `${assistedMonths} ${t("monthsSuffix", { count: assistedMonths })}` : t("notOpted")}</p>
             </div>
           </CardContent>
 

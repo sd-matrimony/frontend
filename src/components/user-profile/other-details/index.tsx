@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Edit from "./edit";
@@ -7,13 +8,15 @@ type props = {
   canEdit: boolean
 }
 
-function OtherDetails({ user, canEdit }: props) {
+async function OtherDetails({ user, canEdit }: props) {
+  const t = await getTranslations("shared.userProfile.other")
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Other Details</CardTitle>
-          <CardDescription>Additional personal information</CardDescription>
+          <CardTitle>{t("cardTitle")}</CardTitle>
+          <CardDescription>{t("cardDesc")}</CardDescription>
         </div>
 
         {
@@ -25,35 +28,35 @@ function OtherDetails({ user, canEdit }: props) {
       <CardContent>
         <div className="grid min-[400px]:grid-cols-2 gap-4">
           <div>
-            <span className="text-sm text-muted-foreground">Mother Tongue</span>
+            <span className="text-sm text-muted-foreground">{t("motherTongue")}</span>
             <p className="font-medium">{user?.otherDetails?.motherTongue || "---"}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Religion</span>
+            <span className="text-sm text-muted-foreground">{t("religion")}</span>
             <p className="font-medium">{user?.otherDetails?.religion || "---"}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Caste</span>
+            <span className="text-sm text-muted-foreground">{t("caste")}</span>
             <p className="font-medium">{user?.otherDetails?.caste || "---"}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Sub / Other Caste</span>
+            <span className="text-sm text-muted-foreground">{t("subCaste")}</span>
             <p className="font-medium">{user?.otherDetails?.subCaste || "---"}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">House Type</span>
+            <span className="text-sm text-muted-foreground">{t("houseType")}</span>
             <p className="font-medium">{user?.otherDetails?.houseType || "---"}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Other Properties</span>
+            <span className="text-sm text-muted-foreground">{t("otherProperties")}</span>
             <p className="font-medium">{user?.otherDetails?.otherProperties || "---"}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Height</span>
+            <span className="text-sm text-muted-foreground">{t("height")}</span>
             <p className="font-medium">{user?.otherDetails?.height || "---"}</p>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">Color</span>
+            <span className="text-sm text-muted-foreground">{t("color")}</span>
             <p className="font-medium">{user?.otherDetails?.color || "---"}</p>
           </div>
         </div>

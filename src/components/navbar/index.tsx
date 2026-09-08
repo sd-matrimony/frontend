@@ -1,48 +1,50 @@
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import Menu from './menu';
+import { LanguageSwitcher } from '@/components/common/language-switcher';
 
 type props = {
   role: rolesT
 }
 
 type linkT = {
-  lable: string
+  labelKey: string
   href: string
 }
 
 const superAdminLinks: linkT[] = [
   {
-    lable: "All users",
+    labelKey: "allUsers",
     href: "users",
   },
   {
-    lable: "Married users",
+    labelKey: "marriedUsers",
     href: "married",
   },
   {
-    lable: "Create user",
+    labelKey: "createUser",
     href: "create-user",
   },
 ]
 
 const adminLinks: linkT[] = [
   {
-    lable: "Create user",
+    labelKey: "createUser",
     href: "create-user",
   },
   {
-    lable: "Image Extractor",
+    labelKey: "imageExtractor",
     href: "image-extractor",
   },
 ]
 
 const userLinks: linkT[] = [
   {
-    lable: "Liked",
+    labelKey: "liked",
     href: "liked",
   },
   {
-    lable: "Unlocked",
+    labelKey: "unlocked",
     href: "unlocked",
   },
 ]
@@ -53,7 +55,9 @@ const list: Record<rolesT, linkT[]> = {
   user: userLinks,
 }
 
-function Navbar({ role = "user" }: props) {
+async function Navbar({ role = "user" }: props) {
+  const t = await getTranslations("shared.navbar")
+
   return (
     <nav className="df sm:gap-4 py-2 px-6 z-1 shadow-md sticky top-0 bg-white">
       <Link href={`/${role}`} className="df gap-0.5 mr-auto shrink-0">
@@ -73,10 +77,12 @@ function Navbar({ role = "user" }: props) {
             href={`/${role}/${link.href}`}
             className='text-[11px] sm:text-xs lg:text-sm hover:text-pink-700'
           >
-            {link.lable}
+            {t(link.labelKey)}
           </Link>
         ))
       }
+
+      <LanguageSwitcher triggerCls="h-8 px-2" />
 
       <Menu />
     </nav>

@@ -1,4 +1,5 @@
 import { RefreshCcw } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { format } from "date-fns";
 
 import { useGetAllPayments } from "@/hooks/use-super-admin";
@@ -11,12 +12,13 @@ import { Button } from "@/components/ui/button";
 import LoadMore from "@/components/common/load-more";
 
 function UsersAllPayments() {
+  const t = useTranslations("superAdmin.dashboard.usersAllPayments")
   const { isLoading, data, isFetching, hasNextPage, fetchNextPage, refetch } = useGetAllPayments()
 
   return (
     <Card className="gap-0">
       <CardHeader>
-        <CardTitle>Users All Payments</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
         <CardAction>
           <Button
             size="sm"
@@ -56,9 +58,9 @@ function UsersAllPayments() {
                 <table className="w-full table-fixed">
                   <thead>
                     <tr>
-                      <th className="w-20 p-1 text-sm font-medium text-left">Plan</th>
-                      <th className="w-28 p-1 text-sm font-medium text-right">Amount</th>
-                      <th className="w-28 p-1 text-sm font-medium text-center">Expiry Date</th>
+                      <th className="w-20 p-1 text-sm font-medium text-left">{t("colPlan")}</th>
+                      <th className="w-28 p-1 text-sm font-medium text-right">{t("colAmount")}</th>
+                      <th className="w-28 p-1 text-sm font-medium text-center">{t("colExpiry")}</th>
                     </tr>
                   </thead>
 

@@ -2,6 +2,7 @@
 
 import { format } from "date-fns";
 import { Lock } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import useUnlock from "../contact-details/use-unlock";
 
@@ -12,6 +13,7 @@ type props = {
   user: userT & { hasFullAccess?: boolean }
 }
 function Dob({ user }: props) {
+  const t = useTranslations("shared.userProfile.unlock")
   const { isPending, unlockBtnClk } = useUnlock()
   const isUnlocked = !!user?.hasFullAccess
 
@@ -29,7 +31,7 @@ function Dob({ user }: props) {
           className="flex h-7 text-xs mt-1"
         >
           <Lock className="h-4 w-4 text-muted-foreground" />
-          {isPending ? "Unlocking..." : "Unlock to View"}
+          {isPending ? t("unlocking") : t("unlockToView")}
         </Button>
       }
 

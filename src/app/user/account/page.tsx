@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { CheckCircle, XCircle, Mail, Lock, CreditCard, Loader, User, Phone } from "lucide-react";
 
 import { useResendVerifyEmail, useUpdateEmail, useUpdateMobile, useUserDetailsMini } from "@/hooks/use-account";
@@ -17,6 +18,8 @@ import PlanDetails from "./plan-details";
 import UpdatePass from "./update-pass";
 
 function Page() {
+  const t = useTranslations("user.account");
+  const tCommon = useTranslations("common");
   const { data: user, isLoading } = useUserDetailsMini()
 
   const [showPasswordForm, setShowPasswordForm] = useState(false)
@@ -40,12 +43,12 @@ function Page() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-10 py-20">
-      <CardWrapper Icon={User} title="Account Information" description="Manage your account details and security settings">
+      <CardWrapper Icon={User} title={t("title")} description={t("description")}>
         <div className="space-y-2">
           <div className="df">
             <Mail className="h-4 w-4" />
             <Label htmlFor="email" className="flex-1">
-              Email Address
+              {t("email.label")}
             </Label>
 
             {
@@ -59,12 +62,12 @@ function Page() {
                   {user?.isVerified ? (
                     <>
                       <CheckCircle className="h-3 w-3" />
-                      Verified
+                      {t("email.verified")}
                     </>
                   ) : (
                     <>
                       <XCircle className="h-3 w-3" />
-                      Not Verified
+                      {t("email.notVerified")}
                     </>
                   )}
                 </Badge>
@@ -75,13 +78,13 @@ function Page() {
             <Input
               id="email"
               type="email"
-              value={isLoading ? "Loading..." : email}
+              value={isLoading ? tCommon("loading") : email}
               className="flex-1"
               onChange={e => setEmail(e.target.value)}
             />
 
             <ConfirmUpdate
-              description={`email to ${email}. You need to verify your new email agian even if you verified your old email.`}
+              description={t("email.confirmDescription", { email })}
               disabled={!email || email === user?.email}
               isPending={isEmailPending}
               onConfirm={() => emailMutate({ email: email })}
@@ -100,7 +103,7 @@ function Page() {
                 disabled={isPending1}
               >
                 {isPending1 && <Loader className="h-4 w-4 animate-spin" />}
-                Send Verification Email
+                {t("email.sendVerification")}
               </Button>
             )
           }
@@ -111,19 +114,19 @@ function Page() {
         <div className="space-y-2">
           <Label htmlFor="mobile" className="df mb-2">
             <Phone className="h-4 w-4" />
-            Mobile
+            {t("mobile.label")}
           </Label>
 
           <div className="relative">
             <Input
               id="mobile"
               type="tel"
-              value={isLoading ? "Loading..." : mobile}
+              value={isLoading ? tCommon("loading") : mobile}
               className="flex-1"
               onChange={e => setMobile(e.target.value)}
             />
             <ConfirmUpdate
-              description={`mobile to ${mobile}`}
+              description={t("mobile.confirmDescription", { mobile })}
               disabled={!mobile || mobile === user?.contactDetails?.mobile}
               isPending={isMobilePending}
               onConfirm={() => mobileMutate({ mobile: mobile })}
@@ -138,10 +141,10 @@ function Page() {
             <div>
               <Label className="df text-base font-medium">
                 <Lock className="h-4 w-4" />
-                Password
+                {t("password.label")}
               </Label>
 
-              <p className="text-sm text-muted-foreground">Update your password to keep your account secure</p>
+              <p className="text-sm text-muted-foreground">{t("password.description")}</p>
             </div>
 
             <Button
@@ -149,7 +152,7 @@ function Page() {
               variant="outline"
               onClick={updatePass}
             >
-              {showPasswordForm ? "Cancel" : "Change Password"}
+              {showPasswordForm ? tCommon("cancel") : t("password.change")}
             </Button>
           </div>
 
@@ -162,8 +165,8 @@ function Page() {
 
       <CardWrapper
         Icon={CreditCard}
-        title="Current Plan"
-        description="Your subscription details and included features"
+        title={t("plan.title")}
+        description={t("plan.description")}
       >
         {
           isLoading

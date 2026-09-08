@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Check, Users, Loader } from "lucide-react";
 import Script from "next/script";
 
@@ -21,6 +22,8 @@ type props = {
 }
 
 function Checkout({ showCheckout = true }: props) {
+  const t = useTranslations("user.payment")
+  const tPlan = useTranslations("user.plan")
   const [additionalProfilesCount, setAdditionalProfilesCount] = useState(10)
   const [addAdditionalProfiles, setAddAdditionalProfiles] = useState(false)
   const [assistedMonths, setAssistedMonths] = useState(1)
@@ -89,10 +92,10 @@ function Checkout({ showCheckout = true }: props) {
               height={80}
               alt='SDM-logo'
             />
-            <h1 className="text-3xl font-bold text-gray-900">Find Your Perfect Match</h1>
+            <h1 className="text-3xl font-bold text-gray-900">{t("heroTitle")}</h1>
           </div>
 
-          <div className="text-gray-600 text-lg">Choose the plan that's right for your journey to love</div>
+          <div className="text-gray-600 text-lg">{t("heroSubtitle")}</div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -101,10 +104,10 @@ function Checkout({ showCheckout = true }: props) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Users className="h-5 w-5" />
-                  Select Your Plan
+                  {t("selectPlan")}
                 </CardTitle>
                 <CardDescription>
-                  Choose from our carefully crafted plans designed to help you find your soulmate
+                  {t("selectPlanDesc")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -143,7 +146,7 @@ function Checkout({ showCheckout = true }: props) {
                               </div>
                               <div className="space-y-2">
                                 {[
-                                  `Unlock personal information of ${profilesCount[key as subscribedToT]} profiles`,
+                                  tPlan("unlockFeature", { count: profilesCount[key as subscribedToT] }),
                                   // "View user information",
                                   // "Phone numbers & contact details"
                                 ].map((feature, index) => (
@@ -164,7 +167,7 @@ function Checkout({ showCheckout = true }: props) {
                 <Separator className="my-6" />
 
                 <div className="mb-1 text-sm text-gray-600">
-                  Get full access to more profiles
+                  {t("fullAccessNote")}
                 </div>
 
                 <div className="df flex-wrap">
@@ -172,7 +175,7 @@ function Checkout({ showCheckout = true }: props) {
                     id="additional-profile-access"
                     checked={addAdditionalProfiles}
                     onCheckedChange={(value) => setAddAdditionalProfiles(value as boolean)}
-                    label="Additional Unlock Profiles"
+                    label={t("additionalUnlockProfiles")}
                   />
 
                   {/* <Label htmlFor="additional-profile-access" className="mr-auto text-base font-medium shrink-0">
@@ -192,7 +195,7 @@ function Checkout({ showCheckout = true }: props) {
                         {
                           Object.entries(extraProfiles).map(([key, price]) => (
                             <SelectItem key={key} value={key}>
-                              {`${Number(key) === 999 ? "Unlimited" : `+${key}`} profiles (+${price?.toLocaleString()})`}
+                              {`${Number(key) === 999 ? t("unlimited") : `+${key}`} ${t("profilesSuffix")} (+${price?.toLocaleString()})`}
                             </SelectItem>
                           ))
                         }
@@ -201,14 +204,14 @@ function Checkout({ showCheckout = true }: props) {
                   }
                 </div>
 
-                <div className="mb-1 mt-6 text-sm text-gray-600">Get personalized assistance from our relationship experts</div>
+                <div className="mb-1 mt-6 text-sm text-gray-600">{t("assistedNote")}</div>
 
                 <div className="df flex-wrap">
                   <Checkbox
                     id="assisted"
                     checked={isAssisted}
                     onCheckedChange={(value) => setIsAssisted(value as boolean)}
-                    label="Assisted Services"
+                    label={t("assistedServices")}
                   />
                   {/* <Label htmlFor="assisted" className="mr-auto text-base font-medium shrink-0">
                     Assisted Services
@@ -228,7 +231,7 @@ function Checkout({ showCheckout = true }: props) {
                             .filter(([month]) => +month <= planValidityMonths[subscribedTo])
                             .map(([month, price]) => (
                               <SelectItem key={month} value={month.toString()}>
-                                {month} month{+month > 1 ? "s" : ""} (+₹{price?.toLocaleString()})
+                                {month} {t("monthsSuffix")} (+₹{price?.toLocaleString()})
                               </SelectItem>
                             ))
                         }
@@ -238,7 +241,7 @@ function Checkout({ showCheckout = true }: props) {
                 </div>
 
                 <div className="mt-8 text-xs text-gray-500">
-                  Note: Assisted services expire is different from plan expiry. For example, if you buy a 3 month plan with 2 months assisted services, then your plan will expire in 3 months but assisted services will expire in 2 months.
+                  {t("assistedFootnote")}
                 </div>
               </CardContent>
             </Card>
@@ -247,26 +250,26 @@ function Checkout({ showCheckout = true }: props) {
           <div>
             <Card className="sticky top-28">
               <CardHeader>
-                <CardTitle>Order Summary</CardTitle>
+                <CardTitle>{t("orderSummary")}</CardTitle>
               </CardHeader>
 
               <CardContent className="space-y-4">
                 <div className="flex justify-between">
-                  <p>{planDetails[subscribedTo].name} Plan <span className="text-xs capitalize text-gray-500">( {planDetails[subscribedTo].duration} - {profilesCount[subscribedTo]} profiles )</span></p>
+                  <p>{tPlan("nameSuffix", { name: planDetails[subscribedTo].name })} <span className="text-xs capitalize text-gray-500">( {planDetails[subscribedTo].duration} - {profilesCount[subscribedTo]} {t("profilesSuffix")} )</span></p>
                   <span className="font-semibold">₹{planPrices[subscribedTo].toLocaleString()}</span>
                 </div>
 
                 {
                   addAdditionalProfiles &&
                   <div className="flex justify-between text-sm">
-                    <p>Additional Profiles <span className="text-xs capitalize text-gray-500">( {additionalProfilesCount === 999 ? " Unlimited" : ` +${additionalProfilesCount}`} )</span></p>
+                    <p>{t("additionalProfiles")} <span className="text-xs capitalize text-gray-500">( {additionalProfilesCount === 999 ? ` ${t("unlimited")}` : ` +${additionalProfilesCount}`} )</span></p>
                     <span className="font-semibold">+ ₹{(extraProfiles[additionalProfilesCount]).toLocaleString()}</span>
                   </div>
                 }
 
                 {isAssisted && (
                   <div className="flex justify-between text-sm">
-                    <p>Assisted Services <span className="text-xs capitalize text-gray-500">( {assistedMonths} month{assistedMonths > 1 ? "s" : ""} )</span></p>
+                    <p>{t("assistedServices")} <span className="text-xs capitalize text-gray-500">( {assistedMonths} {t("monthsSuffix")} )</span></p>
                     <span className="font-semibold">+ ₹{(assistedPrices[assistedMonths]).toLocaleString()}</span>
                   </div>
                 )}
@@ -274,13 +277,13 @@ function Checkout({ showCheckout = true }: props) {
                 <Separator />
 
                 <div className="flex justify-between font-semibold text-lg">
-                  <span>Total Amount</span>
+                  <span>{t("totalAmount")}</span>
                   <span className="text-pink-600 font-bold">₹{finalAmount.toLocaleString()}</span>
                 </div>
 
                 <div className="text-xs text-gray-500 space-y-1">
-                  <p>• Additional Unlock Profiles : {addAdditionalProfiles ? additionalProfilesCount === 999 ? "Unlimited" : additionalProfilesCount + profilesCount[subscribedTo] : profilesCount[subscribedTo]} profiles</p>
-                  <p>• Assisted services : {isAssisted ? `${assistedMonths} month${assistedMonths > 1 ? "s" : ""}` : "Not opted"}</p>
+                  <p>• {t("additionalUnlockProfilesLine", { value: addAdditionalProfiles ? (additionalProfilesCount === 999 ? t("unlimited") : additionalProfilesCount + profilesCount[subscribedTo]) : profilesCount[subscribedTo] })}</p>
+                  <p>• {t("assistedServicesLine", { value: isAssisted ? `${assistedMonths} ${t("monthsSuffix")}` : t("notOpted") })}</p>
                 </div>
               </CardContent>
 
@@ -294,7 +297,7 @@ function Checkout({ showCheckout = true }: props) {
                     disabled={isCreateOrderPending || isVerifyPaymentPending}
                   >
                     {(isCreateOrderPending || isVerifyPaymentPending) && <Loader className="animate-spin" />}
-                    Proceed to Payment - ₹{finalAmount.toLocaleString()}
+                    {t("proceedToPayment", { amount: finalAmount.toLocaleString() })}
                   </Button>
                 </CardFooter>
               }

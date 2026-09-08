@@ -1,0 +1,435 @@
+{
+  "common": {
+    "language": "மொழி",
+    "loading": "ஏற்றுகிறது...",
+    "save": "சேமி",
+    "cancel": "ரத்து செய்",
+    "edit": "திருத்து",
+    "delete": "நீக்கு",
+    "search": "தேடு",
+    "submit": "சமர்ப்பி",
+    "close": "மூடு",
+    "confirm": "உறுதிப்படுத்து",
+    "saveChanges": "மாற்றங்களைச் சேமி",
+    "next": "அடுத்து",
+    "back": "பின்",
+    "yes": "ஆம்",
+    "no": "இல்லை"
+  },
+  "nav": {
+    "dashboard": "டாஷ்போர்டு",
+    "profile": "சுயவிவரம்",
+    "matches": "பொருத்தங்கள்",
+    "liked": "விருப்பம் தெரிவித்தவை",
+    "unlocked": "திறக்கப்பட்டவை",
+    "payment": "கட்டணம்",
+    "logout": "வெளியேறு"
+  },
+  "shared": {
+    "actions": {
+      "goBack": "பின் செல்",
+      "confirm": "உறுதிப்படுத்து"
+    },
+    "navbar": {
+      "allUsers": "அனைத்து பயனர்கள்",
+      "marriedUsers": "திருமணமான பயனர்கள்",
+      "createUser": "பயனரை உருவாக்கு",
+      "imageExtractor": "படம் பிரிப்பான்",
+      "makeMatch": "பொருத்தம் அமை",
+      "bulkUpdate": "மொத்த புதுப்பிப்பு",
+      "account": "கணக்கு",
+      "liked": "விருப்பம் தெரிவித்தவை",
+      "unlocked": "திறக்கப்பட்டவை",
+      "payment": "கட்டணம்",
+      "profile": "சுயவிவரம்",
+      "logout": "வெளியேறு"
+    },
+    "createUser": {
+      "signUp": "பதிவு செய்யவும்",
+      "createUser": "பயனரை உருவாக்கு",
+      "showAllFields": "அனைத்து புலங்களையும் காட்டு",
+      "showRequiredOnly": "தேவையான புலங்களை மட்டும் காட்டு",
+      "password": "கடவுச்சொல்",
+      "autoGenerate": "தானாக உருவாக்கு",
+      "enterPassword": "கடவுச்சொல்லை உள்ளிடவும்",
+      "canUploadUpto4": "அதிகபட்சம் 4 கோப்புகள் பதிவேற்றலாம்",
+      "subCaste": "உட்பிரிவு / பிற சாதி",
+      "selectSubCaste": "உட்பிரிவு / பிற சாதியைத் தேர்ந்தெடுக்கவும்",
+      "selectLabel": "{label} தேர்ந்தெடுக்கவும்",
+      "failedToRegister": "பதிவு செய்ய முடியவில்லை",
+      "fillFullName": "தயவுசெய்து முழு பெயரை நிரப்பவும்.",
+      "fillDob": "தயவுசெய்து பிறந்த தேதியை நிரப்பவும்.",
+      "sections": {
+        "account": "கணக்கு விவரங்கள்",
+        "personal": "தனிப்பட்ட விவரங்கள்",
+        "contact": "தொடர்பு விவரங்கள்",
+        "professional": "தொழில் விவரங்கள்",
+        "family": "குடும்ப விவரங்கள்",
+        "horoscope": "ஜாதக விவரங்கள்",
+        "other": "பிற விவரங்கள்",
+        "partnerPreferences": "துணை விருப்பங்கள்"
+      }
+    },
+    "createUserFields": {
+      "email": "மின்னஞ்சல்",
+      "password": "கடவுச்சொல்",
+      "profileImg": "சுயவிவரப் படம்",
+      "images": "கூடுதல் படங்கள்",
+      "fullName": "முழு பெயர்",
+      "gender": "பாலினம்",
+      "dob": "பிறந்த தேதி",
+      "maritalStatus": "திருமண நிலை",
+      "hasDisability": "குறைபாடு உள்ளதா",
+      "contactDetails": {
+        "mobile": "மொபைல் எண்",
+        "address": "முழு முகவரி",
+        "place": "இடம்"
+      },
+      "proffessionalDetails": {
+        "highestQualification": "உயர் கல்வித் தகுதி",
+        "qualifications": "தகுதிகள்",
+        "sector": "துறை",
+        "profession": "தொழில்",
+        "companyName": "நிறுவனத்தின் பெயர்",
+        "companyLocation": "நிறுவன இடம்",
+        "salary": "மாத சம்பளம் (₹)"
+      },
+      "familyDetails": {
+        "fatherName": "தந்தையின் பெயர்",
+        "motherName": "தாயின் பெயர்",
+        "isFatherAlive": "தந்தையின் வாழ்நிலை",
+        "isMotherAlive": "தாயின் வாழ்நிலை",
+        "noOfBrothers": "சகோதரர்கள் எண்ணிக்கை",
+        "noOfSisters": "சகோதரிகள் எண்ணிக்கை",
+        "birthOrder": "பிறப்பு வரிசை"
+      },
+      "vedicHoroscope": {
+        "nakshatra": "நட்சத்திரம்",
+        "rasi": "ராசி",
+        "lagna": "லக்னம்",
+        "dashaPeriod": "தசை காலம்",
+        "placeOfBirth": "பிறந்த இடம்",
+        "timeOfBirth": "பிறந்த நேரம்",
+        "dosham": "தோஷம்",
+        "vedicHoroscopePic": "ஜாதக படம்"
+      },
+      "otherDetails": {
+        "caste": "சாதி",
+        "motherTongue": "தாய்மொழி",
+        "religion": "மதம்",
+        "height": "உயரம்",
+        "color": "நிறம்",
+        "houseType": "வீட்டு வகை",
+        "otherProperties": "பிற சொத்துக்கள்"
+      },
+      "partnerPreferences": {
+        "minAge": "குறைந்தபட்ச வயது",
+        "maxAge": "அதிகபட்ச வயது",
+        "minQualification": "குறைந்தபட்ச கல்வித் தகுதி",
+        "sector": "துறை",
+        "profession": "தொழில்",
+        "minSalary": "குறைந்தபட்ச சம்பளம் (₹)",
+        "caste": "சாதி",
+        "religion": "மதம்",
+        "motherTongue": "தாய்மொழி",
+        "location": "இடம்",
+        "expectation": "எதிர்பார்ப்புகள்",
+        "maritalStatus": "திருமண நிலை"
+      }
+    },
+    "createUserFieldPlaceholders": {
+      "contactDetails": {
+        "place": "எ.கா. சென்னை"
+      }
+    },
+    "userProfile": {
+      "tabs": {
+        "personal": "தனிப்பட்ட",
+        "family": "குடும்பம்",
+        "horoscope": "ஜாதகம்",
+        "preferences": "விருப்பங்கள்"
+      },
+      "unlock": {
+        "unlocking": "திறக்கிறது...",
+        "unlockToView": "பார்க்க திறக்கவும்",
+        "failedToUnlock": "சுயவிவரத்தை திறக்க முடியவில்லை",
+        "proceedToPayment": "கட்டணம் செலுத்த தொடரவா?",
+        "payNow": "இப்போது செலுத்து",
+        "unlockMoreDetails": "மேலும் விவரங்களைத் திற",
+        "paymentRequired": "மேலும் தகவல்களைப் பார்க்க கட்டணம் தேவை. கட்டணம் செலுத்த தொடரவா?"
+      },
+      "restrictedNote": "இது கட்டுப்படுத்தப்பட்ட கணக்கு, கொடுக்கப்பட்ட எண்ணில் நிர்வாகியை தொடர்பு கொள்ளவும்",
+      "personal": {
+        "cardTitle": "தனிப்பட்ட விவரங்கள்",
+        "cardDesc": "உங்கள் அடிப்படை தனிப்பட்ட தகவல்",
+        "fullName": "முழு பெயர்",
+        "gender": "பாலினம்",
+        "dob": "பிறந்த தேதி",
+        "maritalStatus": "திருமண நிலை",
+        "hasDisabilitySuffix": " (குறைபாடு உள்ளது)",
+        "editTitle": "தனிப்பட்ட விவரங்களைத் திருத்து",
+        "editDesc": "உங்கள் தனிப்பட்ட தகவலை இங்கே மாற்றவும்.",
+        "fields": {
+          "gender": "பாலினம்",
+          "selectGender": "பாலினத்தைத் தேர்ந்தெடுக்கவும்",
+          "maritalStatus": "திருமண நிலை",
+          "selectMaritalStatus": "திருமண நிலையைத் தேர்ந்தெடுக்கவும்",
+          "hasDisability": "குறைபாடு உள்ளதா"
+        }
+      },
+      "family": {
+        "cardTitle": "குடும்ப விவரங்கள்",
+        "cardDesc": "உங்கள் குடும்பம் பற்றிய தகவல்",
+        "fatherName": "தந்தையின் பெயர்",
+        "motherName": "தாயின் பெயர்",
+        "deceasedSuffix": " (இறந்தவர்)",
+        "noOfBrothers": "சகோதரர்கள் எண்ணிக்கை",
+        "noOfSisters": "சகோதரிகள் எண்ணிக்கை",
+        "birthOrder": "பிறப்பு வரிசை",
+        "editTitle": "குடும்ப விவரங்களைத் திருத்து",
+        "editDesc": "உங்கள் குடும்பத் தகவலை இங்கே மாற்றவும்."
+      },
+      "horoscope": {
+        "cardTitle": "வேத ஜாதகம்",
+        "cardDesc": "உங்கள் ஜோதிட தகவல்",
+        "rasi": "ராசி",
+        "nakshatra": "நட்சத்திரம்",
+        "lagna": "லக்னம்",
+        "dashaPeriod": "தசை காலம்",
+        "picLabel": "ஜாதக படம்",
+        "editTitle": "ஜாதக விவரங்களைத் திருத்து",
+        "editDesc": "உங்கள் ஜாதகத் தகவலை இங்கே மாற்றவும்.",
+        "fields": {
+          "nakshatra": "நட்சத்திரம்",
+          "rasi": "ராசி",
+          "lagna": "லக்னம்",
+          "dashaPeriod": "தசை காலம்",
+          "dosham": "தோஷம்",
+          "dontSpecify": "குறிப்பிட விரும்பவில்லை",
+          "image": "ஜாதக படம்"
+        }
+      },
+      "contact": {
+        "cardTitle": "தொடர்பு விவரங்கள்",
+        "cardDesc": "உங்கள் தொடர்பு விவரங்கள் பற்றிய தகவல்",
+        "phone": "தொலைபேசி எண்",
+        "address": "முழு முகவரி",
+        "place": "இடம்",
+        "editTitle": "தொடர்பு விவரங்களைத் திருத்து",
+        "editDesc": "உங்கள் தொடர்பு தகவலை இங்கே மாற்றவும்.",
+        "fields": {
+          "address": "முழு முகவரி",
+          "place": "இடம்",
+          "placeholderPlace": "எ.கா. சென்னை"
+        }
+      },
+      "other": {
+        "cardTitle": "பிற விவரங்கள்",
+        "cardDesc": "கூடுதல் தனிப்பட்ட தகவல்",
+        "motherTongue": "தாய்மொழி",
+        "religion": "மதம்",
+        "caste": "சாதி",
+        "subCaste": "உட்பிரிவு / பிற சாதி",
+        "houseType": "வீட்டு வகை",
+        "otherProperties": "பிற சொத்துக்கள்",
+        "height": "உயரம்",
+        "color": "நிறம்",
+        "editTitle": "பிற விவரங்களைத் திருத்து",
+        "editDesc": "உங்கள் கூடுதல் தகவலை இங்கே மாற்றவும்.",
+        "fields": {
+          "motherTongue": "தாய்மொழி",
+          "religion": "மதம்",
+          "caste": "சாதி",
+          "houseType": "வீட்டு வகை",
+          "otherProperties": "பிற சொத்துக்கள்",
+          "height": "உயரம் (செ.மீ)",
+          "color": "நிறம்",
+          "dontSpecify": "குறிப்பிட விரும்பவில்லை",
+          "own": "சொந்தம்",
+          "rented": "வாடகை"
+        }
+      },
+      "professional": {
+        "cardTitle": "தொழில் விவரங்கள்",
+        "cardDesc": "உங்கள் கல்வி மற்றும் தொழில் தகவல்",
+        "highestQualification": "உயர் கல்வித் தகுதி",
+        "qualifications": "தகுதிகள்",
+        "sector": "துறை",
+        "profession": "தொழில்",
+        "companyName": "நிறுவனத்தின் பெயர்",
+        "companyLocation": "நிறுவன இடம்",
+        "monthlySalary": "மாத சம்பளம்",
+        "editTitle": "தொழில் விவரங்களைத் திருத்து",
+        "editDesc": "உங்கள் தொழில் தகவலை இங்கே மாற்றவும்.",
+        "contactAdminNote": "(புதுப்பிக்க நிர்வாகியை தொடர்பு கொள்ளவும்)"
+      },
+      "partner": {
+        "cardTitle": "துணை விருப்பங்கள்",
+        "cardDesc": "வாழ்க்கை துணைக்கான உங்கள் விருப்பங்கள்",
+        "ageRange": "வயது வரம்பு",
+        "min": "குறைந்தபட்சம்",
+        "max": "அதிகபட்சம்",
+        "religion": "மதம்",
+        "caste": "சாதி",
+        "subCaste": "உட்பிரிவு / பிற சாதி",
+        "maritalStatus": "திருமண நிலை",
+        "minQualification": "குறைந்தபட்ச கல்வித் தகுதி",
+        "sector": "துறை",
+        "profession": "தொழில்",
+        "minSalary": "குறைந்தபட்ச சம்பளம்",
+        "motherTongue": "தாய்மொழி",
+        "location": "இடம்",
+        "expectations": "எதிர்பார்ப்புகள்",
+        "perMonth": "மாதம் {amount}",
+        "editTitle": "துணை விருப்பங்களைத் திருத்து",
+        "editDesc": "உங்கள் துணை விருப்பங்களை இங்கே மாற்றவும்.",
+        "fields": {
+          "minAge": "குறைந்தபட்ச வயது",
+          "maxAge": "அதிகபட்ச வயது",
+          "expectedSalary": "எதிர்பார்க்கும் சம்பளம்",
+          "selectMaritalStatus": "திருமண நிலையைத் தேர்ந்தெடுக்கவும்",
+          "any": "எதுவும்"
+        }
+      },
+      "sidebar": {
+        "photoGallery": "புகைப்பட தொகுப்பு",
+        "photoGalleryDesc": "உங்கள் சுயவிவர புகைப்படங்கள்",
+        "setAsProfilePic": "சுயவிவரப் படமாக அமை",
+        "uploadLimit1": "ஒரு முறைக்கு 1 கோப்பு மட்டுமே பதிவேற்றலாம்.",
+        "uploadLimit4": "ஒரு முறைக்கு 4 கோப்புகள் மட்டுமே பதிவேற்றலாம்.",
+        "addImage": {
+          "title": "புதிய புகைப்படத்தைச் சேர்",
+          "desc": "உங்கள் தொகுப்பில் புதிய புகைப்படத்தைச் சேர்க்கவும். முடிந்ததும் சேமி என்பதை அழுத்தவும்.",
+          "label": "படங்களைச் சேர்",
+          "add": "படங்களைச் சேர்"
+        },
+        "editImage": {
+          "title": "சுயவிவரப் படத்தைப் புதுப்பி",
+          "desc": "உங்கள் சுயவிவரப் படத்தை மாற்றவும். முடிந்ததும் சேமி என்பதை அழுத்தவும்.",
+          "label": "சுயவிவரப் படம்",
+          "save": "சேமி"
+        }
+      },
+      "addEmailDialog": {
+        "title": "உங்கள் கணக்கை சரிபார்க்க மின்னஞ்சலைச் சேர்க்கவும்",
+        "desc": "உங்கள் மின்னஞ்சலை சரிபார்த்து கூடுதல் அம்சங்களைத் திறந்து, தனிப்பயன் பரிந்துரைகளைப் பெறுங்கள்.",
+        "label": "மின்னஞ்சல்",
+        "placeholder": "you@example.com",
+        "add": "சேர்"
+      },
+      "verifyReminder": {
+        "title": "மின்னஞ்சல் சரிபார்க்கப்படவில்லை",
+        "desc": "உங்கள் கணக்கு மின்னஞ்சல் <b>{email}</b> இன்னும் சரிபார்க்கப்படவில்லை.",
+        "doNotShowAgain": "மீண்டும் காட்ட வேண்டாம்",
+        "verifyLater": "பின்னர் சரிபார்",
+        "verifyNow": "இப்போது சரிபார்"
+      }
+    },
+    "adminUsersTable": {
+      "searchGender": "{gender} தேடு",
+      "fullName": "முழு பெயர்",
+      "email": "மின்னஞ்சல்",
+      "mobile": "மொபைல் எண்",
+      "results": "முடிவுகள் ({count})",
+      "clear": "அழி",
+      "search": "தேடு",
+      "counting": "எண்ணுகிறது...",
+      "total": "மொத்தம்: {count}",
+      "columnName": "பெயர்",
+      "columnEmail": "மின்னஞ்சல்",
+      "columnMobile": "மொபைல்",
+      "columnCaste": "சாதி",
+      "columnGender": "பாலினம்",
+      "columnMaritalStatus": "திருமண நிலை",
+      "columnSalary": "சம்பளம்",
+      "columnPlan": "திட்டம்",
+      "planNone": "எதுவுமில்லை",
+      "view": "பார்",
+      "filterMobile": "மொபைல்",
+      "filterCaste": "சாதி, அல்லது புதிதாக சேர்க்க தட்டச்சு செய்யவும்",
+      "filterSubCaste": "உட்பிரிவு, அல்லது புதிதாக சேர்க்க தட்டச்சு செய்யவும்",
+      "filterGender": "பாலினம்",
+      "filterMaritalStatus": "திருமண நிலை",
+      "createdDate": "உருவாக்கப்பட்ட தேதி",
+      "fewer": "குறைவாக",
+      "more": "மேலும்",
+      "resetToPrevious": "முந்தையதற்கு மீட்டமை",
+      "resetToDefault": "இயல்புநிலைக்கு மீட்டமை",
+      "resetPassword": "கடவுச்சொல்லை மீட்டமை",
+      "resetPasswordConfirmTitle": "கடவுச்சொல்லை மீட்டமைக்கவா?",
+      "resetPasswordConfirmDesc": "{fullName} இன் கடவுச்சொல் கணினி-உருவாக்கிய இயல்புநிலைக்கு மீட்டமைக்கப்படும்.",
+      "updateDetails": "விவரங்களைப் புதுப்பி",
+      "approve": "அங்கீகரி",
+      "approveConfirmTitle": "இந்த பயனரை அங்கீகரிக்கவா?",
+      "approveConfirmDesc": "{fullName} அங்கீகரிக்கப்பட்டு தளத்திற்கான அணுகலைப் பெறுவார்.",
+      "married": "திருமணமானது",
+      "unblock": "தடையை நீக்கு",
+      "unblockConfirmTitle": "இந்த பயனரின் தடையை நீக்கவா?",
+      "unblockConfirmDesc": "{fullName} மீண்டும் தளத்திற்கான அணுகலைப் பெறுவார்.",
+      "delete": "நீக்கு",
+      "deleteConfirmTitle": "இந்த பயனரை நீக்கவா?",
+      "deleteConfirmDesc": "{fullName} நீக்கப்பட்ட பயனர்களுக்கு நகர்த்தப்படுவார்.",
+      "restore": "மீட்டெடு",
+      "restoreConfirmTitle": "இந்த பயனரை மீட்டெடுக்கவா?",
+      "restoreConfirmDesc": "{fullName} மீட்டெடுக்கப்பட்டு அங்கீகாரம் நிலுவையில் என குறிக்கப்படுவார்."
+    },
+    "planActions": {
+      "copyInviteMessage": "அழைப்பு செய்தியை நகலெடு",
+      "copied": "நகலெடுக்கப்பட்டது!",
+      "makePayment": "கட்டணம் செலுத்து",
+      "paymentFor": "{fullName} க்கான கட்டணம்",
+      "cancelSubscription": "செயலில் உள்ள சந்தாவை ரத்து செய்",
+      "cancelSubscriptionConfirmTitle": "சந்தாவை ரத்து செய்யவா?",
+      "cancelSubscriptionConfirmDesc": "இது {fullName} இன் செயலில் உள்ள திட்டத்தை நீக்கும். இந்த செயலை மீட்க முடியாது.",
+      "remove": "அகற்று",
+      "inviteMessage": "வணக்கம் {fullName},\n\nநீங்கள் SD Matrimony இல் சேர்க்கப்பட்டுள்ளீர்கள்!\nஉங்களை எங்களுடன் இணைத்து, அர்த்தமுள்ள பொருத்தங்களுடன் இணைக்க உதவுவதில் நாங்கள் மகிழ்ச்சியடைகிறோம்.\n\nஉங்கள் உள்நுழைவு விவரங்கள்:\n\nஐடி: {mobile} (உங்கள் மொபைல் எண்)\n\nகடவுச்சொல்: {password}\n\nகீழே உள்ள இணைப்பைப் பயன்படுத்தி உள்நுழையலாம்:\n👉 SD Matrimony இல் உள்நுழையவும் - https://sdmatrimony.com/auth/user/signin\n\nநீங்கள் SD Matrimony இல் சேர விரும்பவில்லை என்றால் அல்லது இது தவறு என நினைத்தால், எந்த நேரத்திலும் உங்கள் கணக்கை நீக்கலாம் அல்லது உதவிக்காக எங்கள் ஆதரவு குழுவைத் தொடர்பு கொள்ளலாம்."
+    },
+    "updateUserDialog": {
+      "title": "முக்கிய விவரங்களைப் புதுப்பி",
+      "email": "மின்னஞ்சல்",
+      "mobile": "மொபைல்",
+      "salary": "சம்பளம்",
+      "update": "புதுப்பி",
+      "confirmUpdateTitle": "புதுப்பிப்பை உறுதிப்படுத்து",
+      "confirmUpdateDesc": "{fullName} இன் முக்கிய விவரங்களை புதுப்பிக்கப் போகிறீர்கள். இது உள்நுழைவு மற்றும் தொடர்பு விவரங்களை பாதிக்கும்.",
+      "emailLabel": "மின்னஞ்சல்:",
+      "mobileLabel": "மொபைல்:",
+      "salaryLabel": "சம்பளம்:",
+      "confirmAndUpdate": "உறுதிப்படுத்தி புதுப்பி"
+    },
+    "marriedAction": {
+      "title": "{fullName} ஐ திருமணமானவராகக் குறி",
+      "marrying": "திருமணம் செய்பவர்"
+    },
+    "makeMatch": {
+      "title": "பொருத்தம் அமை",
+      "makeMatchBtn": "பொருத்தம் அமை",
+      "confirmTitle": "பொருத்தத்தை உறுதிப்படுத்து",
+      "confirmDesc": "இந்த பொருத்தத்தை உறுதியாக அமைக்க விரும்புகிறீர்களா?",
+      "marriedOn": "திருமணமான தேதி",
+      "continue": "தொடரவும்"
+    },
+    "marriedUsers": {
+      "noUsersFound": "பயனர்கள் எவரும் இல்லை",
+      "matchNotFound": "பொருத்தம் கிடைக்கவில்லை"
+    },
+    "imageExtractor": {
+      "dragDrop": "படத்தை இங்கே இழுத்து விடவும், அல்லது தேர்ந்தெடுக்க கிளிக் செய்யவும்",
+      "selectImage": "படத்தைத் தேர்ந்தெடு",
+      "cropImage": "படத்தை வெட்டு",
+      "resetCrops": "வெட்டுகளை மீட்டமை",
+      "newImage": "புதிய படம்",
+      "proceed": "தொடரவும்",
+      "area": "பகுதி {id}",
+      "selectedArea": "தேர்ந்தெடுக்கப்பட்ட பகுதி {id}",
+      "xPosition": "X இருப்பிடம் (%)",
+      "yPosition": "Y இருப்பிடம் (%)",
+      "width": "அகலம் (%)",
+      "height": "உயரம் (%)",
+      "profileImage": "சுயவிவரப் படம்",
+      "verdictImage": "ஜாதக முடிவு படம்",
+      "download": "பதிவிறக்கு",
+      "deleteProcess": "செயல்முறையை நீக்கு"
+    }
+  }
+}

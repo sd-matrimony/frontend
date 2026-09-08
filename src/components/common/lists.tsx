@@ -1,6 +1,7 @@
 "use client";
 
 import { Control, FieldValues, Path } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 import { useStatics } from "@/hooks/use-general";
 
@@ -21,6 +22,7 @@ type props<T extends FieldValues> = BaseProps<T> & {
   className?: string
 }
 export function SelectListWrapper<T extends FieldValues>({ name, label, control, placeholder, listName, canCreateNew, showClear, className, additionalOpts }: props<T>) {
+  const t = useTranslations("shared.createUser")
   const { data, isLoading } = useStatics(listName)
 
   const Comp = canCreateNew ? AutocompleteWrapper : showClear ? ComboboxWrapper : SelectWrapper
@@ -35,7 +37,7 @@ export function SelectListWrapper<T extends FieldValues>({ name, label, control,
       ]}
       isLoading={isLoading}
       showClear={showClear}
-      placeholder={placeholder || `Select ${label}`}
+      placeholder={placeholder || t("selectLabel", { label: label || "" })}
       className={className}
     />
   )
@@ -46,19 +48,20 @@ type props2<T extends FieldValues> = BaseProps<T> & {
   className?: string
 }
 export function SelectSubCastesWrapper<T extends FieldValues>({ name, control, choosed = "", className, additionalOpts }: props2<T>) {
+  const t = useTranslations("shared.createUser")
   const { data, isLoading } = useStatics("casteMap")
 
   return (
     <AutocompleteWrapper
       name={name}
-      label="Sub / Other Caste"
+      label={t("subCaste")}
       control={control}
       items={isLoading ? [] : [
         ...(additionalOpts ? typeof additionalOpts === "string" ? [additionalOpts] : additionalOpts : []),
         ...(data?.[choosed] || [])
       ]}
       isLoading={isLoading}
-      placeholder="Select Sub / Other Caste"
+      placeholder={t("selectSubCaste")}
       className={className}
     />
   )

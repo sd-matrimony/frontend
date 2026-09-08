@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import { EditIcon } from 'lucide-react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { acceptedImagesTypes } from '@/utils/enums';
 import { useAddImages } from '@/hooks/use-user';
@@ -17,13 +18,15 @@ type props = {
 }
 
 function EditProfileImageDialog({ _id }: props) {
+  const t = useTranslations("shared.userProfile.sidebar")
+  const tc = useTranslations("common")
   const [open, setOpen] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const { mutate, isPending } = useAddImages()
   const toast = useToast()
 
   const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
-    if (fileRejections.length > 0) return toast.add({ title: "You may only upload 1 file at a time." })
+    if (fileRejections.length > 0) return toast.add({ title: t("uploadLimit1") })
     setFile(acceptedFiles[0])
   }, [])
 
@@ -59,8 +62,8 @@ function EditProfileImageDialog({ _id }: props) {
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Update Profile Picture</DialogTitle>
-          <DialogDescription>Change your profile picture. Click save when you're done.</DialogDescription>
+          <DialogTitle>{t("editImage.title")}</DialogTitle>
+          <DialogDescription>{t("editImage.desc")}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -77,7 +80,7 @@ function EditProfileImageDialog({ _id }: props) {
             className="space-y-2"
             {...getRootProps()}
           >
-            <Label htmlFor="images">Profile Image</Label>
+            <Label htmlFor="images">{t("editImage.label")}</Label>
             <Input
               id="images"
               {...getInputProps({
@@ -94,7 +97,7 @@ function EditProfileImageDialog({ _id }: props) {
               disabled={isPending}
               onClick={() => setOpen(false)}
             >
-              Cancel
+              {tc("cancel")}
             </Button>
 
             <Button
@@ -102,7 +105,7 @@ function EditProfileImageDialog({ _id }: props) {
               disabled={isPending}
               onClick={handleSubmit}
             >
-              Save
+              {t("editImage.save")}
             </Button>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { Briefcase, User } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -42,9 +43,11 @@ function UserCard({
 }
 
 export function Empty() {
+  const t = useTranslations("shared.marriedUsers")
+
   return (
     <Card className="dc mb-0 p-0 overflow-hidden transition-all duration-300">
-      Match not found
+      {t("matchNotFound")}
     </Card>
   )
 }

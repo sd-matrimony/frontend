@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTable } from "@tanstack/react-table";
 import type {
   SortingState,
@@ -18,6 +19,7 @@ import { columns } from "./columns";
 import UsersFiltersRow from "@/components/common/users-filters-row";
 
 function Users({ role = "admin", loaderHt = "h-[calc(100vh-4rem)] sm:h-[calc(100vh-4.5rem)]", statusSelect, ...props }: findUserSchemaT & { role?: rolesT, loaderHt?: string, statusSelect?: React.ReactNode }) {
+  const t = useTranslations("shared.adminUsersTable")
   const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({ email: false, maritalStatus: false })
   const [sorting, setSorting] = useState<SortingState>([])
 
@@ -42,7 +44,7 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-4rem)] sm:h-[calc(100
 
   const currentTab: any = props.approvalStatus || (props.isBlocked ? "blocked" : "deleted")
 
-  const tableColumns = useMemo(() => columns(currentTab, role), [currentTab, role])
+  const tableColumns = useMemo(() => columns(currentTab, role, t), [currentTab, role, t])
 
   const table = useTable({
     features: appTableFeatures,
@@ -71,7 +73,7 @@ function Users({ role = "admin", loaderHt = "h-[calc(100vh-4rem)] sm:h-[calc(100
         {
           role === "super-admin" &&
           <span className="text-sm text-muted-foreground whitespace-nowrap">
-            {isCountLoading ? "Counting..." : `Total: ${usersCount?.count ?? 0}`}
+            {isCountLoading ? t("counting") : t("total", { count: usersCount?.count ?? 0 })}
           </span>
         }
 

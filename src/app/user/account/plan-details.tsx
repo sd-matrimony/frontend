@@ -1,4 +1,5 @@
 import { CheckCircle, Loader, LockKeyhole } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { format } from "date-fns";
 import Link from "next/link";
 
@@ -16,6 +17,8 @@ function getAssistExpire(createdAt: string, till: number) {
 }
 
 function FreePlan() {
+  const t = useTranslations("user.plan.free")
+
   return (
     <div className="rounded-xl border-2">
       <div className="p-6">
@@ -26,23 +29,23 @@ function FreePlan() {
             </div>
             <div>
               <h3 className="font-semibold text-xl text-gray-600">
-                Free Plan
+                {t("title")}
               </h3>
-              <p className="text-sm text-muted-foreground">Limited access</p>
+              <p className="text-sm text-muted-foreground">{t("limitedAccess")}</p>
             </div>
           </div>
           <div className="text-right">
             <div className="text-2xl font-bold text-gray-600">
-              Free
+              {t("free")}
             </div>
             <Badge variant="outline" className="mt-1">
-              Limited
+              {t("limited")}
             </Badge>
           </div>
         </div>
 
         <div className="space-y-2">
-          {["Browse limited profiles", "Basic search filters", "No access to personal information"].map(
+          {[t("features.browse"), t("features.basicFilters"), t("features.noPersonalInfo")].map(
             (feature, index) => (
               <div key={index} className="flex items-center gap-2 text-gray-600">
                 <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
@@ -59,11 +62,11 @@ function FreePlan() {
             nativeButton={false}
             render={<Link href="/user/payment" />}
           >
-            Choose Your Plan - Start Your Journey
+            {t("chooseCta")}
           </Button>
 
           <p className="text-xs text-center text-muted-foreground mt-2">
-            Unlock full access to find your perfect match
+            {t("unlockNote")}
           </p>
         </div>
       </div>
@@ -72,6 +75,7 @@ function FreePlan() {
 }
 
 function PlanDetails() {
+  const t = useTranslations("user.plan")
   const { data: currentPlan, isLoading } = useCurrentPlan()
 
   if (isLoading) return <div className="dc h-60"><Loader className="size-6 animate-spin" /></div>
@@ -88,10 +92,10 @@ function PlanDetails() {
       {
         !isPlanValid &&
         <div className="df justify-between">
-          <p>Your current plan is expired</p>
+          <p>{t("expired")}</p>
 
           <Button nativeButton={false} render={<Link href="/user/payment" />}>
-            Buy Again
+            {t("buyAgain")}
           </Button>
         </div>
       }
@@ -106,7 +110,7 @@ function PlanDetails() {
               />
               <div>
                 <h3 className={`font-semibold text-xl ${currentPlanDetails?.textColor}`}>
-                  {currentPlanDetails?.name} Plan
+                  {t("nameSuffix", { name: currentPlanDetails?.name })}
                 </h3>
                 <p className="text-sm text-muted-foreground">{currentPlanDetails?.duration}</p>
               </div>
@@ -119,10 +123,10 @@ function PlanDetails() {
               {
                 isPlanValid
                   ? <Badge variant="secondary" className="mt-1">
-                    Active
+                    {t("active")}
                   </Badge>
                   : <Badge variant="destructive" className="mt-1">
-                    Expired
+                    {t("expiredBadge")}
                   </Badge>
               }
             </div>
@@ -130,7 +134,7 @@ function PlanDetails() {
 
           <div className="space-y-2">
             {[
-              `Unlock personal information of ${profilesCount[currentPlan?.subscribedTo]} profiles`,
+              t("unlockFeature", { count: profilesCount[currentPlan?.subscribedTo] }),
               // "View personal information",
               // "Phone numbers & contact details"
             ].map(
@@ -148,33 +152,33 @@ function PlanDetails() {
       {
         (addedProfiles > 0 || currentPlan?.isAssisted) &&
         <div className="space-y-4">
-          <h4 className="font-medium">Additional Services</h4>
+          <h4 className="font-medium">{t("additionalServices")}</h4>
 
           {
             addedProfiles > 0 &&
             <div className="p-4 rounded-lg border bg-muted/30">
               <p className="df mb-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
-                <span className="mr-auto font-medium">Additional Profile Access</span>
+                <span className="mr-auto font-medium">{t("additionalProfileAccess")}</span>
 
                 {
                   isPlanValid
                     ? <Badge variant="outline">
-                      Active
+                      {t("active")}
                     </Badge>
                     : <Badge variant="destructive">
-                      Expired
+                      {t("expiredBadge")}
                     </Badge>
                 }
               </p>
 
               <p className="text-sm text-muted-foreground mb-2">
-                Extended access to view more profiles beyond the chosen plan
+                {t("additionalProfileDesc")}
               </p>
 
               <p className="df text-sm">
-                <span>{currentPlan?.noOfProfilesCanView === 999 ? "Unlimited" : `+${addedProfiles}`} profiles</span>
-                {currentPlan?.noOfProfilesCanView !== 999 && <span className=" text-gray-500">(Total {currentPlan?.noOfProfilesCanView} profiles)</span>}
+                <span>{currentPlan?.noOfProfilesCanView === 999 ? t("profilesCountUnlimited") : t("profilesCountLine", { count: `+${addedProfiles}` })}</span>
+                {currentPlan?.noOfProfilesCanView !== 999 && <span className=" text-gray-500">{t("totalProfilesNote", { count: currentPlan?.noOfProfilesCanView })}</span>}
                 <span className="ml-auto text-lg font-semibold">₹{currentPlan?.noOfProfilesCanView === 999 ? extraProfiles[999] : (extraProfiles?.[addedProfiles])?.toLocaleString()}</span>
               </p>
             </div>
@@ -185,26 +189,26 @@ function PlanDetails() {
             <div className="p-4 rounded-lg border bg-muted/30">
               <p className="df mb-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
-                <span className="mr-auto font-medium">Assisted Services</span>
+                <span className="mr-auto font-medium">{t("assistedServices")}</span>
 
                 {
                   assistedExpire?.getTime() > Date.now()
                     ? <Badge variant="outline">
-                      Active
+                      {t("active")}
                     </Badge>
                     : <Badge variant="destructive">
-                      Expired
+                      {t("expiredBadge")}
                     </Badge>
                 }
               </p>
 
               <p className="text-sm text-muted-foreground mb-2">
-                Personalized assistance from our relationship experts
+                {t("assistedServicesDesc")}
               </p>
 
               <p className="df text-sm">
-                <span>{currentPlan?.assistedMonths} months</span>
-                <span className="mr-auto text-gray-500">(Expiring on: {format(assistedExpire, "dd MMM yyyy")})</span>
+                <span>{t("monthsCount", { count: currentPlan?.assistedMonths })}</span>
+                <span className="mr-auto text-gray-500">{t("expiringOn", { date: format(assistedExpire, "dd MMM yyyy") })}</span>
                 <span className="text-lg font-semibold">₹{(assistedPrices[currentPlan?.assistedMonths])?.toLocaleString()}</span>
               </p>
             </div>
@@ -217,8 +221,8 @@ function PlanDetails() {
       <div className="p-4 rounded-lg bg-linear-to-r from-green-50 to-emerald-50 border border-green-200">
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="font-semibold text-green-800">Total Plan Value</h4>
-            <p className="text-sm font-semibold text-green-600">Valid until {format(currentPlan?.expiryDate, "dd MMM yyyy")}</p>
+            <h4 className="font-semibold text-green-800">{t("totalPlanValue")}</h4>
+            <p className="text-sm font-semibold text-green-600">{t("validUntil", { date: format(currentPlan?.expiryDate, "dd MMM yyyy") })}</p>
           </div>
 
           <div className="text-2xl font-bold text-green-800 text-right">₹{currentPlan?.amount?.toLocaleString()}</div>
@@ -228,7 +232,7 @@ function PlanDetails() {
       <Separator />
 
       <div className="text-sm text-center">
-        {currentPlan?.unlockedCount} profiles unlocked. To view unlocked profiles, <Link className="text-pink-500 hover:text-pink-600" href="/user/unlocked">click here</Link>
+        {t("unlockedInfo", { count: currentPlan?.unlockedCount })} <Link className="text-pink-500 hover:text-pink-600" href="/user/unlocked">{t("clickHereToView")}</Link>
       </div>
     </>
   )

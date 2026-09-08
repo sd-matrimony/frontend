@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { useUserDetails } from "@/hooks/use-user";
 
@@ -9,6 +10,7 @@ import FindUser from "./find-user";
 import Confirm from "./confirm";
 
 function MakeMatch() {
+  const t = useTranslations("shared.makeMatch")
   const searchParams = useSearchParams()
   const prefillId = searchParams.get("userId") || ""
 
@@ -33,7 +35,7 @@ function MakeMatch() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Make Match</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">{t("title")}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         <FindUser

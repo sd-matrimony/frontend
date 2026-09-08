@@ -1,5 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 import Script from "next/script";
 
 import type { Metadata } from "next";
@@ -93,29 +95,33 @@ const jsonLdOrg = {
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
-function RootLayout({ children }: LayoutProps<"/">) {
+async function RootLayout({ children }: LayoutProps<"/">) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)} data-scroll-behavior="smooth">
+    <html lang={locale} className={cn("font-sans", inter.variable)} data-scroll-behavior="smooth">
       <body>
-        <Toaster position="top-right">
-          <ClientWrapper>
-            <div className="isolate">{children}</div>
-          </ClientWrapper>
-        </Toaster>
+        <NextIntlClientProvider>
+          <Toaster position="top-right">
+            <ClientWrapper>
+              <div className="isolate">{children}</div>
+            </ClientWrapper>
+          </Toaster>
 
-        <Script id="ld-json-org" type="application/ld+json">
-          {JSON.stringify(jsonLdOrg)}
-        </Script>
+          <Script id="ld-json-org" type="application/ld+json">
+            {JSON.stringify(jsonLdOrg)}
+          </Script>
 
-        <SpeedInsights />
-        <Analytics />
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga-script" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}');`}
-        </Script>
+          <SpeedInsights />
+          <Analytics />
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="ga-script" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}');`}
+          </Script>
+        </NextIntlClientProvider>
       </body>
     </html >
   );

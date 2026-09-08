@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { useCheckApprovalStatus } from "@/hooks/use-account";
 
@@ -8,6 +9,7 @@ import { Button } from "../ui/button";
 
 function Refresh() {
   const { mutate, isPending } = useCheckApprovalStatus()
+  const t = useTranslations("public.refresh");
 
   return (
     <Button
@@ -17,7 +19,7 @@ function Refresh() {
       disabled={isPending}
     >
       {isPending && <Loader className="animate-spin" />}
-      Refresh
+      {t("label")}
     </Button>
   )
 }

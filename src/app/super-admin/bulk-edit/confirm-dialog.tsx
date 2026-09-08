@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
+import { useTranslations } from "next-intl"
 import { Loader } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -17,38 +18,34 @@ const NORMAL_CASE_FIELDS = new Set([
   "partnerPreferences.caste", "partnerPreferences.subCaste",
 ])
 
-const LABELS: Record<string, string> = {
-  fullName: "Name", dob: "Date of Birth", gender: "Gender",
-  maritalStatus: "Marital Status", hasDisability: "Disability",
-  "contactDetails.address": "Full Address", "contactDetails.place": "Place",
-  "otherDetails.caste": "Caste", "otherDetails.subCaste": "Sub Caste",
-  "otherDetails.religion": "Religion", "otherDetails.motherTongue": "Mother Tongue",
-  "otherDetails.height": "Height", "otherDetails.color": "Complexion",
-  "otherDetails.houseType": "House Type",
-  "otherDetails.otherProperties": "Other Properties",
-  "proffessionalDetails.highestQualification": "Qualification",
-  "proffessionalDetails.qualifications": "Qualification Details",
-  "proffessionalDetails.profession": "Profession", "proffessionalDetails.sector": "Sector",
-  "proffessionalDetails.salary": "Salary", "proffessionalDetails.companyName": "Company",
-  "proffessionalDetails.companyLocation": "Company Location",
-  "vedicHoroscope.rasi": "Rasi", "vedicHoroscope.lagna": "Lagna",
-  "vedicHoroscope.nakshatra": "Nakshatra", "vedicHoroscope.dashaPeriod": "Dasha Period",
-  "vedicHoroscope.placeOfBirth": "Place of Birth", "vedicHoroscope.timeOfBirth": "Time of Birth",
-  "vedicHoroscope.dosham": "Dosham",
-  "familyDetails.fatherName": "Father's Name", "familyDetails.motherName": "Mother's Name",
-  "familyDetails.noOfBrothers": "Brothers", "familyDetails.noOfSisters": "Sisters",
-  "familyDetails.birthOrder": "Birth Order",
-  "familyDetails.isFatherAlive": "Father Status", "familyDetails.isMotherAlive": "Mother Status",
-  "partnerPreferences.minAge": "Min Age", "partnerPreferences.maxAge": "Max Age",
-  "partnerPreferences.religion": "Religion Pref", "partnerPreferences.caste": "Caste Pref",
-  "partnerPreferences.minSalary": "Min Salary", "partnerPreferences.minQualification": "Min Qualification",
-  "partnerPreferences.profession": "Profession Pref", "partnerPreferences.sector": "Sector Pref",
-  "partnerPreferences.motherTongue": "Mother Tongue Pref", "partnerPreferences.location": "Location",
-  "partnerPreferences.expectation": "Expectation", "partnerPreferences.maritalStatus": "Marital Status Pref",
-}
-
-function label(path: string) {
-  return LABELS[path] ?? path.split(".").pop() ?? path
+const FIELD_KEYS: Record<string, string> = {
+  fullName: "fullName", dob: "dob", gender: "gender",
+  maritalStatus: "maritalStatus", hasDisability: "hasDisability",
+  "contactDetails.address": "contactDetails_address", "contactDetails.place": "contactDetails_place",
+  "otherDetails.caste": "otherDetails_caste", "otherDetails.subCaste": "otherDetails_subCaste",
+  "otherDetails.religion": "otherDetails_religion", "otherDetails.motherTongue": "otherDetails_motherTongue",
+  "otherDetails.height": "otherDetails_height", "otherDetails.color": "otherDetails_color",
+  "otherDetails.houseType": "otherDetails_houseType",
+  "otherDetails.otherProperties": "otherDetails_otherProperties",
+  "proffessionalDetails.highestQualification": "proffessionalDetails_highestQualification",
+  "proffessionalDetails.qualifications": "proffessionalDetails_qualifications",
+  "proffessionalDetails.profession": "proffessionalDetails_profession", "proffessionalDetails.sector": "proffessionalDetails_sector",
+  "proffessionalDetails.salary": "proffessionalDetails_salary", "proffessionalDetails.companyName": "proffessionalDetails_companyName",
+  "proffessionalDetails.companyLocation": "proffessionalDetails_companyLocation",
+  "vedicHoroscope.rasi": "vedicHoroscope_rasi", "vedicHoroscope.lagna": "vedicHoroscope_lagna",
+  "vedicHoroscope.nakshatra": "vedicHoroscope_nakshatra", "vedicHoroscope.dashaPeriod": "vedicHoroscope_dashaPeriod",
+  "vedicHoroscope.placeOfBirth": "vedicHoroscope_placeOfBirth", "vedicHoroscope.timeOfBirth": "vedicHoroscope_timeOfBirth",
+  "vedicHoroscope.dosham": "vedicHoroscope_dosham",
+  "familyDetails.fatherName": "familyDetails_fatherName", "familyDetails.motherName": "familyDetails_motherName",
+  "familyDetails.noOfBrothers": "familyDetails_noOfBrothers", "familyDetails.noOfSisters": "familyDetails_noOfSisters",
+  "familyDetails.birthOrder": "familyDetails_birthOrder",
+  "familyDetails.isFatherAlive": "familyDetails_isFatherAlive", "familyDetails.isMotherAlive": "familyDetails_isMotherAlive",
+  "partnerPreferences.minAge": "partnerPreferences_minAge", "partnerPreferences.maxAge": "partnerPreferences_maxAge",
+  "partnerPreferences.religion": "partnerPreferences_religion", "partnerPreferences.caste": "partnerPreferences_caste",
+  "partnerPreferences.minSalary": "partnerPreferences_minSalary", "partnerPreferences.minQualification": "partnerPreferences_minQualification",
+  "partnerPreferences.profession": "partnerPreferences_profession", "partnerPreferences.sector": "partnerPreferences_sector",
+  "partnerPreferences.motherTongue": "partnerPreferences_motherTongue", "partnerPreferences.location": "partnerPreferences_location",
+  "partnerPreferences.expectation": "partnerPreferences_expectation", "partnerPreferences.maritalStatus": "partnerPreferences_maritalStatus",
 }
 
 function flattenFields(obj: any, prefix = ""): Array<{ path: string; value: any }> {
@@ -64,9 +61,9 @@ function flattenFields(obj: any, prefix = ""): Array<{ path: string; value: any 
   return result
 }
 
-function formatValue(value: any): string {
-  if (typeof value === "string" && value === "") return "(removed)"
-  if (typeof value === "boolean") return value ? "Yes" : "No"
+function formatValue(value: any, labels: { removed: string; yes: string; no: string }): string {
+  if (typeof value === "string" && value === "") return labels.removed
+  if (typeof value === "boolean") return value ? labels.yes : labels.no
   if (typeof value === "number") return value.toLocaleString()
   if (typeof value === "string" && value.match(/^\d{4}-\d{2}-\d{2}T/)) {
     return new Date(value).toLocaleDateString("en-IN")
@@ -84,6 +81,8 @@ type Props = {
 }
 
 export function ConfirmDialog({ open, onOpenChange, changes, users, isPending, onConfirm }: Props) {
+  const t = useTranslations("superAdmin.bulkEdit")
+  const tCommon = useTranslations("common")
   const entries = Object.entries(changes)
 
   const usersMap = useMemo(
@@ -91,12 +90,19 @@ export function ConfirmDialog({ open, onOpenChange, changes, users, isPending, o
     [users],
   )
 
+  const valueLabels = { removed: t("removedValue"), yes: tCommon("yes"), no: tCommon("no") }
+
+  function label(path: string) {
+    const key = FIELD_KEYS[path]
+    return key ? t(`fields.${key}` as any) : path.split(".").pop() ?? path
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg max-h-[80vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>
-            Confirm {entries.length} update{entries.length > 1 ? "s" : ""}
+            {t("confirmTitle", { count: entries.length })}
           </DialogTitle>
         </DialogHeader>
 
@@ -118,7 +124,7 @@ export function ConfirmDialog({ open, onOpenChange, changes, users, isPending, o
                     {user?.fullName ?? userId}
                   </span>
                   <span className="text-xs text-muted-foreground ml-auto shrink-0">
-                    {fields.length} field{fields.length > 1 ? "s" : ""}
+                    {t("fieldsCount", { count: fields.length })}
                   </span>
                 </div>
 
@@ -126,7 +132,7 @@ export function ConfirmDialog({ open, onOpenChange, changes, users, isPending, o
                   {fields.map(({ path, value }) => (
                     <div key={path} className="text-xs df gap-1">
                       <span className="text-muted-foreground shrink-0">{label(path)}:</span>
-                      <span className={cn("font-medium truncate", !NORMAL_CASE_FIELDS.has(path) && "capitalize")}>{formatValue(value)}</span>
+                      <span className={cn("font-medium truncate", !NORMAL_CASE_FIELDS.has(path) && "capitalize")}>{formatValue(value, valueLabels)}</span>
                     </div>
                   ))}
                 </div>
@@ -137,7 +143,7 @@ export function ConfirmDialog({ open, onOpenChange, changes, users, isPending, o
 
         <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isPending}>
-            Cancel
+            {tCommon("cancel")}
           </Button>
           <Button
             className="bg-pink-600 hover:bg-pink-500"
@@ -145,7 +151,7 @@ export function ConfirmDialog({ open, onOpenChange, changes, users, isPending, o
             disabled={isPending}
           >
             {isPending && <Loader className="animate-spin size-4 mr-1" />}
-            Confirm & Save
+            {t("confirmAndSave")}
           </Button>
         </DialogFooter>
       </DialogContent>

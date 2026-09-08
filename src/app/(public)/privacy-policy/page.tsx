@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Privacy Policy - SD Matrimony",
@@ -12,48 +13,55 @@ export const metadata: Metadata = {
   },
 }
 
-function Page() {
+async function Page() {
+  const t = await getTranslations("public.privacyPolicy");
+  const bold = (chunks: React.ReactNode) => <strong className="font-semibold">{chunks}</strong>
+
   return (
     <main className="prose-sm md:prose prose-slate prose-li:my-0 prose-p:my-1 prose-a:no-underline prose-a:hover:text-pink-600 max-w-11/12! mx-auto my-16 p-6 bg-pink-50/30 shadow-sm rounded-lg border">
       <header className="mb-6">
-        <h1 className="mb-1! md:font-semibold">Privacy Policy</h1>
-        <p className="mt-0!">Last updated on Jul 30, 2025</p>
+        <h1 className="mb-1! md:font-semibold">{t("title")}</h1>
+        <p className="mt-0!">{t("lastUpdated")}</p>
       </header>
 
       <section>
-        <p>This privacy policy sets out how <strong className="font-semibold">SHRI DURGADEVI THIRUMANA THAGAVAL MAIYAM (SD Matrimony)</strong> uses and protects any information that you provide when you visit our website or purchase our services.</p>
-        <p>We are committed to ensuring that your privacy is protected. We ask you to provide certain information by which you can be identified, you can be assured that it will only be used in accordance with this privacy statement.</p>
-        <p>This policy may be updated from time to time, and you should check this page periodically to ensure that you are aware of any changes.</p>
+        <p>{t.rich("intro1", { b: bold })}</p>
+        <p>{t("intro2")}</p>
+        <p>{t("intro3")}</p>
 
-        <h3>Information We May Collect</h3>
+        <h3>{t("collectTitle")}</h3>
         <ul>
-          <li>Personal and Family information</li>
-          <li>Contact information including email address, phone number and address</li>
-          <li>Other information relevant to matchmaking services and preferences</li>
+          <li>{t("collectItem1")}</li>
+          <li>{t("collectItem2")}</li>
+          <li>{t("collectItem3")}</li>
         </ul>
 
-        <h3>How We Use the Information</h3>
+        <h3>{t("useTitle")}</h3>
         <ul>
-          <li>Internal record keeping</li>
-          <li>Improving our products and services</li>
-          <li>Periodically sending promotional emails about new services, special offers, or other information which may be of interest</li>
-          <li>Contacting you for market research purposes via email, phone, or mail</li>
-          <li>Customizing the website according to your interests</li>
+          <li>{t("useItem1")}</li>
+          <li>{t("useItem2")}</li>
+          <li>{t("useItem3")}</li>
+          <li>{t("useItem4")}</li>
+          <li>{t("useItem5")}</li>
         </ul>
 
-        <h3>Cookies</h3>
-        <p>We use cookies solely for storing the refresh token and access token to keep your session secure. These cookies help us authenticate users and do not track any personal preferences or browsing activity.</p>
+        <h3>{t("cookiesTitle")}</h3>
+        <p>{t("cookiesBody")}</p>
 
-        <h3>Controlling Your Personal Information</h3>
-        <p>You may choose to restrict the collection or use of your personal information in the following ways:</p>
+        <h3>{t("controlTitle")}</h3>
+        <p>{t("controlIntro")}</p>
         <ul>
-          <li>When filling in forms, look for the option to indicate that you do not want your information used for direct marketing purposes.</li>
-          <li>If you have previously agreed to the use of your information for direct marketing, you may change your mind at any time by contacting us at <a href="mailto:admin@sdmatrimony.com">admin@sdmatrimony.com</a>.</li>
+          <li>{t("controlItem1")}</li>
+          <li>{t.rich("controlItem2", { email: (chunks) => <a href="mailto:admin@sdmatrimony.com">{chunks}</a> })}</li>
         </ul>
 
-        <p className="mb-4!">We will not sell, distribute, or lease your personal information to third parties unless required by law or with your permission. We may send promotional information from third parties only if you consent.</p>
+        <p className="mb-4!">{t("noSell")}</p>
 
-        <p>You may update your personal information at any time by logging into your account or contacting us via email at <a href="mailto:admin@sdmatrimony.com">admin@sdmatrimony.com</a> or phone at <a href="tel:+919791155234">9791155234</a> or <a href="tel:+918667042132">8667042132</a>. We will promptly correct any information found to be incorrect.</p>
+        <p>{t.rich("updateInfo", {
+          email: (chunks) => <a href="mailto:admin@sdmatrimony.com">{chunks}</a>,
+          phone1: (chunks) => <a href="tel:+919791155234">{chunks}</a>,
+          phone2: (chunks) => <a href="tel:+918667042132">{chunks}</a>,
+        })}</p>
       </section>
     </main>
   )

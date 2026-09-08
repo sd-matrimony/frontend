@@ -1,4 +1,5 @@
 import { RefreshCcw } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { format } from "date-fns";
 
 import { useGetAssistedSubscribedUsers } from "@/hooks/use-super-admin";
@@ -11,12 +12,13 @@ import { Button } from "@/components/ui/button";
 import LoadMore from "@/components/common/load-more";
 
 function AssistedSubscribedUser() {
+  const t = useTranslations("superAdmin.dashboard.assistedSubscribedUser")
   const { isLoading, data, isFetching, hasNextPage, fetchNextPage, refetch } = useGetAssistedSubscribedUsers()
 
   return (
     <Card className="gap-0">
       <CardHeader>
-        <CardTitle>Assisted Subscribed User</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
         <CardAction>
           <Button
             size="sm"
@@ -37,11 +39,11 @@ function AssistedSubscribedUser() {
         <table className="w-full table-fixed overflow-x-auto">
           <thead>
             <tr className="text-left">
-              <th className="w-40 px-1 py-2 text-sm font-medium">User</th>
-              <th className="w-28 px-1 py-2 text-sm font-medium">Plan</th>
-              <th className="w-32 pl-1 pr-4 py-2 text-sm font-medium text-right">Amount</th>
-              <th className="w-24 px-1 py-2 text-sm font-medium text-center">Months</th>
-              <th className="w-24 px-1 py-2 text-sm font-medium text-center">Expiry Date</th>
+              <th className="w-40 px-1 py-2 text-sm font-medium">{t("colUser")}</th>
+              <th className="w-28 px-1 py-2 text-sm font-medium">{t("colPlan")}</th>
+              <th className="w-32 pl-1 pr-4 py-2 text-sm font-medium text-right">{t("colAmount")}</th>
+              <th className="w-24 px-1 py-2 text-sm font-medium text-center">{t("colMonths")}</th>
+              <th className="w-24 px-1 py-2 text-sm font-medium text-center">{t("colExpiry")}</th>
             </tr>
           </thead>
 

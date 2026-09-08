@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { familyDetailsSchema, type familyDetailsT } from '@/utils/user-schema';
 import { useUpdateProfile } from '@/hooks/use-user';
@@ -14,6 +15,8 @@ import { InputWrapper, RadioWrapper } from '@/components/ui/field-wrapper-rhf';
 import { Button } from "@/components/ui/button";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
+  const t = useTranslations("shared.userProfile.family")
+  const tc = useTranslations("common")
   const { mutate, isPending } = useUpdateProfile()
   const [open, setOpen] = useState(false)
 
@@ -52,20 +55,20 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button variant="outline" size="sm" />}>
         <EditIcon className="h-4 w-4 mr-2" />
-        Edit
+        {tc("edit")}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Family Details</DialogTitle>
-          <DialogDescription>Make changes to your family information here.</DialogDescription>
+          <DialogTitle>{t("editTitle")}</DialogTitle>
+          <DialogDescription>{t("editDesc")}</DialogDescription>
         </DialogHeader>
 
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <InputWrapper
               name="fatherName"
-              label="Father's Name"
+              label={t("fatherName")}
               control={form.control}
             />
 
@@ -77,7 +80,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
 
             <InputWrapper
               name="motherName"
-              label="Mother's Name"
+              label={t("motherName")}
               control={form.control}
             />
 
@@ -93,7 +96,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 step={1}
                 type="number"
                 name="noOfBrothers"
-                label="Number of Brothers"
+                label={t("noOfBrothers")}
                 control={form.control}
               />
               <InputWrapper
@@ -101,7 +104,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 step={1}
                 type="number"
                 name="noOfSisters"
-                label="Number of Sisters"
+                label={t("noOfSisters")}
                 control={form.control}
               />
             </div>
@@ -111,7 +114,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
               step={1}
               type="number"
               name="birthOrder"
-              label="Birth Order"
+              label={t("birthOrder")}
               control={form.control}
             />
 
@@ -122,14 +125,14 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 disabled={isPending}
                 onClick={() => setOpen(false)}
               >
-                Cancel
+                {tc("cancel")}
               </Button>
 
               <Button
                 type="submit"
                 disabled={isPending}
               >
-                Save Changes
+                {tc("saveChanges")}
               </Button>
             </div>
           </form>

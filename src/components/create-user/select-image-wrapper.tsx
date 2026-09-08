@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
+import { useTranslations } from "next-intl";
 
 import { acceptedImagesTypes } from "@/utils/enums";
 
@@ -79,6 +80,7 @@ export function SelectImageWrapper({ name, label, rules, className }: props) {
 }
 
 export function SelectMultiImageWrapper({ name, label, rules, className }: props) {
+  const t = useTranslations("shared.createUser")
   const { register, formState: { errors }, setValue, watch } = useFormContext()
   const files = watch(name) || []
 
@@ -137,7 +139,7 @@ export function SelectMultiImageWrapper({ name, label, rules, className }: props
               className="hidden"
             />
 
-            <p className="text-xs text-gray-400 text-center">Can upload upto 4 files</p>
+            <p className="text-xs text-gray-400 text-center">{t("canUploadUpto4")}</p>
           </div>
         }
       </div>

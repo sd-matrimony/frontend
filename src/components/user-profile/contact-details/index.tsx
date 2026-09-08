@@ -1,6 +1,7 @@
 "use client";
 
 import { Info } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import useUnlock from "./use-unlock";
 
@@ -15,6 +16,8 @@ type props = {
 }
 
 function ContactDetails({ user, canEdit }: props) {
+  const t = useTranslations("shared.userProfile.contact")
+  const tr = useTranslations("shared.userProfile")
   const { isPending, unlockBtnClk } = useUnlock()
   const isUnlocked = !!user?.hasFullAccess
 
@@ -22,8 +25,8 @@ function ContactDetails({ user, canEdit }: props) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Contact Details</CardTitle>
-          <CardDescription>Information about your contact details</CardDescription>
+          <CardTitle>{t("cardTitle")}</CardTitle>
+          <CardDescription>{t("cardDesc")}</CardDescription>
         </div>
 
         {
@@ -35,14 +38,14 @@ function ContactDetails({ user, canEdit }: props) {
       <CardContent>
         <div className="grid min-[400px]:grid-cols-2 gap-4">
           <div>
-            <span className="text-sm text-muted-foreground">Phone Number</span>
+            <span className="text-sm text-muted-foreground">{t("phone")}</span>
             {
               user?.contactDetails?.mobile === "restricted"
                 ?
                 <p className="df">
                   9791155234
                   <TooltipWrapper
-                    content="This is restricted account, Contact admin by the given number"
+                    content={tr("restrictedNote")}
                     trigger={<Info className="size-4" />}
                   />
                 </p>
@@ -57,7 +60,7 @@ function ContactDetails({ user, canEdit }: props) {
           </div>
 
           <div>
-            <span className="text-sm text-muted-foreground">Full Address</span>
+            <span className="text-sm text-muted-foreground">{t("address")}</span>
             <UpgradeBtn
               value={user?.contactDetails?.address}
               unlocked={isUnlocked}
@@ -67,7 +70,7 @@ function ContactDetails({ user, canEdit }: props) {
           </div>
 
           <div>
-            <span className="text-sm text-muted-foreground">Place</span>
+            <span className="text-sm text-muted-foreground">{t("place")}</span>
             <p className="font-medium">{user?.contactDetails?.place || "---"}</p>
           </div>
         </div>

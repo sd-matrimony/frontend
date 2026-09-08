@@ -2,6 +2,7 @@
 
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import { useUpdateProfile } from "@/hooks/use-user";
 import { deleteImage } from "@/actions";
@@ -18,6 +19,7 @@ type props = {
 }
 
 function ProfileSidebar({ user, canEdit }: props) {
+  const t = useTranslations("shared.userProfile.sidebar")
   const { mutate, isPending } = useUpdateProfile()
 
   const handleDeleteImage = (imageUrl: string) => {
@@ -69,8 +71,8 @@ function ProfileSidebar({ user, canEdit }: props) {
 
       <Card className="my-6">
         <CardHeader>
-          <CardTitle className="text-lg">Photo Gallery</CardTitle>
-          <CardDescription>Your profile photos</CardDescription>
+          <CardTitle className="text-lg">{t("photoGallery")}</CardTitle>
+          <CardDescription>{t("photoGalleryDesc")}</CardDescription>
         </CardHeader>
 
         <CardContent>

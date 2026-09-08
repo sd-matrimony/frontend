@@ -5,6 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDropzone } from 'react-dropzone';
 import { EditIcon, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { vedicHoroscopeSchema, type vedicHoroscopeT } from '@/utils/user-schema';
 import { acceptedImagesTypes } from '@/utils';
@@ -19,6 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
+  const t = useTranslations("shared.userProfile.horoscope")
+  const tc = useTranslations("common")
   const { mutate, isPending } = useUpdateProfile()
   const [open, setOpen] = useState(false)
 
@@ -95,13 +98,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button variant="outline" size="sm" />}>
         <EditIcon className="h-4 w-4 mr-2" />
-        Edit
+        {tc("edit")}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Horoscope Details</DialogTitle>
-          <DialogDescription>Make changes to your horoscope information here.</DialogDescription>
+          <DialogTitle>{t("editTitle")}</DialogTitle>
+          <DialogDescription>{t("editDesc")}</DialogDescription>
         </DialogHeader>
 
         <FormProvider {...form}>
@@ -109,7 +112,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="nakshatra"
-              label="Nakshatra"
+              label={t("fields.nakshatra")}
               listName="nakshatra"
               additionalOpts="Don't wish to specify"
               showClear
@@ -118,7 +121,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="rasi"
-              label="Rasi"
+              label={t("fields.rasi")}
               listName="raasi"
               additionalOpts="Don't wish to specify"
               showClear
@@ -127,7 +130,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <SelectListWrapper
               control={form.control}
               name="lagna"
-              label="Lagna"
+              label={t("fields.lagna")}
               listName="raasi"
               additionalOpts="Don't wish to specify"
               showClear
@@ -136,13 +139,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <InputWrapper
               control={form.control}
               name="dashaPeriod"
-              label="Dasha Period"
+              label={t("fields.dashaPeriod")}
             />
 
             <InputWrapper
               control={form.control}
               name="dosham"
-              label="Dosham"
+              label={t("fields.dosham")}
             />
 
             <div className="space-y-4">
@@ -150,7 +153,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 className="space-y-2"
                 {...getRootProps()}
               >
-                <Label htmlFor="images">Horoscope Image</Label>
+                <Label htmlFor="images">{t("fields.image")}</Label>
                 <Input
                   id="images"
                   {...getInputProps({
@@ -187,14 +190,14 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 disabled={isPending || isPending1}
                 onClick={() => setOpen(false)}
               >
-                Cancel
+                {tc("cancel")}
               </Button>
 
               <Button
                 type="submit"
                 disabled={isPending || isPending1}
               >
-                Save Changes
+                {tc("saveChanges")}
               </Button>
             </div>
           </form>

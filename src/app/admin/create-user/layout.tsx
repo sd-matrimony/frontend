@@ -1,8 +1,11 @@
+import { getTranslations } from "next-intl/server";
 
-function Layout({ children }: LayoutProps<"/admin/create-user">) {
+async function Layout({ children }: LayoutProps<"/admin/create-user">) {
+  const t = await getTranslations("admin.createUser");
+
   return (
     <div className="p-8 pb-6 max-w-2xl mt-8 mx-4 sm:mx-auto border rounded-2xl shadow">
-      <h1 className="mb-2 text-xl font-bold">Create user</h1>
+      <h1 className="mb-2 text-xl font-bold">{t("title")}</h1>
       {children}
     </div>
   )

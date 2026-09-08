@@ -2,6 +2,7 @@
 
 import { Loader } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import { useLogout, useUserDetailsMini } from '@/hooks/use-account';
 
@@ -20,24 +21,25 @@ import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } fr
 
 const superAdminLinks = [
   {
-    lable: "Image Extractor",
+    labelKey: "imageExtractor",
     href: "image-extractor",
   },
   {
-    lable: "Make Match",
+    labelKey: "makeMatch",
     href: "make-match",
   },
   {
-    lable: "Payment",
+    labelKey: "payment",
     href: "payment",
   },
   {
-    lable: "Bulk Update",
+    labelKey: "bulkUpdate",
     href: "bulk-edit"
   }
-]
+] as const
 
 function NavMenu() {
+  const t = useTranslations("shared.navbar")
   const { data: user, isLoading } = useUserDetailsMini()
   const userName = user?.fullName
   const role = user?.role
@@ -66,11 +68,11 @@ function NavMenu() {
           role === "user" &&
           <>
             <MenuItem render={<Link href={`/user/profile/${user?._id}`} />}>
-              Profile
+              {t("profile")}
             </MenuItem>
 
             <MenuItem render={<Link href="/user/account" />}>
-              Account
+              {t("account")}
             </MenuItem>
           </>
         }
@@ -88,13 +90,13 @@ function NavMenu() {
           !isLoading && role === "super-admin" &&
           superAdminLinks.map(link => (
             <MenuItem key={link.href} render={<Link href={`/super-admin/${link.href}`} />}>
-              {link.lable}
+              {t(link.labelKey)}
             </MenuItem>
           ))
         }
 
         <MenuItem onClick={() => mutate()}>
-          Log out
+          {t("logout")}
         </MenuItem>
       </MenuContent>
     </Menu>

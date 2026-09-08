@@ -1,5 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { z } from "zod";
 
 import { useUpdateEmail } from "@/hooks/use-account";
@@ -25,6 +26,8 @@ const emailSchema = z.object({
 type EmailFormValues = z.infer<typeof emailSchema>
 
 function AddEmail({ onSuccess }: Props) {
+  const t = useTranslations("shared.userProfile.addEmailDialog")
+  const tc = useTranslations("common")
   const { mutate, isPending } = useUpdateEmail()
 
   const form = useForm<EmailFormValues>({
@@ -41,9 +44,9 @@ function AddEmail({ onSuccess }: Props) {
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Add Email to verify your account</DialogTitle>
+        <DialogTitle>{t("title")}</DialogTitle>
         <DialogDescription>
-          Unlock more features and get personalized recommendations by verifying your email.
+          {t("desc")}
         </DialogDescription>
       </DialogHeader>
 
@@ -51,22 +54,22 @@ function AddEmail({ onSuccess }: Props) {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-4">
           <InputWrapper
             name="email"
-            label="Email"
+            label={t("label")}
             control={form.control}
-            placeholder="you@example.com"
+            placeholder={t("placeholder")}
             type="email"
           />
 
           <DialogFooter>
             <DialogClose render={<Button type="button" variant="outline" disabled={isPending} />}>
-              Cancel
+              {tc("cancel")}
             </DialogClose>
 
             <Button
               type="submit"
               disabled={isPending}
             >
-              Add
+              {t("add")}
             </Button>
           </DialogFooter>
         </form>

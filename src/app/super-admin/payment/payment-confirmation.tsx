@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import { Loader } from "lucide-react"
 
 import { planDetails, planPrices } from "@/components/common/plan-badge"
@@ -29,6 +30,7 @@ type props = {
 }
 
 function PaymentConfirmation({ _id, isAssisted, subscribedTo, assistedMonths, noOfProfilesCanView, finalAmount, onSuccess }: props) {
+  const t = useTranslations("superAdmin.payment")
   const [open, setOpen] = useState(false)
 
   const { data: currentPlan, isLoading } = useGetUserCurrentPlan(_id, open)
@@ -51,13 +53,13 @@ function PaymentConfirmation({ _id, isAssisted, subscribedTo, assistedMonths, no
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger render={<Button size="lg" className="w-full bg-pink-600 hover:bg-pink-700" disabled={!_id} />}>
-        Proceed
+        {t("proceed")}
       </AlertDialogTrigger>
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+          <AlertDialogTitle>{t("areYouSure")}</AlertDialogTitle>
+          <AlertDialogDescription>{t("actionCannotBeUndone")}</AlertDialogDescription>
         </AlertDialogHeader>
 
         {isLoading && (
@@ -69,24 +71,24 @@ function PaymentConfirmation({ _id, isAssisted, subscribedTo, assistedMonths, no
         {isAlreadySubscribed && (
           <Card className="py-0 border-red-300">
             <CardContent className="py-2 px-4 space-y-1">
-              <p className="text-sm font-semibold">User already has an active plan</p>
+              <p className="text-sm font-semibold">{t("alreadySubscribed")}</p>
               <p className="text-sm font-medium">
                 {planDetails[currentPlan.subscribedTo].name} — ₹{planPrices[currentPlan.subscribedTo].toLocaleString()}
               </p>
               <p className="text-xs">
-                Expires {new Date(currentPlan.expiryDate).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                {t("expires", { date: new Date(currentPlan.expiryDate).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) })}
               </p>
-              <p className="text-xs pt-1">Proceeding will override the existing plan.</p>
+              <p className="text-xs pt-1">{t("overrideWarning")}</p>
             </CardContent>
           </Card>
         )}
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isPending}>{t("cancel")}</AlertDialogCancel>
 
           <AlertDialogAction render={<Button onClick={handlePayment} disabled={isPending || isLoading} />}>
             {isPending && <Loader className="animate-spin" />}
-            Proceed to Payment — ₹{finalAmount.toLocaleString()}
+            {t("proceedToPayment", { amount: finalAmount.toLocaleString() })}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

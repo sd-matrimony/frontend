@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import { Plus, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { acceptedImagesTypes } from '@/utils/enums';
 import { useAddImages } from '@/hooks/use-user';
@@ -15,6 +16,8 @@ type props = {
   _id: string
 }
 function AddImageDialog({ _id }: props) {
+  const t = useTranslations("shared.userProfile.sidebar")
+  const tc = useTranslations("common")
   const [files, setFiles] = useState<File[]>([])
   const [open, setOpen] = useState(false)
 
@@ -22,7 +25,7 @@ function AddImageDialog({ _id }: props) {
   const toast = useToast()
 
   const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
-    if (fileRejections.length > 0) return toast.add({ title: "You may only upload 4 files at a time." })
+    if (fileRejections.length > 0) return toast.add({ title: t("uploadLimit4") })
     setFiles(prev => [...prev, ...acceptedFiles])
   }, [])
 
@@ -60,8 +63,8 @@ function AddImageDialog({ _id }: props) {
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add New Photo</DialogTitle>
-          <DialogDescription>Add a new photo to your gallery. Click save when you're done.</DialogDescription>
+          <DialogTitle>{t("addImage.title")}</DialogTitle>
+          <DialogDescription>{t("addImage.desc")}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -69,7 +72,7 @@ function AddImageDialog({ _id }: props) {
             className="space-y-2"
             {...getRootProps()}
           >
-            <Label htmlFor="images">Add Images</Label>
+            <Label htmlFor="images">{t("addImage.label")}</Label>
             <Input
               id="images"
               {...getInputProps({
@@ -110,7 +113,7 @@ function AddImageDialog({ _id }: props) {
               disabled={isPending}
               onClick={() => setOpen(false)}
             >
-              Cancel
+              {tc("cancel")}
             </Button>
 
             <Button
@@ -118,7 +121,7 @@ function AddImageDialog({ _id }: props) {
               disabled={isPending}
               onClick={handleSubmit}
             >
-              Add Images
+              {t("addImage.add")}
             </Button>
           </div>
         </div>

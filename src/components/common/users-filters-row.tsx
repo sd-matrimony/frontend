@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Controller, type UseFormReturn } from "react-hook-form";
 import { type DateRange } from "@daypicker/react";
 import { RefreshCcw, SlidersHorizontal } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { type findUserSchemaT } from "@/hooks/use-user-filters";
 import { gender, maritalStatus } from '@/utils/enums';
@@ -48,6 +49,8 @@ type props = {
 }
 
 function UsersFiltersRow({ methods, children, moreChildren, className, needReset, isLoading, onSubmit, onReset, onRefresh }: props) {
+  const t = useTranslations("common")
+  const tf = useTranslations("shared.adminUsersTable")
   const { data: castes, isLoading: isCasteLoading } = useStatics("castes")
   const { data: casteMap, isLoading: isCasteMapLoading } = useStatics("casteMap")
 
@@ -81,7 +84,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
       <InputWrapper
         name="fullName"
         control={methods.control}
-        placeholder="Enter Full Name"
+        placeholder={tf("fullName")}
         className="max-w-48"
       />
 
@@ -89,14 +92,14 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
         type="tel"
         name="mobile"
         control={methods.control}
-        placeholder="Mobile"
+        placeholder={tf("filterMobile")}
         className="max-w-48"
       />
 
       <ComboboxWrapper
         multiple
         name="caste"
-        placeholder="Caste, or type to add new"
+        placeholder={tf("filterCaste")}
         items={casteItems}
         control={methods.control}
         isLoading={isCasteLoading}
@@ -112,7 +115,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
       <ComboboxWrapper
         multiple
         name="subCaste"
-        placeholder="Sub Caste, or type to add new"
+        placeholder={tf("filterSubCaste")}
         items={subCasteItems}
         control={methods.control}
         isLoading={isCasteMapLoading}
@@ -128,7 +131,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
       <ComboboxWrapper
         multiple
         name="gender"
-        placeholder="Gender"
+        placeholder={tf("filterGender")}
         items={gender}
         control={methods.control}
         className="min-w-36 max-w-40"
@@ -137,7 +140,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
       <ComboboxWrapper
         multiple
         name="maritalStatus"
-        placeholder="Marital Status"
+        placeholder={tf("filterMaritalStatus")}
         items={maritalStatus}
         control={methods.control}
         className="min-w-32 sm:min-w-40 max-w-40"
@@ -151,7 +154,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
           <InputWrapper
             name="email"
             control={methods.control}
-            placeholder="Email"
+            placeholder={tf("email")}
             className="max-w-48"
           />
 
@@ -170,7 +173,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
                       fromField.onChange(range?.from)
                       toField.onChange(range?.to)
                     }}
-                    placeholder="Created Date"
+                    placeholder={tf("createdDate")}
                     dateFormat="dd/MM/yyyy"
                     disabled={date => date > new Date()}
                     triggerProps={{ id: "createdAtFrom", className: "max-w-56" }}
@@ -189,7 +192,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
         className="font-normal text-muted-foreground"
       >
         <SlidersHorizontal />
-        {showMore ? "Fewer" : "More"}
+        {showMore ? tf("fewer") : tf("more")}
       </Button>
 
       <span className="flex-1"></span>
@@ -204,7 +207,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
           onClick={onReset}
           className="font-normal"
         >
-          Reset to previuos
+          {tf("resetToPrevious")}
         </Button>
       }
 
@@ -216,7 +219,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
           onClick={onReset}
           className="border font-normal order-12"
         >
-          Reset to Default
+          {tf("resetToDefault")}
         </Button>
       }
 
@@ -225,7 +228,7 @@ function UsersFiltersRow({ methods, children, moreChildren, className, needReset
         className="bg-pink-600 hover:bg-pink-500 order-12"
         disabled={!methods.formState.isDirty}
       >
-        Search
+        {t("search")}
       </Button>
 
       <Button

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import type { tab } from "./types";
 
@@ -38,6 +39,8 @@ type confirmT = {
 } | null
 
 function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, email, mobile, salary, currentPlan }: props) {
+  const t = useTranslations("shared.adminUsersTable")
+  const tc = useTranslations("common")
   const [confirm, setConfirm] = useState<confirmT>(null)
   const [updateOpen, setUpdateOpen] = useState(false)
   const [marriedOpen, setMarriedOpen] = useState(false)
@@ -82,37 +85,37 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
 
           <MenuContent align="end">
             <MenuItem render={<Link href={`/${role}/user/${_id}`} />}>
-              View
+              {t("view")}
             </MenuItem>
 
             {
               role === "super-admin" && currentTab === "approved" &&
               <MenuItem onClick={() => ask({
-                title: "Reset password?",
-                description: `${fullName}'s password will be reset to a system-generated default.`,
+                title: t("resetPasswordConfirmTitle"),
+                description: t("resetPasswordConfirmDesc", { fullName }),
                 variant: "destructive",
                 run: onReset,
               })}>
-                Reset Password
+                {t("resetPassword")}
               </MenuItem>
             }
 
             {
               role === "super-admin" && currentTab === "approved" &&
               <MenuItem onClick={() => setUpdateOpen(true)}>
-                Update Details
+                {t("updateDetails")}
               </MenuItem>
             }
 
             {
               currentTab !== "approved" && (
                 <MenuItem onClick={() => ask({
-                  title: "Approve this user?",
-                  description: `${fullName} will be approved and gain access to the platform.`,
+                  title: t("approveConfirmTitle"),
+                  description: t("approveConfirmDesc", { fullName }),
                   variant: "default",
                   run: () => updateStatus("approved"),
                 })}>
-                  Approve
+                  {t("approve")}
                 </MenuItem>
               )
             }
@@ -146,7 +149,7 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
             {
               currentTab === "approved" && gender && (
                 <MenuItem onClick={() => setMarriedOpen(true)}>
-                  Married
+                  {t("married")}
                 </MenuItem>
               )
             }
@@ -154,12 +157,12 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
             {
               currentTab === "blocked" && (
                 <MenuItem onClick={() => ask({
-                  title: "Unblock this user?",
-                  description: `${fullName} will regain access to the platform.`,
+                  title: t("unblockConfirmTitle"),
+                  description: t("unblockConfirmDesc", { fullName }),
                   variant: "default",
                   run: () => updateActions({ isBlocked: false }),
                 })}>
-                  Unblock
+                  {t("unblock")}
                 </MenuItem>
               )
             }
@@ -167,12 +170,12 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
             {
               currentTab !== "deleted" && (
                 <MenuItem onClick={() => ask({
-                  title: "Delete this user?",
-                  description: `${fullName} will be moved to deleted users.`,
+                  title: t("deleteConfirmTitle"),
+                  description: t("deleteConfirmDesc", { fullName }),
                   variant: "destructive",
                   run: () => updateActions({ isDeleted: true }),
                 })}>
-                  Delete
+                  {t("delete")}
                 </MenuItem>
               )
             }
@@ -180,12 +183,12 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
             {
               currentTab === "deleted" && (
                 <MenuItem onClick={() => ask({
-                  title: "Restore this user?",
-                  description: `${fullName} will be restored and marked pending approval.`,
+                  title: t("restoreConfirmTitle"),
+                  description: t("restoreConfirmDesc", { fullName }),
                   variant: "default",
                   run: () => updateActions({ isDeleted: false }),
                 })}>
-                  Restore
+                  {t("restore")}
                 </MenuItem>
               )
             }
@@ -199,8 +202,8 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
         title={confirm?.title}
         description={confirm?.description}
         loading={isPending}
-        cancel="Cancel"
-        action="Confirm"
+        cancel={tc("cancel")}
+        action={tc("confirm")}
         actionCls={confirm?.variant === "default" ? "bg-pink-600 hover:bg-pink-500" : undefined}
         onAction={runConfirm}
         onCancel={() => setConfirm(null)}

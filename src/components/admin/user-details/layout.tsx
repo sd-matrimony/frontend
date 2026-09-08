@@ -1,12 +1,16 @@
+import { getTranslations } from "next-intl/server";
+
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
-function Layout({ children, role = "admin" }: { children: React.ReactNode; role?: rolesT }) {
+async function Layout({ children, role = "admin" }: { children: React.ReactNode; role?: rolesT }) {
+  const t = await getTranslations("shared.actions")
+
   return (
     <section className="container mx-auto py-6 max-w-6xl @container">
       <Button variant="outline" className="mb-6 mt-2" nativeButton={false} render={<Link href={`/${role}`} />}>
-        <ChevronLeft className="size-4" /> Go Back
+        <ChevronLeft className="size-4" /> {t("goBack")}
       </Button>
 
       <div className="grid @2xl:grid-cols-3 gap-6">

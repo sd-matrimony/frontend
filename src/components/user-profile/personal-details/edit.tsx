@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { z } from "zod";
 
 import { personalDetailsSchema } from '@/utils/user-schema';
@@ -15,6 +16,8 @@ import { DatePickerWrapper, InputWrapper, RadioWrapper, SelectWrapper } from "@/
 import { Button } from "@/components/ui/button";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
+  const t = useTranslations("shared.userProfile.personal")
+  const tc = useTranslations("common")
   const { mutate, isPending } = useUpdateProfile()
   const [open, setOpen] = useState(false)
 
@@ -50,13 +53,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button variant="outline" size="sm" />}>
         <EditIcon className="h-4 w-4 mr-2" />
-        Edit
+        {tc("edit")}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Personal Details</DialogTitle>
-          <DialogDescription>Make changes to your personal information here.</DialogDescription>
+          <DialogTitle>{t("editTitle")}</DialogTitle>
+          <DialogDescription>{t("editDesc")}</DialogDescription>
         </DialogHeader>
 
         <FormProvider {...form}>
@@ -64,35 +67,35 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
             <InputWrapper
               control={form.control}
               name="fullName"
-              label="Full Name"
+              label={t("fullName")}
             />
 
             <SelectWrapper
               control={form.control}
               name="gender"
-              label="Gender"
+              label={t("fields.gender")}
               items={gender}
-              placeholder="Select gender"
+              placeholder={t("fields.selectGender")}
             />
 
             <DatePickerWrapper
               control={form.control}
               name="dob"
-              label="Date of Birth"
+              label={t("dob")}
             />
 
             <SelectWrapper
               control={form.control}
               name="maritalStatus"
-              label="Marital Status"
+              label={t("fields.maritalStatus")}
               items={maritalStatus}
-              placeholder="Select marital status"
+              placeholder={t("fields.selectMaritalStatus")}
             />
 
             <RadioWrapper
               control={form.control}
               name="hasDisability"
-              label="Has Disability"
+              label={t("fields.hasDisability")}
               items={yesNoOptions}
             />
 
@@ -103,14 +106,14 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
                 disabled={isPending}
                 onClick={() => setOpen(false)}
               >
-                Cancel
+                {tc("cancel")}
               </Button>
 
               <Button
                 type="submit"
                 disabled={isPending}
               >
-                Save Changes
+                {tc("saveChanges")}
               </Button>
             </div>
           </form>

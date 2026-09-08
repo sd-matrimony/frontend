@@ -1,0 +1,228 @@
+{
+  "superAdmin": {
+    "createUser": {
+      "title": "பயனரை உருவாக்கு"
+    },
+    "users": {
+      "approved": "அங்கீகரிக்கப்பட்டது",
+      "deleted": "நீக்கப்பட்டது"
+    },
+    "bulkEdit": {
+      "columns": {
+        "name": "பெயர்",
+        "email": "மின்னஞ்சல்",
+        "mobile": "மொபைல்",
+        "caste": "சாதி",
+        "subCaste": "உட்பிரிவு",
+        "salary": "சம்பளம்",
+        "gender": "பாலினம்",
+        "maritalStatus": "திருமண நிலை"
+      },
+      "fields": {
+        "fullName": "பெயர்",
+        "dob": "பிறந்த தேதி",
+        "gender": "பாலினம்",
+        "maritalStatus": "திருமண நிலை",
+        "hasDisability": "உடல் ஊனம்",
+        "contactDetails_address": "முழு முகவரி",
+        "contactDetails_place": "இடம்",
+        "otherDetails_caste": "சாதி",
+        "otherDetails_subCaste": "உட்பிரிவு",
+        "otherDetails_religion": "மதம்",
+        "otherDetails_motherTongue": "தாய்மொழி",
+        "otherDetails_height": "உயரம்",
+        "otherDetails_color": "நிறம்",
+        "otherDetails_houseType": "வீட்டு வகை",
+        "otherDetails_otherProperties": "மற்ற சொத்துக்கள்",
+        "proffessionalDetails_highestQualification": "கல்வித் தகுதி",
+        "proffessionalDetails_qualifications": "கல்வி விவரங்கள்",
+        "proffessionalDetails_profession": "தொழில்",
+        "proffessionalDetails_sector": "துறை",
+        "proffessionalDetails_salary": "சம்பளம்",
+        "proffessionalDetails_companyName": "நிறுவனம்",
+        "proffessionalDetails_companyLocation": "நிறுவன இடம்",
+        "vedicHoroscope_rasi": "ராசி",
+        "vedicHoroscope_lagna": "லக்னம்",
+        "vedicHoroscope_nakshatra": "நட்சத்திரம்",
+        "vedicHoroscope_dashaPeriod": "தசா காலம்",
+        "vedicHoroscope_placeOfBirth": "பிறந்த இடம்",
+        "vedicHoroscope_timeOfBirth": "பிறந்த நேரம்",
+        "vedicHoroscope_dosham": "தோஷம்",
+        "familyDetails_fatherName": "தந்தையின் பெயர்",
+        "familyDetails_motherName": "தாயின் பெயர்",
+        "familyDetails_noOfBrothers": "சகோதரர்கள்",
+        "familyDetails_noOfSisters": "சகோதரிகள்",
+        "familyDetails_birthOrder": "பிறப்பு வரிசை",
+        "familyDetails_isFatherAlive": "தந்தை நிலை",
+        "familyDetails_isMotherAlive": "தாய் நிலை",
+        "partnerPreferences_minAge": "குறைந்த வயது",
+        "partnerPreferences_maxAge": "அதிகபட்ச வயது",
+        "partnerPreferences_religion": "விருப்ப மதம்",
+        "partnerPreferences_caste": "விருப்ப சாதி",
+        "partnerPreferences_subCaste": "விருப்ப உட்பிரிவு",
+        "partnerPreferences_minSalary": "குறைந்த சம்பளம்",
+        "partnerPreferences_minQualification": "குறைந்த கல்வித் தகுதி",
+        "partnerPreferences_profession": "விருப்ப தொழில்",
+        "partnerPreferences_sector": "விருப்ப துறை",
+        "partnerPreferences_motherTongue": "விருப்ப தாய்மொழி",
+        "partnerPreferences_location": "இடம்",
+        "partnerPreferences_expectation": "எதிர்பார்ப்பு",
+        "partnerPreferences_maritalStatus": "விருப்ப திருமண நிலை"
+      },
+      "removedValue": "(நீக்கப்பட்டது)",
+      "saveChanges": "{count, plural, one {# மாற்றத்தை} other {# மாற்றங்களை}} சேமி",
+      "confirmTitle": "{count, plural, one {# புதுப்பிப்பை} other {# புதுப்பிப்புகளை}} உறுதிப்படுத்து",
+      "fieldsCount": "{count, plural, one {# புலம்} other {# புலங்கள்}}",
+      "confirmAndSave": "உறுதிப்படுத்தி சேமி",
+      "editSheet": {
+        "tabPersonal": "தனிப்பட்டவை",
+        "tabProfessional": "தொழில்முறை",
+        "tabHoroscope": "ஜாதகம்",
+        "tabFamilyPrefs": "குடும்பம் & விருப்பங்கள்",
+        "fullNamePlaceholder": "உதா. சென்னை",
+        "familyDetailsSection": "குடும்ப விவரங்கள்",
+        "partnerPreferencesSection": "துணை விருப்பங்கள்",
+        "applyChanges": "மாற்றங்களைப் பயன்படுத்து"
+      }
+    },
+    "dashboard": {
+      "admins": {
+        "title": "நிர்வாகிகள்",
+        "usersLink": "பயனர்கள்",
+        "add": "சேர்"
+      },
+      "createAdmin": {
+        "updateTitle": "நிர்வாகியைப் புதுப்பி",
+        "createTitle": "நிர்வாகியை உருவாக்கு",
+        "updateDescription": "நிர்வாகியை புதுப்பிக்க படிவத்தை நிரப்பவும்.",
+        "createDescription": "புதிய நிர்வாகியை உருவாக்க படிவத்தை நிரப்பவும்.",
+        "fullName": "முழு பெயர்",
+        "email": "மின்னஞ்சல்",
+        "password": "கடவுச்சொல்",
+        "mobile": "மொபைல்",
+        "address": "முகவரி",
+        "close": "மூடு",
+        "update": "புதுப்பி",
+        "create": "உருவாக்கு"
+      },
+      "paidUsers": {
+        "title": "கட்டணம் செலுத்திய பயனர்கள்",
+        "searchPlaceholder": "பெயர், மின்னஞ்சல் அல்லது மொபைல் மூலம் தேடு...",
+        "colUser": "பயனர்",
+        "colPlan": "திட்டம்",
+        "colAmount": "தொகை",
+        "colExpiry": "காலாவதி தேதி"
+      },
+      "usersAllPayments": {
+        "title": "அனைத்து பயனர் கட்டணங்கள்",
+        "colPlan": "திட்டம்",
+        "colAmount": "தொகை",
+        "colExpiry": "காலாவதி தேதி"
+      },
+      "assistedSubscribedUser": {
+        "title": "உதவியுடன் சந்தா செய்த பயனர்",
+        "colUser": "பயனர்",
+        "colPlan": "திட்டம்",
+        "colAmount": "தொகை",
+        "colMonths": "மாதங்கள்",
+        "colExpiry": "காலாவதி தேதி"
+      },
+      "usersGroupedByAdmin": {
+        "title": "நிர்வாகி வாரியான பயனர் எண்ணிக்கை",
+        "groupByPlaceholder": "வகைப்படுத்து",
+        "genderPlaceholder": "பாலினம்",
+        "typePlaceholder": "வகையைத் தேர்ந்தெடு",
+        "dateTypePlaceholder": "தேதி வகையைத் தேர்ந்தெடு",
+        "all": "அனைத்தும்",
+        "byAdmin": "நிர்வாகி வாரியாக",
+        "individual": "தனிநபர்",
+        "day": "நாள்",
+        "month": "மாதம்",
+        "date": "தேதி",
+        "caste": "சாதி"
+      },
+      "usersGrouped": {
+        "title": "பயனர்கள் தொகுப்பு",
+        "typePlaceholder": "வகையைத் தேர்ந்தெடு",
+        "date": "தேதி",
+        "caste": "சாதி",
+        "both": "இரண்டும்",
+        "casteEmptyMessage": "சாதி எதுவும் இல்லை",
+        "individuals": "தனிநபர்கள்",
+        "noData": "தரவு எதுவும் இல்லை"
+      },
+      "grid": {
+        "dragReorder": "வரிசைப்படுத்த இழுக்கவும்",
+        "dragResizeWidth": "அகலத்தை மாற்ற இழுக்கவும்",
+        "dragResizeHeight": "உயரத்தை மாற்ற இழுக்கவும்"
+      }
+    },
+    "usersGroupedList": {
+      "blocked": "தடுக்கப்பட்டது",
+      "deleted": "நீக்கப்பட்டது"
+    },
+    "invites": {
+      "colName": "பெயர்",
+      "colCaste": "சாதி",
+      "colMobile": "மொபைல்",
+      "colEmail": "மின்னஞ்சல்",
+      "colPlan": "திட்டம்",
+      "colActions": "செயல்கள்",
+      "none": "இல்லை",
+      "copyLabel": "நகலெடு",
+      "copyTooltip": "அழைப்பு செய்தியை நகலெடு",
+      "copiedTooltip": "நகலெடுக்கப்பட்டது!",
+      "makePaymentTooltip": "கட்டணம் செலுத்து",
+      "paymentFor": "{name} க்கான கட்டணம்",
+      "cancelSubscriptionTooltip": "செயலில் உள்ள சந்தாவை ரத்து செய்",
+      "cancelSubscriptionTitle": "சந்தாவை ரத்து செய்யவா?",
+      "cancelSubscriptionDescription": "இது {name} க்கான செயலில் உள்ள திட்டத்தை நீக்கும். இச்செயலை மீட்க முடியாது.",
+      "cancel": "ரத்து செய்",
+      "remove": "நீக்கு",
+      "inviteMessage": "வணக்கம் {name},\n\nநீங்கள் SD Matrimony இல் சேர்க்கப்பட்டுள்ளீர்கள்!\nஉங்களை வரவேற்பதில் மகிழ்ச்சி அடைகிறோம், அர்த்தமுள்ள பொருத்தங்களைக் கண்டறிய உதவுவோம்.\n\nஉங்கள் உள்நுழைவு விவரங்கள்:\n\nஐடி: {mobile} (உங்கள் மொபைல் எண்)\n\nகடவுச்சொல்: {password}\n\nகீழே உள்ள இணைப்பைப் பயன்படுத்தி உள்நுழையலாம்:\n👉 SD Matrimony இல் உள்நுழைய - https://sdmatrimony.com/auth/user/signin\n\nநீங்கள் SD Matrimony இல் சேர விரும்பவில்லை எனில், எந்த நேரத்திலும் உங்கள் கணக்கை நீக்கலாம் அல்லது உதவிக்காக எங்கள் ஆதரவு குழுவைத் தொடர்பு கொள்ளலாம்."
+    },
+    "payment": {
+      "toggleTest": "சோதனை கட்டணம்",
+      "toggleUser": "பயனருக்கு செலுத்து",
+      "getFullAccess": "மேலும் சுயவிவரங்களுக்கு முழு அணுகல் பெறுங்கள்",
+      "getAssistance": "எங்கள் திருமண ஆலோசகர்களிடமிருந்து தனிப்பயன் உதவி பெறுங்கள்",
+      "additionalUnlockProfiles": "கூடுதல் திறக்கும் சுயவிவரங்கள்",
+      "assistedServicesLabel": "உதவி சேவைகள்",
+      "unlimitedProfiles": "வரம்பற்றது",
+      "profilesSuffix": "சுயவிவரங்கள்",
+      "monthsSuffix": "{count, plural, one {மாதம்} other {மாதங்கள்}}",
+      "orderSummary": "ஆர்டர் சுருக்கம்",
+      "planSuffix": "திட்டம்",
+      "additionalProfilesLine": "கூடுதல் சுயவிவரங்கள்",
+      "assistedServicesLine": "உதவி சேவைகள்",
+      "totalAmount": "மொத்த தொகை",
+      "additionalUnlockProfilesSummary": "கூடுதல் திறக்கும் சுயவிவரங்கள் :",
+      "assistedServicesSummary": "உதவி சேவைகள் :",
+      "notOpted": "தேர்வு செய்யவில்லை",
+      "proceed": "தொடரவும்",
+      "areYouSure": "நீங்கள் உறுதியாக இருக்கிறீர்களா?",
+      "actionCannotBeUndone": "இச்செயலை மீட்க முடியாது.",
+      "alreadySubscribed": "பயனருக்கு ஏற்கனவே செயலில் உள்ள திட்டம் உள்ளது",
+      "expires": "காலாவதி {date}",
+      "overrideWarning": "தொடர்ந்தால் இருக்கும் திட்டம் மேலெழுதப்படும்.",
+      "cancel": "ரத்து செய்",
+      "proceedToPayment": "கட்டணத்திற்குத் தொடரவும் — ₹{amount}",
+      "findUser": {
+        "title": "பயனரைத் தேடு",
+        "genderLabel": "பாலினம்",
+        "fullNameLabel": "முழு பெயர்",
+        "emailLabel": "மின்னஞ்சல்",
+        "mobileLabel": "மொபைல் எண்",
+        "clear": "அழி",
+        "search": "தேடு",
+        "resultsCount": "முடிவுகள் ({count})"
+      },
+      "testPayment": {
+        "title": "சோதனை கட்டணம்",
+        "description": "1 முதல் 10,000 வரை எந்த தொகையிலும் கட்டண ஒருங்கிணைப்பை சோதிக்கவும்.",
+        "amountLabel": "தொகை",
+        "testButton": "சோதி"
+      }
+    }
+  }
+}
