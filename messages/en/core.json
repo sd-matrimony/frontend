@@ -11,6 +11,8 @@
     "close": "Close",
     "confirm": "Confirm",
     "saveChanges": "Save Changes",
+    "enterPlaceholder": "Enter {label}",
+    "selectPlaceholder": "Select {label}",
     "next": "Next",
     "back": "Back",
     "yes": "Yes",

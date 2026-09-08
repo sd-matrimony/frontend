@@ -18,7 +18,7 @@ async function Nav() {
               height={48}
               alt='SDM-logo'
             />
-            <span className='hidden sm:block text-2xl font-bold text-pink-700'>{t("brand")}</span>
+            <span className='hidden sm:block text-2xl font-bold text-pink-700'>SD Matrimony</span>
           </Link>
 
           <Link href="#contact" className="hidden md:block md:ml-auto md:mr-4 text-gray-700 hover:text-rose-500 transition-colors font-medium">

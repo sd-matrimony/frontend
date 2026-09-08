@@ -82,7 +82,7 @@ async function Navbar({ role = "user" }: props) {
         ))
       }
 
-      <LanguageSwitcher triggerCls="h-8 px-2" />
+      <LanguageSwitcher triggerCls="h-8 w-32 px-2" />
 
       <Menu />
     </nav>

@@ -290,13 +290,13 @@ function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
             }
           </div>
 
-          <div className="df mt-2">
+          <div className="df mt-2 flex-wrap">
             {
               !isLoading &&
               <Button
                 type="button"
                 variant="link"
-                className='p-0 font-normal'
+                className='p-0 h-auto shrink min-w-0 whitespace-normal text-left font-normal'
                 onClick={onApply}
               >
                 {t("applyPreferences")}
@@ -305,7 +305,7 @@ function Filters({ onSave, hasFilters, contentHt = "", onClose }: props) {
 
             <Button
               type="submit"
-              className='ml-auto'
+              className='ml-auto shrink-0'
             >
               {tCommon("save")}
             </Button>

@@ -11,6 +11,8 @@
     "close": "மூடு",
     "confirm": "உறுதிப்படுத்து",
     "saveChanges": "மாற்றங்களைச் சேமி",
+    "enterPlaceholder": "{label} உள்ளிடவும்",
+    "selectPlaceholder": "{label} தேர்ந்தெடுக்கவும்",
     "next": "அடுத்து",
     "back": "பின்",
     "yes": "ஆம்",

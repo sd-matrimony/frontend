@@ -9,7 +9,7 @@ import { setLocale } from "@/lib/i18n/actions";
 import { locales, localeLabels } from "@/utils";
 import { SelectWrapper } from "@/components/ui/select";
 
-function LanguageSwitcher({ triggerCls }: { triggerCls?: string }) {
+function LanguageSwitcher({ triggerCls = "" }: { triggerCls?: string }) {
   const locale = useLocale();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -27,7 +27,7 @@ function LanguageSwitcher({ triggerCls }: { triggerCls?: string }) {
       onValueChange={onChange}
       disabled={isPending}
       items={locales.map(l => ({ value: l, label: localeLabels[l] }))}
-      triggerCls={triggerCls}
+      triggerCls={triggerCls + " bg-white"}
       renderValue={(value) => (
         <span className="flex items-center gap-1.5">
           <Languages className="size-4" />

@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import { cn, parseAllowedPrimitive } from '@/lib/utils'
 
 import { Field, FieldLabel, FieldSet, FieldLegend, FieldError } from './field'
@@ -29,6 +31,15 @@ function labelString(label: React.ReactNode): string | undefined {
   return typeof label === 'string' ? label : undefined
 }
 
+function useFieldPlaceholders() {
+  const t = useTranslations('common')
+
+  return {
+    enter: (label?: string) => label ? t('enterPlaceholder', { label }) : undefined,
+    select: (label?: string) => label ? t('selectPlaceholder', { label }) : undefined,
+  }
+}
+
 type InputProps = BaseProps & React.InputHTMLAttributes<HTMLInputElement>
 export function InputWrapper({
   name,
@@ -41,6 +52,7 @@ export function InputWrapper({
   ...props
 }: InputProps) {
   const isInvalid = invalid || !!error
+  const placeholders = useFieldPlaceholders()
 
   return (
     <Field className={className} invalid={isInvalid}>
@@ -49,7 +61,7 @@ export function InputWrapper({
         id={name}
         name={name}
         type={type}
-        placeholder={placeholder || (labelString(label) && `Enter ${labelString(label)}`)}
+        placeholder={placeholder || placeholders.enter(labelString(label))}
         aria-invalid={isInvalid}
         {...props}
       />
@@ -69,6 +81,7 @@ export function TextareaWrapper({
   ...rest
 }: TextareaProps) {
   const isInvalid = invalid || !!error
+  const placeholders = useFieldPlaceholders()
 
   return (
     <Field className={className} invalid={isInvalid}>
@@ -76,7 +89,7 @@ export function TextareaWrapper({
       <Textarea
         id={name}
         name={name}
-        placeholder={placeholder || (labelString(label) && `Enter ${labelString(label)}`)}
+        placeholder={placeholder || placeholders.enter(labelString(label))}
         aria-invalid={isInvalid}
         {...rest}
       />
@@ -202,6 +215,7 @@ export function SelectWrapper({
   ...props
 }: SelectProps) {
   const isInvalid = invalid || !!error
+  const placeholders = useFieldPlaceholders()
 
   return (
     <Field className={className} invalid={isInvalid}>
@@ -211,7 +225,7 @@ export function SelectWrapper({
         id={name}
         items={items}
         value={value != null ? String(value) : undefined}
-        placeholder={placeholder ?? (labelString(label) && `Select ${labelString(label)}`)}
+        placeholder={placeholder ?? placeholders.select(labelString(label))}
         onValueChange={val => onValueChange?.(parseAllowedPrimitive(val as any))}
         aria-invalid={isInvalid}
       />
@@ -264,6 +278,7 @@ export function ComboboxWrapper({
   ...rest
 }: ComboboxProps) {
   const isInvalid = invalid || !!error
+  const placeholders = useFieldPlaceholders()
 
   return (
     <Field className={className} invalid={isInvalid}>
@@ -272,7 +287,7 @@ export function ComboboxWrapper({
         {...rest}
         id={name}
         value={value}
-        placeholder={placeholder || (labelString(label) && `Select ${labelString(label)}`)}
+        placeholder={placeholder || placeholders.select(labelString(label))}
         onValueChange={onValueChange}
         aria-invalid={isInvalid}
       />
