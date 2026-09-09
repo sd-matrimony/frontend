@@ -2,6 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import {
   checkApprovalStatus, forgotPass, login, logout, registerImage,
@@ -12,17 +13,18 @@ import { removeToken, setToken } from "@/actions/token";
 import { useToast } from "@/components/ui/toast";
 
 export function useSignup() {
+  const t = useTranslations("auth.toasts")
   const router = useRouter()
   const toast = useToast()
 
   return useMutation({
     mutationFn: signup,
     onSuccess(_, variables) {
-      toast.add({ title: 'Account created successfully' })
+      toast.add({ title: t('accountCreated') })
       router.push(`/auth/${variables?.role || "user"}/signin`)
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Signup failed', description: error?.message })
+      toast.add({ type: 'error', title: t('signupFailed'), description: error?.message })
     },
   })
 }
@@ -34,6 +36,7 @@ export function useRegisterImage() {
 }
 
 export function useLogin() {
+  const t = useTranslations("auth.toasts")
   const queryClient = useQueryClient()
   const router = useRouter()
   const toast = useToast()
@@ -43,12 +46,12 @@ export function useLogin() {
     onSuccess(res) {
       const { access_token: token, ...rest } = res
       setToken(token)
-      toast.add({ title: 'Logged in successfully' })
+      toast.add({ title: t('loggedIn') })
       queryClient.setQueryData(["user-details-mini"], rest)
       router.replace("/" + rest?.role || "user")
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Login failed', description: error.message })
+      toast.add({ type: 'error', title: t('loginFailed'), description: error.message })
     },
   })
 }
@@ -79,38 +82,41 @@ export function useIsExists() {
 }
 
 export function useForgotPass() {
+  const t = useTranslations("auth.toasts")
   const router = useRouter()
   const toast = useToast()
 
   return useMutation({
     mutationFn: forgotPass,
     onSuccess(_, variables) {
-      toast.add({ title: 'Check your email' })
+      toast.add({ title: t('checkYourEmail') })
       router.replace(`/auth/${variables?.role || "user"}/reset-pass`)
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Failed to send password reset link', description: error.message })
+      toast.add({ type: 'error', title: t('resetLinkFailed'), description: error.message })
     },
   })
 }
 
 export function useResetPass() {
+  const t = useTranslations("auth.toasts")
   const router = useRouter()
   const toast = useToast()
 
   return useMutation({
     mutationFn: resetPass,
     onSuccess(_, variables) {
-      toast.add({ title: 'Password reset successfully' })
+      toast.add({ title: t('passwordReset') })
       router.replace(`/auth/${variables?.role || "user"}/signin`)
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Password reset failed', description: error.message })
+      toast.add({ type: 'error', title: t('passwordResetFailed'), description: error.message })
     },
   })
 }
 
 export function useVerifyAccount() {
+  const t = useTranslations("auth.toasts")
   const queryClient = useQueryClient()
   const router = useRouter()
   const toast = useToast()
@@ -118,78 +124,83 @@ export function useVerifyAccount() {
   return useMutation({
     mutationFn: verifyAccount,
     onSuccess(res) {
-      toast.add({ title: 'Account verified successfully' })
+      toast.add({ title: t('accountVerified') })
       router.replace(`/auth/${res?.role || "user"}/signin`)
       queryClient.invalidateQueries({ queryKey: ["account-info"] })
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Account verification failed', description: error.message })
+      toast.add({ type: 'error', title: t('accountVerificationFailed'), description: error.message })
       router.replace("/")
     },
   })
 }
 
 export function useResendVerifyEmail() {
+  const t = useTranslations("auth.toasts")
   const toast = useToast()
 
   return useMutation({
     mutationFn: resendVerifyEmail,
     onSuccess() {
-      toast.add({ title: 'Verification email sent successfully', description: "Please check your email" })
+      toast.add({ title: t('verificationEmailSent'), description: t('pleaseCheckEmail') })
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Failed to send verification email', description: error.message })
+      toast.add({ type: 'error', title: t('verificationEmailFailed'), description: error.message })
     },
   })
 }
 
 export function useUpdatePassword() {
+  const t = useTranslations("auth.toasts")
   const toast = useToast()
 
   return useMutation({
     mutationFn: updatePassword,
     onSuccess() {
-      toast.add({ title: 'Password updated successfully' })
+      toast.add({ title: t('passwordUpdated') })
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Failed to update password', description: error.message })
+      toast.add({ type: 'error', title: t('passwordUpdateFailed'), description: error.message })
     },
   })
 }
 
 export function useUpdateMobile() {
+  const t = useTranslations("auth.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
     mutationFn: updateMobile,
     onSuccess() {
-      toast.add({ title: 'Mobile number updated successfully' })
+      toast.add({ title: t('mobileUpdated') })
       queryClient.invalidateQueries({ queryKey: ["user-details-mini"] })
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Failed to update mobile number', description: error.message })
+      toast.add({ type: 'error', title: t('mobileUpdateFailed'), description: error.message })
     },
   })
 }
 
 export function useUpdateEmail() {
+  const t = useTranslations("auth.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
     mutationFn: updateEmail,
     onSuccess() {
-      toast.add({ title: 'Email updated successfully', description: "Please check your email to verify this email" })
+      toast.add({ title: t('emailUpdated'), description: t('emailUpdateVerifyNote') })
       queryClient.invalidateQueries({ queryKey: ["user-details-mini"] })
     },
     onError(error) {
-      toast.add({ type: 'error', title: 'Failed to update email', description: error.message })
+      toast.add({ type: 'error', title: t('emailUpdateFailed'), description: error.message })
     },
   })
 }
 
 export function useLogout() {
+  const t = useTranslations("auth.toasts")
   const queryClient = useQueryClient()
   const router = useRouter()
   const toast = useToast()
@@ -198,7 +209,7 @@ export function useLogout() {
     const toUser = window.location.pathname.startsWith("/user") ? "user" : "admin"
     removeToken()
     queryClient.clear()
-    toast.add({ title: 'Logged out successfully' })
+    toast.add({ title: t('loggedOut') })
     router.replace(`/auth/${toUser}/signin`)
   }
 

@@ -223,6 +223,16 @@
         "amountLabel": "Amount",
         "testButton": "Test"
       }
+    },
+    "toasts": {
+      "adminUpdated": "Admin updated successfully",
+      "adminCreated": "Admin created successfully",
+      "subscriptionRemoved": "Subscription removed successfully",
+      "userInvited": "User invited successfully",
+      "passwordReset": "Password reset successfully",
+      "paymentAdded": "Payment added successfully",
+      "userDetailsUpdated": "User details updated successfully",
+      "bulkUsersUpdated": "{count, plural, one {# user updated successfully} other {# users updated successfully}}"
     }
   }
 }

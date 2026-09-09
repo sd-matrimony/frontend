@@ -16,7 +16,13 @@
     "next": "Next",
     "back": "Back",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "toasts": {
+      "somethingWentWrong": "Something went wrong!!!",
+      "failedToCreateOrder": "Failed to create order",
+      "paymentVerified": "Payment verified successfully",
+      "failedToVerifyPayment": "Failed to verify payment"
+    }
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -61,6 +67,10 @@
       "failedToRegister": "Failed to register",
       "fillFullName": "Please fill in Full Name.",
       "fillDob": "Please fill in Date of Birth.",
+      "eitherEmailOrMobileRequired": "Either email or mobile is required",
+      "emailLabel": "Email",
+      "mobileLabel": "Mobile number",
+      "alreadyExists": "{field} already exists",
       "sections": {
         "account": "Account Details",
         "personal": "Personal Details",

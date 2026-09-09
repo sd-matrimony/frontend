@@ -16,7 +16,13 @@
     "next": "அடுத்து",
     "back": "பின்",
     "yes": "ஆம்",
-    "no": "இல்லை"
+    "no": "இல்லை",
+    "toasts": {
+      "somethingWentWrong": "ஏதோ தவறு நடந்தது!!!",
+      "failedToCreateOrder": "ஆர்டரை உருவாக்க முடியவில்லை",
+      "paymentVerified": "கட்டணம் வெற்றிகரமாக சரிபார்க்கப்பட்டது",
+      "failedToVerifyPayment": "கட்டணத்தை சரிபார்க்க முடியவில்லை"
+    }
   },
   "nav": {
     "dashboard": "டாஷ்போர்டு",
@@ -61,6 +67,10 @@
       "failedToRegister": "பதிவு செய்ய முடியவில்லை",
       "fillFullName": "தயவுசெய்து முழு பெயரை நிரப்பவும்.",
       "fillDob": "தயவுசெய்து பிறந்த தேதியை நிரப்பவும்.",
+      "eitherEmailOrMobileRequired": "மின்னஞ்சல் அல்லது மொபைல் எண் தேவை",
+      "emailLabel": "மின்னஞ்சல்",
+      "mobileLabel": "மொபைல் எண்",
+      "alreadyExists": "{field} ஏற்கனவே உள்ளது",
       "sections": {
         "account": "கணக்கு விவரங்கள்",
         "personal": "தனிப்பட்ட விவரங்கள்",

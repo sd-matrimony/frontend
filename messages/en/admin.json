@@ -2,6 +2,12 @@
   "admin": {
     "createUser": {
       "title": "Create user"
+    },
+    "toasts": {
+      "usersCreated": "New user(s) created successfully",
+      "marriageUpdated": "User marriage details updated successfully",
+      "applicantUpdated": "Applicant details updated successfully",
+      "imagesExtracted": "Images extracted successfully"
     }
   }
 }

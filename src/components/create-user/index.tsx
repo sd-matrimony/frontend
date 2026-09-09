@@ -86,7 +86,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
   async function checkAvailability(name: any, val: string) {
     if (!val) return
     const isEmail = detectInputType(val)
-    const key = isEmail === "email" ? "Email" : "Mobile number"
+    const key = isEmail === "email" ? t("emailLabel") : t("mobileLabel")
     const isValid = validateIdentifier(val)
     if (isValid !== true) {
       toast.error(isValid)
@@ -100,7 +100,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
       return true
     }
 
-    const message = `${key} already exists`
+    const message = t("alreadyExists", { field: key })
     toast.error(message)
     methods.setError(name, { message })
     return false
@@ -118,7 +118,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
     const data = trimObj(rawData)
     const { profileImg, ...rest } = data
     if (!isAdmin && !rest?.email && !rest?.contactDetails?.mobile) {
-      return toast.error('Either email or mobile is required')
+      return toast.error(t("eitherEmailOrMobileRequired"))
     }
     // if (!profileImg) return toast.error('Profile image is required')
 

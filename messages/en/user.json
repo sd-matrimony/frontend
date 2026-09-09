@@ -135,6 +135,17 @@
       "assistedServicesLine": "Assisted services : {value}",
       "notOpted": "Not opted",
       "proceedToPayment": "Proceed to Payment - ₹{amount}"
+    },
+    "toasts": {
+      "profileUpdated": "Profile updated successfully",
+      "profileUpdateFailed": "Failed to update profile",
+      "imagesUpdated": "Images updated successfully",
+      "imagesUpdateFailed": "Failed to update images",
+      "addedToLiked": "User added to liked list successfully",
+      "addToLikedFailed": "Failed to add user to liked list",
+      "removedFromLiked": "User removed from liked list successfully",
+      "removeFromLikedFailed": "Failed to remove user from liked list",
+      "profileUnlocked": "Profile unlocked successfully"
     }
   }
 }

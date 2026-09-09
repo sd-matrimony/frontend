@@ -1,5 +1,6 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import {
   addLiked, getLikesList, getMatches, getUserDetails, removeLiked,
@@ -77,6 +78,7 @@ export function usePartnerPreferences(_id: string) {
 }
 
 export function useUpdateProfile() {
+  const t = useTranslations("user.toasts")
   const queryClient = useQueryClient()
   const navigation = useRouter()
   const toast = useToast()
@@ -86,15 +88,16 @@ export function useUpdateProfile() {
     onSuccess: (res, variables) => {
       queryClient.invalidateQueries({ queryKey: ["user-details", variables._id] })
       navigation.refresh()
-      toast.success("Profile updated successfully")
+      toast.success(t("profileUpdated"))
     },
     onError: (error) => {
-      toast.error(error?.message || "Failed to update profile")
+      toast.error(error?.message || t("profileUpdateFailed"))
     },
   })
 }
 
 export function useAddImages() {
+  const t = useTranslations("user.toasts")
   const queryClient = useQueryClient()
   const navigation = useRouter()
   const toast = useToast()
@@ -104,15 +107,16 @@ export function useAddImages() {
     onSuccess: (res, variables) => {
       queryClient.invalidateQueries({ queryKey: ["user-details", variables._id] })
       navigation.refresh()
-      toast.success("Images updated successfully")
+      toast.success(t("imagesUpdated"))
     },
     onError: (error) => {
-      toast.error(error?.message || "Failed to update images")
+      toast.error(error?.message || t("imagesUpdateFailed"))
     },
   })
 }
 
 export function useAddLiked() {
+  const t = useTranslations("user.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
@@ -121,15 +125,16 @@ export function useAddLiked() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["likes-list", "liked"] })
       queryClient.invalidateQueries({ queryKey: ["user-list", "approved"] })
-      toast.success("User added to liked list successfully")
+      toast.success(t("addedToLiked"))
     },
     onError: (error) => {
-      toast.error(error?.message || "Failed to add user to liked list")
+      toast.error(error?.message || t("addToLikedFailed"))
     },
   })
 }
 
 export function useRemoveLiked() {
+  const t = useTranslations("user.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
@@ -138,15 +143,16 @@ export function useRemoveLiked() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["likes-list", "liked"] })
       queryClient.invalidateQueries({ queryKey: ["user-list", "approved"] })
-      toast.success("User removed from liked list successfully")
+      toast.success(t("removedFromLiked"))
     },
     onError: (error) => {
-      toast.error(error?.message || "Failed to remove user from liked list")
+      toast.error(error?.message || t("removeFromLikedFailed"))
     },
   })
 }
 
 export function useUnlockProfile() {
+  const t = useTranslations("user.toasts")
   const queryClient = useQueryClient()
   const router = useRouter()
   const toast = useToast()
@@ -155,7 +161,7 @@ export function useUnlockProfile() {
     mutationFn: unlockProfile,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["unlocked-profiles"] })
-      toast.success("Profile unlocked successfully")
+      toast.success(t("profileUnlocked"))
       router.refresh()
     },
   })

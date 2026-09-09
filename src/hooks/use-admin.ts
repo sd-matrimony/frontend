@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useInfiniteQuery, useQueryClient, useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { type findUserSchemaT } from "./use-user-filters";
 
@@ -65,34 +66,40 @@ export function useFindUser(params: any) {
 }
 
 export function useCreateUsersMutate() {
+  const t = useTranslations("admin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const toast = useToast()
 
   return useMutation({
     mutationFn: createUsers,
     onSuccess() {
-      toast.success("New user(s) created successfully")
+      toast.success(t("usersCreated"))
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
 
 export function useUserMarriedToMutate() {
+  const t = useTranslations("admin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const toast = useToast()
 
   return useMutation({
     mutationFn: userMarriedTo,
     onSuccess() {
-      toast.success("User marriage details updated successfully")
+      toast.success(t("marriageUpdated"))
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
 
 export function useUpdateUserMutate() {
+  const t = useTranslations("admin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
@@ -100,24 +107,26 @@ export function useUpdateUserMutate() {
     mutationFn: updateUserDetails,
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
-      toast.success("Applicant details updated successfully")
+      toast.success(t("applicantUpdated"))
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
 
 export function useExtractImgMutate() {
+  const t = useTranslations("admin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const toast = useToast()
 
   return useMutation({
     mutationFn: extractImg,
     onSuccess() {
-      toast.success("Images extracted successfully")
+      toast.success(t("imagesExtracted"))
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }

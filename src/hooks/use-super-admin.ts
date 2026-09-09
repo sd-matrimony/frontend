@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useInfiniteQuery, useQueryClient, useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { type findUserSchemaT } from "./use-user-filters";
 
@@ -116,17 +117,19 @@ export function useGetAdmins() {
 }
 
 export function useUpdateAdmin() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
     mutationFn: (data: any) => data._id ? updateAdmin(data) : createAdmin(data),
     onSuccess(_, variables) {
-      toast.success(`Admin ${variables._id ? "updated" : "created"} successfully`)
+      toast.success(variables._id ? t("adminUpdated") : t("adminCreated"))
       queryClient.invalidateQueries({ queryKey: ["admins"] })
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
@@ -147,48 +150,54 @@ export function useGetUserInvitations(data: findUserSchemaT) {
 }
 
 export function useRemoveUserPlan() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
     mutationFn: removeUserPlan,
     onSuccess() {
-      toast.success("Subscription removed successfully")
+      toast.success(t("subscriptionRemoved"))
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
 
 export function useUserInvite() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
     mutationFn: userInvited,
     onSuccess() {
-      toast.success("User invited successfully")
+      toast.success(t("userInvited"))
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
 
 export function useResetPassByAdmin() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const toast = useToast()
 
   return useMutation({
     mutationFn: resetPassByAdmin,
     onSuccess() {
-      toast.success("Password reset successfully")
+      toast.success(t("passwordReset"))
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
@@ -202,45 +211,51 @@ export function useGetUserCurrentPlan(id: string, enabled: boolean) {
 }
 
 export function useMakePaymentForUser() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const toast = useToast()
 
   return useMutation({
     mutationFn: makePaymentForUser,
     onSuccess() {
-      toast.success("Payment added successfully")
+      toast.success(t("paymentAdded"))
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
 
 export function useUpdateUserCritical() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
     mutationFn: updateUserCritical,
     onSuccess() {
-      toast.success("User details updated successfully")
+      toast.success(t("userDetailsUpdated"))
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
 
 export function useBulkUpdateUsers() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
   const toast = useToast()
 
   return useMutation({
     mutationFn: bulkUpdateUsers,
     onSuccess(_, variables) {
-      toast.success(`${variables.length} user(s) updated successfully`)
+      toast.success(t("bulkUsersUpdated", { count: variables.length }))
     },
     onError(error) {
-      toast.error(error?.message || "Something went wrong!!!")
+      toast.error(error?.message || tCommon("somethingWentWrong"))
     }
   })
 }
