@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { TranslatedValue } from "@/components/common/translated-value";
 import Edit from "./edit";
 
 type props = {
@@ -29,19 +30,19 @@ async function OtherDetails({ user, canEdit }: props) {
         <div className="grid min-[400px]:grid-cols-2 gap-4">
           <div>
             <span className="text-sm text-muted-foreground">{t("motherTongue")}</span>
-            <p className="font-medium">{user?.otherDetails?.motherTongue || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.otherDetails?.motherTongue} listName="languages" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("religion")}</span>
-            <p className="font-medium">{user?.otherDetails?.religion || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.otherDetails?.religion} listName="religions" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("caste")}</span>
-            <p className="font-medium">{user?.otherDetails?.caste || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.otherDetails?.caste} listName="castes" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("subCaste")}</span>
-            <p className="font-medium">{user?.otherDetails?.subCaste || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.otherDetails?.subCaste} listName="subCastes" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("houseType")}</span>

@@ -20,3 +20,14 @@ export function useStatics(name: staticsNameT) {
     enabled: !!name && !!data,
   })
 }
+
+export function useStaticsTranslations(name: staticsNameT | undefined, locale: string) {
+  const { data } = useStaticsVersion()
+  const path = name ? data?.translations?.[locale]?.[name] : undefined
+
+  return useQuery({
+    queryKey: ["statics", "translations", locale, name],
+    queryFn: () => getStatics(path),
+    enabled: !!name && !!path && locale !== "en",
+  })
+}

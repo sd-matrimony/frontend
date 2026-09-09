@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { TranslatedValue } from "@/components/common/translated-value";
 import Edit from "./edit";
 
 type props = {
@@ -35,15 +36,15 @@ async function PartnerPreferences({ user, canEdit }: props) {
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("religion")}</span>
-            <p className="font-medium">{user?.partnerPreferences?.religion || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.partnerPreferences?.religion} listName="religions" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("caste")}</span>
-            <p className="font-medium">{user?.partnerPreferences?.caste || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.partnerPreferences?.caste} listName="castes" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("subCaste")}</span>
-            <p className="font-medium">{user?.partnerPreferences?.subCaste || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.partnerPreferences?.subCaste} listName="subCastes" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("maritalStatus")}</span>
@@ -51,15 +52,15 @@ async function PartnerPreferences({ user, canEdit }: props) {
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("minQualification")}</span>
-            <p className="font-medium">{user?.partnerPreferences?.minQualification || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.partnerPreferences?.minQualification} listName="educationLevels" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("sector")}</span>
-            <p className="font-medium">{user?.partnerPreferences?.sector || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.partnerPreferences?.sector} listName="sectors" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("profession")}</span>
-            <p className="font-medium">{user?.partnerPreferences?.profession || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.partnerPreferences?.profession} listName="professions" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("minSalary")}</span>
@@ -67,7 +68,7 @@ async function PartnerPreferences({ user, canEdit }: props) {
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("motherTongue")}</span>
-            <p className="font-medium">{user?.partnerPreferences?.motherTongue || "---"}</p>
+            <p className="font-medium"><TranslatedValue value={user?.partnerPreferences?.motherTongue} listName="languages" /></p>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t("location")}</span>

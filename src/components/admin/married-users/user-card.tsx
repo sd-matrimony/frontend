@@ -2,6 +2,7 @@ import { Briefcase, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { TranslatedValue } from "@/components/common/translated-value";
 
 function UserCard({
   profileImg, fullName,
@@ -25,7 +26,10 @@ function UserCard({
             {otherDetails?.caste && (
               <div className="df">
                 <User className="h-4 w-4 opacity-70" />
-                <span>{otherDetails.caste} {otherDetails.subCaste ? `- ${otherDetails.subCaste}` : ""}</span>
+                <span>
+                  <TranslatedValue value={otherDetails.caste} listName="castes" fallback="" />
+                  {otherDetails.subCaste ? <> - <TranslatedValue value={otherDetails.subCaste} listName="subCastes" fallback="" /></> : ""}
+                </span>
               </div>
             )}
 

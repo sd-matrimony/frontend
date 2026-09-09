@@ -17,6 +17,6 @@ type itemsT = (allowedPrimitiveT | itemT | groupT)[]
 
 type indicatorAtT = 'right' | 'left' | ''
 
-type staticsNameT = 'castes' | 'casteMap' | 'educationLevels' | 'professions' | 'languages' | 'religions' | 'sectors' | 'nakshatra' | 'raasi'
+type staticsNameT = 'castes' | 'casteMap' | 'subCastes' | 'educationLevels' | 'professions' | 'languages' | 'religions' | 'sectors' | 'nakshatra' | 'raasi'
 
 type objT = Record<string, primitiveT>

@@ -3,13 +3,13 @@
 import { Control, FieldValues, Path } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
 
-import { useStatics } from "@/hooks/use-general";
+import { useStatics, useStaticsTranslations } from "@/hooks/use-general";
 import { translateListValue, translateSentinel } from "@/utils/list-translations";
 
 import { AutocompleteWrapper, ComboboxWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
 
-function toItems(values: string[], listName: staticsNameT | undefined, locale: string): itemT[] {
-  return values.map(value => ({ value, label: translateListValue(listName, value, locale) }))
+function toItems(values: string[], map: Record<string, string> | undefined, locale: string): itemT[] {
+  return values.map(value => ({ value, label: translateListValue(map, value, locale) }))
 }
 
 function additionalOptsToItems(additionalOpts: string | string[] | undefined, locale: string): itemT[] {
@@ -36,6 +36,7 @@ export function SelectListWrapper<T extends FieldValues>({ name, label, control,
   const t = useTranslations("shared.createUser")
   const locale = useLocale()
   const { data, isLoading } = useStatics(listName)
+  const { data: translationsMap } = useStaticsTranslations(listName, locale)
 
   const Comp = canCreateNew ? AutocompleteWrapper : showClear ? ComboboxWrapper : SelectWrapper
   return (
@@ -45,7 +46,7 @@ export function SelectListWrapper<T extends FieldValues>({ name, label, control,
       control={control}
       items={isLoading ? [] : [
         ...additionalOptsToItems(additionalOpts, locale),
-        ...toItems(data || [], listName, locale)
+        ...toItems(data || [], translationsMap, locale)
       ]}
       isLoading={isLoading}
       showClear={showClear}
@@ -63,6 +64,7 @@ export function SelectSubCastesWrapper<T extends FieldValues>({ name, control, c
   const t = useTranslations("shared.createUser")
   const locale = useLocale()
   const { data, isLoading } = useStatics("casteMap")
+  const { data: translationsMap } = useStaticsTranslations("subCastes", locale)
 
   return (
     <AutocompleteWrapper
@@ -71,7 +73,7 @@ export function SelectSubCastesWrapper<T extends FieldValues>({ name, control, c
       control={control}
       items={isLoading ? [] : [
         ...additionalOptsToItems(additionalOpts, locale),
-        ...toItems(data?.[choosed] || [], "casteMap", locale)
+        ...toItems(data?.[choosed] || [], translationsMap, locale)
       ]}
       isLoading={isLoading}
       placeholder={t("selectSubCaste")}
