@@ -1,4 +1,3 @@
-import VerifyCheck from "@/components/verify-check";
 import Navbar from "@/components/navbar";
 
 function Layout({ children }: LayoutProps<"/user">) {
@@ -6,8 +5,6 @@ function Layout({ children }: LayoutProps<"/user">) {
     <main>
       <Navbar role="user" />
       {children}
-
-      <VerifyCheck />
     </main>
   )
 }

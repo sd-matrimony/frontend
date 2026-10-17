@@ -23,13 +23,13 @@ async function UserProfile({ user, canEdit }: props) {
     <>
       <ProfileSidebar user={user} canEdit={canEdit} />
 
-      <div className="@2xl:col-span-2">
+      <div className="@2xl:col-span-2 min-w-0">
         <Tabs defaultValue="personal">
-          <TabsList className="grid grid-cols-2 min-[400px]:grid-cols-4 h-auto mb-2">
-            <TabsTrigger value="personal">{t("personal")}</TabsTrigger>
-            <TabsTrigger value="family">{t("family")}</TabsTrigger>
-            <TabsTrigger value="horoscope">{t("horoscope")}</TabsTrigger>
-            <TabsTrigger value="preferences">{t("preferences")}</TabsTrigger>
+          <TabsList className="w-full max-w-full justify-start overflow-x-auto [scrollbar-width:none] mb-2">
+            <TabsTrigger value="personal" className="min-w-fit px-2 @md:px-3">{t("personal")}</TabsTrigger>
+            <TabsTrigger value="family" className="min-w-fit px-2 @md:px-3">{t("family")}</TabsTrigger>
+            <TabsTrigger value="horoscope" className="min-w-fit px-2 @md:px-3">{t("horoscope")}</TabsTrigger>
+            <TabsTrigger value="preferences" className="min-w-fit px-2 @md:px-3">{t("preferences")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="personal" className="space-y-6">

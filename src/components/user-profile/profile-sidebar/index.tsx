@@ -1,7 +1,6 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { useUpdateProfile } from "@/hooks/use-user";
@@ -10,6 +9,7 @@ import { deleteImage } from "@/actions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import EditProfileImageDialog from "./edit-profile-image-dialog";
+import ProfileImageView from "./profile-image-view";
 import AddImageDialog from "./add-image-dialog";
 import ImageView from "./image-view";
 
@@ -50,11 +50,9 @@ function ProfileSidebar({ user, canEdit }: props) {
         <CardContent className="p-6">
           <div className="flex flex-col items-center text-center">
             <div className="relative w-40 h-40 mb-4">
-              <Image
+              <ProfileImageView
                 src={user?.profileImg || "/imgs/user.jpg"}
                 alt={user?.fullName}
-                fill
-                className="rounded-full object-cover border-4 border-primary/20"
               />
 
               {

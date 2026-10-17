@@ -88,8 +88,8 @@ export function useForgotPass() {
 
   return useMutation({
     mutationFn: forgotPass,
-    onSuccess(_, variables) {
-      toast.add({ title: t('checkYourEmail') })
+    onSuccess(data: { message?: string }, variables) {
+      toast.add({ title: t('checkYourEmail'), description: data?.message })
       router.replace(`/auth/${variables?.role || "user"}/reset-pass`)
     },
     onError(error) {
