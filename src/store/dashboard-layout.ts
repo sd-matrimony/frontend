@@ -51,8 +51,13 @@ const useDashboardLayoutStore = create<State & Actions>()(persist(
     items: [],
 
     init: (defaults) => {
-      if (get().items.length) return;
-      set({ items: defaults });
+      const current = get().items;
+      if (!current.length) return set({ items: defaults });
+
+      const ids = new Set(defaults.map(d => d.id));
+      const kept = current.filter(i => ids.has(i.id));
+      const added = defaults.filter(d => !kept.some(i => i.id === d.id));
+      if (added.length || kept.length !== current.length) set({ items: [...kept, ...added] });
     },
 
     setItems: (items) => set({ items }),

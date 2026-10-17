@@ -1,5 +1,18 @@
 import { sendApiReq, endPoints } from "@/services";
 
+export function getDashboardStats() {
+  return sendApiReq({
+    url: endPoints.getDashboardStats,
+  })
+}
+
+export function getActiveUsers(params: { skip: number, limit: number, days: number }) {
+  return sendApiReq({
+    url: endPoints.getActiveUsers,
+    params,
+  })
+}
+
 export function getPaidUsers(params: any = {}) {
   return sendApiReq({
     url: endPoints.getPaidUsers,

@@ -155,6 +155,30 @@
         "dragReorder": "வரிசைப்படுத்த இழுக்கவும்",
         "dragResizeWidth": "அகலத்தை மாற்ற இழுக்கவும்",
         "dragResizeHeight": "உயரத்தை மாற்ற இழுக்கவும்"
+      },
+      "stats": {
+        "totalRevenue": "மொத்தம் பெறப்பட்டது",
+        "online": "ஆன்லைன்",
+        "byAdmin": "நிர்வாகி மூலம்",
+        "thisMonth": "இந்த மாதம்",
+        "today": "இன்று",
+        "payments": "{count} கட்டணங்கள்",
+        "activeUsers": "செயலில் உள்ள பயனர்கள்",
+        "activeToday": "இன்று",
+        "active7d": "7 நாட்கள்",
+        "active30d": "30 நாட்கள்",
+        "ofTotal": "மொத்தம் {total} பயனர்களில்"
+      },
+      "activeUsers": {
+        "title": "உள்நுழைந்த பயனர்கள்",
+        "searchPlaceholder": "பெயர், மின்னஞ்சல் அல்லது மொபைல் மூலம் தேடு...",
+        "today": "கடந்த 24 மணி நேரம்",
+        "week": "கடந்த 7 நாட்கள்",
+        "month": "கடந்த 30 நாட்கள்",
+        "colUser": "பயனர்",
+        "colLastActive": "கடைசியாக செயலில்",
+        "colLastLogin": "கடைசி உள்நுழைவு",
+        "empty": "இந்த காலத்தில் செயலில் உள்ள பயனர்கள் இல்லை"
       }
     },
     "usersGroupedList": {

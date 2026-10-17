@@ -11,8 +11,50 @@ import {
   createAdmin, updateAdmin, getUserInvitations, userInvited,
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
   getUserCurrentPlan, removeUserPlan, updateUserCritical,
+  getDashboardStats, getActiveUsers,
 } from "@/actions";
 import { useToast } from "@/components/ui/toast";
+
+type dashboardStatsT = {
+  revenue: {
+    total: number
+    count: number
+    online: number
+    byAdmin: number
+    thisMonth: number
+    today: number
+  }
+  users: {
+    total: number
+    activeToday: number
+    active7d: number
+    active30d: number
+  }
+}
+
+export function useGetDashboardStats() {
+  return useQuery<dashboardStatsT>({
+    queryKey: ["dashboard-stats"],
+    queryFn: getDashboardStats,
+  })
+}
+
+type activeUserT = Partial<userT> & {
+  lastActiveAt: string
+  lastLoginAt?: string
+}
+
+export function useGetActiveUsers(days: number) {
+  const limit = 50
+
+  return useInfiniteQuery<activeUserT[], Error, activeUserT[]>({
+    queryKey: ["active-users", days],
+    queryFn: ({ pageParam }) => getActiveUsers({ skip: (pageParam as number || 0) * limit, limit, days }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
+    select: data => data?.pages?.flat() as activeUserT[],
+  })
+}
 
 type userAndPlanT = currentPlanT & {
   user: Partial<userT>

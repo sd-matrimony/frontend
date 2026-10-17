@@ -155,6 +155,30 @@
         "dragReorder": "Drag to reorder card",
         "dragResizeWidth": "Drag to resize card width",
         "dragResizeHeight": "Drag to resize card height"
+      },
+      "stats": {
+        "totalRevenue": "Total Received",
+        "online": "Online",
+        "byAdmin": "By admin",
+        "thisMonth": "This Month",
+        "today": "Today",
+        "payments": "{count} payments",
+        "activeUsers": "Active Users",
+        "activeToday": "Today",
+        "active7d": "7 days",
+        "active30d": "30 days",
+        "ofTotal": "of {total} users"
+      },
+      "activeUsers": {
+        "title": "Logged-in Users",
+        "searchPlaceholder": "Search by name, email or mobile...",
+        "today": "Last 24 hours",
+        "week": "Last 7 days",
+        "month": "Last 30 days",
+        "colUser": "User",
+        "colLastActive": "Last Active",
+        "colLastLogin": "Last Login",
+        "empty": "No users active in this period"
       }
     },
     "usersGroupedList": {
