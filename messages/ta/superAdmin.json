@@ -111,7 +111,8 @@
         "colUser": "பயனர்",
         "colPlan": "திட்டம்",
         "colAmount": "தொகை",
-        "colExpiry": "காலாவதி தேதி"
+        "colExpiry": "காலாவதி தேதி",
+        "activePlans": "செயலில் உள்ள திட்டங்கள்"
       },
       "usersAllPayments": {
         "title": "அனைத்து பயனர் கட்டணங்கள்",
@@ -160,14 +161,19 @@
         "totalRevenue": "மொத்தம் பெறப்பட்டது",
         "online": "ஆன்லைன்",
         "byAdmin": "நிர்வாகி மூலம்",
-        "thisMonth": "இந்த மாதம்",
         "today": "இன்று",
         "payments": "{count} கட்டணங்கள்",
         "activeUsers": "செயலில் உள்ள பயனர்கள்",
         "activeToday": "இன்று",
         "active7d": "7 நாட்கள்",
         "active30d": "30 நாட்கள்",
-        "ofTotal": "மொத்தம் {total} பயனர்களில்"
+        "ofTotal": "மொத்தம் {total} பயனர்களில்",
+        "locked": "புள்ளிவிவரங்கள் பூட்டப்பட்டுள்ளன",
+        "pinPlaceholder": "PIN உள்ளிடவும்",
+        "unlock": "திற",
+        "wrongPin": "தவறான PIN",
+        "lock": "புள்ளிவிவரங்களைப் பூட்டு",
+        "month": "மாதம்"
       },
       "activeUsers": {
         "title": "உள்நுழைந்த பயனர்கள்",

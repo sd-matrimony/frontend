@@ -13,11 +13,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import { MonthYearSelect } from "@/components/common/month-year-select";
 import LoadMore from "@/components/common/load-more";
+
+const ACTIVE = "active"
 
 function PaidUsers({ dragHandle }: DragHandleProps) {
   const t = useTranslations("superAdmin.dashboard.paidUsers")
-  const { isLoading, data, isFetching, hasNextPage, fetchNextPage, refetch } = useGetPaidUsers()
+  const [month, setMonth] = useState(ACTIVE)
+  const { isLoading, data, isFetching, hasNextPage, fetchNextPage, refetch } = useGetPaidUsers(month === ACTIVE ? undefined : month)
   const [search, setSearch] = useState("")
 
   const filtered = search.trim()
@@ -36,13 +40,19 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
       <CardHeader>
         <div className="flex items-center gap-2">
           {dragHandle}
-          <CardTitle>{t("title")}</CardTitle>
+          <CardTitle className="shrink-0 whitespace-nowrap">{t("title")}</CardTitle>
 
           <Input
             placeholder={t("searchPlaceholder")}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="max-w-md ml-auto h-8"
+          />
+
+          <MonthYearSelect
+            value={month}
+            onChange={setMonth}
+            extraOption={{ value: ACTIVE, label: t("activePlans") }}
           />
         </div>
 

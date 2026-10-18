@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation, useInfiniteQuery, useQueryClient, useQuery } from "@tanstack/react-query";
+import { useMutation, useInfiniteQuery, useQueryClient, useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
 import { type findUserSchemaT } from "./use-user-filters";
@@ -21,7 +21,8 @@ type dashboardStatsT = {
     count: number
     online: number
     byAdmin: number
-    thisMonth: number
+    month: number
+    monthCount: number
     today: number
   }
   users: {
@@ -32,10 +33,12 @@ type dashboardStatsT = {
   }
 }
 
-export function useGetDashboardStats() {
+export function useGetDashboardStats(enabled: boolean, month: string) {
   return useQuery<dashboardStatsT>({
-    queryKey: ["dashboard-stats"],
-    queryFn: getDashboardStats,
+    queryKey: ["dashboard-stats", month],
+    queryFn: () => getDashboardStats({ month }),
+    placeholderData: keepPreviousData,
+    enabled,
   })
 }
 
@@ -60,12 +63,12 @@ type userAndPlanT = currentPlanT & {
   user: Partial<userT>
   assistedExpire: string
 }
-export function useGetPaidUsers() {
+export function useGetPaidUsers(month?: string) {
   const limit = 50
 
   return useInfiniteQuery<userAndPlanT[], Error, userAndPlanT[]>({
-    queryKey: ["paid-users"],
-    queryFn: ({ pageParam }) => getPaidUsers({ skip: (pageParam as number || 0) * limit, limit }),
+    queryKey: ["paid-users", month ?? "active"],
+    queryFn: ({ pageParam }) => getPaidUsers({ skip: (pageParam as number || 0) * limit, limit, ...(month && { month }) }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
     select: data => data?.pages?.flat() as any,

@@ -111,7 +111,8 @@
         "colUser": "User",
         "colPlan": "Plan",
         "colAmount": "Amount",
-        "colExpiry": "Expiry Date"
+        "colExpiry": "Expiry Date",
+        "activePlans": "Active plans"
       },
       "usersAllPayments": {
         "title": "Users All Payments",
@@ -160,14 +161,19 @@
         "totalRevenue": "Total Received",
         "online": "Online",
         "byAdmin": "By admin",
-        "thisMonth": "This Month",
         "today": "Today",
         "payments": "{count} payments",
         "activeUsers": "Active Users",
         "activeToday": "Today",
         "active7d": "7 days",
         "active30d": "30 days",
-        "ofTotal": "of {total} users"
+        "ofTotal": "of {total} users",
+        "locked": "Stats are locked",
+        "pinPlaceholder": "Enter PIN",
+        "unlock": "Unlock",
+        "wrongPin": "Wrong PIN",
+        "lock": "Lock stats",
+        "month": "Month"
       },
       "activeUsers": {
         "title": "Logged-in Users",

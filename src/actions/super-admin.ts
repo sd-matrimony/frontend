@@ -1,8 +1,9 @@
 import { sendApiReq, endPoints } from "@/services";
 
-export function getDashboardStats() {
+export function getDashboardStats(params: { month: string }) {
   return sendApiReq({
     url: endPoints.getDashboardStats,
+    params,
   })
 }
 

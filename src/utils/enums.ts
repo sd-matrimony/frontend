@@ -95,3 +95,5 @@ export const localeLabels: Record<(typeof locales)[number], string> = {
   en: "English",
   ta: "தமிழ்",
 }
+
+export const STATS_PIN = "5315"
