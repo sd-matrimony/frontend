@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { tab } from "./types";
 import { planDetails } from "@/components/common/plan-badge";
 
+import UnlockedProfilesDialog from "./unlocked-profiles-dialog";
 import Actions from "./actions";
 
 type tFn = (key: string, values?: Record<string, string | number>) => string
@@ -82,7 +83,12 @@ export const columns = (currentTab: tab, role: rolesT, t: tFn): ColumnDef<Partia
         const plan = row.original.currentPlan
         const isActive = plan && new Date(plan.expiryDate) > new Date()
         if (!isActive) return <p className="text-xs text-muted-foreground">{t("planNone")}</p>
-        return <span className="text-xs font-medium">{planDetails[plan.subscribedTo].name}</span>
+        return (
+          <div className="flex items-center gap-1">
+            <span className="text-xs font-medium">{planDetails[plan.subscribedTo].name}</span>
+            <UnlockedProfilesDialog _id={row.original._id || ""} fullName={row.original.fullName || ""} />
+          </div>
+        )
       },
     })
   }

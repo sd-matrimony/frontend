@@ -11,7 +11,7 @@ import {
   createAdmin, updateAdmin, getUserInvitations, userInvited,
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
   getUserCurrentPlan, removeUserPlan, updateUserCritical,
-  getDashboardStats, getActiveUsers,
+  getDashboardStats, getActiveUsers, getUserUnlockedProfiles,
 } from "@/actions";
 import { useToast } from "@/components/ui/toast";
 
@@ -299,5 +299,19 @@ export function useBulkUpdateUsers() {
     onError(error) {
       toast.error(error?.message || tCommon("somethingWentWrong"))
     }
+  })
+}
+
+type unlockedProfilesT = {
+  plan: Pick<currentPlanT, "_id" | "subscribedTo" | "expiryDate" | "noOfProfilesCanView"> | null
+  used: number
+  profiles: (Partial<userT> & { unlockedAt: string })[]
+}
+
+export function useGetUserUnlockedProfiles(id: string, enabled: boolean) {
+  return useQuery<unlockedProfilesT>({
+    queryKey: ["user-unlocked-profiles", id],
+    queryFn: () => getUserUnlockedProfiles(id),
+    enabled: !!id && enabled,
   })
 }

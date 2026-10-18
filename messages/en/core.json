@@ -383,7 +383,17 @@
       "deleteConfirmDesc": "{fullName} will be moved to deleted users.",
       "restore": "Restore",
       "restoreConfirmTitle": "Restore this user?",
-      "restoreConfirmDesc": "{fullName} will be restored and marked pending approval."
+      "restoreConfirmDesc": "{fullName} will be restored and marked pending approval.",
+      "unlocked": {
+        "title": "Unlocked profiles - {name}",
+        "used": "{used} / {limit} profiles unlocked",
+        "unlimited": "Unlimited",
+        "noPlan": "No active plan",
+        "empty": "No profiles unlocked yet",
+        "unlockedOn": "Unlocked {date}",
+        "planExpires": "{plan} plan · expires {date}",
+        "tooltip": "View unlocked profiles"
+      }
     },
     "planActions": {
       "copyInviteMessage": "Copy invite message",

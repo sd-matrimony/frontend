@@ -42,22 +42,13 @@ function Tile({ Icon, label, value, sub, isLoading }: TileProps) {
 
 function StatsOverview() {
   const t = useTranslations("superAdmin.dashboard.stats")
-  const { data, isLoading, isFetching, refetch } = useGetDashboardStats()
+  const { data, isLoading } = useGetDashboardStats()
 
   const revenue = data?.revenue
   const users = data?.users
 
   return (
     <div className="relative mb-4">
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={() => refetch()}
-        className="absolute -top-9 right-0 size-8"
-      >
-        <RefreshCcw className={isFetching ? "animate-spin" : ""} />
-      </Button>
-
       <div className="grid gap-2 grid-cols-2 lg:grid-cols-4">
         <Tile
           Icon={IndianRupee}
