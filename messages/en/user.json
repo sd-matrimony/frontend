@@ -62,7 +62,8 @@
       }
     },
     "list": {
-      "empty": "No users found"
+      "empty": "No users found",
+      "emptyHidden": "You haven't hidden any profiles"
     },
     "userCard": {
       "liked": "Liked",
@@ -78,7 +79,9 @@
       "maritalStatus": "Marital Status",
       "addToLike": "Add to Like",
       "removeFromLike": "Remove from Like",
-      "viewProfile": "View Profile"
+      "viewProfile": "View Profile",
+      "notInterested": "Not interested",
+      "unhide": "Show in feed again"
     },
     "plan": {
       "free": {
@@ -145,7 +148,11 @@
       "addToLikedFailed": "Failed to add user to liked list",
       "removedFromLiked": "User removed from liked list successfully",
       "removeFromLikedFailed": "Failed to remove user from liked list",
-      "profileUnlocked": "Profile unlocked successfully"
+      "profileUnlocked": "Profile unlocked successfully",
+      "profileHidden": "Profile hidden from your feed",
+      "hideFailed": "Failed to hide profile",
+      "profileUnhidden": "Profile restored to your feed",
+      "unhideFailed": "Failed to restore profile"
     }
   }
 }

@@ -47,6 +47,10 @@ const userLinks: linkT[] = [
     labelKey: "unlocked",
     href: "unlocked",
   },
+  {
+    labelKey: "hidden",
+    href: "hidden",
+  },
 ]
 
 const list: Record<rolesT, linkT[]> = {

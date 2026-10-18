@@ -1,11 +1,11 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { type InfiniteData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import {
   addLiked, getLikesList, getMatches, getUserDetails, removeLiked,
   addImages, updateProfile, getPartnerPreferences, getUnlockedProfiles,
-  unlockProfile, getCurrentPlan
+  unlockProfile, getCurrentPlan, getHiddenList, hideProfile, unhideProfile,
 } from "@/actions";
 import { filterObj } from "@/utils";
 import { useToast } from "@/components/ui/toast";
@@ -28,21 +28,35 @@ export function useUsersList(filters?: objT) {
   })
 }
 
-export function useLikesList(type: "liked" | "disliked") {
+export function useLikesList() {
   const limit = 50
 
   return useInfiniteQuery<Partial<userT>[], Error, Partial<userT>[]>({
-    queryKey: ["likes-list", type],
+    queryKey: ["likes-list"],
     queryFn: ({ pageParam }) => {
       return getLikesList({
         skip: (pageParam as number || 0) * limit,
         limit,
-        type,
       })
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
     select: data => data?.pages?.flat() as any,
+  })
+}
+
+export function useHiddenList() {
+  const limit = 50
+
+  return useInfiniteQuery<Partial<userT>[], Error, Partial<userT>[]>({
+    queryKey: ["hidden-list"],
+    queryFn: ({ pageParam }) => getHiddenList({
+      skip: (pageParam as number || 0) * limit,
+      limit,
+    }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
+    select: data => data.pages.flat(),
   })
 }
 
@@ -123,7 +137,7 @@ export function useAddLiked() {
   return useMutation({
     mutationFn: addLiked,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["likes-list", "liked"] })
+      queryClient.invalidateQueries({ queryKey: ["likes-list"] })
       queryClient.invalidateQueries({ queryKey: ["user-list", "approved"] })
       toast.success(t("addedToLiked"))
     },
@@ -141,7 +155,7 @@ export function useRemoveLiked() {
   return useMutation({
     mutationFn: removeLiked,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["likes-list", "liked"] })
+      queryClient.invalidateQueries({ queryKey: ["likes-list"] })
       queryClient.invalidateQueries({ queryKey: ["user-list", "approved"] })
       toast.success(t("removedFromLiked"))
     },
@@ -163,6 +177,58 @@ export function useUnlockProfile() {
       queryClient.invalidateQueries({ queryKey: ["unlocked-profiles"] })
       toast.success(t("profileUnlocked"))
       router.refresh()
+    },
+  })
+}
+
+export function useHideProfile() {
+  const t = useTranslations("user.toasts")
+  const queryClient = useQueryClient()
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: hideProfile,
+    onMutate: async ({ userId }) => {
+      const queryKey = ["user-list", "approved"]
+      await queryClient.cancelQueries({ queryKey })
+      const previous = queryClient.getQueriesData<InfiniteData<Partial<userT>[]>>({ queryKey })
+
+      queryClient.setQueriesData<InfiniteData<Partial<userT>[]>>({ queryKey }, old => old && {
+        ...old,
+        pages: old.pages.map(page => page.filter(user => user._id !== userId)),
+      })
+
+      return { previous }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["hidden-list"] })
+      queryClient.invalidateQueries({ queryKey: ["likes-list"] })
+      queryClient.invalidateQueries({ queryKey: ["unlocked-profiles"] })
+      toast.success(t("profileHidden"))
+    },
+    onError: (error, _variables, context) => {
+      context?.previous.forEach(([key, data]) => queryClient.setQueryData(key, data))
+      toast.error(error?.message || t("hideFailed"))
+    },
+  })
+}
+
+export function useUnhideProfile() {
+  const t = useTranslations("user.toasts")
+  const queryClient = useQueryClient()
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: unhideProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["hidden-list"] })
+      queryClient.invalidateQueries({ queryKey: ["user-list", "approved"] })
+      queryClient.invalidateQueries({ queryKey: ["likes-list"] })
+      queryClient.invalidateQueries({ queryKey: ["unlocked-profiles"] })
+      toast.success(t("profileUnhidden"))
+    },
+    onError: (error) => {
+      toast.error(error?.message || t("unhideFailed"))
     },
   })
 }

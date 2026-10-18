@@ -5,10 +5,11 @@ import { useLikesList } from "@/hooks/use-user";
 import List from "../list";
 
 function Page() {
-  const { data: users, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useLikesList("liked")
+  const { data: users, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useLikesList()
 
   return (
     <List
+      canHide
       type="liked"
       users={users || []}
       isLoading={isLoading}

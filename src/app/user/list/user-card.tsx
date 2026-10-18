@@ -1,7 +1,7 @@
 "use client";
 
 import { memo } from "react";
-import { Heart, Eye, Briefcase, Calendar, HeartOff, UsersRound, Gem, GraduationCap, ShieldUser } from "lucide-react";
+import { Heart, Eye, EyeOff, Briefcase, Calendar, HeartOff, UsersRound, Gem, GraduationCap, ShieldUser, Undo2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
@@ -15,21 +15,26 @@ import { Badge } from "@/components/ui/badge";
 import { PlanBadge } from "@/components/common/plan-badge";
 
 type props = {
-  type?: "liked" | "disliked" | "full"
+  type?: "liked" | "full" | "hidden"
+  canHide?: boolean
   isLiked?: boolean
-  isDisliked?: boolean
+  isHidden?: boolean
   onView?: (userId: string) => void
-  onAdd?: (userId: string, type: "liked" | "disliked") => void
-  onRemove?: (userId: string, type: "liked" | "disliked") => void
+  onAdd?: (userId: string) => void
+  onRemove?: (userId: string) => void
+  onHide?: (userId: string) => void
+  onUnhide?: (userId: string) => void
 } & Partial<userT>
 
 const UserCard = memo(function UserCard({
   _id, profileImg, fullName, maritalStatus, dob,
   otherDetails, proffessionalDetails, currentPlan,
-  type = "full", isLiked, isVerified,
+  type = "full", canHide = false, isLiked, isVerified, isHidden,
   onView = () => { },
   onAdd = () => { },
   onRemove = () => { },
+  onHide = () => { },
+  onUnhide = () => { },
 }: props) {
   const t = useTranslations("user.userCard")
   const hasPlan = currentPlan && new Date(currentPlan.expiryDate).getTime() > new Date().getTime()
@@ -52,12 +57,6 @@ const UserCard = memo(function UserCard({
               {t("liked")}
             </Badge>
           )}
-          {/* {isDisliked && (
-            <Badge variant="secondary" className="absolute top-2 right-2 bg-white/80">
-              <ThumbsDown className="h-3 w-3 mr-1 text-slate-500" />
-              Disliked
-            </Badge>
-          )} */}
 
           <TooltipWrapper
             content={hasPlan ? t("paidUser") : t("freeUser")}
@@ -120,14 +119,14 @@ const UserCard = memo(function UserCard({
           </div>
 
           <CardFooter className="df flex-wrap p-0">
-            {(type === "full" || type === "disliked") && !isLiked &&
+            {type === "full" && !isLiked &&
               <TooltipWrapper
                 content={t("addToLike")}
                 triggerProps={{
                   render: <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => onAdd(_id as string, "liked")}
+                    onClick={() => onAdd(_id as string)}
                     className="text-rose-500 border-rose-200 hover:bg-rose-50 hover:text-rose-600"
                   >
                     <Heart className="h-4 w-4" />
@@ -137,20 +136,6 @@ const UserCard = memo(function UserCard({
               />
             }
 
-            {/* {(type === "full" || type === "liked") && !isDisliked &&
-              <TooltipWrapper description="Add to Dislike">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onAdd(_id as string, "disliked")}
-                  className="text-blue-500 border-blue-200 hover:bg-blue-50 hover:text-blue-600"
-                >
-                  <ThumbsDown className="h-4 w-4" />
-                  <span className="sr-only">Add to Dislike</span>
-                </Button>
-              </TooltipWrapper>
-            } */}
-
             {((type === "full" && isLiked) || type === "liked") &&
               <TooltipWrapper
                 content={t("removeFromLike")}
@@ -158,7 +143,7 @@ const UserCard = memo(function UserCard({
                   render: <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => onRemove(_id as string, "liked")}
+                    onClick={() => onRemove(_id as string)}
                     className="text-rose-500 border-rose-200 hover:bg-rose-50 hover:text-rose-600"
                   >
                     <HeartOff className="h-4 w-4 fill-rose-500" />
@@ -167,21 +152,6 @@ const UserCard = memo(function UserCard({
                 }}
               />
             }
-
-            {/* {((type === "full" && isDisliked) || type === "disliked") &&
-              <TooltipWrapper description="Remove from Dislike">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onRemove(_id as string, "disliked")}
-                  className="text-blue-500 border-blue-200 hover:bg-blue-50 hover:text-blue-600 relative"
-                >
-                  <ThumbsDown className="h-4 w-4" />
-                  <span className="sr-only">Remove from Dislike</span>
-                  <span className="absolute top-0.5 right-4 w-px h-[22px] bg-blue-500 rounded-full -rotate-45"></span>
-                </Button>
-              </TooltipWrapper>
-            } */}
 
             <TooltipWrapper
               content={t("viewProfile")}
@@ -197,6 +167,40 @@ const UserCard = memo(function UserCard({
                 </Button>
               }}
             />
+
+            {canHide && type !== "hidden" && !isHidden &&
+              <TooltipWrapper
+                content={t("notInterested")}
+                triggerProps={{
+                  render: <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => onHide(_id as string)}
+                    className="ml-auto text-slate-500 border-slate-200 hover:bg-slate-50 hover:text-slate-700"
+                  >
+                    <EyeOff className="h-4 w-4" />
+                    <span className="sr-only">{t("notInterested")}</span>
+                  </Button>
+                }}
+              />
+            }
+
+            {(type === "hidden" || (canHide && isHidden)) &&
+              <TooltipWrapper
+                content={t("unhide")}
+                triggerProps={{
+                  render: <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => onUnhide(_id as string)}
+                    className="ml-auto text-slate-500 border-slate-200 hover:bg-slate-50 hover:text-slate-700"
+                  >
+                    <Undo2 className="h-4 w-4" />
+                    <span className="sr-only">{t("unhide")}</span>
+                  </Button>
+                }}
+              />
+            }
           </CardFooter>
         </CardContent>
       </div>

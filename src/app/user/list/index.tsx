@@ -5,13 +5,14 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useTranslations } from "next-intl";
 import { Loader } from "lucide-react";
 
-import { useAddLiked, useRemoveLiked } from "@/hooks/use-user";
+import { useAddLiked, useHideProfile, useRemoveLiked, useUnhideProfile } from "@/hooks/use-user";
 import useUIStore from "@/store/ui";
 
 import UserCard from "./user-card";
 
 type prrops = {
-  type: "liked" | "disliked" | "full"
+  type: "liked" | "full" | "hidden"
+  canHide?: boolean
   users: Partial<userT>[],
   isLoading: boolean,
   isFetchingNextPage: boolean,
@@ -19,12 +20,14 @@ type prrops = {
   fetchNextPage: () => void
 }
 
-function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage }: prrops) {
+function List({ type, canHide = false, users, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage }: prrops) {
   const t = useTranslations("user.list")
   const updateModal = useUIStore(s => s.update)
 
   const { mutate: unlikeMutate } = useRemoveLiked()
   const { mutate: likeMutate } = useAddLiked()
+  const { mutate: hideMutate } = useHideProfile()
+  const { mutate: unhideMutate } = useUnhideProfile()
 
   const parentRef = useRef<HTMLElement>(null)
 
@@ -49,13 +52,21 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
     }
   }, [users.length, hasNextPage, virtualItems, isFetchingNextPage, fetchNextPage])
 
-  const onAdd = useCallback((userId: string, type: "liked" | "disliked") => {
-    likeMutate({ userId, type })
+  const onAdd = useCallback((userId: string) => {
+    likeMutate({ userId })
   }, [likeMutate])
 
-  const onRemove = useCallback((userId: string, type: "liked" | "disliked") => {
-    unlikeMutate({ userId, type })
+  const onRemove = useCallback((userId: string) => {
+    unlikeMutate({ userId })
   }, [unlikeMutate])
+
+  const onHide = useCallback((userId: string) => {
+    hideMutate({ userId })
+  }, [hideMutate])
+
+  const onUnhide = useCallback((userId: string) => {
+    unhideMutate({ userId })
+  }, [unhideMutate])
 
   const onView = useCallback((_id: string) => {
     updateModal({ open: "user-details", data: { _id } })
@@ -69,7 +80,7 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
 
   if (users.length === 0) return (
     <section className="dc px-2 sm:px-4 py-8 h-[calc(100vh-5rem)]">
-      {t("empty")}
+      {type === "hidden" ? t("emptyHidden") : t("empty")}
     </section>
   )
 
@@ -115,7 +126,10 @@ function List({ type, users, isLoading, isFetchingNextPage, hasNextPage, fetchNe
                   {...user}
                   type={type}
                   onAdd={onAdd}
+                  canHide={canHide}
                   onRemove={onRemove}
+                  onHide={onHide}
+                  onUnhide={onUnhide}
                   onView={onView}
                 />
               </div>

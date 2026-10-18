@@ -77,6 +77,29 @@ export function removeLiked(data: any) {
   })
 }
 
+export function getHiddenList(params: { skip: number, limit: number }) {
+  return sendApiReq({
+    url: endPoints.getHiddenList,
+    params,
+  })
+}
+
+export function hideProfile(data: { userId: string }) {
+  return sendApiReq({
+    url: endPoints.hideProfile,
+    method: "POST",
+    data,
+  })
+}
+
+export function unhideProfile(data: { userId: string }) {
+  return sendApiReq({
+    url: endPoints.unhideProfile,
+    method: "POST",
+    data,
+  })
+}
+
 export function unlockProfile(data: { _id: string }) {
   return sendApiReq({
     url: endPoints.unlockProfile,

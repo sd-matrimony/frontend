@@ -9,6 +9,7 @@ function Page() {
 
   return (
     <List
+      canHide
       type="full"
       users={users || []}
       isLoading={isLoading}

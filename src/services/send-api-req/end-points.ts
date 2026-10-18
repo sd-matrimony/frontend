@@ -33,6 +33,9 @@ export const endPoints = {
   deleteImage: "/user/image",
   unlockProfile: "/user/unlock",
   getUnlockedProfiles: "/user/unlocked",
+  getHiddenList: "/user/hidden-list",
+  hideProfile: "/user/hide",
+  unhideProfile: "/user/unhide",
 
   getUsersList: "/admin/users",
   getUsersCount: "/super-admin/users/count",

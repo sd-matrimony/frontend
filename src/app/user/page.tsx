@@ -50,6 +50,7 @@ function Page() {
       <List
         key={id}
         type="full"
+        canHide
         users={users || []}
         isLoading={isLoading}
         hasNextPage={hasNextPage}

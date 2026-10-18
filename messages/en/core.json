@@ -50,7 +50,8 @@
       "unlocked": "Unlocked",
       "payment": "Payment",
       "profile": "Profile",
-      "logout": "Log out"
+      "logout": "Log out",
+      "hidden": "Hidden"
     },
     "createUser": {
       "signUp": "Sign Up",
