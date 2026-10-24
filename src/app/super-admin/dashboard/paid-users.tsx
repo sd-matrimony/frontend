@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { RefreshCcw } from "lucide-react";
+import { Loader, RefreshCcw } from "lucide-react";
 import { format } from "date-fns";
 import Link from "next/link";
 
@@ -14,15 +14,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { MonthYearSelect } from "@/components/common/month-year-select";
-import LoadMore from "@/components/common/load-more";
 
 const ACTIVE = "active"
 
 function PaidUsers({ dragHandle }: DragHandleProps) {
   const t = useTranslations("superAdmin.dashboard.paidUsers")
   const [month, setMonth] = useState(ACTIVE)
-  const { isLoading, data, isFetching, hasNextPage, fetchNextPage, refetch } = useGetPaidUsers(month === ACTIVE ? undefined : month)
+  const { isLoading, data, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useGetPaidUsers(month === ACTIVE ? undefined : month)
   const [search, setSearch] = useState("")
+  const sentinelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = sentinelRef.current
+    if (!el || isLoading || !hasNextPage || isFetchingNextPage) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) fetchNextPage() },
+      { threshold: 0, rootMargin: "200px" },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [isLoading, hasNextPage, isFetchingNextPage, fetchNextPage])
 
   const filtered = search.trim()
     ? data?.filter(user => {
@@ -125,10 +136,9 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
           </tbody>
         </table>
 
-        {
-          !isLoading && hasNextPage && !isFetching &&
-          <LoadMore fn={fetchNextPage} />
-        }
+        <div ref={sentinelRef} className="h-8 dc">
+          {isFetchingNextPage && <Loader className="animate-spin size-4" />}
+        </div>
       </CardContent>
     </Card>
   )
