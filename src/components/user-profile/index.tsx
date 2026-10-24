@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@glraj/ui/tabs";
 
 import ProfessionalDetails from "./professional-details";
 import PartnerPreferences from "./partner-preferences";

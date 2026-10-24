@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { createOrder, testCreateOrder, testVerifyPayment, verifyPayment } from "@/actions";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@glraj/ui/toast";
 
 export function useCreateOrder() {
   const t = useTranslations("common.toasts")

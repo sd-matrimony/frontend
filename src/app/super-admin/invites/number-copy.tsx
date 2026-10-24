@@ -1,7 +1,7 @@
 import { Check, Copy } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@glraj/ui/input-group"
 
 import useClipboardCopy from "@/hooks/use-clipboard-copy";
 

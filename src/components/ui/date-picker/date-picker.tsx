@@ -7,7 +7,7 @@ import { CalendarIcon } from 'lucide-react'
 import { type Selected, formatSelected, getDefaultMonth } from './utils'
 import { cn } from '@/lib/utils'
 
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@glraj/ui/popover'
 import { Button } from '@/components/ui/button'
 
 import { Calendar } from './calendar'

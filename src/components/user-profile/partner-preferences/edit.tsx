@@ -10,7 +10,7 @@ import { partnerPreferencesSchema, type partnerPreferencesT } from '@/utils/user
 import { useUpdateProfile } from '@/hooks/use-user';
 import { maritalStatus } from '@/utils';
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
 import { InputWrapper, SelectWrapper, TextareaWrapper } from "@/components/ui/field-wrapper-rhf";
 import { SelectListWrapper, SelectSubCastesWrapper } from '@/components/common/lists';
 import { Button } from "@/components/ui/button";

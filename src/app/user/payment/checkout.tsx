@@ -8,12 +8,12 @@ import Script from "next/script";
 import { useCreateOrder, useVerifyPayment } from "@/hooks/use-payment";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RadioGroup, RadioIndicator } from "@/components/ui/radio";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@glraj/ui/select";
+import { RadioGroup, RadioIndicator } from "@glraj/ui/radio";
 import { Separator } from "@/components/ui/separator";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@glraj/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { Label } from "@glraj/ui/label";
 
 import { assistedPrices, extraProfiles, PlanBadge, planDetails, planPrices, planValidityMonths, profilesCount } from "@/components/common/plan-badge";
 

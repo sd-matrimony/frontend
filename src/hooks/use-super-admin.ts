@@ -13,7 +13,7 @@ import {
   getUserCurrentPlan, removeUserPlan, updateUserCritical,
   getDashboardStats, getActiveUsers, getUserUnlockedProfiles,
 } from "@/actions";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@glraj/ui/toast";
 
 type dashboardStatsT = {
   revenue: {

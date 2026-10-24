@@ -8,7 +8,7 @@ import {
   unlockProfile, getCurrentPlan, getHiddenList, hideProfile, unhideProfile,
 } from "@/actions";
 import { filterObj } from "@/utils";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@glraj/ui/toast";
 
 export function useUsersList(filters?: objT) {
   const limit = 50

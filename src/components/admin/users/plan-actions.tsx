@@ -9,7 +9,7 @@ import { useRemoveUserPlan } from "@/hooks/use-super-admin";
 import useClipboardCopy from "@/hooks/use-clipboard-copy";
 import { createPass } from "@/utils/password";
 
-import { TooltipWrapper } from "@/components/ui/tooltip";
+import { TooltipWrapper } from "@glraj/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@glraj/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,7 +28,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@glraj/ui/alert-dialog";
 
 import MakePaymentForUser from "@/app/super-admin/payment/make-payment-for-user";
 

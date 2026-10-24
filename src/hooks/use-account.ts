@@ -10,7 +10,7 @@ import {
   updateEmail, updateMobile, updatePassword, userDetailsMini,
 } from "@/actions";
 import { removeToken, setToken } from "@/actions/token";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@glraj/ui/toast";
 
 export function useSignup() {
   const t = useTranslations("auth.toasts")

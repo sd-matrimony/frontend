@@ -3,7 +3,7 @@ import { type RowData } from '@tanstack/react-table'
 
 import { getLabel, getValue, isGroup } from '@/lib/utils'
 
-import { ComboboxWrapper, type ComboboxWrapperProps } from '@/components/ui/combobox'
+import { ComboboxWrapper, type ComboboxWrapperProps } from '@glraj/ui/combobox'
 import { type AppColumn as Column } from './table-features'
 
 interface ColumnFacetedFilterProps<TData extends RowData, TValue>

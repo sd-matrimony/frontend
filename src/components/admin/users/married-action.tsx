@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import FindUser from "@/components/admin/make-match/find-user";
 import Confirm from "@/components/admin/make-match/confirm";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@glraj/ui/dialog";
 
 type props = {
   open: boolean

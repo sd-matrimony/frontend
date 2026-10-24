@@ -1,6 +1,6 @@
 import { type RowData } from '@tanstack/react-table'
 
-import { ComboboxWrapper, type ComboboxWrapperProps } from '@/components/ui/combobox'
+import { ComboboxWrapper, type ComboboxWrapperProps } from '@glraj/ui/combobox'
 import { type AppColumn as Column } from './table-features'
 
 interface ColumndFilterProps<TData extends RowData, TValue>

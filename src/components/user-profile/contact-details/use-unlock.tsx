@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 
 import { useUserDetailsMini } from "@/hooks/use-account";
 import { useUnlockProfile } from "@/hooks/use-user";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@glraj/ui/toast";
 
 function useUnlock() {
   const t = useTranslations("shared.userProfile.unlock")

@@ -9,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@glraj/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Filters from "./filters";
 

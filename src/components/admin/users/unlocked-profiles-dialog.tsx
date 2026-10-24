@@ -8,10 +8,10 @@ import Link from "next/link";
 
 import { useGetUserUnlockedProfiles } from "@/hooks/use-super-admin";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { TooltipWrapper } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@glraj/ui/dialog";
+import { TooltipWrapper } from "@glraj/ui/tooltip";
 import { planDetails } from "@/components/common/plan-badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 type props = {

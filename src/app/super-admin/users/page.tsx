@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { SelectWrapper } from "@/components/ui/select";
+import { SelectWrapper } from "@glraj/ui/select";
 import Users from "@/components/admin/users";
 
 function Page() {

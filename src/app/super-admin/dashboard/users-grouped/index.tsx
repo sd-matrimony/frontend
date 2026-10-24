@@ -10,9 +10,9 @@ import { useStatics } from "@/hooks/use-general";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AutocompleteWrapper } from "@/components/ui/autocomplete";
-import { SelectWrapper } from "@/components/ui/select";
+import { SelectWrapper } from "@glraj/ui/select";
 import { DatePicker } from "@/components/ui/date-picker";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import List from "./list";
 

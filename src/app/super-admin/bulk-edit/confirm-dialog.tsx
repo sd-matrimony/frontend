@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog, DialogContent, DialogFooter,
   DialogHeader, DialogTitle,
-} from "@/components/ui/dialog"
+} from "@glraj/ui/dialog"
 
 import type { ChangeMap } from "./types"
 

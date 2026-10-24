@@ -2,7 +2,7 @@
 
 import { useUserDetailsMini } from "@/hooks/use-account";
 
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@glraj/ui/skeleton";
 import Users from "@/components/admin/users";
 
 function Page() {

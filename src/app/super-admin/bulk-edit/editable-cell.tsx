@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react"
 
 import { cn } from "@/lib/utils"
-import { ComboboxWrapper } from "@/components/ui/combobox"
-import { SelectWrapper } from "@/components/ui/select"
+import { ComboboxWrapper } from "@glraj/ui/combobox"
+import { SelectWrapper } from "@glraj/ui/select"
 import { Input } from "@/components/ui/input"
 
 import type { OnBlurChange } from "./types"

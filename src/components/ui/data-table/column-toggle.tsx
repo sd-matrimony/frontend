@@ -1,7 +1,7 @@
 import { Settings2 } from 'lucide-react'
 import { type RowData } from '@tanstack/react-table'
 
-import { Menu, MenuCheckboxItem, MenuContent, MenuTrigger } from '@/components/ui/menu'
+import { Menu, MenuCheckboxItem, MenuContent, MenuTrigger } from '@glraj/ui/menu'
 import { buttonVariants } from '@/components/ui/button'
 import { type AppTable as Table } from './table-features'
 

@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { useResendVerifyEmail } from "@/hooks/use-account";
 import useUIStore from "@/store/ui";
 
-import { DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@glraj/ui/dialog";
 import { Button } from "@/components/ui/button";
 
 type props = {

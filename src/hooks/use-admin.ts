@@ -9,7 +9,7 @@ import {
   createUsers, extractImg, findUser, getMarriedUsers, getUsersList, getUsersCount,
   updateUserDetails, userMarriedTo,
 } from "@/actions";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@glraj/ui/toast";
 
 export function useUsersList(data: findUserSchemaT) {
   const limit = 50

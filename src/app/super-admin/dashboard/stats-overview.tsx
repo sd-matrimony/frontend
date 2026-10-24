@@ -7,7 +7,7 @@ import { useGetDashboardStats } from "@/hooks/use-super-admin";
 import { STATS_PIN } from "@/utils/enums";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MonthYearSelect } from "@/components/common/month-year-select";

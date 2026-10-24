@@ -9,7 +9,7 @@ import { z } from "zod";
 import { useUpdateAdmin } from "@/hooks/use-super-admin";
 import useUIStore from "@/store/ui";
 
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@glraj/ui/dialog";
 import { InputWrapper, TextareaWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 

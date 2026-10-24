@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { format } from "date-fns";
 
-import { SelectWrapper } from "@/components/ui/select";
+import { SelectWrapper } from "@glraj/ui/select";
 import { cn } from "@/lib/utils";
 
 const YEARS_BACK = 5

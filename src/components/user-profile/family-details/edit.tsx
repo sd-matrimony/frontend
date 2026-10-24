@@ -10,7 +10,7 @@ import { familyDetailsSchema, type familyDetailsT } from '@/utils/user-schema';
 import { useUpdateProfile } from '@/hooks/use-user';
 import { aliveOptions } from '@/utils';
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
 import { InputWrapper, RadioWrapper } from '@/components/ui/field-wrapper-rhf';
 import { Button } from "@/components/ui/button";
 

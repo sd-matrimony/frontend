@@ -13,10 +13,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@glraj/ui/alert-dialog";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { Label } from "@glraj/ui/label";
 
 type props = {
   male: Partial<userT> | null

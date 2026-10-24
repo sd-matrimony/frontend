@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
 import { type RowData } from '@tanstack/react-table'
 
-import { SelectWrapper } from '@/components/ui/select'
+import { SelectWrapper } from '@glraj/ui/select'
 import { Button } from '@/components/ui/button'
 import { type AppReactTable as Table } from './table-features'
 

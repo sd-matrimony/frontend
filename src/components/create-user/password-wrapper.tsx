@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 
 import { createPass } from "@/utils/password";
 
-import { InputGroupWrapper, InputGroupButton } from "@/components/ui/input-group";
+import { InputGroupWrapper, InputGroupButton } from "@glraj/ui/input-group";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@glraj/ui/toast";
 import { Button } from "@/components/ui/button";
 
 type props = {

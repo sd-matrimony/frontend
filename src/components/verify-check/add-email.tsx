@@ -11,7 +11,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogClose,
-} from "@/components/ui/dialog";
+} from "@glraj/ui/dialog";
 import { InputWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 

@@ -8,15 +8,15 @@ import { useUpdateUserCritical } from "@/hooks/use-super-admin";
 
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
-} from "@/components/ui/dialog";
+} from "@glraj/ui/dialog";
 import {
   AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
   AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
   AlertDialogCancel, AlertDialogAction,
-} from "@/components/ui/alert-dialog";
+} from "@glraj/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Label } from "@glraj/ui/label";
 
 type props = {
   open: boolean

@@ -7,7 +7,7 @@ import Script from "next/script";
 
 import type { Metadata } from "next";
 
-import { Toaster } from "@/components/ui/toast";
+import { Toaster } from "@glraj/ui/toast";
 
 import "./globals.css";
 

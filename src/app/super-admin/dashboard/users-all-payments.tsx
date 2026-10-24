@@ -6,7 +6,7 @@ import { useGetAllPayments } from "@/hooks/use-super-admin";
 
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlanBadge } from "@/components/common/plan-badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 import LoadMore from "@/components/common/load-more";

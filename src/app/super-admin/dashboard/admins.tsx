@@ -7,7 +7,7 @@ import { useGetAdmins } from "@/hooks/use-super-admin";
 import useUIStore from "@/store/ui";
 
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 function Admins({ dragHandle }: DragHandleProps) {

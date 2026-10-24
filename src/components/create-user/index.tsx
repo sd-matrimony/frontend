@@ -15,7 +15,7 @@ import { useIsExists, useRegisterImage } from '@/hooks/use-account';
 import { createPass } from '@/utils/password';
 import { cn } from '@/lib/utils';
 
-import { useToast } from '@/components/ui/toast';
+import { useToast } from '@glraj/ui/toast';
 import { Button } from '@/components/ui/button';
 import FieldWrapper from './field-wrapper';
 

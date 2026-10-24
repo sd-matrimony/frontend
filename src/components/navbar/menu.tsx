@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { useLogout, useUserDetailsMini } from '@/hooks/use-account';
 
-import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from "@/components/ui/menu";
+import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from "@glraj/ui/menu";
 
 // const adminLinks = [
 //   {

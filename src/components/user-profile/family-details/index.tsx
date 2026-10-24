@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import useUnlock from "../contact-details/use-unlock";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { TooltipWrapper } from "@/components/ui/tooltip";
+import { TooltipWrapper } from "@glraj/ui/tooltip";
 
 import UpgradeBtn from "../contact-details/upgrade-btn";
 import Edit from "./edit";

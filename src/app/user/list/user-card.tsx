@@ -8,7 +8,7 @@ import Link from "next/link";
 import { getAge } from "@/utils";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { TooltipWrapper } from "@/components/ui/tooltip";
+import { TooltipWrapper } from "@glraj/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 

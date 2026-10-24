@@ -3,7 +3,7 @@ import { type RowData } from '@tanstack/react-table'
 
 import { cn } from '@/lib/utils'
 
-import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from '@/components/ui/menu'
+import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from '@glraj/ui/menu'
 import { buttonVariants } from '@/components/ui/button'
 import { type AppColumn as Column } from './table-features'
 

@@ -7,8 +7,8 @@ import { useGetUsersGroupedByAdminCount } from "@/hooks/use-super-admin";
 import { gender as genderOpts } from "@/utils/enums";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { SelectWrapper } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
+import { SelectWrapper } from "@glraj/ui/select";
+import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 function groupData(data: Record<string, number>, dateType: "day" | "month" | "caste") {

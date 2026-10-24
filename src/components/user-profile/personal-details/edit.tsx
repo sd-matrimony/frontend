@@ -11,7 +11,7 @@ import { personalDetailsSchema } from '@/utils/user-schema';
 import { gender, maritalStatus, yesNoOptions } from '@/utils';
 import { useUpdateProfile } from '@/hooks/use-user';
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
 import { DatePickerWrapper, InputWrapper, RadioWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
 import { Button } from "@/components/ui/button";
 

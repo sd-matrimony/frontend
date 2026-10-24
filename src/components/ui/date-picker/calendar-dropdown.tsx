@@ -9,7 +9,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@glraj/ui/select'
 
 function CalendarDropdown({ options = [], value, onChange, disabled, className }: DropdownProps) {
   const stringValue = value !== undefined ? String(value) : undefined

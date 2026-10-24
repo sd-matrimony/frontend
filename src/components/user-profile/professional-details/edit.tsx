@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 import { professionalDetailsSchema, type professionalDetailsT } from '@/utils/user-schema';
 import { useUpdateProfile } from '@/hooks/use-user';
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
 import { SelectListWrapper } from '@/components/common/lists';
 import { InputWrapper } from '@/components/ui/field-wrapper-rhf';
 import { Button } from "@/components/ui/button";

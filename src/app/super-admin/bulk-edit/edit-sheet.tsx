@@ -9,8 +9,8 @@ import { aliveOptions, gender, maritalStatus } from "@/utils/enums"
 import { useUserDetails } from "@/hooks/use-user"
 import { useStatics } from "@/hooks/use-general"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { SheetWrapper } from "@/components/ui/sheet"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@glraj/ui/tabs"
+import { SheetWrapper } from "@glraj/ui/sheet"
 import {
   ComboboxWrapper, DatePickerWrapper, InputWrapper,
   SelectWrapper, SwitchWrapper,

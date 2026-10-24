@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useUserDetailsMini } from "@/hooks/use-account";
 import useUIStore from "@/store/ui";
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@glraj/ui/dialog";
 
 import VerifyReminder from "./verify-reminder";
 import AddEmail from "./add-email";

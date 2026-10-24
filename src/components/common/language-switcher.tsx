@@ -7,7 +7,7 @@ import { Languages } from "lucide-react";
 
 import { setLocale } from "@/lib/i18n/actions";
 import { locales, localeLabels } from "@/utils";
-import { SelectWrapper } from "@/components/ui/select";
+import { SelectWrapper } from "@glraj/ui/select";
 
 function LanguageSwitcher({ triggerCls = "" }: { triggerCls?: string }) {
   const locale = useLocale();
