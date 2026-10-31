@@ -10,6 +10,7 @@ import type { Metadata } from "next";
 import { Toaster } from "@glraj/ui/toast";
 
 import "./globals.css";
+import "@/lib/ui-config";
 
 import ClientWrapper from "@/components/common/client-wrapper";
 import { cn } from "@/lib/utils";

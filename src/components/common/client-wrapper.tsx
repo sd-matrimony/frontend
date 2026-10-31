@@ -6,6 +6,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 
 import { UIProvider, type uiTextT } from '@glraj/ui/ui-provider';
 
+import "@/lib/ui-config";
 import { queryClient } from "@/lib/query-client";
 
 function ClientWrapper({ children }: { children: React.ReactNode; }) {
