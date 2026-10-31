@@ -3,10 +3,10 @@ import { useTranslations } from "next-intl"
 
 import { assistedPrices, extraProfiles, PlanBadge, planDetails, planPrices, planValidityMonths, profilesCount } from "@/components/common/plan-badge"
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@glraj/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@glraj/ui/select"
 import { RadioGroup, RadioIndicator } from "@glraj/ui/radio"
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "@glraj/ui/separator"
 import { Checkbox } from "@glraj/ui/checkbox"
 import { Label } from "@glraj/ui/label"
 

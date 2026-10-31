@@ -6,9 +6,9 @@ import type { DragHandleProps } from "./grid";
 import { useGetAdmins } from "@/hooks/use-super-admin";
 import useUIStore from "@/store/ui";
 
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@glraj/ui/card";
 import { Skeleton } from "@glraj/ui/skeleton";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 function Admins({ dragHandle }: DragHandleProps) {
   const t = useTranslations("superAdmin.dashboard.admins")

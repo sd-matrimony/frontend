@@ -13,7 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@glraj/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 type props = {
   disabled: boolean

@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@glraj/ui/card";
 import { TranslatedValue } from "@/components/common/translated-value";
 import Edit from "./edit";
 

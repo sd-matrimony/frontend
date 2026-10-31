@@ -3,7 +3,7 @@ import { Star, Gem, Crown, LucideProps, Feather } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@glraj/ui/badge";
 
 type props = React.ComponentProps<typeof Badge> & {
   subscribedTo: subscribedToT

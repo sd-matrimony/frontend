@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useExtractImgMutate } from '@/hooks/use-admin';
 import { dataT } from './type';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@glraj/ui/button';
 
 interface CropArea {
   id: number

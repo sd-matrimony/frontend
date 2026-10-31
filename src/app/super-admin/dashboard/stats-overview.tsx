@@ -6,10 +6,10 @@ import { CalendarDays, IndianRupee, Lock, LockOpen, Sun, Users } from "lucide-re
 import { useGetDashboardStats } from "@/hooks/use-super-admin";
 import { STATS_PIN } from "@/utils/enums";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@glraj/ui/card";
 import { Skeleton } from "@glraj/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@glraj/ui/button";
+import { Input } from "@glraj/ui/input";
 import { MonthYearSelect } from "@/components/common/month-year-select";
 
 const rupee = (n: number) => `₹ ${Number(n || 0).toLocaleString("en-IN")}`

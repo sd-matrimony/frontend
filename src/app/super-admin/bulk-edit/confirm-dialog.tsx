@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl"
 import { Loader } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button } from "@glraj/ui/button"
 import {
   Dialog, DialogContent, DialogFooter,
   DialogHeader, DialogTitle,

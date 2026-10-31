@@ -9,9 +9,9 @@ import { z } from "zod";
 import { useFindUser } from "@/hooks/use-admin";
 import { gender } from "@/utils";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { InputWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@glraj/ui/card";
+import { InputWrapper, SelectWrapper } from "@glraj/ui/field-wrapper-rhf";
+import { Button } from "@glraj/ui/button";
 
 type props = {
   selected: string

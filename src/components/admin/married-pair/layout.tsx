@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 

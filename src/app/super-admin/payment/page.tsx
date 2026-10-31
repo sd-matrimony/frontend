@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 import MakePaymentForUser from "./make-payment-for-user";
 import TestPayment from "./test-payment";

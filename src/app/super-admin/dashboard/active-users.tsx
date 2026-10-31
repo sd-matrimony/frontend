@@ -7,11 +7,11 @@ import Link from "next/link";
 import type { DragHandleProps } from "./grid";
 import { useGetActiveUsers } from "@/hooks/use-super-admin";
 
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@glraj/ui/card";
 import { SelectWrapper } from "@glraj/ui/select";
 import { Skeleton } from "@glraj/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@glraj/ui/button";
+import { Input } from "@glraj/ui/input";
 
 import LoadMore from "@/components/common/load-more";
 

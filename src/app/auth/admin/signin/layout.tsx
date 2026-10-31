@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
-import { CardDescription, CardTitle } from "@/components/ui/card";
+import { CardDescription, CardTitle } from "@glraj/ui/card";
 
 async function Layout({ children }: LayoutProps<"/auth/admin/signin">) {
   const t = await getTranslations("auth")

@@ -1,7 +1,7 @@
 import { Briefcase, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@glraj/ui/card";
 import { TranslatedValue } from "@/components/common/translated-value";
 
 function UserCard({

@@ -10,7 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@glraj/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 import Filters from "./filters";
 
 interface props {

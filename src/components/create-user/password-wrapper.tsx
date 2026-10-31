@@ -7,9 +7,9 @@ import { useTranslations } from "next-intl";
 import { createPass } from "@/utils/password";
 
 import { InputGroupWrapper, InputGroupButton } from "@glraj/ui/input-group";
-import { Field, FieldLabel, FieldError } from "@/components/ui/field";
+import { Field, FieldLabel, FieldError } from "@glraj/ui/field";
 import { useToast } from "@glraj/ui/toast";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 type props = {
   className?: string

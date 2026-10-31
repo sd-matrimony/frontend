@@ -6,10 +6,10 @@ import type { DragHandleProps } from "./grid";
 import { useGetUsersGroupedByAdminCount } from "@/hooks/use-super-admin";
 import { gender as genderOpts } from "@/utils/enums";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@glraj/ui/card";
 import { SelectWrapper } from "@glraj/ui/select";
 import { Skeleton } from "@glraj/ui/skeleton";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 function groupData(data: Record<string, number>, dateType: "day" | "month" | "caste") {
   if (dateType === "day" || dateType === "caste") return Object.entries(data).map(([key, value]) => ({ key, value }))

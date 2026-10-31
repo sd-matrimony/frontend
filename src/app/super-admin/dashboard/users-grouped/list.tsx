@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useGetUsersGroupList } from "@/hooks/use-super-admin";
 
 import { Skeleton } from "@glraj/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@glraj/ui/badge";
 import LoadMore from "@/components/common/load-more";
 
 type props = {

@@ -3,7 +3,7 @@
 import { Lock } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 type props = {
   isPending: boolean

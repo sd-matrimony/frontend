@@ -6,7 +6,7 @@ import { Loader } from "lucide-react";
 
 import { useUpdatePassword } from "@/hooks/use-account";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 import PasswordField from "./password-field";
 

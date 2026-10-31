@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useStatics, useStaticsTranslations } from "@/hooks/use-general";
 import { translateListValue, translateSentinel } from "@/utils/list-translations";
 
-import { AutocompleteWrapper, ComboboxWrapper, SelectWrapper } from "@/components/ui/field-wrapper-rhf";
+import { AutocompleteWrapper, ComboboxWrapper, SelectWrapper } from "@glraj/ui/field-wrapper-rhf";
 
 function toItems(values: string[], map: Record<string, string> | undefined, locale: string): itemT[] {
   return values.map(value => ({ value, label: translateListValue(map, value, locale) }))

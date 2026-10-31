@@ -9,9 +9,9 @@ import { gender, maritalStatus } from '@/utils/enums';
 import { useStatics } from "@/hooks/use-general";
 import { cn } from "@/lib/utils";
 
-import { InputWrapper, ComboboxWrapper } from "@/components/ui/field-wrapper-rhf";
-import { DatePicker } from "@/components/ui/date-picker";
-import { Button } from "@/components/ui/button";
+import { InputWrapper, ComboboxWrapper } from "@glraj/ui/field-wrapper-rhf";
+import { DatePicker } from "@glraj/ui/date-picker";
+import { Button } from "@glraj/ui/button";
 
 function useCreatableItems(base: string[] | undefined, extra: string[], query: string) {
   return useMemo(() => {

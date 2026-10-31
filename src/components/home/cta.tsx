@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 async function Cta() {
   const t = await getTranslations("public.cta");

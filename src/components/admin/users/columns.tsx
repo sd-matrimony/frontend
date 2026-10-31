@@ -1,6 +1,6 @@
 "use client";
 
-import { ColumnSorter, type AppColumnDef as ColumnDef } from "@/components/ui/data-table";
+import { ColumnSorter, type AppColumnDef as ColumnDef } from "@glraj/ui/data-table";
 import Link from "next/link";
 
 import type { tab } from "./types";

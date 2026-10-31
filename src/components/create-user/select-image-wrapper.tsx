@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 
 import { acceptedImagesTypes } from "@/utils/enums";
 
-import { Input } from "@/components/ui/input";
+import { Input } from "@glraj/ui/input";
 import { Label } from "@glraj/ui/label";
 import { X } from "lucide-react";
 

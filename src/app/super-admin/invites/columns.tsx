@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ColumnSorter, type AppColumnDef as ColumnDef } from "@/components/ui/data-table";
+import { ColumnSorter, type AppColumnDef as ColumnDef } from "@glraj/ui/data-table";
 import Link from "next/link";
 
 import { planDetails } from "@/components/common/plan-badge";

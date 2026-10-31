@@ -5,9 +5,9 @@ import Script from "next/script";
 
 import { useTestCreateOrder, useTestVerifyPayment } from "@/hooks/use-payment";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@glraj/ui/card";
+import { Button } from "@glraj/ui/button";
+import { Input } from "@glraj/ui/input";
 import { Label } from "@glraj/ui/label";
 
 function TestPayment() {

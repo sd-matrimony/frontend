@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 
 import { useCheckApprovalStatus } from "@/hooks/use-account";
 
-import { Button } from "../ui/button";
+import { Button } from "@glraj/ui/button";
 
 function Refresh() {
   const { mutate, isPending } = useCheckApprovalStatus()

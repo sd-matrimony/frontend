@@ -6,7 +6,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from "@glraj/ui/collapsible";
 import { Skeleton } from "@glraj/ui/skeleton";
 
 import Users from "@/components/admin/users";

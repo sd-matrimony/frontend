@@ -4,7 +4,7 @@ import { useCreateUsersMutate } from '@/hooks/use-admin';
 import { dataT } from './type';
 
 import CreateUser from '@/components/create-user';
-import { Button } from '@/components/ui/button';
+import { Button } from '@glraj/ui/button';
 
 type props = {
   data: dataT;

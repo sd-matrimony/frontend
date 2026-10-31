@@ -1,7 +1,7 @@
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 import { LucideProps } from "lucide-react";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@glraj/ui/card";
 
 type CardWrapperProps = {
   Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>

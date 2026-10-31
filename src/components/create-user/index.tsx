@@ -16,7 +16,7 @@ import { createPass } from '@/utils/password';
 import { cn } from '@/lib/utils';
 
 import { useToast } from '@glraj/ui/toast';
-import { Button } from '@/components/ui/button';
+import { Button } from '@glraj/ui/button';
 import FieldWrapper from './field-wrapper';
 
 type props = {

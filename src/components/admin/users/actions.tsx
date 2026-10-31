@@ -11,7 +11,7 @@ import { createPass } from "@/utils/password";
 
 import { Menu, MenuContent, MenuItem, MenuTrigger } from "@glraj/ui/menu";
 import { AlertDialogWrapper } from "@glraj/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 import UpdateUserDialog from "./update-user-dialog";
 import PlanActions from "./plan-actions";

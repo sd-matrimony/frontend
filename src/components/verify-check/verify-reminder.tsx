@@ -4,7 +4,7 @@ import { useResendVerifyEmail } from "@/hooks/use-account";
 import useUIStore from "@/store/ui";
 
 import { DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@glraj/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 type props = {
   email: string

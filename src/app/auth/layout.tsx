@@ -1,4 +1,4 @@
-import { CardContent, Card } from "@/components/ui/card";
+import { CardContent, Card } from "@glraj/ui/card";
 import { LanguageSwitcher } from "@/components/common/language-switcher";
 
 function Layout({ children }: LayoutProps<"/auth">) {

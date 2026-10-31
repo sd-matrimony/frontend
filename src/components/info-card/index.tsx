@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { CardDescription, CardTitle } from '@/components/ui/card';
+import { CardDescription, CardTitle } from '@glraj/ui/card';
 import Refresh from './refresh';
 
 type props = {

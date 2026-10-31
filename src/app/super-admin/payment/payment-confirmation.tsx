@@ -16,8 +16,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@glraj/ui/alert-dialog"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@glraj/ui/card"
+import { Button } from "@glraj/ui/button"
 
 type props = {
   _id: string

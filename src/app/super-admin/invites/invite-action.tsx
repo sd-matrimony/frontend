@@ -8,7 +8,7 @@ import useClipboardCopy from "@/hooks/use-clipboard-copy";
 import { createPass } from "@/utils/password";
 
 import { TooltipWrapper } from "@glraj/ui/tooltip";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 import {
   Dialog,
   DialogContent,

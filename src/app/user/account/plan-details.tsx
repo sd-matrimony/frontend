@@ -6,9 +6,9 @@ import Link from "next/link";
 import { useCurrentPlan } from "@/hooks/use-user";
 
 import { assistedPrices, extraProfiles, PlanBadge, planDetails, planPrices, profilesCount } from "@/components/common/plan-badge"
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Separator } from "@glraj/ui/separator";
+import { Button } from "@glraj/ui/button";
+import { Badge } from "@glraj/ui/badge";
 
 function getAssistExpire(createdAt: string, till: number) {
   const expiryDate = new Date(createdAt)

@@ -2,7 +2,7 @@ import { HeartIcon } from 'lucide-react';
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
-import { CardDescription, CardTitle } from "@/components/ui/card";
+import { CardDescription, CardTitle } from "@glraj/ui/card";
 
 async function Layout({ children, role = "user" }: { children: React.ReactNode; role?: rolesT }) {
   const t = await getTranslations("auth")

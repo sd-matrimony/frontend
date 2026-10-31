@@ -14,7 +14,7 @@ import { SheetWrapper } from "@glraj/ui/sheet"
 import {
   ComboboxWrapper, DatePickerWrapper, InputWrapper,
   SelectWrapper, SwitchWrapper,
-} from "@/components/ui/field-wrapper-rhf"
+} from "@glraj/ui/field-wrapper-rhf"
 
 function computeChanges(original: any, current: any): any {
   const diff: any = {}

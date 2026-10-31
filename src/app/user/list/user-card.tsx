@@ -7,10 +7,10 @@ import Link from "next/link";
 
 import { getAge } from "@/utils";
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@glraj/ui/card";
 import { TooltipWrapper } from "@glraj/ui/tooltip";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@glraj/ui/button";
+import { Badge } from "@glraj/ui/badge";
 
 import { PlanBadge } from "@/components/common/plan-badge";
 

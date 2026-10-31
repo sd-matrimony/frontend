@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { TooltipWrapper } from "@glraj/ui/tooltip";
 import { planDetails } from "@/components/common/plan-badge";
 import { Skeleton } from "@glraj/ui/skeleton";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 type props = {
   _id: string

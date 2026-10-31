@@ -11,7 +11,7 @@ import type {
 import { useGetUserInvitations } from "@/hooks/use-super-admin";
 import { useUserFilters } from "@/hooks/use-user-filters";
 
-import { ColumnToggle, DataTableVirtualized, appTableFeatures } from "@/components/ui/data-table";
+import { ColumnToggle, DataTableVirtualized, appTableFeatures } from "@glraj/ui/data-table";
 import UsersFiltersRow from "@/components/common/users-filters-row";
 
 import { useInviteColumns } from "./columns";

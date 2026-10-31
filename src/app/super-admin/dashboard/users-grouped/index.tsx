@@ -7,13 +7,13 @@ import type { DragHandleProps } from "../grid";
 import { useGetUsersGroupedCount } from "@/hooks/use-super-admin";
 import { useStatics } from "@/hooks/use-general";
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AutocompleteWrapper } from "@/components/ui/autocomplete";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@glraj/ui/collapsible";
+import { Card, CardContent, CardHeader, CardTitle } from "@glraj/ui/card";
+import { AutocompleteWrapper } from "@glraj/ui/autocomplete";
 import { SelectWrapper } from "@glraj/ui/select";
-import { DatePicker } from "@/components/ui/date-picker";
+import { DatePicker } from "@glraj/ui/date-picker";
 import { Skeleton } from "@glraj/ui/skeleton";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 import List from "./list";
 
 type typeT = "Date" | "Caste" | "Both"

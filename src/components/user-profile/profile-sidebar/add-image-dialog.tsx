@@ -8,8 +8,8 @@ import { useAddImages } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
 import { useToast } from "@glraj/ui/toast";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@glraj/ui/button";
+import { Input } from "@glraj/ui/input";
 import { Label } from "@glraj/ui/label";
 
 type props = {

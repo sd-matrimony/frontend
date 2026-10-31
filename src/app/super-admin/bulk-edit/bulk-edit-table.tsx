@@ -16,8 +16,8 @@ import { useUsersList } from "@/hooks/use-admin"
 import { useStatics } from "@/hooks/use-general"
 import { filterObj } from "@/utils"
 
-import { DataTable, ColumnToggle, appTableFeatures } from "@/components/ui/data-table"
-import { Button } from "@/components/ui/button"
+import { DataTable, ColumnToggle, appTableFeatures } from "@glraj/ui/data-table"
+import { Button } from "@glraj/ui/button"
 
 import UsersFiltersRow from "@/components/common/users-filters-row"
 

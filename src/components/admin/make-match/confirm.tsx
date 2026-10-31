@@ -14,8 +14,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@glraj/ui/alert-dialog";
-import { DatePicker } from "@/components/ui/date-picker";
-import { Button } from "@/components/ui/button";
+import { DatePicker } from "@glraj/ui/date-picker";
+import { Button } from "@glraj/ui/button";
 import { Label } from "@glraj/ui/label";
 
 type props = {

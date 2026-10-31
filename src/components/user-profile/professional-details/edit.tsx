@@ -12,8 +12,8 @@ import { useUpdateProfile } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
 import { SelectListWrapper } from '@/components/common/lists';
-import { InputWrapper } from '@/components/ui/field-wrapper-rhf';
-import { Button } from "@/components/ui/button";
+import { InputWrapper } from '@glraj/ui/field-wrapper-rhf';
+import { Button } from "@glraj/ui/button";
 
 function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
   const t = useTranslations("shared.userProfile.professional")

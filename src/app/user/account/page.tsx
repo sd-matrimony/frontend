@@ -6,10 +6,10 @@ import { CheckCircle, XCircle, Mail, Lock, CreditCard, Loader, User, Phone } fro
 
 import { useResendVerifyEmail, useUpdateEmail, useUpdateMobile, useUserDetailsMini } from "@/hooks/use-account";
 
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+import { Separator } from "@glraj/ui/separator";
+import { Button } from "@glraj/ui/button";
+import { Badge } from "@glraj/ui/badge";
+import { Input } from "@glraj/ui/input";
 import { Label } from "@glraj/ui/label";
 
 import ConfirmUpdate from "./confirm-update";

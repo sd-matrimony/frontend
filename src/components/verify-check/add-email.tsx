@@ -12,8 +12,8 @@ import {
   DialogFooter,
   DialogClose,
 } from "@glraj/ui/dialog";
-import { InputWrapper } from "@/components/ui/field-wrapper-rhf";
-import { Button } from "@/components/ui/button";
+import { InputWrapper } from "@glraj/ui/field-wrapper-rhf";
+import { Button } from "@glraj/ui/button";
 
 type Props = {
   onSuccess: () => void

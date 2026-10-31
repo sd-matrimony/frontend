@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 
 import useUnlock from "../contact-details/use-unlock";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 import { getAge } from "@/utils";
 
 type props = {

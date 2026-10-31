@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@glraj/ui/carousel";
+import { Button } from "@glraj/ui/button";
 
 type props = {
   image: string

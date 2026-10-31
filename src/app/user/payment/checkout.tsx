@@ -7,12 +7,12 @@ import Script from "next/script";
 
 import { useCreateOrder, useVerifyPayment } from "@/hooks/use-payment";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@glraj/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@glraj/ui/select";
 import { RadioGroup, RadioIndicator } from "@glraj/ui/radio";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@glraj/ui/separator";
 import { Checkbox } from "@glraj/ui/checkbox";
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 import { Label } from "@glraj/ui/label";
 
 import { assistedPrices, extraProfiles, PlanBadge, planDetails, planPrices, planValidityMonths, profilesCount } from "@/components/common/plan-badge";

@@ -9,9 +9,9 @@ import { maritalStatus, ageRange, salaryRange } from '@/utils';
 import { usePartnerPreferences } from '@/hooks/use-user';
 import { useUserDetailsMini } from '@/hooks/use-account';
 
-import { InputWrapper, SelectWrapper } from '@/components/ui/field-wrapper-rhf';
+import { InputWrapper, SelectWrapper } from '@glraj/ui/field-wrapper-rhf';
 import { SelectListWrapper, SelectSubCastesWrapper } from '@/components/common/lists';
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 import { cn } from '@/lib/utils';
 
 interface props {

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { nakshatraMap, raasiMap } from "@/utils";
 import useUnlock from "../contact-details/use-unlock";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@glraj/ui/card";
 
 import VerdicPic from "./verdic-pic";
 import Edit from "./edit";

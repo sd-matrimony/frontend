@@ -3,7 +3,7 @@ import type { Field } from './data';
 
 import { useTranslations } from 'next-intl';
 
-import { SelectWrapper, InputWrapper, DatePickerWrapper, RadioWrapper } from '@/components/ui/field-wrapper-rhf';
+import { SelectWrapper, InputWrapper, DatePickerWrapper, RadioWrapper } from '@glraj/ui/field-wrapper-rhf';
 import { SelectImageWrapper, SelectMultiImageWrapper } from './select-image-wrapper';
 import { SelectListWrapper } from '../common/lists';
 import { PasswordWrapper } from './password-wrapper';

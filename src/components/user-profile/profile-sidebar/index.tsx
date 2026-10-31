@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useUpdateProfile } from "@/hooks/use-user";
 import { deleteImage } from "@/actions";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@glraj/ui/card";
 
 import EditProfileImageDialog from "./edit-profile-image-dialog";
 import ProfileImageView from "./profile-image-view";

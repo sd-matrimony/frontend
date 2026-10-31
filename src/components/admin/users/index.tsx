@@ -13,7 +13,7 @@ import { useUserFilters, type findUserSchemaT } from "@/hooks/use-user-filters";
 import { useUsersList, useUsersCount } from '@/hooks/use-admin';
 import { cn } from "@/lib/utils";
 
-import { ColumnToggle, DataTableVirtualized, appTableFeatures } from "@/components/ui/data-table";
+import { ColumnToggle, DataTableVirtualized, appTableFeatures } from "@glraj/ui/data-table";
 import { columns } from "./columns";
 
 import UsersFiltersRow from "@/components/common/users-filters-row";

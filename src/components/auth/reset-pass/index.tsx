@@ -10,9 +10,9 @@ import { resetPassSchema, type ResetPassFormT } from "@/utils/auth-schema"
 import { useResetPass } from "@/hooks/use-account"
 import { trimObj } from "@/utils"
 
-import { InputGroupWrapper, InputWrapper } from "@/components/ui/field-wrapper-rhf"
+import { InputGroupWrapper, InputWrapper } from "@glraj/ui/field-wrapper-rhf"
 import { InputGroupButton } from "@glraj/ui/input-group"
-import { Button } from "@/components/ui/button"
+import { Button } from "@glraj/ui/button"
 
 type Props = {
   role?: rolesT

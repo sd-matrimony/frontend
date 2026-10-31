@@ -9,8 +9,8 @@ import { forgotPassSchema, type ForgotPassFormT } from "@/utils/auth-schema"
 import { useForgotPass } from "@/hooks/use-account"
 import { trimObj } from "@/utils"
 
-import { InputWrapper } from "@/components/ui/field-wrapper-rhf"
-import { Button } from "@/components/ui/button"
+import { InputWrapper } from "@glraj/ui/field-wrapper-rhf"
+import { Button } from "@glraj/ui/button"
 
 type Props = {
   role?: rolesT

@@ -10,8 +10,8 @@ import { useUpdateAdmin } from "@/hooks/use-super-admin";
 import useUIStore from "@/store/ui";
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@glraj/ui/dialog";
-import { InputWrapper, TextareaWrapper } from "@/components/ui/field-wrapper-rhf";
-import { Button } from "@/components/ui/button";
+import { InputWrapper, TextareaWrapper } from "@glraj/ui/field-wrapper-rhf";
+import { Button } from "@glraj/ui/button";
 
 const schema = (isUpdate: boolean) => z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),

@@ -2,7 +2,7 @@ import { Heart } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@glraj/ui/button";
 
 async function Hero() {
   const t = await getTranslations("public.hero");
