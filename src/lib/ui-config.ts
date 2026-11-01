@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 // App-wide tweaks on top of @glraj/ui defaults. Imported from the root layout (server) and ClientWrapper (client).
 
 // `default` fully replaces the library's: its `[a]:hover:bg-primary/80` would beat a custom
-// `hover:bg-*` on link buttons (e.g. "Start Your Journey") since tailwind-merge can't drop it.
+// `hover:bg-*` on link buttons (e.g. "Start Your Journey") since class merging can't drop it.
 const replacedVariants = new Set(["default"])
 
 const buttonVariantCls: Record<string, string> = {

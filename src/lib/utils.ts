@@ -1,10 +1,7 @@
 import { isValidElement, type ReactNode } from 'react'
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+// Same merger as @glraj/ui, so app and library resolve class conflicts identically (and ship one copy).
+export { cn } from '@glraj/ui/utils'
 
 export function isAllowedPrimitive(value: unknown): value is allowedPrimitiveT {
   return ['string', 'number', 'boolean'].includes(typeof value)
