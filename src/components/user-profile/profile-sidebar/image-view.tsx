@@ -18,7 +18,17 @@ function ImageView({ image, images, profileImg, setAsProfilePic }: props) {
 
   return (
     <Dialog>
-      <DialogTrigger render={<Image src={image || "/imgs/user.jpg"} alt={"User Image"} fill className="object-cover rounded-md cursor-pointer border" />} />
+      <DialogTrigger
+        nativeButton={false}
+        render={
+          <Image
+            src={image || "/imgs/user.jpg"}
+            alt={"User Image"}
+            fill
+            className="object-cover rounded-md cursor-pointer border"
+          />
+        }
+      />
 
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
@@ -26,13 +36,13 @@ function ImageView({ image, images, profileImg, setAsProfilePic }: props) {
           <DialogDescription className="sr-only">View the selected image in full size.</DialogDescription>
         </DialogHeader>
 
-        <Carousel className="w-full sm:w-[420px] mx-auto">
+        <Carousel className="w-full sm:w-105 mx-auto">
           <CarouselContent>
             {
               images.map(img => (
                 <CarouselItem key={img}>
                   <div>
-                    <div className="relative w-full aspect-[3/4]">
+                    <div className="relative w-full aspect-3/4">
                       <Image
                         fill
                         src={img}

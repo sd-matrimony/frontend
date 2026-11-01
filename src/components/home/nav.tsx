@@ -28,11 +28,11 @@ async function Nav() {
           <div className="df gap-4 ml-auto md:ml-0">
             <LanguageSwitcher triggerCls="h-8 px-2" />
 
-            <Button variant="outline" nativeButton={false} render={<Link href="/auth/user/signup" />}>
+            <Button variant="outline" size="sm" nativeButton={false} render={<Link href="/auth/user/signup" />}>
               {t("signUp")}
             </Button>
 
-            <Button nativeButton={false} render={<Link href="/auth/user/signin" />} className="bg-linear-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white px-6">
+            <Button size="sm" nativeButton={false} render={<Link href="/auth/user/signin" />} className="bg-linear-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white px-6">
               {t("signIn")}
             </Button>
           </div>

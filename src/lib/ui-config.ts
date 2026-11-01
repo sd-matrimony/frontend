@@ -4,8 +4,12 @@ import { cn } from "@/lib/utils";
 
 // App-wide tweaks on top of @glraj/ui defaults. Imported from the root layout (server) and ClientWrapper (client).
 
+// `default` fully replaces the library's: its `[a]:hover:bg-primary/80` would beat a custom
+// `hover:bg-*` on link buttons (e.g. "Start Your Journey") since tailwind-merge can't drop it.
+const replacedVariants = new Set(["default"])
+
 const buttonVariantCls: Record<string, string> = {
-  default: "hover:bg-primary/80",
+  default: "bg-primary text-primary-foreground hover:bg-primary/80",
   outline: "shadow-xs",
   secondary: "hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]",
 }
@@ -23,7 +27,7 @@ const fieldCls = "px-2.5 text-base md:text-sm transition-[color,box-shadow] disa
 
 configureUI({
   button: (props, base) => cn(
-    base(props),
+    base(replacedVariants.has(props?.variant ?? "default") ? { ...props, variant: null } : props),
     "active:translate-y-0 active:not-aria-[haspopup]:translate-y-px",
     buttonVariantCls[props?.variant ?? "default"],
     buttonSizeCls[props?.size ?? "default"],
