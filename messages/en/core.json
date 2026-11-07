@@ -83,6 +83,16 @@
         "partnerPreferences": "Partner Preferences"
       }
     },
+    "voiceFill": {
+      "start": "Voice fill",
+      "stop": "Stop",
+      "listening": "Listening…",
+      "notMatched": "Could not match \"{text}\", say again",
+      "done": "Voice fill finished",
+      "micBlocked": "Microphone access is blocked",
+      "failed": "Voice input failed, try again",
+      "hint": "Say \"next\" to skip, \"back\", \"clear\" or \"stop\" · Alt+V"
+    },
     "createUserFields": {
       "email": "Email",
       "password": "Password",

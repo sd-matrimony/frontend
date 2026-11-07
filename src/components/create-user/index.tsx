@@ -18,6 +18,7 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@glraj/ui/toast';
 import { Button } from '@glraj/ui/button';
 import FieldWrapper from './field-wrapper';
+import { VoiceFill } from './voice-fill';
 
 type props = {
   isPending: boolean
@@ -226,14 +227,16 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
             </button>
           }
 
-          <Button
-            type="submit"
-            className="w-full bg-pink-500 hover:bg-pink-600"
-            disabled={isPending || isPending1 || isPending2}
-          >
-            {(isPending || isPending1) && <Loader className="animate-spin" />}
-            {isAdmin ? t("createUser") : t("signUp")}
-          </Button>
+          <VoiceFill>
+            <Button
+              type="submit"
+              className="bg-pink-500 hover:bg-pink-600"
+              disabled={isPending || isPending1 || isPending2}
+            >
+              {(isPending || isPending1) && <Loader className="animate-spin" />}
+              {isAdmin ? t("createUser") : t("signUp")}
+            </Button>
+          </VoiceFill>
         </div>
       </form>
     </FormProvider>

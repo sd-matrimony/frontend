@@ -25,7 +25,7 @@ export const nakshatraMap = {
   Mula: 'மூலம்',
   'Purva Ashadha': 'பூராடம்',
   'Uttara Ashadha': 'உத்திராடம்',
-  Shravana: 'திரோண',
+  Shravana: 'திருவோணம்',
   Dhanishta: 'அவிட்டம்',
   Shatabhisha: 'சதயம்',
   'Purva Bhadrapada': 'பூரட்டாதி',
