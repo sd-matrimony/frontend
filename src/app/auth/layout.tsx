@@ -9,7 +9,7 @@ function Layout({ children }: LayoutProps<"/auth">) {
       </div>
 
       <Card className="w-full max-w-md has-[#signup-form]:max-w-2xl">
-        <CardContent className="p-8">
+        <CardContent className="p-8 pb-0">
           {children}
         </CardContent>
       </Card>

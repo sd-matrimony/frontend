@@ -172,6 +172,47 @@ export function toAmount(alternatives: string[]) {
   return null
 }
 
+const monthPrefixes = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+
+// "12 March 1998", "March 12th 1998", "12 3 1998", "12/03/1998" — numeric dates are day-month-year
+export function toDate(alternatives: string[]) {
+  const currentYear = new Date().getFullYear()
+
+  for (const alt of alternatives) {
+    const words = alt
+      .toLowerCase()
+      .replace(/(\d+)(st|nd|rd|th)\b/g, "$1")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+      .split(" ")
+
+    let month = -1
+    const numbers: number[] = []
+    for (const word of words) {
+      const monthIndex = word.length >= 3 ? monthPrefixes.indexOf(word.slice(0, 3)) : -1
+      if (month === -1 && monthIndex !== -1) month = monthIndex
+      else if (/^\d{8}$/.test(word)) numbers.push(+word.slice(0, 2), +word.slice(2, 4), +word.slice(4))
+      else if (/^\d+$/.test(word)) numbers.push(+word)
+    }
+
+    let day: number | undefined
+    let year: number | undefined
+    if (month !== -1) {
+      day = numbers.find(n => n >= 1 && n <= 31)
+      year = numbers.find(n => n >= 1900)
+    } else if (numbers.length >= 3) {
+      [day, month, year] = [numbers[0], numbers[1] - 1, numbers[2]]
+    }
+
+    if (!day || !year || year > currentYear) continue
+
+    const date = new Date(year, month, day)
+    if (date.getDate() === day && date.getMonth() === month) return date
+  }
+
+  return null
+}
+
 export function toTitleCase(text: string) {
   return text
     .trim()

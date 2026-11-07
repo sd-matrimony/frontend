@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 
 import { fieldList } from './data';
 
-import { detectCommand, matchOption, toAmount, toMobile, toTitleCase } from '@/utils/voice-match';
+import { detectCommand, matchOption, toAmount, toDate, toMobile, toTitleCase } from '@/utils/voice-match';
 import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
 import { useStatics } from '@/hooks/use-general';
 
@@ -15,7 +15,7 @@ import { Button } from '@glraj/ui/button';
 
 type voiceFieldT = {
   name: string
-  type: "text" | "tel" | "number" | "option"
+  type: "text" | "tel" | "number" | "date" | "option"
   listName?: "raasi" | "nakshatra"
   items?: string[]
 }
@@ -39,7 +39,7 @@ const voiceFields: voiceFieldT[] = fieldList
   .filter(section => section.sectionId !== "account")
   .flatMap(section => section.list)
   .flatMap<voiceFieldT>(field => {
-    if (field.type === "text" || field.type === "tel" || field.type === "number") {
+    if (field.type === "text" || field.type === "tel" || field.type === "number" || field.type === "date") {
       return [{ name: field.name, type: field.type }]
     }
     if (field.type === "combobox" && (field.listName === "raasi" || field.listName === "nakshatra")) {
@@ -80,7 +80,7 @@ export function VoiceFill({ children }: props) {
 
   function isFilled(index: number) {
     const value: unknown = getValues(voiceFields[index].name)
-    return typeof value === "string" && value.trim() !== ""
+    return value instanceof Date || (typeof value === "string" && value.trim() !== "")
   }
 
   function findNext(from: number) {
@@ -100,6 +100,7 @@ export function VoiceFill({ children }: props) {
   function parseValue(field: voiceFieldT, alternatives: string[]) {
     if (field.type === "tel") return toMobile(alternatives)
     if (field.type === "number") return toAmount(alternatives)
+    if (field.type === "date") return toDate(alternatives)
     if (field.type === "option") {
       const options = field.items ?? (field.listName ? optionsRef.current[field.listName] : [])
       return matchOption(alternatives, options)
@@ -156,7 +157,7 @@ export function VoiceFill({ children }: props) {
     if (command === "next") return goNext(index)
     if (command === "back") return activate(findPrev(index - 1) ?? index)
     if (command === "clear") {
-      setValue(field.name, "", { shouldDirty: true })
+      setValue(field.name, field.type === "date" ? undefined : "", { shouldDirty: true })
       return startListening(index)
     }
 

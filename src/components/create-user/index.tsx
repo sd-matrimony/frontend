@@ -215,13 +215,13 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
             ))
         }
 
-        <div className='py-2 sticky -bottom-px z-1 bg-white'>
+        <div className='sticky bottom-0 pt-1 z-1 bg-white'>
           {
             !isAdmin &&
             <button
               type="button"
               onClick={() => setIsMini(p => !p)}
-              className="ml-auto mb-2 block text-sm text-red-500 hover:text-red-600 cursor-pointer"
+              className="ml-auto mb-1 block text-[13px] text-red-500 hover:text-red-600 cursor-pointer"
             >
               {isMini ? t("showAllFields") : t("showRequiredOnly")}
             </button>
@@ -230,7 +230,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
           <VoiceFill>
             <Button
               type="submit"
-              className="bg-pink-500 hover:bg-pink-600"
+              className="px-8 bg-pink-500 hover:bg-pink-600"
               disabled={isPending || isPending1 || isPending2}
             >
               {(isPending || isPending1) && <Loader className="animate-spin" />}
