@@ -36,7 +36,7 @@ function List({ type, canHide = false, users, isLoading, isFetchingNextPage, has
     measureElement: el => el.getBoundingClientRect().height,
     getScrollElement: () => parentRef.current,
     estimateSize: () => (typeof window !== "undefined" && window.innerWidth < 512 ? 620 : 280),
-    overscan: 8,
+    overscan: 3,
     gap: 20,
   })
 

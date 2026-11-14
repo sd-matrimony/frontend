@@ -1,4 +1,4 @@
-import { type InfiniteData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { type InfiniteData, type QueryClient, useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -9,6 +9,25 @@ import {
 } from "@/actions";
 import { filterObj } from "@/utils";
 import { useToast } from "@glraj/ui/toast";
+
+function uniqueById(users: Partial<userT>[]) {
+  const seen = new Set<string>()
+  return users.filter(user => {
+    if (!user._id || seen.has(user._id)) return false
+    seen.add(user._id)
+    return true
+  })
+}
+
+function setLikedFlag(queryClient: QueryClient, userId: string, isLiked: boolean) {
+  const mark = (user: Partial<userT>) => user._id === userId ? { ...user, isLiked } : user
+
+  queryClient.setQueriesData<InfiniteData<Partial<userT>[]>>({ queryKey: ["user-list", "approved"] }, old => old && {
+    ...old,
+    pages: old.pages.map(page => page.map(mark)),
+  })
+  queryClient.setQueryData<Partial<userT>[]>(["unlocked-profiles"], old => old?.map(mark))
+}
 
 export function useUsersList(filters?: objT) {
   const limit = 50
@@ -23,7 +42,7 @@ export function useUsersList(filters?: objT) {
     }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
-    select: data => data?.pages?.flat() as any,
+    select: data => uniqueById(data?.pages?.flat() ?? []),
     enabled: !!filters,
   })
 }
@@ -41,7 +60,7 @@ export function useLikesList() {
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
-    select: data => data?.pages?.flat() as any,
+    select: data => uniqueById(data?.pages?.flat() ?? []),
   })
 }
 
@@ -56,7 +75,7 @@ export function useHiddenList() {
     }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
-    select: data => data.pages.flat(),
+    select: data => uniqueById(data.pages.flat()),
   })
 }
 
@@ -136,12 +155,13 @@ export function useAddLiked() {
 
   return useMutation({
     mutationFn: addLiked,
+    onMutate: ({ userId }: { userId: string }) => setLikedFlag(queryClient, userId, true),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["likes-list"] })
-      queryClient.invalidateQueries({ queryKey: ["user-list", "approved"] })
       toast.success(t("addedToLiked"))
     },
-    onError: (error) => {
+    onError: (error, { userId }) => {
+      setLikedFlag(queryClient, userId, false)
       toast.error(error?.message || t("addToLikedFailed"))
     },
   })
@@ -154,12 +174,13 @@ export function useRemoveLiked() {
 
   return useMutation({
     mutationFn: removeLiked,
+    onMutate: ({ userId }: { userId: string }) => setLikedFlag(queryClient, userId, false),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["likes-list"] })
-      queryClient.invalidateQueries({ queryKey: ["user-list", "approved"] })
       toast.success(t("removedFromLiked"))
     },
-    onError: (error) => {
+    onError: (error, { userId }) => {
+      setLikedFlag(queryClient, userId, true)
       toast.error(error?.message || t("removeFromLikedFailed"))
     },
   })
