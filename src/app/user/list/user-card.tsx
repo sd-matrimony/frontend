@@ -5,7 +5,7 @@ import { Heart, Eye, EyeOff, Briefcase, Calendar, HeartOff, UsersRound, Gem, Gra
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
-import { getAge } from "@/utils";
+import { cloudinaryThumb, getAge } from "@/utils";
 
 import { Card, CardContent, CardFooter } from "@glraj/ui/card";
 import { TooltipWrapper } from "@glraj/ui/tooltip";
@@ -45,7 +45,9 @@ const UserCard = memo(function UserCard({
           <Link href={`/user/profile/${_id}`}>
             <img
               className="w-full @lg/card:w-60 h-60 object-cover hover:scale-105 transition-transform"
-              src={profileImg || "/imgs/user.jpg"}
+              src={cloudinaryThumb(profileImg, 640, 480) || "/imgs/user.jpg"}
+              width={640}
+              height={480}
               alt={fullName || "Profile Image"}
               loading="lazy"
               decoding="async"

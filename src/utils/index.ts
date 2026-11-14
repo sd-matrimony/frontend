@@ -114,3 +114,10 @@ export function filterObj<T>(obj: T): T {
 
   return obj
 }
+
+export function cloudinaryThumb(url: string | undefined | null, width: number, height: number): string | undefined {
+  if (!url) return undefined
+  const secure = url.replace(/^http:\/\//, "https://")
+  if (!secure.includes("res.cloudinary.com") || !secure.includes("/upload/")) return secure
+  return secure.replace("/upload/", `/upload/c_fill,g_auto,w_${width},h_${height},f_auto,q_auto/`)
+}
