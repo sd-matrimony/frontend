@@ -13,6 +13,7 @@ import { detectInputType, filterObj, trimObj, validateIdentifier } from '@/utils
 import { contactDetailsSchema, createUserSchema } from '@/utils/user-schema';
 import { useIsExists, useRegisterImage } from '@/hooks/use-account';
 import { createPass } from '@/utils/password';
+import { compressImage } from '@/utils/compress-image';
 import { cn } from '@/lib/utils';
 
 import { useToast } from '@glraj/ui/toast';
@@ -110,7 +111,7 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
   async function uploadPic(image: File | string) {
     if (typeof image === "string") return image
     const formData = new FormData()
-    formData.append('image', image)
+    formData.append('image', await compressImage(image))
     const { url } = await mutateRegisterImage(formData)
     return url
   }

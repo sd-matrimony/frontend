@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { acceptedImagesTypes } from '@/utils/enums';
+import { compressImage } from '@/utils/compress-image';
 import { useAddImages } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
@@ -37,11 +38,12 @@ function EditProfileImageDialog({ _id }: props) {
     maxFiles: 1,
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!file) return
     const isAdmin = window.location.pathname.includes("admin")
     const formData = new FormData()
-    formData.append("images", file!)
-    formData.append("isProfilePic", "true")
+    formData.append("images", await compressImage(file))
+    formData.append("target", "profile")
 
     if (isAdmin) {
       formData.append("_id", _id)

@@ -46,7 +46,7 @@ export function updateProfile(data: any) {
   })
 }
 
-export function addImages(data: any) {
+export function addImages(data: FormData): Promise<{ message: string, urls: string[] }> {
   return sendApiReq({
     url: endPoints.addImages,
     method: "PUT",
@@ -54,10 +54,11 @@ export function addImages(data: any) {
   })
 }
 
-export function deleteImage(_id: string) {
+export function deleteImage(data: { url: string, _id?: string }) {
   return sendApiReq({
-    url: `${endPoints.deleteImage}/${_id}`,
+    url: endPoints.deleteImage,
     method: "DELETE",
+    data,
   })
 }
 

@@ -9,8 +9,8 @@ import { useTranslations } from 'next-intl';
 
 import { vedicHoroscopeSchema, type vedicHoroscopeT } from '@/utils/user-schema';
 import { acceptedImagesTypes } from '@/utils';
-import { useRegisterImage } from '@/hooks/use-account';
-import { useUpdateProfile } from '@/hooks/use-user';
+import { useUpdateProfile, useUploadImages } from '@/hooks/use-user';
+import { compressImage } from '@/utils/compress-image';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
 import { SelectListWrapper } from '@/components/common/lists';
@@ -36,7 +36,7 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
     },
   })
 
-  const { isPending: isPending1, mutateAsync: mutateRegisterImage } = useRegisterImage()
+  const { isPending: isPending1, mutateAsync: uploadImages } = useUploadImages()
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     form.setValue("vedicHoroscopePic", acceptedFiles[0])
@@ -53,10 +53,13 @@ function Edit({ user }: { user: userT & { hasFullAccess?: boolean } }) {
 
   async function uploadPic(image: File | string) {
     if (typeof image === "string") return image
+    const isAdmin = window.location.pathname.includes("admin")
     const formData = new FormData()
-    formData.append('image', image)
-    const { url } = await mutateRegisterImage(formData)
-    return url
+    formData.append("images", await compressImage(image))
+    formData.append("target", "horoscope")
+    if (isAdmin) formData.append("_id", user._id)
+    const { urls } = await uploadImages(formData)
+    return urls[0]
   }
 
   async function onSubmit(values: vedicHoroscopeT) {

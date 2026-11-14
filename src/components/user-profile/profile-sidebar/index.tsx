@@ -3,8 +3,7 @@
 import { Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { useUpdateProfile } from "@/hooks/use-user";
-import { deleteImage } from "@/actions";
+import { useDeleteImage, useUpdateProfile } from "@/hooks/use-user";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@glraj/ui/card";
 
@@ -21,19 +20,11 @@ type props = {
 function ProfileSidebar({ user, canEdit }: props) {
   const t = useTranslations("shared.userProfile.sidebar")
   const { mutate, isPending } = useUpdateProfile()
+  const { mutate: removeImage, isPending: isDeleting } = useDeleteImage()
 
   const handleDeleteImage = (imageUrl: string) => {
     const isAdmin = window.location.pathname.includes("admin")
-    mutate({
-      ...(isAdmin && { _id: user._id }),
-      images: user?.images?.filter(img => img !== imageUrl),
-      ...(user?.profileImg === imageUrl && { profileImg: "" })
-    })
-
-    const id = imageUrl.split("/").pop()?.split(".")[0]
-    if (id) {
-      deleteImage(id)
-    }
+    removeImage({ url: imageUrl, ...(isAdmin && { _id: user._id }) })
   }
 
   function setAsProfilePic(url: string) {
@@ -89,7 +80,7 @@ function ProfileSidebar({ user, canEdit }: props) {
                     <button
                       className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                       onClick={() => handleDeleteImage(image)}
-                      disabled={isPending}
+                      disabled={isPending || isDeleting}
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

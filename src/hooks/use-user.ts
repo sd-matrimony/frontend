@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 
 import {
   addLiked, getLikesList, getMatches, getUserDetails, removeLiked,
-  addImages, updateProfile, getPartnerPreferences, getUnlockedProfiles,
+  addImages, deleteImage, updateProfile, getPartnerPreferences, getUnlockedProfiles,
   unlockProfile, getCurrentPlan, getHiddenList, hideProfile, unhideProfile,
 } from "@/actions";
 import { filterObj } from "@/utils";
@@ -137,8 +137,31 @@ export function useAddImages() {
 
   return useMutation({
     mutationFn: addImages,
-    onSuccess: (res, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["user-details", variables._id] })
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-details"] })
+      navigation.refresh()
+      toast.success(t("imagesUpdated"))
+    },
+    onError: (error) => {
+      toast.error(error?.message || t("imagesUpdateFailed"))
+    },
+  })
+}
+
+export function useUploadImages() {
+  return useMutation({ mutationFn: addImages })
+}
+
+export function useDeleteImage() {
+  const t = useTranslations("user.toasts")
+  const queryClient = useQueryClient()
+  const navigation = useRouter()
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: deleteImage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-details"] })
       navigation.refresh()
       toast.success(t("imagesUpdated"))
     },

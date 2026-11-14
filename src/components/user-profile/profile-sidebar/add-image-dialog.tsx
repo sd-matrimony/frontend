@@ -4,6 +4,7 @@ import { Plus, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { acceptedImagesTypes } from '@/utils/enums';
+import { compressImage } from '@/utils/compress-image';
 import { useAddImages } from '@/hooks/use-user';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@glraj/ui/dialog";
@@ -35,10 +36,11 @@ function AddImageDialog({ _id }: props) {
     maxFiles: 4,
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const isAdmin = window.location.pathname.includes("admin")
     const formData = new FormData()
-    files.forEach(file => formData.append("images", file))
+    const compressed = await Promise.all(files.map(compressImage))
+    compressed.forEach(file => formData.append("images", file))
 
     if (isAdmin) {
       formData.append("_id", _id)
