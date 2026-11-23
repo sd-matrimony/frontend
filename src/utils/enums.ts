@@ -73,8 +73,10 @@ export const yesNoOptions = [
   { label: "No", value: false }
 ]
 
+export const MAX_GALLERY_IMAGES = 4
+
 export const acceptedImagesTypes = {
-  'image/*': ['.png', ".jpg", ".jpeg", ".webp", ".avif", ".gif"],
+  'image/*': ['.png', ".jpg", ".jpeg", ".webp", ".avif"],
 } as const
 
 export const tokenEnums = {

@@ -14,6 +14,7 @@ import { contactDetailsSchema, createUserSchema } from '@/utils/user-schema';
 import { useIsExists, useRegisterImage } from '@/hooks/use-account';
 import { createPass } from '@/utils/password';
 import { compressImage } from '@/utils/compress-image';
+import { MAX_GALLERY_IMAGES } from '@/utils/enums';
 import { cn } from '@/lib/utils';
 
 import { useToast } from '@glraj/ui/toast';
@@ -123,6 +124,10 @@ function CreateUser({ isPending, isAdmin, className, extractedData, onSubmit }: 
       return toast.error(t("eitherEmailOrMobileRequired"))
     }
     // if (!profileImg) return toast.error('Profile image is required')
+    const maxAdditional = profileImg ? MAX_GALLERY_IMAGES - 1 : MAX_GALLERY_IMAGES
+    if ((data?.images?.length ?? 0) > maxAdditional) {
+      return toast.error(t("canUploadUpto", { count: maxAdditional }))
+    }
 
     try {
       if (rest?.email) {

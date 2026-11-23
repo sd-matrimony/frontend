@@ -23,6 +23,9 @@ function ProfileImageView({ src, alt }: props) {
           src={src}
           alt={alt}
           fill
+          loading="eager"
+          fetchPriority="high"
+          sizes="160px"
           className="rounded-full object-cover border-4 border-primary/20"
         />
       </DialogTrigger>

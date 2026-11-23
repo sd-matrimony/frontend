@@ -15,8 +15,9 @@ import { Label } from "@glraj/ui/label";
 
 type props = {
   _id: string
+  remaining: number
 }
-function AddImageDialog({ _id }: props) {
+function AddImageDialog({ _id, remaining }: props) {
   const t = useTranslations("shared.userProfile.sidebar")
   const tc = useTranslations("common")
   const [files, setFiles] = useState<File[]>([])
@@ -26,14 +27,16 @@ function AddImageDialog({ _id }: props) {
   const toast = useToast()
 
   const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
-    if (fileRejections.length > 0) return toast.add({ title: t("uploadLimit4") })
+    if (fileRejections.length > 0 || files.length + acceptedFiles.length > remaining) {
+      return toast.add({ title: t("uploadLimit", { count: remaining - files.length }) })
+    }
     setFiles(prev => [...prev, ...acceptedFiles])
-  }, [])
+  }, [files.length, remaining])
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: acceptedImagesTypes,
-    maxFiles: 4,
+    maxFiles: remaining,
   })
 
   const handleSubmit = async () => {
@@ -78,7 +81,7 @@ function AddImageDialog({ _id }: props) {
             <Input
               id="images"
               {...getInputProps({
-                disabled: files.length === 4,
+                disabled: files.length >= remaining,
                 style: {}
               })}
             />
@@ -97,7 +100,7 @@ function AddImageDialog({ _id }: props) {
                     />
 
                     <button
-                      onClick={() => setFiles(f => f.filter(f => f.name !== file.name))}
+                      onClick={() => setFiles(f => f.filter((_, i) => i !== index))}
                       className="absolute -top-2 -right-2 bg-red-400 hover:bg-red-500 text-white rounded-full p-1"
                     >
                       <X className="h-4 w-4" />
@@ -120,7 +123,7 @@ function AddImageDialog({ _id }: props) {
 
             <Button
               type="submit"
-              disabled={isPending}
+              disabled={isPending || files.length === 0}
               onClick={handleSubmit}
             >
               {t("addImage.add")}

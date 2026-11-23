@@ -3,7 +3,7 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import { useTranslations } from "next-intl";
 
-import { acceptedImagesTypes } from "@/utils/enums";
+import { MAX_GALLERY_IMAGES, acceptedImagesTypes } from "@/utils/enums";
 
 import { Input } from "@glraj/ui/input";
 import { Label } from "@glraj/ui/label";
@@ -83,11 +83,12 @@ export function SelectMultiImageWrapper({ name, label, rules, className }: props
   const t = useTranslations("shared.createUser")
   const { register, formState: { errors }, setValue, watch } = useFormContext()
   const files = watch(name) || []
+  const max = watch("profileImg") ? MAX_GALLERY_IMAGES - 1 : MAX_GALLERY_IMAGES
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    const newFiles = [...files, ...acceptedFiles].slice(0, 4)
+    const newFiles = [...files, ...acceptedFiles].slice(0, max)
     setValue(name, newFiles)
-  }, [files, name, setValue])
+  }, [files, max, name, setValue])
 
   const handleRemoveImage = (index: number) => {
     const updatedFiles = files.filter((_: any, i: number) => i !== index)
@@ -98,7 +99,7 @@ export function SelectMultiImageWrapper({ name, label, rules, className }: props
     onDrop,
     accept: acceptedImagesTypes,
     multiple: true,
-    maxFiles: 4,
+    maxFiles: max,
   })
 
   return (
@@ -127,7 +128,7 @@ export function SelectMultiImageWrapper({ name, label, rules, className }: props
         }
 
         {
-          files.length < 4 &&
+          files.length < max &&
           <div
             {...getRootProps()}
             className="dc size-32 p-2 shrink-0 rounded border-2 border-dashed border-muted-foreground cursor-pointer"
@@ -139,7 +140,7 @@ export function SelectMultiImageWrapper({ name, label, rules, className }: props
               className="hidden"
             />
 
-            <p className="text-xs text-gray-400 text-center">{t("canUploadUpto4")}</p>
+            <p className="text-xs text-gray-400 text-center">{t("canUploadUpto", { count: max - files.length })}</p>
           </div>
         }
       </div>

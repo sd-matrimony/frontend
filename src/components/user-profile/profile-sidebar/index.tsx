@@ -4,6 +4,7 @@ import { Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { useDeleteImage, useUpdateProfile } from "@/hooks/use-user";
+import { MAX_GALLERY_IMAGES } from "@/utils/enums";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@glraj/ui/card";
 
@@ -37,7 +38,7 @@ function ProfileSidebar({ user, canEdit }: props) {
 
   return (
     <div className="relative isolate max-w-md">
-      <Card className="sticky top-20 z-1">
+      <Card>
         <CardContent className="p-6">
           <div className="flex flex-col items-center text-center">
             <div className="relative w-40 h-40 mb-4">
@@ -70,7 +71,7 @@ function ProfileSidebar({ user, canEdit }: props) {
               user?.images.map((image, index) => (
                 <div key={index} className="relative group aspect-square">
                   <ImageView
-                    image={image}
+                    index={index}
                     images={user?.images}
                     profileImg={user?.profileImg}
                     setAsProfilePic={setAsProfilePic}
@@ -90,8 +91,8 @@ function ProfileSidebar({ user, canEdit }: props) {
             }
 
             {
-              canEdit && user?.images?.length < 4 &&
-              <AddImageDialog _id={user._id} />
+              canEdit && user?.images?.length < MAX_GALLERY_IMAGES &&
+              <AddImageDialog _id={user._id} remaining={MAX_GALLERY_IMAGES - user.images.length} />
             }
           </div>
         </CardContent>

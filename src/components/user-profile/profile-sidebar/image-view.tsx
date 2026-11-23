@@ -7,13 +7,13 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Button } from "@glraj/ui/button";
 
 type props = {
-  image: string
+  index: number
   images: string[]
   profileImg: string
   setAsProfilePic: (url: string) => void
 }
 
-function ImageView({ image, images, profileImg, setAsProfilePic }: props) {
+function ImageView({ index, images, profileImg, setAsProfilePic }: props) {
   const t = useTranslations("shared.userProfile.sidebar")
 
   return (
@@ -22,9 +22,11 @@ function ImageView({ image, images, profileImg, setAsProfilePic }: props) {
         nativeButton={false}
         render={
           <Image
-            src={image || "/imgs/user.jpg"}
+            src={images[index] || "/imgs/user.jpg"}
             alt={"User Image"}
             fill
+            sizes="(max-width: 640px) 50vw, 220px"
+            loading={index < 2 ? "eager" : "lazy"}
             className="object-cover rounded-md cursor-pointer border"
           />
         }
@@ -36,7 +38,7 @@ function ImageView({ image, images, profileImg, setAsProfilePic }: props) {
           <DialogDescription className="sr-only">View the selected image in full size.</DialogDescription>
         </DialogHeader>
 
-        <Carousel className="w-full sm:w-105 mx-auto">
+        <Carousel opts={{ startIndex: index }} className="w-full sm:w-105 mx-auto">
           <CarouselContent>
             {
               images.map(img => (

@@ -3,7 +3,9 @@ import { z } from "zod";
 export const personalDetailsSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
   gender: z.string().nonempty("Gender is required"),
-  dob: z.date(),
+  dob: z.date({
+    error: (issue) => issue.input === undefined || issue.input === null ? "Date of birth is required" : "Invalid date of birth",
+  }),
   maritalStatus: z.string().nonempty("Marital Status is required"),
   hasDisability: z.boolean().default(false),
 })

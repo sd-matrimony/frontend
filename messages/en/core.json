@@ -61,7 +61,7 @@
       "password": "Password",
       "autoGenerate": "Auto Generate",
       "enterPassword": "Enter password",
-      "canUploadUpto4": "Can upload upto 4 files",
+      "canUploadUpto": "Can upload upto {count} files",
       "subCaste": "Sub / Other Caste",
       "selectSubCaste": "Select Sub / Other Caste",
       "selectLabel": "Select {label}",
@@ -319,7 +319,7 @@
         "photoGalleryDesc": "Your profile photos",
         "setAsProfilePic": "Set As Profile Pic",
         "uploadLimit1": "You may only upload 1 file at a time.",
-        "uploadLimit4": "You may only upload 4 files at a time.",
+        "uploadLimit": "You can add only {count} more photo(s). A profile can have at most 4 photos.",
         "addImage": {
           "title": "Add New Photo",
           "desc": "Add a new photo to your gallery. Click save when you're done.",
