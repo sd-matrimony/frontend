@@ -63,12 +63,14 @@ type userAndPlanT = currentPlanT & {
   user: Partial<userT>
   assistedExpire: string
 }
-export function useGetPaidUsers(month?: string) {
+type paidUserT = userAndPlanT & { createdAt: string }
+
+export function useGetPaidUsers(month?: string, plan?: subscribedToT) {
   const limit = 50
 
-  return useInfiniteQuery<userAndPlanT[], Error, userAndPlanT[]>({
-    queryKey: ["paid-users", month ?? "active"],
-    queryFn: ({ pageParam }) => getPaidUsers({ skip: (pageParam as number || 0) * limit, limit, ...(month && { month }) }),
+  return useInfiniteQuery<paidUserT[], Error, paidUserT[]>({
+    queryKey: ["paid-users", month ?? "all-time", plan ?? "all"],
+    queryFn: ({ pageParam }) => getPaidUsers({ skip: (pageParam as number || 0) * limit, limit, ...(month && { month }), ...(plan && { plan }) }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
     select: data => data?.pages?.flat() as any,

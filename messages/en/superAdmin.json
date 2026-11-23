@@ -111,8 +111,11 @@
         "colUser": "User",
         "colPlan": "Plan",
         "colAmount": "Amount",
+        "colPurchased": "Purchased",
         "colExpiry": "Expiry Date",
-        "activePlans": "Active plans"
+        "allTime": "All time",
+        "expired": "Expired",
+        "allPlans": "All plans"
       },
       "usersAllPayments": {
         "title": "Users All Payments",

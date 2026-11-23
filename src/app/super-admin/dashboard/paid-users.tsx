@@ -8,19 +8,31 @@ import type { DragHandleProps } from "./grid";
 import { useGetPaidUsers } from "@/hooks/use-super-admin";
 
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@glraj/ui/card";
-import { PlanBadge } from "@/components/common/plan-badge";
+import { PlanBadge, planValidityMonths } from "@/components/common/plan-badge";
+import { SelectWrapper } from "@glraj/ui/select";
 import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@glraj/ui/button";
+import { Badge } from "@glraj/ui/badge";
 import { Input } from "@glraj/ui/input";
 
 import { MonthYearSelect } from "@/components/common/month-year-select";
 
-const ACTIVE = "active"
+const ALL_TIME = "all-time"
+const ALL_PLANS = "all"
 
 function PaidUsers({ dragHandle }: DragHandleProps) {
   const t = useTranslations("superAdmin.dashboard.paidUsers")
-  const [month, setMonth] = useState(ACTIVE)
-  const { isLoading, data, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useGetPaidUsers(month === ACTIVE ? undefined : month)
+  const [month, setMonth] = useState(ALL_TIME)
+  const [plan, setPlan] = useState<subscribedToT | typeof ALL_PLANS>(ALL_PLANS)
+  const { isLoading, data, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useGetPaidUsers(
+    month === ALL_TIME ? undefined : month,
+    plan === ALL_PLANS ? undefined : plan,
+  )
+
+  const planOptions = [
+    { value: ALL_PLANS, label: t("allPlans") },
+    ...(Object.keys(planValidityMonths) as subscribedToT[]).map(p => ({ value: p, label: p.charAt(0).toUpperCase() + p.slice(1) })),
+  ]
   const [search, setSearch] = useState("")
   const sentinelRef = useRef<HTMLDivElement>(null)
 
@@ -60,10 +72,17 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
             className="max-w-md ml-auto h-8"
           />
 
+          <SelectWrapper
+            items={planOptions}
+            value={plan}
+            onValueChange={v => setPlan(v as subscribedToT | typeof ALL_PLANS)}
+            triggerCls="w-fit h-8 shrink-0"
+          />
+
           <MonthYearSelect
             value={month}
             onChange={setMonth}
-            extraOption={{ value: ACTIVE, label: t("activePlans") }}
+            extraOption={{ value: ALL_TIME, label: t("allTime") }}
           />
         </div>
 
@@ -90,7 +109,8 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
               <th className="w-40 px-1 py-2 text-sm font-medium">{t("colUser")}</th>
               <th className="w-28 px-1 py-2 text-sm font-medium">{t("colPlan")}</th>
               <th className="w-32 pl-1 pr-4 py-2 text-sm font-medium text-right">{t("colAmount")}</th>
-              <th className="w-24 px-1 py-2 text-sm font-medium text-center">{t("colExpiry")}</th>
+              <th className="w-24 px-1 py-2 text-sm font-medium text-center">{t("colPurchased")}</th>
+              <th className="w-28 px-1 py-2 text-sm font-medium text-center">{t("colExpiry")}</th>
             </tr>
           </thead>
 
@@ -129,7 +149,15 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
 
                     <td className="pl-1 pr-4 py-2 text-right">₹ {Number(user?.amount).toLocaleString()}</td>
 
-                    <td className="px-1 py-2 text-center">{format(new Date(user?.expiryDate), "dd-MM-yy")}</td>
+                    <td className="px-1 py-2 text-center">{format(new Date(user?.createdAt), "dd-MM-yy")}</td>
+
+                    <td className="px-1 py-2 text-center">
+                      <p>{format(new Date(user?.expiryDate), "dd-MM-yy")}</p>
+                      {
+                        new Date(user?.expiryDate) < new Date() &&
+                        <Badge variant="destructive" className="mt-1">{t("expired")}</Badge>
+                      }
+                    </td>
                   </tr>
                 ))
             }

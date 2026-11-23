@@ -111,8 +111,11 @@
         "colUser": "பயனர்",
         "colPlan": "திட்டம்",
         "colAmount": "தொகை",
+        "colPurchased": "வாங்கிய தேதி",
         "colExpiry": "காலாவதி தேதி",
-        "activePlans": "செயலில் உள்ள திட்டங்கள்"
+        "allTime": "எல்லா காலமும்",
+        "expired": "காலாவதியானது",
+        "allPlans": "அனைத்து திட்டங்கள்"
       },
       "usersAllPayments": {
         "title": "அனைத்து பயனர் கட்டணங்கள்",
