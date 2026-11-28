@@ -190,6 +190,10 @@ export function PaidUserDetails({ id }: props) {
   const currentPayment = payments.find(payment => payment.isCurrent)
   const selectedPayment = payments.find(payment => payment._id === selectedPaymentId)
   const totalPaid = payments.reduce((sum, payment) => sum + payment.amount, 0)
+  const latestPayment = payments.reduce<userPaymentT | undefined>(
+    (latest, payment) => !latest || new Date(payment.expiryDate) > new Date(latest.expiryDate) ? payment : latest,
+    undefined,
+  )
   const isCurrentActive = !!currentPayment && isActivePayment(currentPayment)
 
   if (isLoading) {
@@ -306,8 +310,10 @@ export function PaidUserDetails({ id }: props) {
               </Dialog>
 
               {
-                currentPayment &&
-                <ExtendPlanDialog userId={user._id} fullName={user.fullName} expiryDate={currentPayment.expiryDate} />
+                currentPayment
+                  ? <ExtendPlanDialog userId={user._id} fullName={user.fullName} expiryDate={currentPayment.expiryDate} />
+                  : latestPayment &&
+                  <ExtendPlanDialog userId={user._id} fullName={user.fullName} expiryDate={latestPayment.expiryDate} paymentId={latestPayment._id} />
               }
 
               {
@@ -406,8 +412,17 @@ export function PaidUserDetails({ id }: props) {
                         </Badge>
                       </div>
                     </td>
-                    <td className="px-2 py-2 text-right">
-                      <DeletePaymentButton payment={payment} />
+                    <td className="px-2 py-2">
+                      <div className="flex justify-end gap-1">
+                        <ExtendPlanDialog
+                          iconOnly
+                          userId={user._id}
+                          fullName={user.fullName}
+                          expiryDate={payment.expiryDate}
+                          paymentId={payment._id}
+                        />
+                        <DeletePaymentButton payment={payment} />
+                      </div>
                     </td>
                   </tr>
                 )

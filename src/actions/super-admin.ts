@@ -123,11 +123,21 @@ export function removeUserPlan({ _id, reason }: { _id: string, reason?: string }
   })
 }
 
-export function extendUserPlan({ _id, days, reason }: { _id: string, days: number, reason?: string }) {
+type extendPlanInput = {
+  _id: string
+  paymentId?: string
+  days?: number
+  months?: number
+  reason?: string
+}
+
+export function extendUserPlan({ _id, paymentId, days, months, reason }: extendPlanInput) {
   return sendApiReq({
-    url: `${endPoints.getUserCurrentPlan}/${_id}/plan/extend`,
+    url: paymentId
+      ? `${endPoints.deletePayment}/${paymentId}/extend`
+      : `${endPoints.getUserCurrentPlan}/${_id}/plan/extend`,
     method: "put",
-    data: { days, ...(reason && { reason }) },
+    data: { days, months, ...(reason && { reason }) },
   })
 }
 

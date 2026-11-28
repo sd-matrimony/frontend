@@ -431,6 +431,7 @@ export type paymentLogT = {
     subscribedTo?: subscribedToT
     amount?: number
     days?: number
+    months?: number
     profiles?: number
     previousExpiry?: string
     newExpiry?: string

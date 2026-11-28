@@ -37,7 +37,9 @@ export function PaymentActivity({ userId }: props) {
       case "purchased":
         return t("logPurchased", { plan, amount })
       case "extended":
-        return t("logExtended", { admin, days: details.days ?? 0, from: formatDay(details.previousExpiry), to: formatDay(details.newExpiry) })
+        return details.months
+          ? t("logExtendedMonths", { admin, months: details.months, from: formatDay(details.previousExpiry), to: formatDay(details.newExpiry) })
+          : t("logExtended", { admin, days: details.days ?? 0, from: formatDay(details.previousExpiry), to: formatDay(details.newExpiry) })
       case "profilesAdded":
         return t("logProfilesAdded", { admin, count: details.profiles ?? 0, from: formatLimit(details.previousProfiles), to: formatLimit(details.newProfiles) })
       case "cancelled":

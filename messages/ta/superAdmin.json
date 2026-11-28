@@ -342,7 +342,8 @@
       "logPurchased": "{amount}க்கு {plan} திட்டத்தை ஆன்லைனில் வாங்கினார்",
       "unlockedAll": "அனைத்து கட்டணங்களும்",
       "showAllUnlocked": "அனைத்தையும் காட்டு",
-      "unlockedEmptyAll": "இதுவரை சுயவிவரங்கள் திறக்கப்படவில்லை"
+      "unlockedEmptyAll": "இதுவரை சுயவிவரங்கள் திறக்கப்படவில்லை",
+      "logExtendedMonths": "{admin} திட்டத்தை {months} மாதங்கள் நீட்டித்தார் ({from} → {to})"
     }
   }
 }

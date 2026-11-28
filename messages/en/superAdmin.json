@@ -342,7 +342,8 @@
       "logPurchased": "Bought a {plan} plan online for {amount}",
       "unlockedAll": "All payments",
       "showAllUnlocked": "Show all",
-      "unlockedEmptyAll": "No profiles unlocked yet"
+      "unlockedEmptyAll": "No profiles unlocked yet",
+      "logExtendedMonths": "{admin} extended the plan by {months, plural, one {# month} other {# months}} ({from} → {to})"
     }
   }
 }
