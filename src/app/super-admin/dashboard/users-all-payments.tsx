@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { useGetAllPayments } from "@/hooks/use-super-admin";
 
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@glraj/ui/card";
-import { PlanBadge } from "@/components/common/plan-badge";
+import { PlanBadge, planDetails } from "@/components/common/plan-badge";
 import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@glraj/ui/button";
 
@@ -74,7 +74,7 @@ function UsersAllPayments() {
                                 subscribedTo={payment?.subscribedTo}
                                 className="p-2"
                               />
-                              <p className="capitalize">{payment?.subscribedTo}</p>
+                              <p>{planDetails[payment?.subscribedTo]?.name}</p>
                             </div>
                           </td>
 

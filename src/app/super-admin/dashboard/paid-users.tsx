@@ -8,7 +8,7 @@ import type { DragHandleProps } from "./grid";
 import { useGetPaidUsers } from "@/hooks/use-super-admin";
 
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@glraj/ui/card";
-import { PlanBadge, planValidityMonths } from "@/components/common/plan-badge";
+import { PlanBadge, planDetails, planValidityMonths } from "@/components/common/plan-badge";
 import { SelectWrapper } from "@glraj/ui/select";
 import { Skeleton } from "@glraj/ui/skeleton";
 import { Button } from "@glraj/ui/button";
@@ -31,7 +31,7 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
 
   const planOptions = [
     { value: ALL_PLANS, label: t("allPlans") },
-    ...(Object.keys(planValidityMonths) as subscribedToT[]).map(p => ({ value: p, label: p.charAt(0).toUpperCase() + p.slice(1) })),
+    ...(Object.keys(planValidityMonths) as subscribedToT[]).map(p => ({ value: p, label: planDetails[p].name })),
   ]
   const [search, setSearch] = useState("")
   const sentinelRef = useRef<HTMLDivElement>(null)
@@ -143,7 +143,7 @@ function PaidUsers({ dragHandle }: DragHandleProps) {
                           subscribedTo={user?.subscribedTo}
                           className="p-2"
                         />
-                        <p className="capitalize">{user?.subscribedTo}</p>
+                        <p>{planDetails[user?.subscribedTo]?.name}</p>
                       </div>
                     </td>
 
