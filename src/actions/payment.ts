@@ -8,7 +8,7 @@ export function createOrder(data: any) {
   })
 }
 
-export function verifyPayment(data: any) {
+export function verifyPayment(data: { merchantOrderId: string }) {
   return sendApiReq({
     url: endPoints.verifyPayment,
     method: "post",

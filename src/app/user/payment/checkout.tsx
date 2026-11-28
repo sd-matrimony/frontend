@@ -6,6 +6,7 @@ import { Check, Users, Loader } from "lucide-react";
 import Script from "next/script";
 
 import { useCreateOrder, useVerifyPayment } from "@/hooks/use-payment";
+import { useCurrentPlan } from "@/hooks/use-user";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@glraj/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@glraj/ui/select";
@@ -29,6 +30,9 @@ function Checkout({ showCheckout = true }: props) {
   const [assistedMonths, setAssistedMonths] = useState(1)
   const [subscribedTo, setSubscribedTo] = useState<subscribedToT>("basic")
   const [isAssisted, setIsAssisted] = useState(false)
+
+  const { data: currentPlan } = useCurrentPlan()
+  const activeUntil = currentPlan?.expiryDate && new Date(currentPlan.expiryDate) > new Date() ? new Date(currentPlan.expiryDate) : null
 
   const { mutateAsync: createOrderMutate, isPending: isCreateOrderPending } = useCreateOrder()
   const { mutate: verifyPaymentMutate, isPending: isVerifyPaymentPending } = useVerifyPayment()
@@ -54,12 +58,7 @@ function Checkout({ showCheckout = true }: props) {
         type: "IFRAME",
         callback(res: string) {
           if (res === "CONCLUDED") {
-            verifyPaymentMutate({
-              ...payload,
-              amount: data.amount,
-              orderId: data.orderId,
-              merchantOrderId: data.merchantOrderId,
-            })
+            verifyPaymentMutate({ merchantOrderId: data.merchantOrderId })
           }
         },
       })
@@ -285,6 +284,13 @@ function Checkout({ showCheckout = true }: props) {
                   <p>• {t("additionalUnlockProfilesLine", { value: addAdditionalProfiles ? (additionalProfilesCount === 999 ? t("unlimited") : additionalProfilesCount + profilesCount[subscribedTo]) : profilesCount[subscribedTo] })}</p>
                   <p>• {t("assistedServicesLine", { value: isAssisted ? `${assistedMonths} ${t("monthsSuffix")}` : t("notOpted") })}</p>
                 </div>
+
+                {
+                  activeUntil &&
+                  <p className="text-xs rounded-md bg-amber-50 text-amber-800 p-2">
+                    {t("activePlanNote", { date: activeUntil.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) })}
+                  </p>
+                }
               </CardContent>
 
               {

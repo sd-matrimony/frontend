@@ -237,7 +237,7 @@
       "actionCannotBeUndone": "This action cannot be undone.",
       "alreadySubscribed": "User already has an active plan",
       "expires": "Expires {date}",
-      "overrideWarning": "Proceeding will override the existing plan.",
+      "overrideWarning": "The new plan starts after the current one ends, so the remaining days are kept.",
       "cancel": "Cancel",
       "proceedToPayment": "Proceed to Payment — ₹{amount}",
       "findUser": {

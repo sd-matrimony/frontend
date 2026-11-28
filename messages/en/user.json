@@ -137,7 +137,8 @@
       "additionalUnlockProfilesLine": "Additional Unlock Profiles : {value} profiles",
       "assistedServicesLine": "Assisted services : {value}",
       "notOpted": "Not opted",
-      "proceedToPayment": "Proceed to Payment - ₹{amount}"
+      "proceedToPayment": "Proceed to Payment - ₹{amount}",
+      "activePlanNote": "You already have an active plan until {date}. The new plan starts after it ends, so you keep the remaining days."
     },
     "toasts": {
       "profileUpdated": "Profile updated successfully",
