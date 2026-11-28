@@ -122,6 +122,14 @@ export function removeUserPlan(id: string) {
   })
 }
 
+export function extendUserPlan({ _id, days }: { _id: string, days: number }) {
+  return sendApiReq({
+    url: `${endPoints.getUserCurrentPlan}/${_id}/plan/extend`,
+    method: "put",
+    data: { days },
+  })
+}
+
 export function getUserUnlockedProfiles(id: string) {
   return sendApiReq({
     url: `${endPoints.getUserCurrentPlan}/${id}/unlocked`,

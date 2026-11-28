@@ -261,6 +261,7 @@
       "adminUpdated": "Admin updated successfully",
       "adminCreated": "Admin created successfully",
       "subscriptionRemoved": "Subscription removed successfully",
+      "planExtended": "Plan extended successfully",
       "userInvited": "User invited successfully",
       "passwordReset": "Password reset successfully",
       "paymentAdded": "Payment added successfully",

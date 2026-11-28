@@ -10,7 +10,7 @@ import {
   getUsersGroupedByAdminCount, getUsersGroupedCount, getAdminsList,
   createAdmin, updateAdmin, getUserInvitations, userInvited,
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
-  getUserCurrentPlan, removeUserPlan, updateUserCritical,
+  getUserCurrentPlan, removeUserPlan, extendUserPlan, updateUserCritical,
   getDashboardStats, getActiveUsers, getUserUnlockedProfiles,
 } from "@/actions";
 import { useToast } from "@glraj/ui/toast";
@@ -206,6 +206,25 @@ export function useRemoveUserPlan() {
     mutationFn: removeUserPlan,
     onSuccess() {
       toast.success(t("subscriptionRemoved"))
+      queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
+      queryClient.invalidateQueries({ queryKey: ["user-list"] })
+    },
+    onError(error) {
+      toast.error(error?.message || tCommon("somethingWentWrong"))
+    }
+  })
+}
+
+export function useExtendUserPlan() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
+  const queryClient = useQueryClient()
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: extendUserPlan,
+    onSuccess() {
+      toast.success(t("planExtended"))
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
