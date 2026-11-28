@@ -36,7 +36,10 @@ import {
 } from "@glraj/ui/alert-dialog";
 
 import MakePaymentForUser from "@/app/super-admin/payment/make-payment-for-user";
+import { AddProfilesDialog } from "./add-profiles-dialog";
 import { ExtendPlanDialog } from "./extend-plan-dialog";
+import { PaymentActivity } from "./payment-activity";
+import { ReasonField } from "./reason-field";
 
 type props = {
   id: string
@@ -54,6 +57,7 @@ function DeletePaymentButton({ payment }: { payment: userPaymentT }) {
   const t = useTranslations("superAdmin.paidUsersPage")
   const tc = useTranslations("common")
   const { mutate, isPending } = useDeletePayment()
+  const [reason, setReason] = useState("")
 
   return (
     <AlertDialog>
@@ -86,9 +90,11 @@ function DeletePaymentButton({ payment }: { payment: userPaymentT }) {
           </AlertDialogDescription>
         </AlertDialogHeader>
 
+        <ReasonField id={`delete-reason-${payment._id}`} value={reason} onChange={setReason} />
+
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isPending}>{tc("cancel")}</AlertDialogCancel>
-          <AlertDialogAction render={<Button variant="destructive" disabled={isPending} onClick={() => mutate(payment._id)} />}>
+          <AlertDialogAction render={<Button variant="destructive" disabled={isPending} onClick={() => mutate({ _id: payment._id, reason: reason.trim() || undefined })} />}>
             {t("delete")}
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -160,6 +166,7 @@ export function PaidUserDetails({ id }: props) {
   const tc = useTranslations("common")
 
   const [paymentOpen, setPaymentOpen] = useState(false)
+  const [cancelReason, setCancelReason] = useState("")
   const [selectedPaymentId, setSelectedPaymentId] = useState<string>()
 
   const { data, isLoading, isFetching, refetch } = useGetUserPayments(id)
@@ -291,6 +298,11 @@ export function PaidUserDetails({ id }: props) {
               }
 
               {
+                currentPayment && currentPayment.noOfProfilesCanView < 999 &&
+                <AddProfilesDialog userId={user._id} fullName={user.fullName} currentLimit={currentPayment.noOfProfilesCanView} />
+              }
+
+              {
                 isCurrentActive &&
                 <AlertDialog>
                   <AlertDialogTrigger render={<Button size="sm" variant="outline" className="text-red-500 hover:text-red-600 border-red-200 hover:border-red-300" />}>
@@ -304,9 +316,11 @@ export function PaidUserDetails({ id }: props) {
                       <AlertDialogDescription>{t("cancelPlanDesc", { fullName: user.fullName })}</AlertDialogDescription>
                     </AlertDialogHeader>
 
+                    <ReasonField id="cancel-plan-reason" value={cancelReason} onChange={setCancelReason} />
+
                     <AlertDialogFooter>
                       <AlertDialogCancel disabled={isRemoving}>{tc("cancel")}</AlertDialogCancel>
-                      <AlertDialogAction render={<Button variant="destructive" disabled={isRemoving} onClick={() => removePlan(user._id)} />}>
+                      <AlertDialogAction render={<Button variant="destructive" disabled={isRemoving} onClick={() => removePlan({ _id: user._id, reason: cancelReason.trim() || undefined }, { onSuccess: () => setCancelReason("") })} />}>
                         {tp("remove")}
                       </AlertDialogAction>
                     </AlertDialogFooter>
@@ -390,7 +404,10 @@ export function PaidUserDetails({ id }: props) {
         </CardContent>
       </Card>
 
-      <UnlockedProfiles userId={user._id} payment={selectedPayment} />
+      <div className="grid gap-4 lg:grid-cols-2">
+        <UnlockedProfiles userId={user._id} payment={selectedPayment} />
+        <PaymentActivity userId={user._id} />
+      </div>
     </section>
   )
 }

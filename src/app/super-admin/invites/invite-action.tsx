@@ -113,7 +113,7 @@ function InviteAction({ user }: props) {
 
             <AlertDialogFooter>
               <AlertDialogCancel disabled={isRemoving}>{t("cancel")}</AlertDialogCancel>
-              <AlertDialogAction render={<Button variant="destructive" disabled={isRemoving} onClick={() => removePlan(user._id!)} />}>
+              <AlertDialogAction render={<Button variant="destructive" disabled={isRemoving} onClick={() => removePlan({ _id: user._id! })} />}>
                 {t("remove")}
               </AlertDialogAction>
             </AlertDialogFooter>

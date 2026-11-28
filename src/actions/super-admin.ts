@@ -115,18 +115,33 @@ export function updateUserCritical({ _id, ...data }: { _id: string, email?: stri
   })
 }
 
-export function removeUserPlan(id: string) {
+export function removeUserPlan({ _id, reason }: { _id: string, reason?: string }) {
   return sendApiReq({
-    url: `${endPoints.getUserCurrentPlan}/${id}/plan`,
+    url: `${endPoints.getUserCurrentPlan}/${_id}/plan`,
     method: "delete",
+    params: reason ? { reason } : undefined,
   })
 }
 
-export function extendUserPlan({ _id, days }: { _id: string, days: number }) {
+export function extendUserPlan({ _id, days, reason }: { _id: string, days: number, reason?: string }) {
   return sendApiReq({
     url: `${endPoints.getUserCurrentPlan}/${_id}/plan/extend`,
     method: "put",
-    data: { days },
+    data: { days, ...(reason && { reason }) },
+  })
+}
+
+export function addUserProfiles({ _id, count, reason }: { _id: string, count: number, reason?: string }) {
+  return sendApiReq({
+    url: `${endPoints.getUserCurrentPlan}/${_id}/plan/profiles`,
+    method: "put",
+    data: { count, ...(reason && { reason }) },
+  })
+}
+
+export function getUserPaymentLogs(id: string) {
+  return sendApiReq({
+    url: `${endPoints.getUserCurrentPlan}/${id}/payment-logs`,
   })
 }
 
@@ -150,10 +165,11 @@ export function getUserPayments(id: string) {
   })
 }
 
-export function deletePayment(id: string) {
+export function deletePayment({ _id, reason }: { _id: string, reason?: string }) {
   return sendApiReq({
-    url: `${endPoints.deletePayment}/${id}`,
+    url: `${endPoints.deletePayment}/${_id}`,
     method: "delete",
+    params: reason ? { reason } : undefined,
   })
 }
 

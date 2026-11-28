@@ -12,7 +12,7 @@ import {
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
   getUserCurrentPlan, removeUserPlan, extendUserPlan, updateUserCritical,
   getDashboardStats, getActiveUsers, getUserUnlockedProfiles,
-  getPaymentUsers, getUserPayments, deletePayment,
+  getPaymentUsers, getUserPayments, deletePayment, addUserProfiles, getUserPaymentLogs,
 } from "@/actions";
 import { useToast } from "@glraj/ui/toast";
 
@@ -209,6 +209,7 @@ export function useRemoveUserPlan() {
       toast.success(t("subscriptionRemoved"))
       queryClient.invalidateQueries({ queryKey: ["user-payments"] })
       queryClient.invalidateQueries({ queryKey: ["payment-users"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-logs"] })
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
@@ -230,6 +231,7 @@ export function useExtendUserPlan() {
       toast.success(t("planExtended"))
       queryClient.invalidateQueries({ queryKey: ["user-payments"] })
       queryClient.invalidateQueries({ queryKey: ["payment-users"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-logs"] })
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
@@ -294,6 +296,7 @@ export function useMakePaymentForUser() {
       toast.success(t("paymentAdded"))
       queryClient.invalidateQueries({ queryKey: ["user-payments"] })
       queryClient.invalidateQueries({ queryKey: ["payment-users"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-logs"] })
       queryClient.invalidateQueries({ queryKey: ["user-unlocked-profiles"] })
     },
     onError(error) {
@@ -397,6 +400,53 @@ export function useGetUserPayments(id: string) {
   })
 }
 
+export function useAddUserProfiles() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
+  const queryClient = useQueryClient()
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: addUserProfiles,
+    onSuccess() {
+      toast.success(t("profilesAdded"))
+      queryClient.invalidateQueries({ queryKey: ["user-payments"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-users"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-logs"] })
+      queryClient.invalidateQueries({ queryKey: ["user-unlocked-profiles"] })
+    },
+    onError(error) {
+      toast.error(error?.message || tCommon("somethingWentWrong"))
+    }
+  })
+}
+
+export type paymentLogT = {
+  _id: string
+  action: "created" | "extended" | "profilesAdded" | "cancelled" | "deleted"
+  admin?: { _id: string, fullName?: string } | null
+  reason?: string
+  createdAt: string
+  details?: {
+    subscribedTo?: subscribedToT
+    amount?: number
+    days?: number
+    profiles?: number
+    previousExpiry?: string
+    newExpiry?: string
+    previousProfiles?: number
+    newProfiles?: number
+  }
+}
+
+export function useGetUserPaymentLogs(id: string) {
+  return useQuery<paymentLogT[]>({
+    queryKey: ["payment-logs", id],
+    queryFn: () => getUserPaymentLogs(id),
+    enabled: !!id,
+  })
+}
+
 export function useDeletePayment() {
   const t = useTranslations("superAdmin.toasts")
   const tCommon = useTranslations("common.toasts")
@@ -409,6 +459,7 @@ export function useDeletePayment() {
       toast.success(t("paymentDeleted"))
       queryClient.invalidateQueries({ queryKey: ["user-payments"] })
       queryClient.invalidateQueries({ queryKey: ["payment-users"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-logs"] })
       queryClient.invalidateQueries({ queryKey: ["user-unlocked-profiles"] })
       queryClient.invalidateQueries({ queryKey: ["paid-users"] })
       queryClient.invalidateQueries({ queryKey: ["user-list"] })

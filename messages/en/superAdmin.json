@@ -267,7 +267,8 @@
       "paymentAdded": "Payment added successfully",
       "userDetailsUpdated": "User details updated successfully",
       "bulkUsersUpdated": "{count, plural, one {# user updated successfully} other {# users updated successfully}}",
-      "paymentDeleted": "Payment deleted successfully"
+      "paymentDeleted": "Payment deleted successfully",
+      "profilesAdded": "Profiles added successfully"
     },
     "paidUsersPage": {
       "title": "Paid users",
@@ -320,7 +321,24 @@
       "unlockedFor": "{plan} payment from {date}",
       "unlockedEmpty": "No profiles unlocked with this payment",
       "unlockedOn": "Unlocked {date}",
-      "showUnlocked": "Show unlocked profiles"
+      "showUnlocked": "Show unlocked profiles",
+      "reasonLabel": "Reason (optional)",
+      "reasonPlaceholder": "Why are you making this change?",
+      "addProfiles": "Add profiles",
+      "addProfilesFor": "Add profiles for {fullName}",
+      "profilesToAdd": "Profiles to add",
+      "currentLimit": "Current limit: {count}",
+      "newLimit": "New limit: {count}",
+      "add": "Add",
+      "activityTitle": "Admin activity",
+      "activityEmpty": "No admin changes yet",
+      "unknownAdmin": "An admin",
+      "logCreated": "{admin} added a {plan} payment of {amount}",
+      "logExtended": "{admin} extended the plan by {days, plural, one {# day} other {# days}} ({from} → {to})",
+      "logProfilesAdded": "{admin} added {count, plural, one {# profile} other {# profiles}} ({from} → {to})",
+      "logCancelled": "{admin} cancelled the {plan} plan",
+      "logDeleted": "{admin} deleted the {plan} payment of {amount}",
+      "reasonText": "Reason: {reason}"
     }
   }
 }

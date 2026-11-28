@@ -267,7 +267,8 @@
       "paymentAdded": "கட்டணம் வெற்றிகரமாக சேர்க்கப்பட்டது",
       "userDetailsUpdated": "பயனர் விவரங்கள் வெற்றிகரமாக புதுப்பிக்கப்பட்டன",
       "bulkUsersUpdated": "{count, plural, one {# பயனர் வெற்றிகரமாக புதுப்பிக்கப்பட்டார்} other {# பயனர்கள் வெற்றிகரமாக புதுப்பிக்கப்பட்டனர்}}",
-      "paymentDeleted": "கட்டணம் வெற்றிகரமாக நீக்கப்பட்டது"
+      "paymentDeleted": "கட்டணம் வெற்றிகரமாக நீக்கப்பட்டது",
+      "profilesAdded": "சுயவிவரங்கள் வெற்றிகரமாக சேர்க்கப்பட்டன"
     },
     "paidUsersPage": {
       "title": "கட்டணம் செலுத்திய பயனர்கள்",
@@ -320,7 +321,24 @@
       "unlockedFor": "{date} அன்று செலுத்திய {plan} கட்டணம்",
       "unlockedEmpty": "இந்த கட்டணத்தில் சுயவிவரங்கள் திறக்கப்படவில்லை",
       "unlockedOn": "{date} அன்று திறக்கப்பட்டது",
-      "showUnlocked": "திறக்கப்பட்ட சுயவிவரங்களைக் காட்டு"
+      "showUnlocked": "திறக்கப்பட்ட சுயவிவரங்களைக் காட்டு",
+      "reasonLabel": "காரணம் (விருப்பம்)",
+      "reasonPlaceholder": "இந்த மாற்றத்திற்கான காரணம் என்ன?",
+      "addProfiles": "சுயவிவரங்களைச் சேர்",
+      "addProfilesFor": "{fullName} க்கு சுயவிவரங்களைச் சேர்",
+      "profilesToAdd": "சேர்க்க வேண்டிய சுயவிவரங்கள்",
+      "currentLimit": "தற்போதைய வரம்பு: {count}",
+      "newLimit": "புதிய வரம்பு: {count}",
+      "add": "சேர்",
+      "activityTitle": "நிர்வாகி செயல்பாடு",
+      "activityEmpty": "இதுவரை நிர்வாகி மாற்றங்கள் இல்லை",
+      "unknownAdmin": "ஒரு நிர்வாகி",
+      "logCreated": "{admin} {amount} மதிப்புள்ள {plan} கட்டணத்தைச் சேர்த்தார்",
+      "logExtended": "{admin} திட்டத்தை {days} நாட்கள் நீட்டித்தார் ({from} → {to})",
+      "logProfilesAdded": "{admin} {count} சுயவிவரங்களைச் சேர்த்தார் ({from} → {to})",
+      "logCancelled": "{admin} {plan} திட்டத்தை ரத்து செய்தார்",
+      "logDeleted": "{admin} {amount} மதிப்புள்ள {plan} கட்டணத்தை நீக்கினார்",
+      "reasonText": "காரணம்: {reason}"
     }
   }
 }

@@ -18,6 +18,8 @@ import {
   DialogTrigger,
 } from "@glraj/ui/dialog";
 
+import { ReasonField } from "./reason-field";
+
 type props = {
   userId: string
   fullName: string
@@ -35,6 +37,7 @@ export function ExtendPlanDialog({ userId, fullName, expiryDate }: props) {
   const tc = useTranslations("common")
   const [open, setOpen] = useState(false)
   const [days, setDays] = useState(30)
+  const [reason, setReason] = useState("")
 
   const { mutate: extendPlan, isPending } = useExtendUserPlan()
 
@@ -46,7 +49,10 @@ export function ExtendPlanDialog({ userId, fullName, expiryDate }: props) {
 
   function onExtend() {
     if (!isValidDays) return
-    extendPlan({ _id: userId, days }, { onSuccess: () => setOpen(false) })
+    extendPlan(
+      { _id: userId, days, reason: reason.trim() || undefined },
+      { onSuccess: () => { setOpen(false); setReason("") } },
+    )
   }
 
   return (
@@ -81,6 +87,8 @@ export function ExtendPlanDialog({ userId, fullName, expiryDate }: props) {
           {isValidDays && (
             <p className="text-sm font-medium">{t("newExpiry", { date: formatDate(newExpiry) })}</p>
           )}
+
+          <ReasonField id={`extend-reason-${userId}`} value={reason} onChange={setReason} />
         </div>
 
         <DialogFooter>
