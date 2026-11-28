@@ -277,3 +277,19 @@
     height: 0;
   }
 }
+/* Base UI skips the backdrop of nested dialogs, so dim the parent popup instead */
+:is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms;
+}
+
+:is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-nested-dialog-open]::after {
+  opacity: 1;
+}
