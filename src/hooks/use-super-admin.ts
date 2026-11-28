@@ -423,7 +423,7 @@ export function useAddUserProfiles() {
 
 export type paymentLogT = {
   _id: string
-  action: "created" | "extended" | "profilesAdded" | "cancelled" | "deleted"
+  action: "created" | "purchased" | "extended" | "profilesAdded" | "cancelled" | "deleted"
   admin?: { _id: string, fullName?: string } | null
   reason?: string
   createdAt: string

@@ -103,22 +103,35 @@ function DeletePaymentButton({ payment }: { payment: userPaymentT }) {
   )
 }
 
-function UnlockedProfiles({ userId, payment }: { userId: string, payment?: userPaymentT }) {
+type unlockedProps = {
+  userId: string
+  payment?: userPaymentT
+  onShowAll: () => void
+}
+
+function UnlockedProfiles({ userId, payment, onShowAll }: unlockedProps) {
   const t = useTranslations("superAdmin.paidUsersPage")
-  const { data, isLoading } = useGetUserUnlockedProfiles(userId, !!payment, payment?._id)
+  const { data, isLoading } = useGetUserUnlockedProfiles(userId, true, payment?._id ?? "all")
 
   return (
     <Card className="gap-2">
       <CardHeader>
         <CardTitle>{t("unlockedTitle")}</CardTitle>
+        <CardDescription>
+          {
+            payment
+              ? t("unlockedFor", {
+                plan: planDetails[payment.subscribedTo]?.name,
+                date: format(new Date(payment.createdAt), "dd-MM-yy"),
+              })
+              : t("unlockedAll")
+          }
+        </CardDescription>
         {
           payment &&
-          <CardDescription>
-            {t("unlockedFor", {
-              plan: planDetails[payment.subscribedTo]?.name,
-              date: format(new Date(payment.createdAt), "dd-MM-yy"),
-            })}
-          </CardDescription>
+          <CardAction>
+            <Button size="sm" variant="outline" onClick={onShowAll}>{t("showAllUnlocked")}</Button>
+          </CardAction>
         }
       </CardHeader>
 
@@ -127,7 +140,7 @@ function UnlockedProfiles({ userId, payment }: { userId: string, payment?: userP
 
         {
           !isLoading && !data?.profiles?.length &&
-          <p className="py-8 text-center text-sm text-muted-foreground">{t("unlockedEmpty")}</p>
+          <p className="py-8 text-center text-sm text-muted-foreground">{payment ? t("unlockedEmpty") : t("unlockedEmptyAll")}</p>
         }
 
         {
@@ -175,7 +188,7 @@ export function PaidUserDetails({ id }: props) {
   const user = data?.user
   const payments = data?.payments ?? []
   const currentPayment = payments.find(payment => payment.isCurrent)
-  const selectedPayment = payments.find(payment => payment._id === selectedPaymentId) ?? currentPayment ?? payments[0]
+  const selectedPayment = payments.find(payment => payment._id === selectedPaymentId)
   const totalPaid = payments.reduce((sum, payment) => sum + payment.amount, 0)
   const isCurrentActive = !!currentPayment && isActivePayment(currentPayment)
 
@@ -405,7 +418,7 @@ export function PaidUserDetails({ id }: props) {
       </Card>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <UnlockedProfiles userId={user._id} payment={selectedPayment} />
+        <UnlockedProfiles userId={user._id} payment={selectedPayment} onShowAll={() => setSelectedPaymentId(undefined)} />
         <PaymentActivity userId={user._id} />
       </div>
     </section>

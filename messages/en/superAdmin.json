@@ -330,15 +330,19 @@
       "currentLimit": "Current limit: {count}",
       "newLimit": "New limit: {count}",
       "add": "Add",
-      "activityTitle": "Admin activity",
-      "activityEmpty": "No admin changes yet",
+      "activityTitle": "Activity",
+      "activityEmpty": "No activity yet",
       "unknownAdmin": "An admin",
       "logCreated": "{admin} added a {plan} payment of {amount}",
       "logExtended": "{admin} extended the plan by {days, plural, one {# day} other {# days}} ({from} → {to})",
       "logProfilesAdded": "{admin} added {count, plural, one {# profile} other {# profiles}} ({from} → {to})",
       "logCancelled": "{admin} cancelled the {plan} plan",
       "logDeleted": "{admin} deleted the {plan} payment of {amount}",
-      "reasonText": "Reason: {reason}"
+      "reasonText": "Reason: {reason}",
+      "logPurchased": "Bought a {plan} plan online for {amount}",
+      "unlockedAll": "All payments",
+      "showAllUnlocked": "Show all",
+      "unlockedEmptyAll": "No profiles unlocked yet"
     }
   }
 }

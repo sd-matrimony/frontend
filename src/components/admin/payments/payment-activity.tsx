@@ -34,6 +34,8 @@ export function PaymentActivity({ userId }: props) {
     switch (log.action) {
       case "created":
         return t("logCreated", { admin, plan, amount })
+      case "purchased":
+        return t("logPurchased", { plan, amount })
       case "extended":
         return t("logExtended", { admin, days: details.days ?? 0, from: formatDay(details.previousExpiry), to: formatDay(details.newExpiry) })
       case "profilesAdded":

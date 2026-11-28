@@ -330,15 +330,19 @@
       "currentLimit": "தற்போதைய வரம்பு: {count}",
       "newLimit": "புதிய வரம்பு: {count}",
       "add": "சேர்",
-      "activityTitle": "நிர்வாகி செயல்பாடு",
-      "activityEmpty": "இதுவரை நிர்வாகி மாற்றங்கள் இல்லை",
+      "activityTitle": "செயல்பாடு",
+      "activityEmpty": "இதுவரை செயல்பாடு இல்லை",
       "unknownAdmin": "ஒரு நிர்வாகி",
       "logCreated": "{admin} {amount} மதிப்புள்ள {plan} கட்டணத்தைச் சேர்த்தார்",
       "logExtended": "{admin} திட்டத்தை {days} நாட்கள் நீட்டித்தார் ({from} → {to})",
       "logProfilesAdded": "{admin} {count} சுயவிவரங்களைச் சேர்த்தார் ({from} → {to})",
       "logCancelled": "{admin} {plan} திட்டத்தை ரத்து செய்தார்",
       "logDeleted": "{admin} {amount} மதிப்புள்ள {plan} கட்டணத்தை நீக்கினார்",
-      "reasonText": "காரணம்: {reason}"
+      "reasonText": "காரணம்: {reason}",
+      "logPurchased": "{amount}க்கு {plan} திட்டத்தை ஆன்லைனில் வாங்கினார்",
+      "unlockedAll": "அனைத்து கட்டணங்களும்",
+      "showAllUnlocked": "அனைத்தையும் காட்டு",
+      "unlockedEmptyAll": "இதுவரை சுயவிவரங்கள் திறக்கப்படவில்லை"
     }
   }
 }
