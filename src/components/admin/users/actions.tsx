@@ -16,6 +16,7 @@ import { Button } from "@glraj/ui/button";
 import UpdateUserDialog from "./update-user-dialog";
 import PlanActions from "./plan-actions";
 import MarriedAction from "./married-action";
+import { UserHistoryDialog } from "./user-history-dialog";
 
 type props = {
   _id: string
@@ -44,6 +45,7 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
   const [confirm, setConfirm] = useState<confirmT>(null)
   const [updateOpen, setUpdateOpen] = useState(false)
   const [marriedOpen, setMarriedOpen] = useState(false)
+  const [historyOpen, setHistoryOpen] = useState(false)
 
   const { mutate: resetPass, isPending: resetPassPending } = useResetPassByAdmin()
   const { mutate, isPending: mutatePending } = useUpdateUserMutate()
@@ -104,6 +106,13 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
               role === "super-admin" && currentTab === "approved" &&
               <MenuItem onClick={() => setUpdateOpen(true)}>
                 {t("updateDetails")}
+              </MenuItem>
+            }
+
+            {
+              role === "super-admin" &&
+              <MenuItem onClick={() => setHistoryOpen(true)}>
+                {t("history.menu")}
               </MenuItem>
             }
 
@@ -221,6 +230,11 @@ function Actions({ _id, currentTab, role, fullName, gender, dob, profileImg, ema
           mobile={mobile}
           salary={salary}
         />
+      }
+
+      {
+        role === "super-admin" &&
+        <UserHistoryDialog _id={_id} fullName={fullName} open={historyOpen} onOpenChange={setHistoryOpen} />
       }
 
       {

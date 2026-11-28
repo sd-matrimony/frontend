@@ -12,7 +12,7 @@ import {
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
   getUserCurrentPlan, removeUserPlan, extendUserPlan, updateUserCritical,
   getDashboardStats, getActiveUsers, getUserUnlockedProfiles,
-  getPaymentUsers, getUserPayments, deletePayment, addUserProfiles, getUserPaymentLogs,
+  getPaymentUsers, getUserPayments, deletePayment, addUserProfiles, getUserPaymentLogs, getUserHistory,
 } from "@/actions";
 import { useToast } from "@glraj/ui/toast";
 
@@ -437,6 +437,22 @@ export type paymentLogT = {
     previousProfiles?: number
     newProfiles?: number
   }
+}
+
+export type userHistoryT = {
+  _id: string
+  action: "created" | "updated" | "passwordReset" | "married" | "invited"
+  admin?: { _id: string, fullName?: string } | null
+  changes?: { field: string, from?: unknown, to?: unknown }[]
+  createdAt: string
+}
+
+export function useGetUserHistory(id: string, enabled: boolean) {
+  return useQuery<userHistoryT[]>({
+    queryKey: ["user-history", id],
+    queryFn: () => getUserHistory(id),
+    enabled: !!id && enabled,
+  })
 }
 
 export function useGetUserPaymentLogs(id: string) {

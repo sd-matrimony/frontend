@@ -139,6 +139,12 @@ export function addUserProfiles({ _id, count, reason }: { _id: string, count: nu
   })
 }
 
+export function getUserHistory(id: string) {
+  return sendApiReq({
+    url: `${endPoints.getUserCurrentPlan}/${id}/history`,
+  })
+}
+
 export function getUserPaymentLogs(id: string) {
   return sendApiReq({
     url: `${endPoints.getUserCurrentPlan}/${id}/payment-logs`,
