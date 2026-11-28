@@ -26,16 +26,16 @@ export const planValidityMonths: Record<subscribedToT, number> = {
 } as const
 
 export const planPrices: Record<subscribedToT, number> = {
-  basic: 1_500,
-  gold: 3_200,
-  diamond: 5_500,
-  platinum: 7_000,
+  basic: 1_999,
+  gold: 3_999,
+  diamond: 5_999,
+  platinum: 7_999,
 }
 
 export const profilesCount: Record<subscribedToT, number> = {
-  basic: 20,
-  gold: 45,
-  diamond: 70,
+  basic: 25,
+  gold: 50,
+  diamond: 75,
   platinum: 100,
 }
 
@@ -59,7 +59,7 @@ export const assistedPrices: any = {
 export const planDetails: Record<subscribedToT, planDetailsT> = {
   basic: {
     icon: Feather,
-    name: "Basic",
+    name: "Silver",
     bgColor: "bg-blue-50",
     textColor: "text-blue-600",
     duration: "3 months",
