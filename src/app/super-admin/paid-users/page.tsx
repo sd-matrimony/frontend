@@ -89,6 +89,7 @@ function Page() {
                 <th className="px-2 py-2 font-medium">{t("colUser")}</th>
                 <th className="px-2 py-2 font-medium">{t("colPlan")}</th>
                 <th className="px-2 py-2 font-medium">{t("colExpiry")}</th>
+                <th className="px-2 py-2 font-medium text-center">{t("colUnlocked")}</th>
                 <th className="px-2 py-2 font-medium text-center">{t("colPayments")}</th>
                 <th className="px-2 py-2 font-medium text-right">{t("colTotal")}</th>
                 <th className="px-2 py-2 font-medium text-center">{t("colLastPaid")}</th>
@@ -97,8 +98,9 @@ function Page() {
 
             <tbody>
               {data.map(item => {
-                const plan = item.currentPlan
+                const plan = item.currentPlan ?? item.latestPlan
                 const isActive = !!plan && new Date(plan.expiryDate) > new Date()
+                const isCancelled = !item.currentPlan && isActive
 
                 return (
                   <tr key={item._id} className="odd:bg-muted/60 hover:bg-muted">
@@ -135,10 +137,22 @@ function Page() {
                         <div className="df">
                           <span>{format(new Date(plan.expiryDate), "dd-MM-yy")}</span>
                           {!isActive && <Badge variant="destructive">{t("expired")}</Badge>}
+                          {isCancelled && <Badge variant="destructive">{t("cancelled")}</Badge>}
                         </div>
                       }
                     </td>
 
+                    <td className="px-2 py-2 text-center tabular-nums">
+                      {
+                        plan
+                          ? `${item.currentUnlocked} / ${plan.noOfProfilesCanView === 999 ? "∞" : plan.noOfProfilesCanView}`
+                          : item.unlockedCount
+                      }
+                      {
+                        plan && item.unlockedCount > item.currentUnlocked &&
+                        <p className="text-xs text-muted-foreground">{t("unlockedTotal", { count: item.unlockedCount })}</p>
+                      }
+                    </td>
                     <td className="px-2 py-2 text-center">{item.paymentsCount}</td>
                     <td className="px-2 py-2 text-right">₹ {item.totalAmount.toLocaleString("en-IN")}</td>
                     <td className="px-2 py-2 text-center">{format(new Date(item.lastPaidAt), "dd-MM-yy")}</td>

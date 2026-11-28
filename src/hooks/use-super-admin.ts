@@ -364,9 +364,12 @@ export type paymentUserT = {
   _id: string
   paymentsCount: number
   totalAmount: number
+  unlockedCount: number
+  currentUnlocked: number
   lastPaidAt: string
   user: Pick<userT, "_id" | "fullName" | "email" | "profileImg"> & { contactDetails?: { mobile?: string } }
   currentPlan?: Pick<currentPlanT, "_id" | "subscribedTo" | "expiryDate" | "noOfProfilesCanView">
+  latestPlan?: Pick<currentPlanT, "_id" | "subscribedTo" | "expiryDate" | "noOfProfilesCanView">
 }
 
 export function useGetPaymentUsers(search: string, status: paymentUsersStatusT) {

@@ -346,7 +346,10 @@
       "unlockedAll": "அனைத்து கட்டணங்களும்",
       "showAllUnlocked": "அனைத்தையும் காட்டு",
       "unlockedEmptyAll": "இதுவரை சுயவிவரங்கள் திறக்கப்படவில்லை",
-      "logExtendedMonths": "{admin} திட்டத்தை {months} மாதங்கள் நீட்டித்தார் ({from} → {to})"
+      "logExtendedMonths": "{admin} திட்டத்தை {months} மாதங்கள் நீட்டித்தார் ({from} → {to})",
+      "colUnlocked": "திறக்கப்பட்டவை",
+      "unlockedTotal": "மொத்தம் {count}",
+      "cancelled": "ரத்து செய்யப்பட்டது"
     }
   }
 }
