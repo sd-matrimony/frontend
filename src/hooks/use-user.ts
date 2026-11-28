@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import {
   addLiked, getLikesList, getMatches, getUserDetails, removeLiked,
   addImages, deleteImage, updateProfile, getPartnerPreferences, getUnlockedProfiles,
-  unlockProfile, getCurrentPlan, getHiddenList, hideProfile, unhideProfile,
+  unlockProfile, getCurrentPlan, getMyPayments, getHiddenList, hideProfile, unhideProfile,
 } from "@/actions";
 import { filterObj } from "@/utils";
 import { useToast } from "@glraj/ui/toast";
@@ -91,6 +91,15 @@ export function useUnlockedProfiles() {
   return useQuery<Partial<userT>[]>({
     queryKey: ["unlocked-profiles"],
     queryFn: getUnlockedProfiles,
+  })
+}
+
+export type myPaymentT = currentPlanT & { orderId: string }
+
+export function useMyPayments() {
+  return useQuery<myPaymentT[]>({
+    queryKey: ["my-payments"],
+    queryFn: getMyPayments,
   })
 }
 

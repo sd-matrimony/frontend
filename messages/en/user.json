@@ -22,6 +22,29 @@
       "plan": {
         "title": "Current Plan",
         "description": "Your subscription details and included features"
+      },
+      "paymentHistory": {
+        "title": "Payment history",
+        "description": "Your past payments and receipts",
+        "empty": "No payments yet",
+        "colDate": "Paid on",
+        "colPlan": "Plan",
+        "colAmount": "Amount",
+        "colValidTill": "Valid till",
+        "receipt": "Receipt",
+        "receiptTitle": "Payment receipt",
+        "receiptNo": "Receipt no.",
+        "paidOn": "Paid on",
+        "name": "Name",
+        "plan": "Plan",
+        "profiles": "Profiles",
+        "assisted": "Assisted service",
+        "validTill": "Valid till",
+        "amount": "Amount paid",
+        "print": "Print",
+        "unlimited": "Unlimited",
+        "notIncluded": "Not included",
+        "months": "{count, plural, one {# month} other {# months}}"
       }
     },
     "confirmUpdate": {
@@ -154,6 +177,13 @@
       "hideFailed": "Failed to hide profile",
       "profileUnhidden": "Profile restored to your feed",
       "unhideFailed": "Failed to restore profile"
+    },
+    "planReminder": {
+      "title": "Your plan ends soon",
+      "desc": "Your {plan} plan expires on {date} ({days, plural, one {# day} other {# days}} left). Renew now to keep unlocking profiles. Your remaining days carry over to the new plan.",
+      "renew": "Renew now",
+      "later": "Remind me later",
+      "dontRemind": "Don't remind me again"
     }
   }
 }

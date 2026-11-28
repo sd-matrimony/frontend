@@ -32,6 +32,12 @@ export function getUnlockedProfiles() {
   })
 }
 
+export function getMyPayments() {
+  return sendApiReq({
+    url: endPoints.getMyPayments,
+  })
+}
+
 export function getCurrentPlan() {
   return sendApiReq({
     url: endPoints.getCurrentPlan,

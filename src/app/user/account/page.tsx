@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { CheckCircle, XCircle, Mail, Lock, CreditCard, Loader, User, Phone } from "lucide-react";
+import { CheckCircle, XCircle, Mail, Lock, CreditCard, Loader, User, Phone, ReceiptText } from "lucide-react";
 
 import { useResendVerifyEmail, useUpdateEmail, useUpdateMobile, useUserDetailsMini } from "@/hooks/use-account";
 
@@ -14,6 +14,7 @@ import { Label } from "@glraj/ui/label";
 
 import ConfirmUpdate from "./confirm-update";
 import CardWrapper from "./card-wrapper";
+import PaymentHistory from "./payment-history";
 import PlanDetails from "./plan-details";
 import UpdatePass from "./update-pass";
 
@@ -173,6 +174,14 @@ function Page() {
             ? <div className="dc h-60"><Loader className="size-6 animate-spin" /></div>
             : <PlanDetails />
         }
+      </CardWrapper>
+
+      <CardWrapper
+        Icon={ReceiptText}
+        title={t("paymentHistory.title")}
+        description={t("paymentHistory.description")}
+      >
+        <PaymentHistory />
       </CardWrapper>
     </div>
   )

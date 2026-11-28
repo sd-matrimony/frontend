@@ -27,6 +27,8 @@ export function useVerifyPayment() {
     mutationFn: verifyPayment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-details-mini"] })
+      queryClient.invalidateQueries({ queryKey: ["current-plan"] })
+      queryClient.invalidateQueries({ queryKey: ["my-payments"] })
       toast.success(t("paymentVerified"))
       navigate.push("/user")
     },

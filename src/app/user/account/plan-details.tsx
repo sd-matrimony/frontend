@@ -85,6 +85,7 @@ function PlanDetails() {
   const currentPlanDetails = planDetails[currentPlan?.subscribedTo]
   const assistedExpire = currentPlan?.assistedMonths ? getAssistExpire(currentPlan?.createdAt, currentPlan?.assistedMonths) : new Date()
   const addedProfiles = currentPlan?.noOfProfilesCanView === 999 ? 999 : currentPlan?.noOfProfilesCanView - profilesCount[currentPlan?.subscribedTo]
+  const addedProfilesPrice: number | undefined = extraProfiles?.[addedProfiles]
   const isPlanValid = currentPlan?.expiryDate ? new Date(currentPlan?.expiryDate).getTime() > Date.now() : true
 
   return (
@@ -179,7 +180,10 @@ function PlanDetails() {
               <p className="df text-sm">
                 <span>{currentPlan?.noOfProfilesCanView === 999 ? t("profilesCountUnlimited") : t("profilesCountLine", { count: `+${addedProfiles}` })}</span>
                 {currentPlan?.noOfProfilesCanView !== 999 && <span className=" text-gray-500">{t("totalProfilesNote", { count: currentPlan?.noOfProfilesCanView })}</span>}
-                <span className="ml-auto text-lg font-semibold">₹{currentPlan?.noOfProfilesCanView === 999 ? extraProfiles[999] : (extraProfiles?.[addedProfiles])?.toLocaleString()}</span>
+                {
+                  typeof addedProfilesPrice === "number" &&
+                  <span className="ml-auto text-lg font-semibold">₹{addedProfilesPrice.toLocaleString()}</span>
+                }
               </p>
             </div>
           }
