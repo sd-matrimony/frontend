@@ -67,5 +67,7 @@ export const endPoints = {
   updateUserCritical: "/super-admin/user/critical",
   makePaymentForUser: "/super-admin/user/payment",
   getUserCurrentPlan: "/super-admin/user",
+  getPaymentUsers: "/super-admin/payments/users",
+  deletePayment: "/super-admin/payment",
   bulkUpdateUsers: "/super-admin/users/bulk",
 }

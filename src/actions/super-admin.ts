@@ -130,9 +130,30 @@ export function extendUserPlan({ _id, days }: { _id: string, days: number }) {
   })
 }
 
-export function getUserUnlockedProfiles(id: string) {
+export function getUserUnlockedProfiles(id: string, payment?: string) {
   return sendApiReq({
     url: `${endPoints.getUserCurrentPlan}/${id}/unlocked`,
+    params: payment ? { payment } : undefined,
+  })
+}
+
+export function getPaymentUsers(params: { skip: number, limit: number, search?: string, status?: string }) {
+  return sendApiReq({
+    url: endPoints.getPaymentUsers,
+    params,
+  })
+}
+
+export function getUserPayments(id: string) {
+  return sendApiReq({
+    url: `${endPoints.getUserCurrentPlan}/${id}/payments`,
+  })
+}
+
+export function deletePayment(id: string) {
+  return sendApiReq({
+    url: `${endPoints.deletePayment}/${id}`,
+    method: "delete",
   })
 }
 

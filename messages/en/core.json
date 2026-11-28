@@ -40,6 +40,7 @@
     },
     "navbar": {
       "allUsers": "All users",
+      "paidUsers": "Paid users",
       "marriedUsers": "Married users",
       "createUser": "Create user",
       "imageExtractor": "Image Extractor",
@@ -421,7 +422,8 @@
       "newExpiry": "New expiry: {date}",
       "extend": "Extend",
       "remove": "Remove",
-      "inviteMessage": "Hello {fullName},\n\nYou've been added to SD Matrimony!\nWe're excited to have you on board and help you connect with meaningful matches.\n\nHere are your login details:\n\nId: {mobile} (your mobile number)\n\nPassword: {password}\n\nYou can log in using the link below:\n👉 Login to SD Matrimony - https://sdmatrimony.com/auth/user/signin\n\nIf you did not intend to join SD Matrimony or believe this was a mistake, you can delete your account anytime or contact our support team for assistance."
+      "inviteMessage": "Hello {fullName},\n\nYou've been added to SD Matrimony!\nWe're excited to have you on board and help you connect with meaningful matches.\n\nHere are your login details:\n\nId: {mobile} (your mobile number)\n\nPassword: {password}\n\nYou can log in using the link below:\n👉 Login to SD Matrimony - https://sdmatrimony.com/auth/user/signin\n\nIf you did not intend to join SD Matrimony or believe this was a mistake, you can delete your account anytime or contact our support team for assistance.",
+      "viewPayments": "View payments"
     },
     "updateUserDialog": {
       "title": "Update Critical Details",

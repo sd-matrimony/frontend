@@ -18,6 +18,10 @@ const superAdminLinks: linkT[] = [
     href: "users",
   },
   {
+    labelKey: "paidUsers",
+    href: "paid-users",
+  },
+  {
     labelKey: "marriedUsers",
     href: "married",
   },

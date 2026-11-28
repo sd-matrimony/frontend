@@ -12,6 +12,7 @@ import {
   getUsersGroupList, resetPassByAdmin, makePaymentForUser, bulkUpdateUsers,
   getUserCurrentPlan, removeUserPlan, extendUserPlan, updateUserCritical,
   getDashboardStats, getActiveUsers, getUserUnlockedProfiles,
+  getPaymentUsers, getUserPayments, deletePayment,
 } from "@/actions";
 import { useToast } from "@glraj/ui/toast";
 
@@ -206,6 +207,8 @@ export function useRemoveUserPlan() {
     mutationFn: removeUserPlan,
     onSuccess() {
       toast.success(t("subscriptionRemoved"))
+      queryClient.invalidateQueries({ queryKey: ["user-payments"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-users"] })
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
@@ -225,6 +228,8 @@ export function useExtendUserPlan() {
     mutationFn: extendUserPlan,
     onSuccess() {
       toast.success(t("planExtended"))
+      queryClient.invalidateQueries({ queryKey: ["user-payments"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-users"] })
       queryClient.invalidateQueries({ queryKey: ["user-invitations"] })
       queryClient.invalidateQueries({ queryKey: ["user-list"] })
     },
@@ -281,10 +286,15 @@ export function useMakePaymentForUser() {
   const tCommon = useTranslations("common.toasts")
   const toast = useToast()
 
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: makePaymentForUser,
     onSuccess() {
       toast.success(t("paymentAdded"))
+      queryClient.invalidateQueries({ queryKey: ["user-payments"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-users"] })
+      queryClient.invalidateQueries({ queryKey: ["user-unlocked-profiles"] })
     },
     onError(error) {
       toast.error(error?.message || tCommon("somethingWentWrong"))
@@ -332,10 +342,79 @@ type unlockedProfilesT = {
   profiles: (Partial<userT> & { unlockedAt: string })[]
 }
 
-export function useGetUserUnlockedProfiles(id: string, enabled: boolean) {
+export function useGetUserUnlockedProfiles(id: string, enabled: boolean, payment?: string) {
   return useQuery<unlockedProfilesT>({
-    queryKey: ["user-unlocked-profiles", id],
-    queryFn: () => getUserUnlockedProfiles(id),
+    queryKey: ["user-unlocked-profiles", id, payment ?? "current"],
+    queryFn: () => getUserUnlockedProfiles(id, payment),
     enabled: !!id && enabled,
+  })
+}
+
+export type paymentUsersStatusT = "all" | "active" | "expired"
+
+export type paymentUserT = {
+  _id: string
+  paymentsCount: number
+  totalAmount: number
+  lastPaidAt: string
+  user: Pick<userT, "_id" | "fullName" | "email" | "profileImg"> & { contactDetails?: { mobile?: string } }
+  currentPlan?: Pick<currentPlanT, "_id" | "subscribedTo" | "expiryDate" | "noOfProfilesCanView">
+}
+
+export function useGetPaymentUsers(search: string, status: paymentUsersStatusT) {
+  const limit = 50
+
+  return useInfiniteQuery<paymentUserT[], Error, paymentUserT[]>({
+    queryKey: ["payment-users", search, status],
+    queryFn: ({ pageParam }) => getPaymentUsers({
+      skip: (pageParam as number || 0) * limit,
+      limit,
+      status,
+      ...(search && { search }),
+    }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => lastPage.length === limit ? pages.length : undefined,
+    select: data => data?.pages?.flat() as paymentUserT[],
+  })
+}
+
+export type userPaymentT = currentPlanT & {
+  orderId: string
+  isCurrent: boolean
+  unlockedCount: number
+}
+
+export type userPaymentsT = {
+  user: Pick<userT, "_id" | "fullName" | "email" | "profileImg"> & { contactDetails?: { mobile?: string }, currentPlan?: string }
+  payments: userPaymentT[]
+}
+
+export function useGetUserPayments(id: string) {
+  return useQuery<userPaymentsT>({
+    queryKey: ["user-payments", id],
+    queryFn: () => getUserPayments(id),
+    enabled: !!id,
+  })
+}
+
+export function useDeletePayment() {
+  const t = useTranslations("superAdmin.toasts")
+  const tCommon = useTranslations("common.toasts")
+  const queryClient = useQueryClient()
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: deletePayment,
+    onSuccess() {
+      toast.success(t("paymentDeleted"))
+      queryClient.invalidateQueries({ queryKey: ["user-payments"] })
+      queryClient.invalidateQueries({ queryKey: ["payment-users"] })
+      queryClient.invalidateQueries({ queryKey: ["user-unlocked-profiles"] })
+      queryClient.invalidateQueries({ queryKey: ["paid-users"] })
+      queryClient.invalidateQueries({ queryKey: ["user-list"] })
+    },
+    onError(error) {
+      toast.error(error?.message || tCommon("somethingWentWrong"))
+    }
   })
 }
