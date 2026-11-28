@@ -59,6 +59,16 @@ function StatsLock({ onUnlock }: { onUnlock: () => void }) {
     setPin("")
   }
 
+  // Masked text field instead of type="password", so browsers don't offer to save the PIN as the login password
+  function onPinChange(shown: string) {
+    const typed = shown.replace(/[^\d•]/g, "")
+    const next = typed.length < pin.length
+      ? pin.slice(0, typed.length)
+      : pin + typed.replace(/•/g, "")
+    setPin(next.slice(0, 4))
+    setError(false)
+  }
+
   return (
     <Card className="py-2.5 mb-4">
       <CardContent className="px-3">
@@ -73,18 +83,22 @@ function StatsLock({ onUnlock }: { onUnlock: () => void }) {
           }
 
           <Input
-            type="password"
+            type="text"
+            name="stats-pin"
             inputMode="numeric"
             autoComplete="off"
+            autoCorrect="off"
+            spellCheck={false}
+            data-1p-ignore
+            data-lpignore="true"
+            data-bwignore
+            data-form-type="other"
             maxLength={4}
-            value={pin}
+            value={"•".repeat(pin.length)}
             placeholder={t("pinPlaceholder")}
             aria-label={t("pinPlaceholder")}
-            onChange={e => {
-              setPin(e.target.value.replace(/\D/g, ""))
-              setError(false)
-            }}
-            className="h-8 w-28"
+            onChange={e => onPinChange(e.target.value)}
+            className="h-8 w-28 tracking-widest"
           />
 
           <Button type="submit" size="sm" disabled={pin.length !== 4}>
