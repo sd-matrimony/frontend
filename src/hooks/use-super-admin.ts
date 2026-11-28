@@ -32,6 +32,11 @@ type dashboardStatsT = {
     active7d: number
     active30d: number
   }
+  plans: {
+    active: number
+    expired: number
+    unpaid: number
+  }
 }
 
 export function useGetDashboardStats(enabled: boolean, month: string) {

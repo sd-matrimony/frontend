@@ -154,3 +154,6 @@ pnpm-workspace.yaml
 package-lock.json
 
 settings.local.json
+
+/AGENTS.md
+/CLAUDE.md

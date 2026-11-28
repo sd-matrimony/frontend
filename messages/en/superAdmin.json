@@ -176,7 +176,10 @@
         "unlock": "Unlock",
         "wrongPin": "Wrong PIN",
         "lock": "Lock stats",
-        "month": "Month"
+        "month": "Month",
+        "paidUsers": "Paid Users",
+        "expiredUsers": "Expired",
+        "unpaidUsers": "Unpaid"
       },
       "activeUsers": {
         "title": "Logged-in Users",

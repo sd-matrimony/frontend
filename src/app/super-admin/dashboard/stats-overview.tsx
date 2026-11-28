@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { format } from "date-fns";
-import { CalendarDays, IndianRupee, Lock, LockOpen, Sun, Users } from "lucide-react";
+import { BadgeCheck, CalendarDays, IndianRupee, Lock, LockOpen, Sun, Users } from "lucide-react";
 
 import { useGetDashboardStats } from "@/hooks/use-super-admin";
 import { STATS_PIN } from "@/utils/enums";
@@ -118,6 +118,7 @@ function StatsOverview() {
 
   const revenue = data?.revenue
   const users = data?.users
+  const plans = data?.plans
 
   if (!isUnlocked) return <StatsLock onUnlock={() => setIsUnlocked(true)} />
 
@@ -134,7 +135,7 @@ function StatsOverview() {
         <Lock className="size-3.5" />
       </Button>
 
-      <div className="grid gap-2 grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-2 grid-cols-2 lg:grid-cols-5">
         <Tile
           Icon={IndianRupee}
           label={t("totalRevenue")}
@@ -178,6 +179,18 @@ function StatsOverview() {
           sub={
             <>
               {t("active7d")}: {users?.active7d ?? 0} · {t("active30d")}: {users?.active30d ?? 0} · {t("ofTotal", { total: users?.total ?? 0 })}
+            </>
+          }
+        />
+
+        <Tile
+          Icon={BadgeCheck}
+          label={t("paidUsers")}
+          value={String(plans?.active ?? 0)}
+          isLoading={isLoading}
+          sub={
+            <>
+              {t("expiredUsers")}: {plans?.expired ?? 0} · {t("unpaidUsers")}: {plans?.unpaid ?? 0}
             </>
           }
         />
